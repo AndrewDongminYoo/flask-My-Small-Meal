@@ -1,3 +1,5 @@
+![Image of Title](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fch6S0S%2FbtrfQFsN5JB%2FVg6p1zqyqyDmHr0FguBH60%2Fimg.jpg)
+
 ## 🔗 라이브
 - 현재 미비 상태
 ## 🏠 소개
@@ -11,6 +13,7 @@
 - 서재환
 ## 📌 기술 선택 이유
 - flask: 사용방법이 매우 간단합니다.
+- uuid: 로그인 기능 없이 사용자를 구별하기 위해 사용합니다.
 ## 📌 주요 기능
 ### 주기능
 - 사용자 위치에 따른 주변 배달맛집 추천(리뷰순)
@@ -23,3 +26,4 @@
 - 원하는 상호 저장
 ## 📌 문제를 이렇게 해결했어요!
 - 리포지토리 내 이슈 참조
+

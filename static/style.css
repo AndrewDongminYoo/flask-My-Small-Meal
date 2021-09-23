@@ -22,7 +22,7 @@ body {
 }
 
 .name {
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
   font-weight: bold;
   font-size: 50px;
   padding: 20px;
@@ -33,29 +33,18 @@ body {
   grid-column: span 3;
   grid-row: span 6;
 }
-
-.content {
+.ctrl-content {
   display: flex;
-  flex-wrap: wrap;
-  background-color: #f5f5dc;
-  padding: 50px;
   grid-column: span 10;
   grid-row: span 6;
 }
 
 .content {
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.card {
   display: flex;
-  justify-content: flex-end;
-  width: 220px;
-  height: 220px;
-  background: yellowgreen;
-  margin: 25px;
+  flex-wrap: wrap;
+  justify-content: first baseline;
+  padding: 50px;
+  background-color: #f5f5dc;
 }
 
 .right {
@@ -63,5 +52,3 @@ body {
   grid-column: span 3;
   grid-row: span 6;
 }
-
-
