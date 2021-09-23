@@ -14,7 +14,9 @@ function geoFindMe() {
     function success(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        getFoods(latitude, longitude).then(r => console.log(r))
+        getFoods(latitude, longitude).then(r => {
+            console.log(r)
+        })
     }
 
     function error(e) {
@@ -23,7 +25,6 @@ function geoFindMe() {
 
     async function getFoods(latitude, longitude) {
         const response = await fetch(`/api/shop?lat=${latitude}&lng=${longitude}`);
-        const data = await response.json();
-        await console.log(data)
+        return await response.json()
     }
 }
