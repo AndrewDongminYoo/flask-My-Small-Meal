@@ -28,6 +28,7 @@ def get_restaurant():
     for shop in shops:
         if shop.get('is_available_delivery'):
             rest = dict()
+            rest['id'] = shop.get('id')
             rest['name'] = shop.get('name')
             rest['reviews'] = shop.get('review_count')
             rest['owner'] = shop.get('owner_reply_count')
