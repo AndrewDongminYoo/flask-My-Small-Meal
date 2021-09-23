@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #ffebcd;
+  grid-column: span 16;
+  grid-row: span 2;
+
+
+  }
+.title {
+  font-size: 40px;
+}
