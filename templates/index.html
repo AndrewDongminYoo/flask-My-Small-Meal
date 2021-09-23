@@ -11,23 +11,26 @@
     <script rel="script" src="../static/js/core.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+
     <script>
     </script>
 </head>
 <body>
 <section class="section">
     <div class="header">
-        <h1 class="title"> 저 기 요</h1>
+        <h1 class="title"> 저 기 요 </h1>
         <div class="field has-addons">
             <p class="buttons">
                 <button class="button">
                     <span class="icon is-small">
-                        <img src="/static/images/gpsicon.png">
+                        <img alt="gps" src="/static/images/gpsicon.png" onclick="geoFindMe()">
                      </span>
                 </button>
             </p>
             <div class="control">
-                <input class="input" type="text" placeholder="지역을 입력해주세요">
+                <label for="geoSearch"></label>
+                <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
             </div>
             <div class="control">
                 <a class="button is-info">

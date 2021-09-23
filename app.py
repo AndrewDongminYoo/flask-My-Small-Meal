@@ -3,8 +3,8 @@ from pymongo import MongoClient
 import requests
 import json
 app = Flask(__name__)
-# client = MongoClient('localhost', 27017)
-# db = client.dbGoojo
+client = MongoClient('localhost', 27017)
+db = client.dbGoojo
 count = 50
 order = "rank"
 
@@ -12,6 +12,28 @@ order = "rank"
 @app.route('/')
 def hello_world():  # put application's code here
     return render_template('index.html')
+
+
+@app.route('/api/like', methods=['POST'])
+def like():
+    uuid = request.json.get('uuid')
+    ssid = request.json.get('id')
+    action = request.json.get('action')
+    user = db.users.find({"uuid": uuid}, {"_id": False})
+    if action == 'like':
+        if not user:
+            good_list = [ssid]
+            db.users.insert_one({"uuid": uuid, "like_list": good_list})
+        else:
+            good_list = user[0]['like_list']
+            good_list.append(ssid)
+            db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+    else:
+        if user:
+            good_list = user[0]['like_list']
+            good_list.remove(ssid)
+            db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+    return jsonify({'uuid': uuid})
 
 
 @app.route('/api/shop', methods=['GET'])

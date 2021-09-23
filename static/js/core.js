@@ -1,5 +1,8 @@
+let user = null
+
 window.onload = function () {
     geoFindMe();
+    userCheck()
 }
 
 function geoFindMe() {
@@ -29,14 +32,31 @@ function geoFindMe() {
     }
 }
 
-function keep(id) {
-    fetch(`/api/like?id=${id}`)
-        .then((r) => console.log(r))
-        .catch((e) => console.log(e));
-} // 특정 상점 좋아요하기 (유저 uuid 넘겨야함)
+const userCheck = () => {
+    user = localStorage.getItem("delivery-uuid")
+    if (user === null) {
+        user = uuidv4()
+        localStorage.setItem("delivery-uuid", user)
+        console.log(user)
+    }
+}
 
-function unkeep(id) {
-    fetch(`/api/unlike?id=${id}`)
+function keep(id) {
+    const headers = new Headers();
+    headers.append('content-type', 'application/json')
+    const body = `{"uuid": "${user}", "ssid": "${id}", "action": "like"`;
+    const init = {method: 'POST', headers, body};
+    fetch(`/api/like`, init)
+        .then((r) => r.json()).then((r) => console.log(r['uuid']))
+        .catch((e) => console.log(e));
+} // 특정 상점 좋아요하기
+
+function remove(id) {
+    const headers = new Headers();
+    headers.append('content-type', 'application/json')
+    const body = `{"uuid": "${user}", "ssid": "${id}", "action": "dislike"`;
+    const init = {method: 'POST', headers, body};
+    fetch(`/api/like`, init)
         .then((r) => console.log(r))
         .catch((e) => console.log(e));
-} // 특정 상점 좋아요 취소하기 (유저 uuid 넘겨야함)
+} // 특정 상점 좋아요 취소하기
