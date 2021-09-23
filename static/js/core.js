@@ -1,25 +1,29 @@
+window.onload = function(){
+    geoFindMe();
+}
+
 function geoFindMe() {
+    if (!navigator.geolocation) {
+        window.alert('위치 권한을 허용해 주세요!!')
+        console.log('Geolocation is not supported by your browser');
+    } else {
+        console.log('Locating…');
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
 
-  const status = document.querySelector('#status');
-  const mapLink = document.querySelector('#map-link');
+    function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        getFoods(latitude, longitude).then(r => console.log(r))
+    }
 
-  function success(position) {
-    const latitude  = position.coords.latitude;
-    const longitude = position.coords.longitude;
+    function error(e) {
+        console.error(e)
+    }
 
-    status.textContent = '';
-    mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
-    mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-  }
-
-  function error() {
-    status.textContent = 'Unable to retrieve your location';
-  }
-
-  if(!navigator.geolocation) {
-    status.textContent = 'Geolocation is not supported by your browser';
-  } else {
-    status.textContent = 'Locating…';
-    navigator.geolocation.getCurrentPosition(success, error);
-  }
+    async function getFoods(latitude, longitude) {
+        const response = await fetch(`/api/shop?lat=${latitude}&lng=${longitude}`);
+        const data = await response.json();
+        await console.log(data)
+    }
 }
