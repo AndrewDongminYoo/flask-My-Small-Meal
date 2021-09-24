@@ -2,11 +2,12 @@ from flask import Flask, request, jsonify, url_for, render_template, Response
 from pymongo import MongoClient
 import requests
 import json
-import utils
+import utils  # 내부 파일 모듈화
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
 count = 24  # 3의 배수 권장
+cat = "1인분주문"
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance", "estimated_delivery_time"]
 order = sort_list[0]
@@ -74,31 +75,45 @@ def get_restaurant() -> Response:
     """
     lat = request.args.get('lat')
     long = request.args.get('lng')
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?items={count}&lat={lat}&lng={long}&order={order}&page=0'
-    headers = {'x-apikey': 'iphoneap',
-               'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
+    import requests
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category={cat}&items={count}&lat={lat}&lng={long}&order={order}&page=0'
+    headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
+               'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+               'content-type': 'application/x-www-form-urlencoded',
+               'if-none-match': '"9e9d0a63ef118f7f4720275c2db776a8;gzip"',
+               'sec-ch-ua': '"Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"',
+               'sec-ch-ua-platform': '"Windows"', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
+               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36',
+               'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
     req = requests.get(url, headers=headers)
+    print(req.url)
+    print(req.json())
     res = json.loads(req.text)
     shops = res.get('restaurants')
     restaurants = list()
     for shop in shops:
-        if shop.get('is_available_delivery'):
-            rest = dict()
-            rest['id'] = shop.get('id')
-            rest['name'] = shop.get('name')
-            rest['reviews'] = shop.get('review_count')
-            rest['owner'] = shop.get('owner_reply_count')
-            rest['categories'] = shop.get('categories')
-            rest['image'] = shop.get('thumbnail_url')
-            rest['logo'] = shop.get('logo_url')
-            rest['address'] = shop.get('address')
-            rest['rating'] = shop.get('review_avg')
-            rest['time'] = shop.get('open_time_description')
-            rest['min_order'] = shop.get('min_order_amount')
-            restaurants.append(rest)
-            # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-            # db.restaurant.insert_one(rest, {"_id": False})
+        rest = dict()
+        rest['id'] = shop.get('id')
+        rest['name'] = shop.get('name')
+        rest['reviews'] = shop.get('review_count')
+        rest['owner'] = shop.get('owner_reply_count')
+        rest['categories'] = shop.get('categories')
+        rest['image'] = shop.get('thumbnail_url')
+        rest['logo'] = shop.get('logo_url')
+        rest['address'] = shop.get('address')
+        rest['rating'] = shop.get('review_avg')
+        rest['time'] = shop.get('open_time_description')
+        rest['min_order'] = shop.get('min_order_amount')
+        restaurants.append(rest)
+        # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
+        # db.restaurant.insert_one(rest, {"_id": False})
     return jsonify(restaurants)
+
+
+@app.route('/api/address', methods=["POST"])
+def search_add():
+    query = request.json.get('query')
+    return jsonify(utils.search_address(query))
 
 
 if __name__ == '__main__':

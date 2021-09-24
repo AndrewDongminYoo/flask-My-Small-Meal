@@ -13,6 +13,11 @@ function geoRefresh() {
     userCheck()
 }
 
+async function getFoods(lat, long) {
+    const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
+    return await response.json()
+}
+
 function geoFindMe() {
     if (!navigator.geolocation) {
         window.alert('위치 권한을 허용해 주세요!!')
@@ -31,16 +36,11 @@ function geoFindMe() {
                     let i = index % 3
                     showCards(restaurant, i)
                 }) // tempHtml append 하기
-        })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+            })  // like 여부에 따라 html 달리 할 필요가 있을까..?
     }
 
     function error(e) {
         console.error(e)
-    }
-
-    async function getFoods(lat, long) {
-        const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
-        return await response.json()
     }
 }
 
@@ -57,7 +57,7 @@ const userCheck = () => {
 function keep(id) {
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({ uuid: user, ssid: id.toString(), action: 'like'});
+    const body = JSON.stringify({uuid: user, ssid: id.toString(), action: 'like'});
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
         .then((r) => r.json())
@@ -68,7 +68,7 @@ function keep(id) {
 function remove(id) {
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({ uuid: user, ssid: id.toString(), action: 'dislike'});
+    const body = JSON.stringify({uuid: user, ssid: id.toString(), action: 'dislike'});
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
         .then((r) => r.json())
@@ -81,16 +81,16 @@ function showBookmarks(user) {
         .then((r) => r.json())
         .then((r) => console.log(r['restaurants']))
         .catch((e) => console.log(e));
-}
+} // 모든 즐겨찾기 상품 조회하기
 
 const showCards = (restaurant, i) => {
-    let { id, name, reviews, owner, categories, image, logo, address, rating, time, min_order } = restaurant;
+    let {id, name, reviews, owner, categories, image, logo, address, rating, time, min_order} = restaurant;
     let tempHtml = `
         <div class="food-card card">
             <div class="image-box card-image">
                 <figure class="image">
                     <img class="food-image image" src="${image}"
-                         alt="steak">
+                         alt="food-thumbnail">
                 </figure>
             </div>
             <div class="tool-box">
@@ -108,4 +108,29 @@ const showCards = (restaurant, i) => {
             </div>
         </div>`
     $(`.column-${i}`).append(tempHtml)
+}
+
+function search() {
+    let query = $("#geoSearch").val()
+    const headers = new Headers();
+    headers.append('content-type', 'application/json')
+    const body = JSON.stringify({query: query});
+    const init = {method: 'POST', headers, body};
+    fetch(`/api/address`, init)
+        .then((r) => r.json())
+        .then((result) => {
+            let long = Number(result['long']).toFixed(6)
+            let lat = Number(result['lat']).toFixed(6)
+            return getFoods(lat, long)
+        }).then(restaurants => {
+            $(".column-0").empty()
+            $(".column-1").empty()
+            $(".column-2").empty()
+            restaurants.forEach((restaurant, index) => {
+                let i = index % 3
+                showCards(restaurant, i)
+            })
+        }
+    ) // tempHtml append 하기
+        .catch((e) => console.log(e));
 }
