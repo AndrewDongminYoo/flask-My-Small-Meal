@@ -36,6 +36,7 @@ def like() -> Response:
     ssid = request.json.get('ssid')
     action = request.json.get('action')
     user = list(db.users.find({"uuid": uuid}, {"_id": False}))
+    utils.put_restaurant(ssid)
     if action == 'like':
         if not user:
             good_list = [ssid]
@@ -44,7 +45,6 @@ def like() -> Response:
             good_list = user[0]['like_list']
             good_list.append(ssid)
             db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
-        utils.put_restaurant(ssid)
     else:
         if user:
             good_list = user[0]['like_list']
@@ -61,8 +61,8 @@ def show_bookmark() -> Response:
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
-    good_list = user[0]['like_list']
+    user = db.users.find({"uuid": uuid}, {"_id": False})
+    good_list = user['like_list']
     return jsonify({"restaurants": good_list})
 
 

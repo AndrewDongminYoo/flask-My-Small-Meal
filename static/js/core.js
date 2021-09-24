@@ -55,25 +55,27 @@ const userCheck = () => {
 }
 
 function keep(id) {
+    event.target.classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: id.toString(), action: 'like'});
+    const body = JSON.stringify({uuid: user, ssid: id, action: 'like'});
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
         .then((r) => r.json())
-        .then((r) => console.log(r['uuid']))
         .catch((e) => console.log(e));
+    event.target.nextElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요하기
 
 function remove(id) {
+    event.target.classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: id.toString(), action: 'dislike'});
+    const body = JSON.stringify({uuid: user, ssid: id, action: 'dislike'});
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
         .then((r) => r.json())
-        .then((r) => console.log(r['uuid']))
         .catch((e) => console.log(e));
+    event.target.nextElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요 취소하기
 
 function showBookmarks(user) {
@@ -95,8 +97,8 @@ const showCards = (restaurant, i) => {
             </div>
             <div class="tool-box">
                 <div class="book-mark">
-                    <button class="book-button" onclick="keep('${id}')">⭐&nbsp;Save me&nbsp;</button>
-                    <button class="book-button hidden" onclick="remove('${id}')">⭐&nbsp;Remove me&nbsp;</button>
+                    <button class="button book-button " onclick="keep('${id}')">⭐&nbsp;Save me&nbsp;</button>
+                    <button class="button book-button is-hidden" onclick="remove('${id}')">⭐&nbsp;Remove me&nbsp;</button>
                 </div>
                 <div class="store_name">${name}&nbsp;${time}</div>
                 <div class="card-footer">
@@ -119,8 +121,8 @@ function search() {
     fetch(`/api/address`, init)
         .then((r) => r.json())
         .then((result) => {
-            let long = Number(result['long']).toFixed(6)
-            let lat = Number(result['lat']).toFixed(6)
+            let long = Number(result['long']).toFixed(7)
+            let lat = Number(result['lat']).toFixed(7)
             return getFoods(lat, long)
         }).then(restaurants => {
             $(".column-0").empty()

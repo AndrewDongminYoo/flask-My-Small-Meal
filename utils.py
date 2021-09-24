@@ -11,7 +11,7 @@ def put_restaurant(ssid):
     :param ssid: 요기요 데이터베이스 상점 id
     :return: None
     """
-    if list(col.find({"ssid": ssid}, {"_id": False})):
+    if not list(col.find({"ssid": ssid}, {"_id": False})):
         url = f'https://www.yogiyo.co.kr/api/v1/restaurants/{ssid}/info/'
         headers = {
             'sec-fetch-dest': 'empty',
