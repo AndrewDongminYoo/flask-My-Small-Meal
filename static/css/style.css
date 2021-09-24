@@ -69,3 +69,20 @@ button.button {
     position: relative;
     vertical-align: top;
 }
+
+.button.is-warning {
+    background-color: #ffe08a;
+    cursor: pointer;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    margin-right: .5rem;
+}
+
+div.buttons {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: unset;
+}

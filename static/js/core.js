@@ -30,20 +30,20 @@ function geoFindMe() {
     function success(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        let categories = []
-        getFoods(latitude, longitude)
-            .then(restaurants => {
-                restaurants.forEach((restaurant, index) => {
-                    categories.push(...restaurant['category'])
-                    let i = index % 3
-                    showCards(restaurant, i)
-                }) // tempHtml append 하기
-            })  // like 여부에 따라 html 달리 할 필요가 있을까..?
-        let unique = new Set(categories)
-        categories = [...unique].pop('1인분주문')
-        console.log(categories)
-    }
 
+        getFoods(latitude, longitude)
+        .then(restaurants => {
+            let categories = []
+            restaurants.forEach((restaurant, index) => {
+                categories.push(...restaurant['categories'])
+                let i = index % 3
+                showCards(restaurant, i)
+            }) // tempHtml append 하기
+            let unique = new Set(categories)
+            categories = [...unique]
+            console.log(categories)
+        })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+    }
     function error(e) {
         console.error(e)
     }
@@ -66,7 +66,8 @@ function keep(id) {
     const body = JSON.stringify({uuid: user, ssid: id, action: 'like'});
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
-        .then((r) => r.json())
+        .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
+        .then((r) => console.log(r))
         .catch((e) => console.log(e));
     event.target.nextElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요하기
@@ -78,14 +79,15 @@ function remove(id) {
     const body = JSON.stringify({uuid: user, ssid: id, action: 'dislike'});
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
-        .then((r) => r.json())
+        .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
+        .then((r) => console.log(r))
         .catch((e) => console.log(e));
     event.target.nextElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요 취소하기
 
 function showBookmarks(user) {
     fetch(`/api/like?uuid=${user}`)
-        .then((r) => r.json())
+        .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((r) => console.log(r['restaurants']))
         .catch((e) => console.log(e));
 } // 모든 즐겨찾기 상품 조회하기
@@ -106,15 +108,20 @@ const showCards = (restaurant, i) => {
                     <button class="button book-button is-hidden" onclick="remove('${id}')">⭐&nbsp;Remove me&nbsp;</button>
                 </div>
                 <div class="store_name">${name}&nbsp;${time}</div>
+                <div class="buttons are-small" id="btns${i}">{__buttons__}</div>
                 <div class="card-footer">
                     <div><a href="">${address}</a></div>
                     <div class="reviews">
-                        <div class="reviews-count">리뷰 ${reviews} 사장님 ${owner}</div>
+                        <div class="reviews-count">주문자리뷰 ${reviews} 사장님댓글 ${owner}</div>
                     </div>
                 </div>
             </div>
         </div>`
-    $(`.column-${i}`).append(tempHtml)
+    let btn = ""
+    categories.forEach((tag)=>{
+        btn += `<button class="button is-rounded is-warning is-outlined">#${tag}</button>`
+    })
+    $(`.column-${i}`).append(tempHtml.replace("{__buttons__}", btn))
 }
 
 function search() {
@@ -124,7 +131,7 @@ function search() {
     const body = JSON.stringify({query: query});
     const init = {method: 'POST', headers, body};
     fetch(`/api/address`, init)
-        .then((r) => r.json())
+        .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((result) => {
             let long = Number(result['long']).toFixed(7)
             let lat = Number(result['lat']).toFixed(7)
@@ -136,8 +143,6 @@ function search() {
             restaurants.forEach((restaurant, index) => {
                 let i = index % 3
                 showCards(restaurant, i)
-            })
-        }
-    ) // tempHtml append 하기
-        .catch((e) => console.log(e));
+            }) // tempHtml append 하기
+        }).catch((e) => console.log(e));
 }

@@ -86,8 +86,6 @@ def get_restaurant() -> Response:
                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36',
                'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
     req = requests.get(url, headers=headers)
-    print(req.url)
-    print(req.json())
     res = json.loads(req.text)
     shops = res.get('restaurants')
     restaurants = list()

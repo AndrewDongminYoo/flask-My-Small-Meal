@@ -1931,7 +1931,7 @@ fieldset[disabled] .button {
 
 @media screen and (min-width: 1408px) {
   .container:not(.is-max-desktop):not(.is-max-widescreen) {
-    max-width: 1344px;
+    max-width: 1100px;
   }
 }
 
