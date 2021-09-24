@@ -1,0 +1,18 @@
+.form-control {
+    height: 55px;
+    padding: 6.5px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 2px solid black;
+    font-family: "Hanna", sans-serif;
+    transition: border box-shadow 0.0025s;
+}
+
+.form-control:hover {
+    border: 2.5px solid #87CEFA;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+option {
+    height: 20px;
+}

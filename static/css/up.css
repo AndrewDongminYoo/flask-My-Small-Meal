@@ -1,0 +1,52 @@
+.btn-up {
+    position: fixed;
+    margin: 500px 0 0 250px;
+}
+
+.btn-up-position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    transition-duration: 0.25s;
+    transition-property: all;
+}
+
+.btn-up-position:hover {
+    top: 5px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background: white;
+}
+
+.btn-up-position > a:link {
+    color: #3488CE;
+}
+
+.btn-up-position > a:visited {
+    color: #3488CE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    transition-duration: 0.25s;
+    transition-property: all;
+}
+
+.btn-up-position:hover {
+    top: 5px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background: white;
+}
+
+.btn-up-position > a:link {
+    color: #3488CE;
+}
+
+.btn-up-position > a:visited {
+    color: #3488CE;
+}
+

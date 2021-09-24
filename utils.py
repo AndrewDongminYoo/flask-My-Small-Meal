@@ -39,7 +39,6 @@ def search_address(query):
     headers = {
         'Host': 'dapi.kakao.com',
         'Authorization': 'KakaoAK c67c5816d29490ab56c1fbf40bef220d'}
-
     req = requests.get(url, headers=headers)
     result = req.json()
     documents = result['documents'][0]
