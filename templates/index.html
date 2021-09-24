@@ -3,42 +3,240 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>오롯이 식탁</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="shortcut icon" href="../static/images/favicon.png">
     <script rel="script" src="../static/js/core.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
-
+    <title>오롯이 식탁</title>
     <script>
+
     </script>
 </head>
 <body>
-<section class="section">
-    <div class="header">
-        <h1 class="title"> 저 기 요 </h1>
-        <div class="field has-addons">
-            <p class="buttons">
-                <button class="button">
+<div class="header">
+    <h1 class="title"> 저 기 요 </h1>
+    <div class="field has-addons">
+        <p class="buttons">
+            <button class="button">
                     <span class="icon is-small">
                         <img alt="gps" src="/static/images/gpsicon.png" onclick="geoFindMe()">
                      </span>
-                </button>
-            </p>
-            <div class="control">
-                <label for="geoSearch"></label>
-                <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
+            </button>
+        </p>
+        <div class="control">
+            <label for="geoSearch"></label>
+            <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
+        </div>
+        <div class="control">
+            <a class="button is-info">
+                검색
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="columns is-max-desktop is-mobile">
+        <div class="column">
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="control">
-                <a class="button is-info">
-                    검색
-                </a>
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="food-card card">
+                <div class="image-box card-image">
+                    <figure class="image">
+                        <img class="food-image image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
+                             alt="steak">
+                    </figure>
+                </div>
+                <div class="tool-box">
+                    <div class="book-mark">
+                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
+                    </div>
+                    <div class="store_name">배달의 민족</div>
+                    <div class="card-footer">
+                        <div><a href="">location</a></div>
+                        <div class="reviews">
+                            <div class="reviews-count">1145</div>
+                            <div>reviews</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 </body>
 </html>
