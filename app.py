@@ -5,7 +5,7 @@ import json
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)
 db = client.dbGoojo
-count = 50
+count = 24
 order = "rank"
 
 
@@ -17,9 +17,9 @@ def hello_world():  # put application's code here
 @app.route('/api/like', methods=['POST'])
 def like():
     uuid = request.json.get('uuid')
-    ssid = request.json.get('id')
+    ssid = request.json.get('ssid')
     action = request.json.get('action')
-    user = db.users.find({"uuid": uuid}, {"_id": False})
+    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
     if action == 'like':
         if not user:
             good_list = [ssid]
@@ -62,8 +62,16 @@ def get_restaurant():
             rest['time'] = shop.get('open_time_description')
             rest['min_order'] = shop.get('min_order_amount')
             restaurants.append(rest)
-            # db.restaurant.insert_one(rest)
+            db.restaurant.insert_one(rest)
     return jsonify(restaurants)
+
+
+@app.route('/api/like', methods=['GET'])
+def show_bookmark():
+    uuid = request.args.get('uuid')
+    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
+    good_list = user[0]['like_list']
+    return jsonify({"restaurant": good_list})
 
 
 if __name__ == '__main__':
