@@ -6,8 +6,11 @@
 
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 
-    <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="../static/card.css">
+    <link rel="stylesheet" href="../static/css_1/style.css">
+    <link rel="stylesheet" href="../static/css_1/card.css">
+    <link rel="stylesheet" href="../static/css_1/up.css">
+    <link rel="stylesheet" href="../static/css_1/sub-content.css">
+
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/header.css">
     <script rel="script" src="../static/js/core.js"></script>
@@ -25,7 +28,7 @@
     <title>오롯이 식탁</title>
 </head>
 <body>
-    <div class="header">
+    <div class= "header" id="header">
         <h1 class="title"> 저 기 요</h1>
         <div class="field has-addons">
             <p class="buttons">
@@ -45,84 +48,100 @@
             </div>
         </div>
     </div>
-    <div class="left"></div>
-    <div class="ctrl-content">
-        <div class="content">
-            <div class="food-card">
-                <div class = "image-box">
-                    <img class ="food-image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F" alt="steak">
+    <div class="left">
+    </div>
+    <div class="content">
+        <div class="sub-content">
+            <select class="form-control fc" id="form-control">
+                <option value="review_count">기본 정렬순</option>
+                <option value="review_count">리뷰 많은순</option>
+                <option value="review_avg">별점순</option>
+                <option value="min_order_value">최소 주문 금액순</option>
+                <option value="distance">거리순</option>
+                <option value="estimated_delivery_time">배달 시간순</option>
+            </select>
+        </div>
+        <div class="food-card">
+            <div class = "image-box">
+                <img class ="food-image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F" alt="steak">
+            </div>
+            <div class = "tool-box">
+                <div class ="book-mark">
+                    <button class="book-button">⭐&nbsp;Save</button>
                 </div>
-                <div class = "tool-box">
-                    <div class ="book-mark">
-                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
-                    </div>
-                    <div class="store_name">배달의 민족</div>
-                    <div class ="card-footer">
-                        <div><a href="">location</a></div>
-                        <div class="reviews">
-                            <div class="reviews-count">1145</div>
-                            <div>reviews</div>
-                        </div>
+                <div class="store_name">배달의 민족</div>
+                <div class ="card-footer">
+                    <div><a href="">location</a></div>
+                    <div class="reviews">
+                        <div class="reviews-count">1145</div>
+                        <div>reviews</div>
                     </div>
                 </div>
             </div>
-            <div class="food-card">
-                <div class = "image-box">
-                    <img class ="food-image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F" alt="steak">
+        </div>
+        <div class="food-card">
+            <div class = "image-box">
+                <img class ="food-image" src="http://okryukwan.com/wp-content/uploads/2014/07/%EC%88%9C%EB%8C%802-1024x682.jpg" alt="steak">
+            </div>
+            <div class = "tool-box">
+                <div class ="book-mark">
+                    <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
                 </div>
-                <div class = "tool-box">
-                    <div class ="book-mark">
-                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
-                    </div>
-                    <div class="store_name">배달의 민족</div>
-                    <div class ="card-footer">
-                        <div><a href="">location</a></div>
-                        <div class="reviews">
-                            <div class="reviews-count">1145</div>
-                            <div>reviews</div>
-                        </div>
+                <div class="store_name">배달의 민족</div>
+                <div class ="card-footer">
+                    <div><a href="">location</a></div>
+                    <div class="reviews">
+                        <div class="reviews-count">1145</div>
+                        <div>reviews</div>
                     </div>
                 </div>
             </div>
-            <div class="food-card">
-                <div class = "image-box">
-                    <img class ="food-image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F" alt="steak">
+        </div>
+        <div class="food-card">
+            <div class = "image-box">
+                <img class ="food-image" src="http://okryukwan.com/wp-content/uploads/2014/07/%EB%A7%8C%EB%91%90%EC%A0%84%EA%B3%A8%EC%95%88%EC%96%91%EC%A0%90-600x400.jpg" alt="steak">
+            </div>
+            <div class = "tool-box">
+                <div class ="book-mark">
+                    <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
                 </div>
-                <div class = "tool-box">
-                    <div class ="book-mark">
-                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
-                    </div>
-                    <div class="store_name">배달의 민족</div>
-                    <div class ="card-footer">
-                        <div><a href="">location</a></div>
-                        <div class="reviews">
-                            <div class="reviews-count">1145</div>
-                            <div>reviews</div>
-                        </div>
+                <div class="store_name">배달의 민족</div>
+                <div class ="card-footer">
+                    <div><a href="">location</a></div>
+                    <div class="reviews">
+                        <div class="reviews-count">1145</div>
+                        <div>reviews</div>
                     </div>
                 </div>
             </div>
-            <div class="food-card">
-                <div class = "image-box">
-                    <img class ="food-image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F" alt="steak">
+        </div>
+        <div class="food-card">
+            <div class = "image-box">
+                <img class ="food-image" src="https://www.10wallpaper.com/wallpaper/medium/1611/Breakfast_growing_food-2016_High_Quality_Wallpaper_medium.jpg" alt="steak">
+            </div>
+            <div class = "tool-box">
+                <div class ="book-mark">
+                    <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
                 </div>
-                <div class = "tool-box">
-                    <div class ="book-mark">
-                        <button class="book-button">⭐&nbsp;Save me &nbsp;</button>
-                    </div>
-                    <div class="store_name">배달의 민족</div>
-                    <div class ="card-footer">
-                        <div><a href="">location</a></div>
-                        <div class="reviews">
-                            <div class="reviews-count">1145</div>
-                            <div>reviews</div>
-                        </div>
+                <div class="store_name">배달의 민족</div>
+                <div class ="card-footer">
+                    <div><a href="">location</a></div>
+                    <div class="reviews">
+                        <div class="reviews-count">1145</div>
+                        <div>reviews</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="right"></div>
-    <div class="Nabvar"></div>
+    <div class="right">
+        <div class="btn-up">
+            <div class="btn-up-position">
+                <a class="fa-arrow-up" href="#header"><i class="fas fa-arrow-up fa-3x"></i></a>
+            </div>
+        </div>
+    </div>
+    <img src="/static/images/gpsicon.png" alt="">
+    <script src="index.js"></script>
 </body>
 </html>

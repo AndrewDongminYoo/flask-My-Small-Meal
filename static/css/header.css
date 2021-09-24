@@ -5,12 +5,7 @@
  align-items: center;
  grid-column: span 16;
  grid-row: span 2;
-
- height: 300px;
-
  background-color: bisque;
-
-
 }
 
 .title {
@@ -18,8 +13,5 @@
 }
 
 .button {
-
   margin-right: 10px;
 }
-
-.

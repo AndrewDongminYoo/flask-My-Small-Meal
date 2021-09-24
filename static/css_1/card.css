@@ -1,19 +1,38 @@
 .food-card {
   background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   padding: 10px 0 10px;
-  width: 350px;
+  width: 300px;
+  height: 430px;
   border-radius: 10px;
-  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
   margin: 20px;
+
+  transition-duration: 0.185s;
+  transition-timing-function: ease-in-out;
+  transition-property: transform;
+}
+
+.food-image {
+  transition-duration: 0.185s;
+  transition-timing-function: ease-in-out;
+  transition-property: width height;
+}
+
+.food-card:hover {
+  transform: translate(0, -0.5em);
+}
+
+.food-image:hover {
+  height: 245px;
 }
 
 .image-box {
   position: relative;
   align-self: flex-start;
   width: auto;
-  height:220px;
+  height: 220px;
   overflow: hidden;
-
 }
 
 .food-image {
@@ -21,7 +40,6 @@
   height: 100%;
   object-fit: cover;
 }
-
 
 .book-mark {
   font-size: 15px;
@@ -35,25 +53,22 @@
 }
 
 .book-button {
-  padding: 5px;
-  border: 1px solid #D3D3D3;
-  border-radius: 2.5px;
-  background-color: rgba(0,0,0,0);
+  padding: 8px;
+  border: 1px solid #F5F5F5;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.book-button:hover {
-  padding: 5px;
-  border: 1px solid #D3D3D3;
-  border-radius: 2.5px;
-  background-color: #FFFAFA;
-}
+/* .book-button:hover {
+  background-color: #d3d3d3;
+} */
 
 .store_name {
   display: flex;
   justify-self: flex-start;
   margin-left: 10px;
   padding: 10px;
-  font-family: 'Hanna', sans-serif;
+  font-family: "Hanna", sans-serif;
 }
 
 .card-footer {
@@ -61,7 +76,7 @@
   justify-content: space-between;
   margin: 5px 0 0px 10px;
   padding: 10px;
-  font-family: 'Hanna', sans-serif;
+  font-family: "Hanna", sans-serif;
 }
 
 .reviews {
@@ -73,4 +88,3 @@
 .reviews-count {
   margin-bottom: 5px;
 }
-
