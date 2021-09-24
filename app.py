@@ -35,7 +35,7 @@ def like() -> Response:
     uuid = request.json.get('uuid')
     ssid = request.json.get('ssid')
     action = request.json.get('action')
-    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
+    user = list(db.users.find({"uuid": uuid}, {"_id": False}))[0]
     utils.put_restaurant(ssid)
     if action == 'like':
         if not user:
