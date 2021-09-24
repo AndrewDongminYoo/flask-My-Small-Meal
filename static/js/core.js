@@ -30,13 +30,18 @@ function geoFindMe() {
     function success(position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
+        let categories = []
         getFoods(latitude, longitude)
             .then(restaurants => {
                 restaurants.forEach((restaurant, index) => {
+                    categories.push(...restaurant['category'])
                     let i = index % 3
                     showCards(restaurant, i)
                 }) // tempHtml append 하기
             })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+        let unique = new Set(categories)
+        categories = [...unique].pop('1인분주문')
+        console.log(categories)
     }
 
     function error(e) {
