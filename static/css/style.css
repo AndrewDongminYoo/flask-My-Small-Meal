@@ -11,18 +11,17 @@ body {
 }
 
 .header {
+    font-family: 'Jua', sans-serif;
+    display: flex;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    height: 300px;
+    font-size: 24px;
+    font-size: 24px;
     background: #ffebcd;
-
     grid-column: span 16;
     grid-row: span 2;
-
-
 }
 
 .name {
@@ -38,10 +37,7 @@ body {
     grid-row: span 6;
     float: left;
     padding: 10px;
-
-
 }
-
 
 .container {
     padding: 20px 130px;
@@ -49,7 +45,6 @@ body {
     margin: 0 auto;
     position: relative;
     width: auto;
-
 }
 
 .card {
@@ -62,3 +57,9 @@ body {
     margin: 10px 0;
 }
 
+.columns.is-max-desktop.is-mobile
+.columns:not(.is-desktop) {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+}
