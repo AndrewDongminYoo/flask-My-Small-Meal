@@ -51,6 +51,7 @@ const userCheck = () => {
         localStorage.setItem("delivery-uuid", user)
         console.log(user)
     }
+    showBookmarks(user);
 }
 
 function keep(id) {
@@ -74,6 +75,13 @@ function remove(id) {
         .then((r) => console.log(r['uuid']))
         .catch((e) => console.log(e));
 } // 특정 상점 좋아요 취소하기
+
+function showBookmarks(user) {
+    fetch(`/api/like?uuid=${user}`)
+        .then((r) => r.json())
+        .then((r) => console.log(r['restaurants']))
+        .catch((e) => console.log(e));
+}
 
 const showCards = (restaurant, i) => {
     let { id, name, reviews, owner, categories, image, logo, address, rating, time, min_order } = restaurant;
