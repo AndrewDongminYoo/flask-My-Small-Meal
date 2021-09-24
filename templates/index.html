@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/header.css">
+    <link rel="stylesheet" href="/static/css/left.css">
     <link rel="shortcut icon" href="../static/images/favicon.png">
     <script rel="script" src="../static/js/core.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
@@ -19,25 +20,46 @@
 </head>
 <body>
 <div class="header">
-    <h1 class="title"> 저 기 요 </h1>
-    <div class="field has-addons">
-        <p class="buttons">
-            <button class="button">
+
+        <img class="bg-img" src="/static/images/header_img.jfif">
+
+    <div class="title">
+        <h1>오 롯 이 식 탁</h1>
+        <div class="field has-addons">
+            <div class="buttons">
+                <button class="button">
                     <span class="icon is-small">
                         <img alt="gps" src="/static/images/gpsicon.png" onclick="geoFindMe()">
-                     </span>
-            </button>
-        </p>
-        <div class="control">
-            <label for="geoSearch"></label>
-            <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
-        </div>
-        <div class="control">
-            <a class="button is-info">
-                검색
-            </a>
+                    </span>
+                </button>
+            </div>
+            <div class="control">
+                <label for="geoSearch"></label>
+                <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
+            </div>
+            <div class="control">
+                <a class="button is-info">
+                    검색
+                </a>
+            </div>
         </div>
     </div>
+</div>
+
+<div class="left">
+    <div class="favorites">
+        <h2 class="fav-title">즐 겨 찾 기</h2>
+        <div class="fav-list">
+            <a href="#">업체명</a>
+            <button class="button delete-button">
+                    <span class="icon is-small">
+                        삭제
+                     </span>
+            </button>
+        </div>
+    </div>
+
+
 </div>
 <div class="container">
     <div class="columns is-max-desktop is-mobile">

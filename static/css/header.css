@@ -1,20 +1,14 @@
-.header {
- display: flex;
- flex-direction: column;
- justify-content: center;
- align-items: center;
- grid-column: span 16;
- grid-row: span 2;
-
- height: 300px;
-
- background-color: bisque;
-
-
-}
 
 .title {
   font-size: 70px;
+    position: absolute;
+    color: burlywood;
+
+
+
+}
+.title>h1 {
+    margin-bottom: 30px;
 }
 
 .button {
@@ -22,4 +16,11 @@
   margin-right: 10px;
 }
 
-.
+.bg-img {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+}
+
+
