@@ -12,6 +12,15 @@
     font-size: 70px;
     position: absolute;
     color: burlywood;
+
+
+}
+
+.title > h1 {
+    margin-bottom: 30px;
+    font-size: 70px;
+    position: absolute;
+    color: burlywood;
 }
 
 .title > h1 {
@@ -26,6 +35,14 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+}
+
+
+.bg-img {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
 }
 
 
