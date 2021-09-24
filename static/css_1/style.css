@@ -21,7 +21,6 @@ body {
   grid-row: span 2;
 }
 
-
 .name {
   font-family: "Roboto Slab", serif;
   font-weight: bold;
@@ -53,7 +52,6 @@ body {
   grid-row: span 6;
   margin-bottom: 0px;
 }
-
 
 .right {
   position: relative;
