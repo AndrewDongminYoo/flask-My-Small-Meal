@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="../static/css/card.css">
     <link rel="stylesheet" href="../static/css/bulma.css">
-    <link rel="stylesheet" href="../static/css/up.css">
+    <link rel="stylesheet" href="../static/css/scroll_up.css">
     <link rel="shortcut icon" href="../static/images/favicon.png">
     <!-- 커스텀 JS! -->
     <script rel="script" src="../static/js/core.js"></script>
@@ -90,11 +90,13 @@
         <div class="column column-1"></div>
         <div class="column column-2"></div>
         <div class="column is-one-fifth">
-            <h2 class="h2">즐겨찾기 목록</h2>
-            <aside class="menu">
-                <ul class="menu-list" id="bookmarks">
-                </ul>
-            </aside>
+            <div id="aside">
+                <h2 class="h2" style="display:none;">즐겨찾기 목록</h2>
+                <aside class="menu">
+                    <ul class="menu-list" id="bookmarks">
+                    </ul>
+                </aside>
+            </div>
             <div class="btn-up">
                 <button onclick="window.scrollTo(0, 0);" class="button btn-up-position">
                     <i class="fas fa-chevron-up"></i>

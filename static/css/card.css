@@ -85,3 +85,13 @@
     margin-bottom: 5px;
 }
 
+
+.card {
+    background-color: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+    color: #4a4a4a;
+    max-width: 100%;
+    position: relative;
+    margin: 10px 0;
+}
