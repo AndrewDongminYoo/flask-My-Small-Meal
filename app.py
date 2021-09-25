@@ -41,12 +41,14 @@ def like() -> Response:
         if not user:
             good_list = [ssid]
             db.users.insert_one({"uuid": uuid, "like_list": good_list})
+        elif ssid in user[0]['like_list']:
+            pass
         else:
             good_list = user[0]['like_list']
             good_list.append(ssid)
             db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     else:
-        if user:
+        if user and ssid in user[0]['like_list']:
             good_list = user[0]['like_list']
             good_list.remove(ssid)
             db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
@@ -63,7 +65,12 @@ def show_bookmark() -> Response:
     uuid = request.args.get('uuid')
     user = list(db.users.find({"uuid": uuid}, {"_id": False}))
     good_list = user[0]['like_list']
-    return jsonify({"restaurants": good_list})
+    restaurants = []
+    for restaurant in good_list:
+        rest = list(db.restaurant.find({"ssid": restaurant}, {"_id": False}))
+        if len(rest) > 0:
+            restaurants.extend(rest)
+    return jsonify({"restaurants": restaurants})
 
 
 @app.route('/api/shop', methods=['GET'])

@@ -76,7 +76,6 @@ button.button {
     -webkit-appearance: none;
     align-items: center;
     border: 1px solid transparent;
-    border-radius: 4px;
     box-shadow: none;
     display: inline-flex;
     justify-content: flex-start;
@@ -112,4 +111,29 @@ div.buttons {
     height: 100vh;
     overflow: hidden;
 
+}
+
+h2.h2 {
+    font-size: x-large;
+    font-weight: 500;
+}
+
+button.button.is-xs {
+    background-color: #00d1b2;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 0.5rem;
+}
+
+.bookmark {
+    display: flex;
+    justify-content: space-between;
+}
+
+span.mark-menu {
+    width: 8rem;
+    overflow: hidden;
+    height: 1rem;
+    display: inline-block !important;
 }

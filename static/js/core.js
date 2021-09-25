@@ -80,7 +80,7 @@ function remove(id) {
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
-        .then((r) => console.log(r))
+        .then((r)=> console.log(r))
         .catch((e) => console.log(e));
     event.target.previousElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요 취소하기
@@ -88,9 +88,18 @@ function remove(id) {
 function showBookmarks(user) {
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
-        .then((r) => console.log(r['restaurants']))
+        .then((res) => {
+            $("#bookmarks").empty();
+            res['restaurants'].forEach((r)=>bookMark(r));
+        })
         .catch((e) => console.log(e));
 } // 모든 즐겨찾기 상품 조회하기
+
+const bookMark = (restaurant) => {
+    let { ssid, name, phone, time } = restaurant;
+    let tempHtml = `<li class="bookmark"><span class="mark-menu">${name}</span><button class="button is-xs is-inline-block">x</button></li>`
+    $("#bookmarks").append(tempHtml)
+}
 
 const showCards = (restaurant, i) => {
     let {id, name, reviews, owner, categories, image, logo, address, rating, time, min_order} = restaurant;

@@ -13,7 +13,7 @@ def put_restaurant(ssid):
     """
     if list(col.find({"ssid": ssid}, {"_id": False})):
         return
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants/{ssid}/info/'
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants/{ssid}'
     headers = {
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
@@ -28,7 +28,10 @@ def put_restaurant(ssid):
         "ssid": ssid,
         "time": result.get("opening_time_description"),
         "phone": result.get("phone"),
-        "name": result.get("crmdata").get("company_name")
+        "name": result.get("name"),
+        "delivery": result.get("estimated_delivery_time"),
+        "address": result.get("address"),
+        "image": result.get("background_url")
         }
     col.insert_one(doc)
 
