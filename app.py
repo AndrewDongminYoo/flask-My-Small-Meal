@@ -75,6 +75,10 @@ def get_restaurant() -> Response:
     """
     lat = request.args.get('lat')
     long = request.args.get('lng')
+    global order
+    order = request.args.get('order')
+    if not order:
+        order = "rank"
     import requests
     url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category={cat}&items={count}&lat={lat}&lng={long}&order={order}&page=0'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',

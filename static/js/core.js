@@ -1,5 +1,6 @@
 let user = null
-
+let latitude = 37.5559598
+let longitude = 126.9723169
 window.onload = function () {
     geoFindMe();
     userCheck()
@@ -28,8 +29,8 @@ function geoFindMe() {
     }
 
     function success(position) {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
+        latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
         getFoods(latitude, longitude)
         .then(restaurants => {
             let categories = []
@@ -127,6 +128,7 @@ const showCards = (restaurant, i) => {
     $(`.column-${i}`).append(tempHtml.replace("{__buttons__}", btn))
 }
 
+// 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
 function search() {
     let query = $("#geoSearch").val()
     const headers = new Headers();
@@ -136,9 +138,9 @@ function search() {
     fetch(`/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((result) => {
-            let long = Number(result['long']).toFixed(7)
-            let lat = Number(result['lat']).toFixed(7)
-            return getFoods(lat, long)
+            longitude = Number(result['long']).toFixed(7)
+            latitude = Number(result['lat']).toFixed(7)
+            return getFoods(latitude, longitude)
         }).then(restaurants => {
             $(".column-0").empty()
             $(".column-1").empty()
@@ -150,7 +152,28 @@ function search() {
         }).catch((e) => console.log(e));
 }
 
+// 특정 카테고리 (예: 1인분주문) 를 클릭하면 모든 식당 중 해당 해시태그를 가진 카드가 하이라이트됩니다.
 function highlight(string) {
     $("button.is-warning").not(`:contains(${string})`).addClass('is-outlined')
     $(`button.button:contains(${string})`).removeClass('is-outlined')
 }
+
+// tab 의 버튼을 클릭하면 그 버튼만 active 상태가 됩니다.
+function tabFocus(string) {
+    $("li.tab").not(`.tab-${string}`).removeClass('is-active');
+    $(`li.tab-${string}`).addClass('is-active');
+}
+
+// URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
+window.addEventListener('hashchange', async ()=> {
+    let hash = window.location.hash
+    const response = await fetch(`/api/shop?lat=${latitude}&lng=${longitude}&order=${hash.substring(1)}`);
+    let restaurants = await response.json()
+    $(".column-0").empty()
+    $(".column-1").empty()
+    $(".column-2").empty()
+    restaurants.forEach((restaurant, index) => {
+        let i = index % 3
+        showCards(restaurant, i)
+    }) // tempHtml append 하기
+})
