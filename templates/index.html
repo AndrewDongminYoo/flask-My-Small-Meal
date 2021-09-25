@@ -1,124 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- 폰트어썸 아이콘 사용! -->
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-    <link rel="stylesheet" href="../static/css/card.css">
-    <link rel="stylesheet" href="../static/css/up.css">
-    <link rel="stylesheet" href="../static/css/sub-content.css">
+    <!-- 커스텀 css! -->
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="../static/css/header.css">
-    <link rel="stylesheet" href="../static/css/left.css">
+{#    <link rel="stylesheet" href="../static/css/sub-content.css">#}
+{#    <link rel="stylesheet" href="../static/css/header.css">#}
+{#    <link rel="stylesheet" href="../static/css/left.css">#}
+    <link rel="stylesheet" href="../static/css/card.css">
+    <link rel="stylesheet" href="../static/css/bulma.css">
+{#    <link rel="stylesheet" href="../static/css/up.css">#}
     <link rel="shortcut icon" href="../static/images/favicon.png">
-    {#    import 뭉치 한줄로 줄이기#}
+    <!-- 커스텀 JS! -->
     <script rel="script" src="../static/js/core.js"></script>
+    <!-- UUID 라이브러리! -->
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <!-- 제이쿼리! -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!--  PopperJS! -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
-    {#    폰트 확실하게 정하기#}
+    <!-- Google Fonts! -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
     <title>오롯이 식탁</title>
 </head>
 <body>
 <div class="header">
-    <img alt="header" class="bg-img" src="/static/images/header_img.jfif">
-    <div class="title">
-        <h1>오 롯 이 식 탁</h1>
-        <div class="field has-addons">
-            <div class="buttons">
-                <div class="header" id="header">
-                    <h1 class="title"> 저 기 요</h1>
-                    <div class="field has-addons">
-                        <p class="buttons">
-                            <button class="button" onclick="geoRefresh()">
-                                <span class="icon is-small">
-                                    <img alt="map" src="/static/images/gpsicon.png">
-                                </span>
-                            </button>
-                        </p>
-                        <div class="control">
-                            <label for="geoSearch"></label>
-                            <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
-                        </div>
-                        <div class="control">
-                            <button onclick="search()" class="button is-info">
-                                검색
-                            </button>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="columns is-max-desktop is-mobile">
-                            <div class="column column-0"></div>
-                            <div class="column column-1"></div>
-                            <div class="column column-2"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="left"></div>
-                <div class="content">
-                    <div class="sub-content">
-                        <label for="form-control"></label>
-                        <select class="form-control fc" id="form-control">
-                            <option value="review_count">기본 정렬순</option>
-                            <option value="review_count">리뷰 많은순</option>
-                            <option value="review_avg">별점순</option>
-                            <option value="min_order_value">최소 주문 금액순</option>
-                            <option value="distance">거리순</option>
-                            <option value="estimated_delivery_time">배달 시간순</option>
-                        </select>
-                    </div>
-                    <div class="food-card">
-                        <div class="image-box">
-                            <img class="food-image" src="https://t1.daumcdn.net/cfile/tistory/99C4B7375DEA17910F"
-                                 alt="steak">
-                            <img alt="gps" src="/static/images/gpsicon.png" onclick="geoFindMe()">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <h1 class="title"> 저 기 요 </h1>
+    <div class="field has-addons">
+        <p class="buttons">
+            <button class="button">
+                    <span class="icon is-small">
+                        <img alt="gps" src="/static/images/gpsicon.png" onclick="geoRefresh()">
+                     </span>
+            </button>
+        </p>
         <div class="control">
             <label for="geoSearch"></label>
             <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
-        </div>
-        <div class="control">
-            <a class="button is-info">
+            <a class="button is-info" href="javascript:search()">
                 검색
             </a>
         </div>
     </div>
 </div>
-<div class="left">
-    <div class="favorites">
-        <h2 class="fav-title">즐 겨 찾 기</h2>
-        <div class="fav-list">
-            <a href="#">업체명</a>
-            <button class="button delete-button">
-                    <span class="icon is-small">
-                        삭제
-                     </span>
-            </button>
-        </div>
+<div class="container is-max-desktop">
+    <div class="columns is-max-desktop is-mobile">
+        <div class="column column-0"></div>
+        <div class="column column-1"></div>
+        <div class="column column-2"></div>
     </div>
 </div>
-<div class="right">
-    <div class="btn-up">
-        <div class="btn-up-position">
-            <a class="fa-arrow-up" href="#header"><i class="fas fa-arrow-up fa-3x"></i></a>
-        </div>
-    </div>
-</div>
-<img src="/static/images/gpsicon.png" alt="pgs">
 </body>
 </html>

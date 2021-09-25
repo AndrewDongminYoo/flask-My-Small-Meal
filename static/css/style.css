@@ -1,5 +1,5 @@
 * {
-    font-family: 'Sunflower', sans-serif;
+    font-family: 'Hanna', sans-serif;
 }
 
 body {
@@ -8,18 +8,27 @@ body {
     margin: 0 auto;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(8, 1fr);
+    box-sizing: border-box !important;
 }
 
 .header {
-    font-family: 'Jua', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     font-size: 24px;
-    background: #ffebcd;
-    grid-column: span 16;
-    grid-row: span 2;
+    height: 250px;
+    background-color: #ffebcd;
+    background-size: cover;
+    background-repeat: repeat-x;
+    background-image: url("../images/lucian-alexe.jpg");
+}
+
+.header > h1.title  {
+    font-family: 'Jua', sans-serif;
+    font-size: 70px;
+    color: burlywood;
+    margin-bottom: 30px;
 }
 
 .name {
@@ -29,20 +38,27 @@ body {
     padding: 20px;
 }
 
-.left {
-    background-color: #ffe4c4;
-    grid-column: span 3;
-    grid-row: span 6;
-    float: left;
-    padding: 10px;
-}
-
-.container {
-    padding: 20px 130px;
+div.container {
+    padding: 20px;
     flex-grow: 1;
     margin: 0 auto;
     position: relative;
     width: auto;
+    /*max-width: 1200px !important;*/
+}
+
+div.control {
+    min-width: 200px;
+    width: 300px;
+    display: inline-flex;
+}
+
+
+.columns.is-max-desktop.is-mobile
+.columns:not(.is-desktop) {
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
 }
 
 .card {
@@ -55,71 +71,45 @@ body {
     margin: 10px 0;
 }
 
-.columns.is-max-desktop.is-mobile
-.columns:not(.is-desktop) {
+button.button {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-shadow: none;
+    display: inline-flex;
+    justify-content: flex-start;
+    line-height: 1.5;
+    position: relative;
+    vertical-align: top;
+}
+
+div.buttons {
+    align-items: center;
     display: flex;
-    max-width: 1200px;
-    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: unset;
 }
 
-body {
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(16, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+.button.is-warning {
+    background-color: #ffe08a;
+    cursor: pointer;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    margin-right: .5rem;
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
+.button {
+
+    margin-right: 10px;
 }
 
-.header {
-  background: #ffebcd;
-  grid-column: span 16;
-  grid-row: span 2;
-}
+.bg-img {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 
-.name {
-  font-family: "Roboto Slab", serif;
-  font-weight: bold;
-  font-size: 50px;
-  padding: 20px;
-}
-
-.left {
-  background-color: #ffe4c4;
-  grid-column: span 3;
-  grid-row: span 6;
-}
-
-.sub-content {
-  display: flex;
-  justify-content: flex-end;
-  align-self: center;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.content {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  padding: 50px;
-  background-color: #f5f5dc;
-  grid-column: span 10;
-  grid-row: span 6;
-  margin-bottom: 0;
-}
-
-.right {
-  position: relative;
-  background-color: #ffe4c4;
-  grid-column: span 3;
-  grid-row: span 6;
 }

@@ -28,8 +28,7 @@ def put_restaurant(ssid):
         "ssid": ssid,
         "time": result.get("opening_time_description"),
         "phone": result.get("phone"),
-        "name": result.get("crmdata").get("company_name"),
-        "introduce": result.get("introduction_by_owner").get("introduction_text")
+        "name": result.get("crmdata").get("company_name")
         }
     col.insert_one(doc)
 

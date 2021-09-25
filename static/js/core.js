@@ -81,7 +81,7 @@ function remove(id) {
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((r) => console.log(r))
         .catch((e) => console.log(e));
-    event.target.nextElementSibling.classList.remove('is-hidden')
+    event.target.previousElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요 취소하기
 
 function showBookmarks(user) {
@@ -93,6 +93,9 @@ function showBookmarks(user) {
 
 const showCards = (restaurant, i) => {
     let {id, name, reviews, owner, categories, image, logo, address, rating, time, min_order} = restaurant;
+    if (!image) {
+        return
+    }
     let tempHtml = `
         <div class="food-card card">
             <div class="image-box card-image">
@@ -103,13 +106,14 @@ const showCards = (restaurant, i) => {
             </div>
             <div class="tool-box">
                 <div class="book-mark">
-                    <button class="button book-button" onclick="keep('${id}')">⭐&nbsp;Save me&nbsp;</button>
-                    <button class="button book-button is-hidden" onclick="remove('${id}')">⭐&nbsp;Remove me&nbsp;</button>
+                    <div class="store_name">${name}<br>⭐${rating}점</div>
+                    <button class="button book-button" onclick="keep('${id}')">⭐keep</button>
+                    <button class="button book-button is-hidden" onclick="remove('${id}')">🌟delete</button>
                 </div>
-                <div class="store_name">${name}&nbsp;${time}</div>
+                
                 <div class="buttons are-small" id="btns${i}">{__buttons__}</div>
                 <div class="card-footer">
-                    <div><a href="">${address}</a></div>
+                    <div>${address}<br>영업시간: ${time}<br>${min_order}원 이상 주문 가능</div>
                     <div class="reviews">
                         <div class="reviews-count">주문자리뷰 ${reviews}<br>사장님댓글 ${owner}</div>
                     </div>
@@ -118,7 +122,7 @@ const showCards = (restaurant, i) => {
         </div>`
     let btn = ""
     categories.forEach((tag)=>{
-        btn += `<button class="button is-rounded is-warning is-outlined">#${tag}</button>`
+        btn += `<button class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
     $(`.column-${i}`).append(tempHtml.replace("{__buttons__}", btn))
 }
@@ -144,4 +148,9 @@ function search() {
                 showCards(restaurant, i)
             }) // tempHtml append 하기
         }).catch((e) => console.log(e));
+}
+
+function highlight(string) {
+    $("button.is-warning").not(`:contains(${string})`).addClass('is-outlined')
+    $(`button.button:contains(${string})`).removeClass('is-outlined')
 }
