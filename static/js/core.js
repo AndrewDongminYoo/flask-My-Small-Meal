@@ -112,7 +112,7 @@ const showCards = (restaurant, i) => {
                 <div class="card-footer">
                     <div><a href="">${address}</a></div>
                     <div class="reviews">
-                        <div class="reviews-count">주문자리뷰 ${reviews} 사장님댓글 ${owner}</div>
+                        <div class="reviews-count">주문자리뷰 ${reviews}<br>사장님댓글 ${owner}</div>
                     </div>
                 </div>
             </div>
