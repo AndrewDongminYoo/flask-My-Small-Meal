@@ -1,3 +1,14 @@
+/*스크롤 모션 부드럽게 -브라우저 애니메이션 꺼져있는 상태에서는 auto 동작 (ex:사파리)*/
+html {
+    scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/*스크롤 최상단으로 가는 버튼*/
 .btn-up {
     position: fixed;
     right: 20px;

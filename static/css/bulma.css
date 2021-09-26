@@ -16,10 +16,7 @@
   height: 2.5em;
   justify-content: flex-start;
   line-height: 1.5;
-  padding-bottom: calc(0.5em - 1px);
-  padding-left: calc(0.75em - 1px);
-  padding-right: calc(0.75em - 1px);
-  padding-top: calc(0.5em - 1px);
+  padding: calc(0.5em - 1px) calc(0.75em - 1px);
   position: relative;
   vertical-align: top;
 }
@@ -225,7 +222,6 @@ fieldset[disabled] .pagination-ellipsis {
   background: none;
   border: none;
   color: currentColor;
-  font-family: inherit;
   font-size: 1em;
   margin: 0;
   padding: 0;
@@ -336,15 +332,6 @@ header,
 hgroup,
 section {
   display: block;
-}
-
-body,
-button,
-input,
-optgroup,
-select,
-textarea {
-  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 code,
@@ -473,7 +460,7 @@ table th {
 .box {
   background-color: white;
   border-radius: 6px;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
   color: #4a4a4a;
   display: block;
   padding: 1.25rem;
@@ -494,10 +481,7 @@ a.box:active {
   color: #363636;
   cursor: pointer;
   justify-content: center;
-  padding-bottom: calc(0.5em - 1px);
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: calc(0.5em - 1px);
+  padding: calc(0.5em - 1px) 1em;
   text-align: center;
   white-space: nowrap;
 }
@@ -1782,7 +1766,6 @@ fieldset[disabled] .button {
 }
 
 .button.is-loading::after {
-  position: absolute;
   left: calc(50% - (1em * 0.5));
   top: calc(50% - (1em * 0.5));
   position: absolute !important;
@@ -2094,8 +2077,8 @@ fieldset[disabled] .button {
 
 .content table td,
 .content table th {
-  border: 1px solid #dbdbdb;
-  border-width: 0 0 1px;
+  border: 0 solid #dbdbdb;
+  border-bottom-width: 1px;
   padding: 0.5em 0.75em;
   vertical-align: top;
 }
@@ -2700,8 +2683,8 @@ div.icon-text {
 
 .table td,
 .table th {
-  border: 1px solid #dbdbdb;
-  border-width: 0 0 1px;
+  border: 0 solid #dbdbdb;
+  border-bottom-width: 1px;
   padding: 0.5em 0.75em;
   vertical-align: top;
 }
@@ -4655,7 +4638,7 @@ fieldset[disabled] .select select:hover {
 .card {
   background-color: white;
   border-radius: 0.25rem;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
   color: #4a4a4a;
   max-width: 100%;
   position: relative;
@@ -4788,7 +4771,7 @@ fieldset[disabled] .select select:hover {
 .dropdown-content {
   background-color: white;
   border-radius: 4px;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
 }
@@ -6623,7 +6606,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 
 .panel {
   border-radius: 6px;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
   font-size: 1rem;
 }
 
@@ -7132,11 +7115,11 @@ label.panel-block:hover {
 
 .columns.is-mobile > .column.is-0 {
   flex: none;
-  width: 0%;
+  width: 0;
 }
 
 .columns.is-mobile > .column.is-offset-0 {
-  margin-left: 0%;
+  margin-left: 0;
 }
 
 .columns.is-mobile > .column.is-1 {
@@ -7321,10 +7304,10 @@ label.panel-block:hover {
   }
   .column.is-0-mobile {
     flex: none;
-    width: 0%;
+    width: 0;
   }
   .column.is-offset-0-mobile {
-    margin-left: 0%;
+    margin-left: 0;
   }
   .column.is-1-mobile {
     flex: none;
@@ -7486,10 +7469,10 @@ label.panel-block:hover {
   }
   .column.is-0, .column.is-0-tablet {
     flex: none;
-    width: 0%;
+    width: 0;
   }
   .column.is-offset-0, .column.is-offset-0-tablet {
-    margin-left: 0%;
+    margin-left: 0;
   }
   .column.is-1, .column.is-1-tablet {
     flex: none;
@@ -7651,10 +7634,10 @@ label.panel-block:hover {
   }
   .column.is-0-touch {
     flex: none;
-    width: 0%;
+    width: 0;
   }
   .column.is-offset-0-touch {
-    margin-left: 0%;
+    margin-left: 0;
   }
   .column.is-1-touch {
     flex: none;
@@ -7816,10 +7799,10 @@ label.panel-block:hover {
   }
   .column.is-0-desktop {
     flex: none;
-    width: 0%;
+    width: 0;
   }
   .column.is-offset-0-desktop {
-    margin-left: 0%;
+    margin-left: 0;
   }
   .column.is-1-desktop {
     flex: none;
@@ -7981,10 +7964,10 @@ label.panel-block:hover {
   }
   .column.is-0-widescreen {
     flex: none;
-    width: 0%;
+    width: 0;
   }
   .column.is-offset-0-widescreen {
-    margin-left: 0%;
+    margin-left: 0;
   }
   .column.is-1-widescreen {
     flex: none;
@@ -8146,10 +8129,10 @@ label.panel-block:hover {
   }
   .column.is-0-fullhd {
     flex: none;
-    width: 0%;
+    width: 0;
   }
   .column.is-offset-0-fullhd {
-    margin-left: 0%;
+    margin-left: 0;
   }
   .column.is-1-fullhd {
     flex: none;
@@ -10450,19 +10433,7 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
 }
 
-.is-family-secondary {
-  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
-}
-
-.is-family-sans-serif {
-  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
-}
-
 .is-family-monospace {
-  font-family: monospace !important;
-}
-
-.is-family-code {
   font-family: monospace !important;
 }
 

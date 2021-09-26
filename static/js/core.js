@@ -46,7 +46,7 @@ function geoFindMe() {
             }) // tempHtml append 하기
             let unique = new Set(categories)
             categories = [...unique]
-            window.alert(`${categories} 당신의 선택은 ..??`)
+            window.alert(`${categories.join(', ')} 등이 있습니다. 당신의 선택은 ..??`)
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
     }
     //위치 받아내기 실패했을 때 에러 핸들링 코드
@@ -122,7 +122,7 @@ function showBookmarks(user) {
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
     let { ssid, name, phone, time } = restaurant;
-    let tempHtml = `<li class="bookmark"><span class="mark-menu">${name}</span><button class="button is-xs is-inline-block" onclick="delMark('${ssid}')">×</button></li>`
+    let tempHtml = `<li class="bookmark is-hoverable"><span class="mark-menu">${name}</span><button class="button is-xs is-inline-block" onclick="delMark('${ssid}')">×</button></li>`
     $("#bookmarks").append(tempHtml)
 }
 

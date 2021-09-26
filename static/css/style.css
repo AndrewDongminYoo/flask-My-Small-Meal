@@ -1,14 +1,12 @@
+/*Bulma CSS 약간의 수정 들어간 것*/
+@import "bulma.css";
+/*배달 점포 카드 애니메이션*/
+@import "card.css";
+/*스크롤업 버튼*/
+@import "scroll_up.css";
+
 * {
     font-family: 'Hanna', sans-serif;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-@media (prefers-reduced-motion: reduce) {
-    html {
-        scroll-behavior: auto;
-    }
 }
 
 body {
@@ -19,7 +17,7 @@ body {
     grid-template-rows: repeat(8, 1fr);
     box-sizing: border-box !important;
 }
-
+/* 여기부터 헤더 히어로 */
 .header {
     display: flex;
     flex-direction: column;
@@ -34,18 +32,19 @@ body {
 }
 
 .header > h1.title  {
-    font-family: 'Jua', sans-serif;
+    font-family: 'Black Han Sans', sans-serif;
+    text-shadow: 4px 4px 0 saddlebrown;
     font-size: 70px;
     color: burlywood;
     margin-bottom: 30px;
 }
 
-.name {
-    font-family: "Roboto Slab", serif;
-    font-weight: bold;
-    font-size: 50px;
-    padding: 20px;
-}
+/*.name {*/
+/*    font-family: "Roboto Slab", serif;*/
+/*    font-weight: bold;*/
+/*    font-size: 50px;*/
+/*    padding: 20px;*/
+/*}*/
 
 div.container {
     padding: 20px;
@@ -55,20 +54,20 @@ div.container {
     width: auto;
     /*max-width: 1200px !important;*/
 }
-
+/*검색 인풋*/
 div.control {
     min-width: 200px;
     width: 300px;
     display: inline-flex;
 }
-
+/*카드 컬럼 부분*/
 .columns.is-max-desktop.is-mobile
 .columns:not(.is-desktop) {
     display: flex;
     max-width: 1200px;
     margin: auto;
 }
-
+/*버튼 부분*/
 button.button {
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -81,7 +80,6 @@ button.button {
     position: relative;
     vertical-align: top;
 }
-
 div.buttons {
     align-items: center;
     display: flex;
@@ -102,19 +100,20 @@ div.buttons {
 .button {
     margin-right: 10px;
 }
+/*버튼 끝*/
+/*배경 이미지 현재 미적용 중*/
+/*.bg-img {*/
+/*    width: 100vw;*/
+/*    height: 100vh;*/
+/*    overflow: hidden;*/
+/*}*/
 
-.bg-img {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-
-}
 /*여기서부터 즐겨찾기목록 띄우는 CSS*/
 h2.h2 {
     font-size: x-large;
     font-weight: 500;
 }
-
+/*즐겨찾기 삭제버튼*/
 button.button.is-xs {
     background-color: #00d1b2;
     border-color: transparent;
@@ -123,13 +122,13 @@ button.button.is-xs {
     font-size: 0.5rem;
     height: 22px;
 }
-
+/*즐겨찾기 리스트*/
 .bookmark {
     display: flex;
     justify-content: space-between;
     margin-top: 4px;
 }
-
+/*즐겨찾기 리스트 텍스트*/
 span.mark-menu {
     width: 8rem;
     overflow: hidden;
@@ -141,9 +140,9 @@ span.mark-menu {
 #aside {
     font-size: 14px;
     z-index: 100;
-    -webkit-transform: translate3d(1600px, 0, 0);
-    -moz-transform: translate3d(1600px, 0, 0);
-    transform: translate3d(1600px, 0, 0);
+    -webkit-transform: translate3d(300px, 0, 0);
+    -moz-transform: translate3d(300px, 0, 0);
+    transform: translate3d(300px, 0, 0);
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
     -ms-transition: all 0.2s;
@@ -164,6 +163,9 @@ span.mark-menu {
 }
 
 #aside {
+    padding: 10px;
+    background-color: #cfcfcf;
+    border-radius: 10px;
     position: sticky;
     top: 100px;
     right: 300px;
