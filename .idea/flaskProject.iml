@@ -18,6 +18,9 @@
     <orderEntry type="library" name="popper.js" level="application" />
     <orderEntry type="library" name="jquery-3.6.0" level="application" />
     <orderEntry type="library" name="uuid" level="application" />
+    <orderEntry type="library" name="hanna" level="application" />
+    <orderEntry type="library" name="all" level="application" />
+    <orderEntry type="library" name="aba5c3ead0" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

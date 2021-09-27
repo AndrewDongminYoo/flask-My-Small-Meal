@@ -13,7 +13,7 @@ def put_restaurant(ssid):
     """
     if list(col.find({"ssid": ssid}, {"_id": False})):
         return
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants/{ssid}/info/'
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants/{ssid}'
     headers = {
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
@@ -28,19 +28,28 @@ def put_restaurant(ssid):
         "ssid": ssid,
         "time": result.get("opening_time_description"),
         "phone": result.get("phone"),
-        "name": result.get("crmdata").get("company_name"),
-        "introduce": result.get("introduction_by_owner").get("introduction_text")
+        "name": result.get("name"),
+        "delivery": result.get("estimated_delivery_time"),
+        "address": result.get("address"),
+        "image": result.get("background_url")
         }
     col.insert_one(doc)
 
 
-
 def search_address(query):
+    """
+    사용자가 검색 창에 직접 주소를 입력했을 때, 카카오맵 api 를 통해 주소를 위도경도로 변환합니다.\n
+    :param query: 찾고자 하는 주소
+    :return: doc(dict) {
+    address: 찾고자 하는 주소 도로명 주소,
+    lat: 찾고자 하는 지역의 x좌표,
+    long: 찾고자 하는 지역의 y 좌표
+    }
+    """
     url = f'https://dapi.kakao.com/v2/local/search/address.json?query={query}'
     headers = {
         'Host': 'dapi.kakao.com',
         'Authorization': 'KakaoAK c67c5816d29490ab56c1fbf40bef220d'}
-
     req = requests.get(url, headers=headers)
     result = req.json()
     documents = result['documents'][0]
