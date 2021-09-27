@@ -80,6 +80,7 @@ button.button {
     position: relative;
     vertical-align: top;
 }
+
 div.buttons {
     align-items: center;
     display: flex;
