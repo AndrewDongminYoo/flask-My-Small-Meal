@@ -6,6 +6,26 @@ let longitude = 126.9723169
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
+
+}
+function modal(categories){
+    const categoryArr = [...categories]
+    $('body').append(`
+                <div class="modal" id="modal">
+                <div class="modal-background" onclick='$("#modal").removeClass("is-active")'></div>
+                <div class="modal-content">
+                    
+                </div>
+                <button class="modal-close is-large" aria-label="close"
+                        onclick='$("#modal").removeClass("is-active")'></button>
+            </div>
+    `)
+    $('#modal').addClass('is-active')
+    categoryArr.forEach(category=>{
+        $('.modal-content').append(`
+            <div>${category}</div>
+        `)
+    })
 }
 
 function geoRefresh() {
@@ -46,7 +66,8 @@ function geoFindMe() {
             }) // tempHtml append 하기
             let unique = new Set(categories)
             categories = [...unique]
-            window.alert(`${categories.join(', ')} 등이 있습니다. 당신의 선택은 ..??`)
+            // window.alert(`${categories.join(', ')} 등이 있습니다. 당신의 선택은 ..??`)
+            setTimeout(()=>modal(categories), 2000);
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
     }
     //위치 받아내기 실패했을 때 에러 핸들링 코드
