@@ -1,3 +1,4 @@
+
 let user = null
 let latitude = 37.5559598
 let longitude = 126.9723169
@@ -46,7 +47,17 @@ function geoFindMe() {
             }) // tempHtml append 하기
             let unique = new Set(categories)
             categories = [...unique]
-            window.alert(`${categories.join(', ')} 등이 있습니다. 당신의 선택은 ..??`)
+            modal()
+            categories = categories.filter((v,i)=>v!=='1인분주문')
+            shuffle(categories)
+            let tempHTML = "<span>[</span>";
+            categories.forEach((word, i)=>{
+                tempHTML += `<span class="word word-${i}">${word}, </span>`;
+            })
+            tempHTML += "<span>]</span>";
+                document.querySelector(".modal-content").innerHTML = tempHTML;
+                everybodyShuffleIt(categories).then((result)=>console.log(`오늘은 ${result} 먹자!!`))
+                document.querySelector("#modal").classList.remove('is-active')
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
     }
     //위치 받아내기 실패했을 때 에러 핸들링 코드
@@ -55,6 +66,16 @@ function geoFindMe() {
     }
 }
 
+function modal(){
+    $('body').append(`
+        <div class="modal" id="modal">
+        <div class="modal-background" onclick='$("#modal").hide()'></div>
+        <div class="modal-content"></div>
+        <button class="modal-close is-large" aria-label="close"
+        onclick='$("#modal").removeClass("is-active")'></button></div>
+    `)
+    $('#modal').addClass('is-active')
+}
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
 const userCheck = () => {
     user = localStorage.getItem("delivery-uuid")
@@ -122,7 +143,10 @@ function showBookmarks(user) {
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
     let { ssid, name, phone, time } = restaurant;
-    let tempHtml = `<li class="bookmark is-hoverable"><span class="mark-menu">${name}</span><button class="button is-xs is-inline-block" onclick="delMark('${ssid}')">×</button></li>`
+    let tempHtml = `
+<li class="bookmark is-hoverable panel-block">
+<span class="mark-menu">${name}</span>
+<button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button></li>`
     $("#bookmarks").append(tempHtml)
 }
 
@@ -219,3 +243,45 @@ window.addEventListener('hashchange', async ()=> {
         showCards(restaurant, i)
     }) // tempHtml append 하기
 })
+
+const timer = ms => new Promise(r=>setTimeout(r, ms))
+// 리스트의 순서를 뒤섞는 함수입니다.
+function shuffle(array) {
+  for (let i=array.length-1; i>0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array
+}
+
+async function everybodyShuffleIt(array) {
+    const result = shuffle(array)[0]
+    for (let i=0;i<array.length;i++) {
+        await timer(60)
+        $(`span.word.word-${i}`).addClass('is-red')
+        $("span.word").not(`.word-${i}`).removeClass('is-red')
+    }
+    for (let i=0;i<array.length;i++) {
+        await timer(100)
+        $(`span.word.word-${i}`).addClass('is-red')
+        $("span.word").not(`.word-${i}`).removeClass('is-red')
+    }
+    for (let i=0;i<array.length;i++) {
+        await timer(200)
+        $(`span.word.word-${i}`).addClass('is-red')
+        $("span.word").not(`.word-${i}`).removeClass('is-red')
+    }
+    for (let i=0;i<array.length;i++) {
+        await timer(600)
+        $("span.word").not(`.word-${i}`).removeClass('is-red')
+        $(`span.word.word-${i}`).addClass('is-red')
+        if ($(`span.word-${i}:contains('${result},')`).hasClass('is-red')) {
+            $(`button.button:contains(${result})`).removeClass('is-outlined')
+            await timer(100)
+            alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
+            $("#modal").hide()
+            return result
+        }
+    }
+}
+

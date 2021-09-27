@@ -10,13 +10,14 @@
 }
 
 body {
-    width: 100%;
+    width: initial;
     height: 100vh;
     margin: 0 auto;
     grid-template-columns: repeat(16, 1fr);
     grid-template-rows: repeat(8, 1fr);
     box-sizing: border-box !important;
 }
+
 /* 여기부터 헤더 히어로 */
 .header {
     display: flex;
@@ -31,7 +32,7 @@ body {
     background-image: url("../images/lucian-alexe.jpg");
 }
 
-.header > h1.title  {
+.header > h1.title {
     font-family: 'Black Han Sans', sans-serif;
     text-shadow: 4px 4px 0 saddlebrown;
     font-size: 70px;
@@ -54,12 +55,14 @@ div.container {
     width: auto;
     /*max-width: 1200px !important;*/
 }
+
 /*검색 인풋*/
 div.control {
     min-width: 200px;
     width: 300px;
     display: inline-flex;
 }
+
 /*카드 컬럼 부분*/
 .columns.is-max-desktop.is-mobile
 .columns:not(.is-desktop) {
@@ -67,6 +70,7 @@ div.control {
     max-width: 1200px;
     margin: auto;
 }
+
 /*버튼 부분*/
 button.button {
     -moz-appearance: none;
@@ -79,6 +83,7 @@ button.button {
     line-height: 1.5;
     position: relative;
     vertical-align: top;
+    background-color: white;
 }
 
 div.buttons {
@@ -101,6 +106,7 @@ div.buttons {
 .button {
     margin-right: 10px;
 }
+
 /*버튼 끝*/
 /*배경 이미지 현재 미적용 중*/
 /*.bg-img {*/
@@ -114,21 +120,27 @@ h2.h2 {
     font-size: x-large;
     font-weight: 500;
 }
+
 /*즐겨찾기 삭제버튼*/
 button.button.is-xs {
-    background-color: #00d1b2;
+    background-color: #ED2F55;
     border-color: transparent;
     color: #fff;
-    border-radius: 9999px;
+    border-radius: 5px;
     font-size: 0.5rem;
-    height: 22px;
+    height: 23px;
+    margin-left: 20px;
+    margin-right: 0;
+    text-align: center;
 }
+
 /*즐겨찾기 리스트*/
 .bookmark {
     display: flex;
     justify-content: space-between;
     margin-top: 4px;
 }
+
 /*즐겨찾기 리스트 텍스트*/
 span.mark-menu {
     width: 8rem;
@@ -140,7 +152,7 @@ span.mark-menu {
 /*즐겨찾기 목록 부드럽게 오른쪽에서 슬라이드로 나타나는 효과 + 스크롤따라 움직임*/
 #aside {
     font-size: 14px;
-    z-index: 100;
+    z-index: 10;
     -webkit-transform: translate3d(300px, 0, 0);
     -moz-transform: translate3d(300px, 0, 0);
     transform: translate3d(300px, 0, 0);
@@ -164,10 +176,80 @@ span.mark-menu {
 }
 
 #aside {
-    padding: 10px;
-    background-color: #cfcfcf;
     border-radius: 10px;
     position: sticky;
     top: 100px;
     right: 300px;
+}
+
+/*네비게이션 탭 */
+div.tabs {
+    margin-bottom: 0;
+    background-color: seashell;
+}
+
+@media screen and (min-width: 769px) {
+    .modal-content, .modal-card {
+        margin: 0 auto;
+        max-height: calc(100vh - 40px);
+        width: 640px;
+    }
+}
+
+.modal-content {
+    overflow: auto;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: xxx-large;
+    z-index: 3;
+    width: 1000px;
+    height: 300px;
+    max-height: calc(100vh - 160px);
+    margin: 0 20px;
+    padding: 30px;
+    top: 40%;
+    left: 20%;
+    border: 4px solid lightgrey;
+    border-bottom: 3px solid black;
+    background-color: seashell;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
+
+
+#modal.is-active {
+    display: block;
+}
+
+.word.is-red {
+    color: #ED2F55;
+}
+
+.modal {
+    align-items: center;
+    display: block;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    position: fixed;
+    z-index: 40;
+}
+
+.modal-background {
+    background-color: rgba(10, 10, 10, 0.86);
+        bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.is-large.modal-close {
+    height: 32px;
+    max-height: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    min-width: 32px;
+    width: 32px;
 }
