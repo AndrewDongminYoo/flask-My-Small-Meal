@@ -1,12 +1,12 @@
-from flask import Flask, request, jsonify, url_for, render_template, Response
-from pymongo import MongoClient
-import requests
-import json
+from flask import Flask, request, jsonify, url_for, render_template, Response  # 플라스크 기본 메소드
+from pymongo import MongoClient  # 몽고디비
+import requests  # 서버 요청 패키지
+import json  # json 응답 핸들링
 import utils  # 내부 파일 모듈화
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
-count = 24  # 3의 배수 권장
+count = 45  # 3의 배수 권장
 cat = "1인분주문"
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance", "estimated_delivery_time"]
@@ -35,18 +35,20 @@ def like() -> Response:
     uuid = request.json.get('uuid')
     ssid = request.json.get('ssid')
     action = request.json.get('action')
-    user = list(db.users.find({"uuid": uuid}, {"_id": False}))[0]
+    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
     utils.put_restaurant(ssid)
     if action == 'like':
         if not user:
             good_list = [ssid]
             db.users.insert_one({"uuid": uuid, "like_list": good_list})
+        elif ssid in user[0]['like_list']:
+            pass
         else:
             good_list = user[0]['like_list']
             good_list.append(ssid)
             db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     else:
-        if user:
+        if user and ssid in user[0]['like_list']:
             good_list = user[0]['like_list']
             good_list.remove(ssid)
             db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
@@ -61,9 +63,14 @@ def show_bookmark() -> Response:
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = db.users.find({"uuid": uuid}, {"_id": False})
-    good_list = user['like_list']
-    return jsonify({"restaurants": good_list})
+    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
+    good_list = user[0]['like_list']
+    restaurants = []
+    for restaurant in good_list:
+        rest = list(db.restaurant.find({"ssid": restaurant}, {"_id": False}))
+        if len(rest) > 0:
+            restaurants.extend(rest)
+    return jsonify({"restaurants": restaurants})
 
 
 @app.route('/api/shop', methods=['GET'])
@@ -75,6 +82,10 @@ def get_restaurant() -> Response:
     """
     lat = request.args.get('lat')
     long = request.args.get('lng')
+    global order
+    order = request.args.get('order')
+    if not order:
+        order = "rank"
     import requests
     url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category={cat}&items={count}&lat={lat}&lng={long}&order={order}&page=0'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',

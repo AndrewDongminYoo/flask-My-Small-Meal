@@ -1,73 +1,92 @@
+/*Bulma CSS 약간의 수정 들어간 것*/
+@import "bulma.css";
+/*배달 점포 카드 애니메이션*/
+@import "card.css";
+/*스크롤업 버튼*/
+@import "scroll_up.css";
+
 * {
-    font-family: 'Jua', sans-serif;
+    font-family: 'Hanna', sans-serif;
 }
 
 body {
-  width: 100%;
-  height: 100vh;
-  margin: 0 auto;
-  grid-template-columns: repeat(16, 1fr);
-  grid-template-rows: repeat(8, 1fr);
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    grid-template-columns: repeat(16, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    box-sizing: border-box !important;
 }
-
+/* 여기부터 헤더 히어로 */
 .header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    height: 250px;
+    background-color: #ffebcd;
+    background-size: cover;
+    background-repeat: repeat-x;
+    background-image: url("../images/lucian-alexe.jpg");
 }
 
-.header {
-  background: #ffebcd;
-  grid-column: span 16;
-  grid-row: span 2;
+.header > h1.title  {
+    font-family: 'Black Han Sans', sans-serif;
+    text-shadow: 4px 4px 0 saddlebrown;
+    font-size: 70px;
+    color: burlywood;
+    margin-bottom: 30px;
 }
 
-.name {
-  font-family: "Roboto Slab", serif;
-  font-weight: bold;
-  font-size: 50px;
-  padding: 20px;
-}
+/*.name {*/
+/*    font-family: "Roboto Slab", serif;*/
+/*    font-weight: bold;*/
+/*    font-size: 50px;*/
+/*    padding: 20px;*/
+/*}*/
 
-.container {
+div.container {
     padding: 20px;
     flex-grow: 1;
     margin: 0 auto;
     position: relative;
     width: auto;
+    /*max-width: 1200px !important;*/
 }
-
-.card {
-    background-color: #fff;
-    border-radius: .25rem;
-    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
-    color: #4a4a4a;
-    max-width: 100%;
-    position: relative;
-    margin: 10px 0;
+/*검색 인풋*/
+div.control {
+    min-width: 200px;
+    width: 300px;
+    display: inline-flex;
 }
-
+/*카드 컬럼 부분*/
 .columns.is-max-desktop.is-mobile
 .columns:not(.is-desktop) {
     display: flex;
     max-width: 1200px;
     margin: auto;
 }
-
+/*버튼 부분*/
 button.button {
     -moz-appearance: none;
     -webkit-appearance: none;
     align-items: center;
     border: 1px solid transparent;
-    border-radius: 4px;
     box-shadow: none;
     display: inline-flex;
     justify-content: flex-start;
     line-height: 1.5;
     position: relative;
     vertical-align: top;
+}
+
+div.buttons {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: unset;
 }
 
 .button.is-warning {
@@ -79,10 +98,76 @@ button.button {
     margin-right: .5rem;
 }
 
-div.buttons {
-    align-items: center;
+.button {
+    margin-right: 10px;
+}
+/*버튼 끝*/
+/*배경 이미지 현재 미적용 중*/
+/*.bg-img {*/
+/*    width: 100vw;*/
+/*    height: 100vh;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*여기서부터 즐겨찾기목록 띄우는 CSS*/
+h2.h2 {
+    font-size: x-large;
+    font-weight: 500;
+}
+/*즐겨찾기 삭제버튼*/
+button.button.is-xs {
+    background-color: #00d1b2;
+    border-color: transparent;
+    color: #fff;
+    border-radius: 9999px;
+    font-size: 0.5rem;
+    height: 22px;
+}
+/*즐겨찾기 리스트*/
+.bookmark {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: unset;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+/*즐겨찾기 리스트 텍스트*/
+span.mark-menu {
+    width: 8rem;
+    overflow: hidden;
+    height: 1rem;
+    display: inline-block !important;
+}
+
+/*즐겨찾기 목록 부드럽게 오른쪽에서 슬라이드로 나타나는 효과 + 스크롤따라 움직임*/
+#aside {
+    font-size: 14px;
+    z-index: 100;
+    -webkit-transform: translate3d(300px, 0, 0);
+    -moz-transform: translate3d(300px, 0, 0);
+    transform: translate3d(300px, 0, 0);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+#aside.open {
+    overflow-y: auto;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+#aside {
+    padding: 10px;
+    background-color: #cfcfcf;
+    border-radius: 10px;
+    position: sticky;
+    top: 100px;
+    right: 300px;
 }
