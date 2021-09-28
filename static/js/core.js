@@ -25,8 +25,8 @@ async function getFoods(lat, long) {
 
 // geoLocation api 이용한 현재 사용자의 위치 받아내는 코드
 function geoFindMe() {
+
     if (!navigator.geolocation) {
-        window.alert('위치 권한을 허용해 주세요!!')
         console.log('Geolocation is not supported by your browser');
     } else {
         console.log('Locating…');
@@ -65,7 +65,7 @@ function geoFindMe() {
         console.error(e)
     }
 }
-
+// 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
 function modal(){
     $('body').append(`
         <div class="modal" id="modal">
@@ -243,7 +243,7 @@ window.addEventListener('hashchange', async ()=> {
         showCards(restaurant, i)
     }) // tempHtml append 하기
 })
-
+// 비동기처리 방식 자바스크립트를 고려한 타이머 함수
 const timer = ms => new Promise(r=>setTimeout(r, ms))
 // 리스트의 순서를 뒤섞는 함수입니다.
 function shuffle(array) {
@@ -254,6 +254,7 @@ function shuffle(array) {
   return array
 }
 
+// 모달에 띄운 화면 속 텍스트가 번갈아가면서 빨간색으로 변하다가 멈추고 결과 출력
 async function everybodyShuffleIt(array) {
     const result = shuffle(array)[0]
     for (let i=0;i<array.length;i++) {
