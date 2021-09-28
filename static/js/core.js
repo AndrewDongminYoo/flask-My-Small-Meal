@@ -7,6 +7,7 @@ let longitude = 126.9723169
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
+    $(document).tooltip(); // 툴팁기능추가
 }
 
 function geoRefresh() {
