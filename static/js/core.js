@@ -7,6 +7,7 @@ let longitude = 126.9723169
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
+    $(document).tooltip(); // 툴팁기능추가
 }
 
 function geoRefresh() {
@@ -144,7 +145,7 @@ function showBookmarks(user) {
 const bookMark = (restaurant) => {
     let { ssid, name, phone, time } = restaurant;
     let tempHtml = `
-<li class="bookmark is-hoverable panel-block">
+<li class="bookmark is-hoverable panel-block" title="${'전화번호 : '+phone}">
 <span class="mark-menu">${name}</span>
 <button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button></li>`
     $("#bookmarks").append(tempHtml)
