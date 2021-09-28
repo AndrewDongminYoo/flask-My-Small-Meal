@@ -144,7 +144,7 @@ function showBookmarks(user) {
 const bookMark = (restaurant) => {
     let { ssid, name, phone, time } = restaurant;
     let tempHtml = `
-<li class="bookmark is-hoverable panel-block">
+<li class="bookmark is-hoverable panel-block" title="${'전화번호 : '+phone}">
 <span class="mark-menu">${name}</span>
 <button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button></li>`
     $("#bookmarks").append(tempHtml)
