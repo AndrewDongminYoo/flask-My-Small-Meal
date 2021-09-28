@@ -4,8 +4,8 @@ import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
 import utils  # 내부 파일 모듈화
 app = Flask(__name__)
-# client = MongoClient('mongodb://admin:test@13.209.147.89', 27017)
-client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
+client = MongoClient('mongodb://admin:test@13.209.147.89', 27017)
+# client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
 count = 45  # 3의 배수 권장
 cat = "1인분주문"
