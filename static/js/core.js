@@ -7,7 +7,7 @@ let longitude = 126.9723169
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
-    $(document).tooltip(); // 툴팁기능추가
+    // $(document).tooltip(); // 툴팁기능추가
 }
 
 function geoRefresh() {
@@ -49,7 +49,7 @@ function geoFindMe() {
             let unique = new Set(categories)
             categories = [...unique]
             modal()
-            categories = categories.filter((v,i)=>v!=='1인분주문')
+            categories = categories.filter((v)=>v!=='1인분주문')
             shuffle(categories)
             let tempHTML = "<span>[</span>";
             categories.forEach((word, i)=>{
@@ -70,7 +70,7 @@ function geoFindMe() {
 function modal(){
     $('body').append(`
         <div class="modal" id="modal">
-        <div class="modal-background" onclick='$("#modal").hide()'></div>
+        <div class="modal-background" id="modal-bg" onclick='$("#modal").hide()'></div>
         <div class="modal-content"></div>
         <button class="modal-close is-large" aria-label="close"
         onclick='$("#modal").removeClass("is-active")'></button></div>
@@ -91,22 +91,24 @@ const userCheck = () => {
 
 // 특정 식당을 즐겨찾기 하는 코드
 function keep(id) {
-    event.target.classList.add('is-hidden')
+    const {nextElementSibling, classList} = event.target;
+    classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({uuid: user, ssid: id, action: 'like'});
     sendLike(user, headers, body)
-    event.target.nextElementSibling.classList.remove('is-hidden')
+    nextElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요하기
 
 // 특정 식당을 즐겨찾기 삭제하는 코드
 function remove(id) {
-    event.target.classList.add('is-hidden')
+    const {previousElementSibling, classList} = event.target;
+    classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({uuid: user, ssid: id, action: 'dislike'});
     sendLike(user, headers, body)
-    event.target.previousElementSibling.classList.remove('is-hidden')
+    previousElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요 취소하기
 
 // remove 코드의 메인 부분만을 추출한 코드 (북마크 탭에서 직접 삭제 다루기 위해 분리)
@@ -122,7 +124,7 @@ function sendLike (user, headers, body) {
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
-        .then((r) => {
+        .then(() => {
             showBookmarks(user);
         })
         .catch((e) => console.log(e));
@@ -145,7 +147,7 @@ function showBookmarks(user) {
 const bookMark = (restaurant) => {
     let { ssid, name, phone, time } = restaurant;
     let tempHtml = `
-<li class="bookmark is-hoverable panel-block" title="${'전화번호 : '+phone}">
+<li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}">
 <span class="mark-menu">${name}</span>
 <button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button></li>`
     $("#bookmarks").append(tempHtml)
@@ -156,7 +158,7 @@ const showCards = (restaurant, i) => {
     let {
         id, name, reviews,
         owner, categories,
-        image, logo, address,
+        image, address,
         rating, time, min_order
     } = restaurant;
     // 이미지가 없는 경우 VIEW 가 좋지 않아 리턴시킨다.
@@ -168,7 +170,7 @@ const showCards = (restaurant, i) => {
             <div class="image-box card-image">
                 <figure class="image">
                     <img class="food-image image" src="${image}"
-                         alt="food-thumbnail">
+                         alt="${name}-food-thumbnail">
                 </figure>
             </div>
             <div class="tool-box">

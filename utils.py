@@ -26,9 +26,10 @@ def put_restaurant(ssid):
     result = req.json()
     doc = {
         "ssid": ssid,
-        "time": result.get("opening_time_description"),
+        "time": result.get("open_time_description"),
         "phone": result.get("phone"),
         "name": result.get("name"),
+        "categories": result.get("categories"),
         "delivery": result.get("estimated_delivery_time"),
         "address": result.get("address"),
         "image": result.get("background_url")
