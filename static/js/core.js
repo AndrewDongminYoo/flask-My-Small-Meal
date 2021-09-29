@@ -1,4 +1,3 @@
-
 let user = null
 let latitude = 37.5559598
 let longitude = 126.9723169
@@ -168,7 +167,7 @@ const showCards = (restaurant, i) => {
     let tempHtml = `
         <div class="food-card card">
             <div class="image-box card-image">
-                <figure class="image">
+                <figure class="image" title="${time}">
                     <img class="food-image image" src="${image}"
                          alt="${name}-food-thumbnail">
                 </figure>
