@@ -64,7 +64,9 @@ def show_bookmark() -> Response:
     """
     uuid = request.args.get('uuid')
     user = list(db.users.find({"uuid": uuid}, {"_id": False}))
-    good_list = user[0]['like_list']
+    good_list = []
+    if user:
+        good_list = user[0]['like_list']
     restaurants = []
     for restaurant in good_list:
         rest = list(db.restaurant.find({"ssid": restaurant}, {"_id": False}))
