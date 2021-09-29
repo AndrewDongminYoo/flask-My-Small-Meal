@@ -1,4 +1,3 @@
-
 let user = null
 let latitude = 37.5559598
 let longitude = 126.9723169
@@ -138,15 +137,70 @@ function showBookmarks(user) {
         })
         .catch((e) => console.log(e));
     $("#aside").addClass("open");
-} // 모든 즐겨찾기 상품 조회하기
+}
+
+// 모든 즐겨찾기 상품 조회하기
+
+// 즐겨찾기 클릭시 모달창 오픈
+function popUp(ssid) {
+    let lowModal = document.querySelector('.low-modal');
+    let likeBtn = event.currentTarget;
+    $.ajax({
+        url:`/api/detail?ssid=${ssid}`,
+        type:'GET',
+        data: {},
+        success: (function(restaurant){
+            let {ssid, image, name, address, time, price, phone, categories} = restaurant;
+            let tempHtml = `<div class="low-modal-body">
+                        <div class="pop-up-card">
+                            <div class="pop-card-head">
+                                <img class="pop-card-head-image" src="${image}" alt="${name}">
+                            </div>
+                            <div class="pop-card-content-1">
+                                <div class="pop-card-store-name">"${name}"</div>
+                                <div class="pop-card-hash">
+                                    {__buttons__}
+                                </div>
+                            </div>
+                            <div class="pop-card-content-2">
+                                <div class="pop-card-address">${address}</div>
+                                <div class="pop-card-schedule">영업시간: ${time}</div>
+                                <div class="pop-card-min">${price}원 이상 주문가능</div>
+                                <div class="pop-card-phone-number">${phone}</div>
+                            </div>
+                            <div class="pop-card-content-3">
+                                <img class="pop-card-code" src="/static/images/barcode.png" alt="barcod-imag">
+                            </div>
+                        </div>
+                     </div>`
+                // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
+                let btn = ""
+                categories.forEach((tag)=>{
+                    btn += `<span>#${tag}</span>`
+                })
+                lowModal.innerHTML = tempHtml.replace("{__buttons__}", btn)
+                // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
+                if (!(lowModal.classList.value.includes('show')) && !(likeBtn.classList.value.includes('paint-white'))) {
+                    lowModal.classList.add('show');
+                    likeBtn.classList.add('paint-white');
+                // 팝업창을 해제하려면 해당 즐겨찾기 메뉴의 흰색 버튼을 다시 눌러야지만 팝업창을 끌 수 있다.
+                } else if(lowModal.classList.value.includes('show') && likeBtn.classList.value.includes('paint-white')) {
+                    lowModal.classList.remove('show');
+                    likeBtn.classList.remove('paint-white');
+                };
+
+      })
+    })
+}
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
     let { ssid, name, phone, time } = restaurant;
     let tempHtml = `
-<li class="bookmark is-hoverable panel-block">
-<span class="mark-menu">${name}</span>
-<button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button></li>`
+                    <li class="bookmark is-hoverable panel-block" onclick="popUp('${ssid}')">
+                        <span class="mark-menu">${name}</span>
+                        <button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button>
+                    </li>`
     $("#bookmarks").append(tempHtml)
 }
 
@@ -255,23 +309,23 @@ function shuffle(array) {
 }
 
 async function everybodyShuffleIt(array) {
-    const result = shuffle(array)[0]
-    for (let i=0;i<array.length;i++) {
+    const result = shuffle(array)[0];
+    for (let i = 0; i < array.length; i++) {
         await timer(60)
         $(`span.word.word-${i}`).addClass('is-red')
         $("span.word").not(`.word-${i}`).removeClass('is-red')
     }
-    for (let i=0;i<array.length;i++) {
+    for (let i = 0; i < array.length; i++) {
         await timer(100)
         $(`span.word.word-${i}`).addClass('is-red')
         $("span.word").not(`.word-${i}`).removeClass('is-red')
     }
-    for (let i=0;i<array.length;i++) {
+    for (let i = 0; i < array.length; i++) {
         await timer(200)
         $(`span.word.word-${i}`).addClass('is-red')
         $("span.word").not(`.word-${i}`).removeClass('is-red')
     }
-    for (let i=0;i<array.length;i++) {
+    for (let i = 0; i < array.length; i++) {
         await timer(600)
         $("span.word").not(`.word-${i}`).removeClass('is-red')
         $(`span.word.word-${i}`).addClass('is-red')
@@ -284,4 +338,6 @@ async function everybodyShuffleIt(array) {
         }
     }
 }
+
+
 
