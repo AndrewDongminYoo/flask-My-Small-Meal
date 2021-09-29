@@ -1,2 +1,0 @@
-IAM Access Key: AKIAQ4NOTLY3FW3C6G6L
-IAM Access Secret Key: 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

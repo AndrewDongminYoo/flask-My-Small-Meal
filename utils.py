@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 import requests
-client = MongoClient('mongodb://admin:test@locatlhost', 27017)
+client = MongoClient('mongodb://admin:test@localhost', 27017)
 db = client.dbGoojo
 col = db.restaurant
 
