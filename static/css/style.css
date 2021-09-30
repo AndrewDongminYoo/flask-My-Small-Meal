@@ -257,4 +257,17 @@ div.tabs {
 #weather-box{
     margin-left: 10px;
     margin-right: 10px;
+    transition: all 0.2s;
+    border-radius: 10px;
+    position: sticky;
+    top: 100px;
+    right: 300px;
+    font-size: 14px;
+    z-index: 10;
+    padding: 10px;
+}
+
+.weather-title {
+    text-align: -webkit-center;
+    background-color: aliceblue;
 }
