@@ -5,9 +5,9 @@ let longitude = 126.1699723
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
-    NoGeoDontWorry().catch()
+    NoGeoDontWorry().then()
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
-    weather().catch()
+    weather().then()
     setInterval(() => weather(), 300000)
 }
 
