@@ -103,7 +103,6 @@ def get_restaurant():
                              'Chrome/93.0.4577.82 Safari/537.36',
                'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
     req = requests.get(url, headers=headers)
-    print(req.text)
     res = json.loads(req.text)
     shops = res.get('restaurants')
     restaurants = list()

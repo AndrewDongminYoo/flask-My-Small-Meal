@@ -12,7 +12,6 @@ window.onload = function () {
 }
 
 async function weather() {
-    console.log("weather")
     const weatherBox = $("#weather-box")
     weatherBox.empty();
     let temp_html = `
@@ -33,7 +32,7 @@ async function weather() {
         'lat=' + latitude.toFixed(7) +
         '&lon=' + longitude.toFixed(7) +
         `&appid=${apikey}&lang=kr&units=metric`;
-    const response = await fetch(url).then((res) => res.json()).catch((e)=>console.log(e))
+    const response = await fetch(url).then((res) => res.json()).catch()
     const { current, daily } = await response;
     const { feels_like, humidity, weather, wind_speed } = await current;
     const { description, icon } = await weather[0];
@@ -70,7 +69,6 @@ async function weather() {
     })
 }
 function geoRefresh() {
-    console.log("geoRefresh")
     $(".column-0").empty()
     $(".column-1").empty()
     $(".column-2").empty()
@@ -80,7 +78,6 @@ function geoRefresh() {
 
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
-    console.log("getFoods", lat, long)
     if (!(lat && long)){
         const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
         return await response.json()
@@ -92,18 +89,15 @@ async function getFoods(lat, long) {
 
 // geoLocation api 이용한 현재 사용자의 위치 받아내는 코드
 function geoFindMe() {
-    console.log("geoFindMe")
     if (!navigator.geolocation) {
         console.log('Geolocation is not supported by your browser');
     } else {
-        console.log('Locating…');
         navigator.geolocation.getCurrentPosition(success, error);
     }
 }
 
 //위치 받아내기 성공했을 때의 메소드
 function success(position) {
-    console.log(position)
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     // weather(latitude,longitude)
@@ -132,12 +126,9 @@ function success(position) {
 }
 
 //위치 받아내기 실패했을 때 에러 핸들링 코드
-function error(e) {
-    console.error(e)
-}
+const error = (e) => console.error(e);
 
 async function NoGeoDontWorry() {
-    console.log("NoGeoDontWorry")
     const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
     let restaurants = await response.json()
     $(".column-0").empty()
@@ -150,10 +141,7 @@ async function NoGeoDontWorry() {
 }
 
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
-function closeModal() {
-    // $("#modal").removeClass("is-active")
-    // $("div").remove("#modal")
-}
+
 function modal() {
     $('#modal').addClass('is-active')
 }
@@ -164,7 +152,6 @@ const userCheck = () => {
     if (user === null) {
         user = uuidv4()
         localStorage.setItem("delivery-uuid", user)
-        console.log(user)
     }
     // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
     setTimeout(() => showBookmarks(user), 2000)
@@ -244,7 +231,6 @@ const bookMark = (restaurant) => {
 window.addEventListener('hashchange', async () => {
     let hash = window.location.hash.substring(1)
     const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
-    console.log(response)
     let restaurants = await response.json()
     $(".column-0").empty()
     $(".column-1").empty()
@@ -349,7 +335,6 @@ function shuffle(array) {
 
 // 모달에 띄운 화면 속 텍스트가 번갈아가면서 빨간색으로 변하다가 멈추고 결과 출력
 async function everybodyShuffleIt(array) {
-    console.log("shuffle roulette!")
     const result = shuffle(array)[0]
     for (let i = 0; i < array.length; i++) {
         await timer(60)
