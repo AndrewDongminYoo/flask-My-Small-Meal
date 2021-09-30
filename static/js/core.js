@@ -27,8 +27,8 @@ async function weather() {
         </tr></thead></table>
         `;
     await weatherBox.append(temp_html);
-    let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
-    const url = 'http://api.openweathermap.org/data/2.5/onecall?' +
+    let apikey = "6552651500cd01aef738ddb19406f5b5"
+    const url = 'https://api.openweathermap.org/data/2.5/onecall?' +
         'lat=' + latitude.toFixed(7) +
         '&lon=' + longitude.toFixed(7) +
         `&appid=${apikey}&lang=kr&units=metric`;
