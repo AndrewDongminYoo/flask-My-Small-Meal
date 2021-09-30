@@ -24,7 +24,7 @@ def hello_world():  # put application's code here
 
 
 @app.route('/api/like', methods=['POST'])
-def like() -> Response:
+def like():
     """
     메인 로직 중 하나입니다. 웬만하면 건드리지 말기..!
     사용자의 id와 점포의 id를 POST 요청의 바디에 담아와,
@@ -57,7 +57,7 @@ def like() -> Response:
 
 
 @app.route('/api/like', methods=['GET'])
-def show_bookmark() -> Response:
+def show_bookmark():
     """
     사용자의 uuid 를 조회해 좋아요한 상품들의 리스트를 불러온다.
     * 추가할 내용 restaurants DB 에서 해당 상품들 조회해 오기\n
@@ -77,7 +77,7 @@ def show_bookmark() -> Response:
 
 
 @app.route('/api/shop', methods=['GET'])
-def get_restaurant() -> Response:
+def get_restaurant():
     """
     위치 권한 허용 시 셋팅되는 기본 메소드. 요기요 서버에 사용자의 위도와 경도를 보내 주변 배달 점포를 조회해서
     필요한 데이터만 가공해서 리스트 형태로 프론트 엔드에 넘긴다.\n
