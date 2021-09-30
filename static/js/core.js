@@ -215,6 +215,12 @@ function delMark(ssid) {
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike'});
     sendLike(user, headers, body)
+    changeBtn(ssid)
+}
+
+function changeBtn(ssid){
+    $(`#delete-${ssid}`).addClass("is-hidden")
+    $(`#keep-${ssid}`).removeClass("is-hidden")
 }
 
 // 즐겨찾기에 등록 or 해제 하는 코드의 공통 코드 추출
@@ -274,8 +280,8 @@ const showCards = (restaurant, i) => {
             <div class="tool-box">
                 <div class="book-mark">
                     <div class="store_name">${name}<br>⭐${rating}점</div>
-                    <button class="button book-button" onclick="keep('${id}')">⭐keep</button>
-                    <button class="button book-button is-hidden" onclick="remove('${id}')">🌟delete</button>
+                    <button class="button book-button" id="${`keep-${id}`}" onclick="keep('${id}')">⭐keep</button>
+                    <button class="button book-button is-hidden" id="${`delete-${id}`}" onclick="remove('${id}')">🌟delete</button>
                 </div>
                 
                 <div class="buttons are-small" id="btns${i}">{__buttons__}</div>
