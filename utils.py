@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from pymongo import MongoClient
 import requests
 client = MongoClient('mongodb://test:test@localhost', 27017)
