@@ -272,6 +272,36 @@ div.tabs {
     background-color: aliceblue;
 }
 
+#footer{
+    margin-left: 15px;
+    margin-right: 30px;
+    padding: 10px;
+    flex: none;
+    width: 20%;
+}
+
+.footer-img {
+    width: 50px;
+    padding-top: 10px;
+}
+
+.footer-copyright {
+
+    font-size: 10px;
+}
+
+#footer.panel.panel-heading {
+    padding: 5px 10px 5px 10px;
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+.footer-content {
+    margin: 10px 0px 10px 10px;
+    font-size: 13px;
+    padding-bottom: 10px;
+}
+
 ul#bookmarks {
     width: 100%;
 }
