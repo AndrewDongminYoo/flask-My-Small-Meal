@@ -99,10 +99,10 @@
       <recent name="C:\Users\ydm27\Desktop\sparta-study\flaskProject\static\css" />
     </key>
   </component>
-  <component name="RunManager" selected="Flask server.Flask (myproject.py)">
-    <configuration name="Flask (myproject.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Flask server.Flask (app.py)">
+    <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="flaskProject" />
-      <option name="target" value="$PROJECT_DIR$/myproject.py" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -117,7 +117,7 @@
     </configuration>
     <configuration name="flaskProject" type="Python.FlaskServer">
       <module name="flaskProject" />
-      <option name="target" value="$PROJECT_DIR$/myproject.py" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -132,7 +132,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flask server.Flask (myproject.py)" />
+        <item itemvalue="Flask server.Flask (app.py)" />
       </list>
     </recent_temporary>
   </component>
@@ -156,14 +156,7 @@
       <workItem from="1632788764094" duration="25088000" />
       <workItem from="1632877041429" duration="2345000" />
       <workItem from="1632885518452" duration="6020000" />
-      <workItem from="1632925970398" duration="10513000" />
-    </task>
-    <task id="LOCAL-00001" summary="project setting">
-      <created>1632379184572</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1632379184572</updated>
+      <workItem from="1632925970398" duration="10557000" />
     </task>
     <task id="LOCAL-00002" summary="Readme image">
       <created>1632384665861</created>
@@ -501,7 +494,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632969261791</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="it's not node.js">
+      <created>1632969370635</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1632969370636</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
