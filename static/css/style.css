@@ -271,3 +271,7 @@ div.tabs {
     text-align: -webkit-center;
     background-color: aliceblue;
 }
+
+ul#bookmarks {
+    width: 100%;
+}

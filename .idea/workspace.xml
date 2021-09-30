@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="주현님이 구현하신 날씨 수정 ::🌦">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/core.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,14 +159,7 @@
       <workItem from="1632877041429" duration="2345000" />
       <workItem from="1632885518452" duration="6020000" />
       <workItem from="1632925970398" duration="11029000" />
-      <workItem from="1632977756895" duration="7349000" />
-    </task>
-    <task id="LOCAL-00012" summary="feat:: button toggle🔥">
-      <created>1632474530609</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1632474530609</updated>
+      <workItem from="1632977756895" duration="7896000" />
     </task>
     <task id="LOCAL-00013" summary="feat:: button toggle🔥">
       <created>1632475513151</created>
@@ -505,7 +497,14 @@
       <option name="project" value="LOCAL" />
       <updated>1632989913314</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="주현님이 구현하신 날씨 수정 ::🌦">
+      <created>1632990327520</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1632990327521</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -610,6 +609,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flaskProject$Flask__myproject_py_.coverage" NAME="Flask (myproject.py) Coverage Results" MODIFIED="1632965930923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1632989240386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1632990772689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
