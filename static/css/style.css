@@ -150,6 +150,7 @@ span.mark-menu {
 }
 
 /*즐겨찾기 목록 부드럽게 오른쪽에서 슬라이드로 나타나는 효과 + 스크롤따라 움직임*/
+
 #aside {
     font-size: 14px;
     z-index: 10;
@@ -252,4 +253,10 @@ div.tabs {
     min-height: 32px;
     min-width: 32px;
     width: 32px;
+}
+
+#weather-box{
+    width: 20%;
+    position: absolute;
+    top: 35%;
 }

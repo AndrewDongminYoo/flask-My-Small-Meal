@@ -1,12 +1,103 @@
 let user = null
 let latitude = 37.5559598
 let longitude = 126.9723169
+let weatherClearId=null
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
     // $(document).tooltip(); // 툴팁기능추가
+    weatherClearId = setInterval(weather,5000)
+}
+
+function weather(){
+        apikey = "cfc258c75e1da2149c33daffd07a911d"
+        weatherBoxCnt = $('#weather-box').length;
+        if(!weatherBoxCnt){
+            let weatherBox=`<div id="weather-box"></div>`
+            $("body").append(weatherBox)
+        }
+
+        $("#weather-box").empty();
+        let temp_html = `
+          <div>현재날씨</div>
+          <table class="table is-narrow bm-current-table">
+            <thead>
+              <tr>
+                <th>온도</th>
+                <th>습도</th>
+                <th>풍속</th>
+                <th>날씨</th>
+                <th>아이콘</th>
+              </tr>
+            </thead>
+          </table>
+        `;
+        $("#weather-box").append(temp_html);
+        temp_html = `
+          <div>7일 동안의 일일 예보</div>
+            <table class="table is-narrow bm-daily-table">
+              <thead>
+                <tr>
+                  <th>아침온도</th>
+                  <th>낮온도</th>
+                  <th>저녁온도</th>
+                  <th>밤온도</th>
+                  <th>습도</th>
+                  <th>풍속</th>
+                  <th>날씨</th>
+                  <th>아이콘</th>
+                </tr>
+              </thead>
+            </table>
+        `;
+        $("#weather-box").append(temp_html);
+        $.ajax(
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apikey}&lang=kr&units=metric`
+        )
+          .done(function (response) {
+            const { current, daily } = response;
+            const { feels_like, humidity, weather, wind_speed } = current;
+            const { description, icon } = weather[0];
+
+            temp_html = `
+                <tbody>
+                    <tr>
+                        <td>${Math.floor(feels_like) + " ℃"}</td>
+                        <td>${humidity + " %"}</td>
+                        <td>${Math.floor(wind_speed) + " m/s"}</td>
+                        <td>${description}</td>
+                        <td><img src="${`http://openweathermap.org/img/w/${icon}.png`}" alt="${description}"></td>
+                    </tr>
+                </tbody>
+            `;
+            $(".bm-current-table").append(temp_html);
+
+            daily.forEach((element) => {
+              const { feels_like, humidity, weather, wind_speed } = element;
+              const { day, night, eve, morn } = feels_like;
+              const { description, icon } = weather[0];
+
+              temp_html = `
+                    <tbody>
+                        <tr>
+                        <td>${Math.floor(morn) + " ℃"}</td>
+                        <td>${Math.floor(day) + " ℃"}</td>
+                        <td>${Math.floor(eve) + " ℃"}</td>
+                        <td>${Math.floor(night) + " ℃"}</td>
+                        <td>${humidity + " %"}</td>
+                        <td>${Math.floor(wind_speed) + " m/s"}</td>
+                        <td>${description}</td>
+                        <td><img src="${`http://openweathermap.org/img/w/${icon}.png`}" alt="${description}"></td>
+                        </tr>
+                    </tbody>
+              `;
+              $(".bm-daily-table").append(temp_html);
+            });
+          })
+          .fail(function () {})
+          .always(function () {});
 }
 
 function geoRefresh() {
@@ -37,6 +128,7 @@ function geoFindMe() {
     function success(position) {
         latitude = position.coords.latitude;
         longitude = position.coords.longitude;
+        // weather(latitude,longitude)
         getFoods(latitude, longitude)
         .then(restaurants => {
             let categories = []
