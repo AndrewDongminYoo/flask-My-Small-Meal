@@ -136,14 +136,25 @@ function closeModal() {
 }
 function modal(){
 
+
+
+
 function modal() {
+
     $('body').append(`
         <div class="modal" id="modal">
         <div class="modal-background" id="modal-bg" onclick="closeModal()"></div>
         <div class="modal-content"></div>
         <button class="modal-close is-large" aria-label="close"
+
         onclick="closeModal()"></button></div>
+
+
+        onclick="closeModal()"></button></div>
+
+
         onclick='$("#modal").hide()'></button></div>
+
     `)
 
     $('#modal').addClass('is-active')
