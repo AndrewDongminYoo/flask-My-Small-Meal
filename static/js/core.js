@@ -20,7 +20,7 @@ async function weather() {
         `;
     weatherBox.append(temp_html);
     temp_html = `
-        <div class="weather-title">7일 동안의 일일 예보</div>
+        <div class="weather-title">4일 동안의 일일 예보</div>
         <table class="table is-narrow bm-daily-table"><thead><tr>
         <th>아침온도</th><th>낮온도</th><th>저녁온도</th><th>밤온도</th><th>습도</th><th>날씨</th><th>아이콘</th>
         </tr></thead></table>
@@ -36,6 +36,7 @@ async function weather() {
     const { current, daily } = await response;
     const { feels_like, humidity, weather, wind_speed } = await current;
     const { description, icon } = await weather[0];
+    daily.length = 4;
 
     temp_html = `
         <tbody><tr>
@@ -133,7 +134,7 @@ function modal() {
         <div class="modal-background" id="modal-bg" onclick='$("#modal").hide()'></div>
         <div class="modal-content"></div>
         <button class="modal-close is-large" aria-label="close"
-        onclick='$("#modal").removeClass("is-active")'></button></div>
+        onclick='$("#modal").hide()'></button></div>
     `)
     $('#modal').addClass('is-active')
 }
