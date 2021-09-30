@@ -4,6 +4,9 @@
     <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="주현님이 구현하신 날씨 수정 ::🌦">
       <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/core.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,14 +162,7 @@
       <workItem from="1632877041429" duration="2345000" />
       <workItem from="1632885518452" duration="6020000" />
       <workItem from="1632925970398" duration="11029000" />
-      <workItem from="1632977756895" duration="19192000" />
-    </task>
-    <task id="LOCAL-00016" summary="merge 001 🚀">
-      <created>1632487070095</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1632487070095</updated>
+      <workItem from="1632977756895" duration="24759000" />
     </task>
     <task id="LOCAL-00017" summary="merge 002 🚀">
       <created>1632496358091</created>
@@ -504,7 +500,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633002462337</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="주현님이 구현하신 날씨 수정 ::🌦">
+      <created>1633003086264</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1633003086264</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -609,6 +612,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flaskProject$Flask__myproject_py_.coverage" NAME="Flask (myproject.py) Coverage Results" MODIFIED="1632965930923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1633000346273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1633008767599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
