@@ -1888,11 +1888,11 @@ fieldset[disabled] .button {
     width: 100%;
 }
 
-@media screen and (min-width: 1024px) {
-    .container {
-        max-width: 960px;
-    }
-}
+/*@media screen and (min-width: 1024px) {*/
+/*    .container {*/
+/*        max-width: 960px;*/
+/*    }*/
+/*}*/
 
 @media screen and (max-width: 1215px) {
     .container.is-widescreen:not(.is-max-desktop) {

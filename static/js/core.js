@@ -1,105 +1,73 @@
 let user = null
 let latitude = 37.5559598
-let longitude = 126.9723169
-let weatherClearId=null
+let longitude = 126.1699723
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
-    // $(document).tooltip(); // 툴팁기능추가
-    weatherClearId = setInterval(weather,5000)
+    weather().then().catch()
+    setInterval(() => weather(), 300000)
 }
 
-function weather(){
-        apikey = "cfc258c75e1da2149c33daffd07a911d"
-        weatherBoxCnt = $('#weather-box').length;
-        if(!weatherBoxCnt){
-            let weatherBox=`<div id="weather-box"></div>`
-            $("body").append(weatherBox)
-        }
-
-        $("#weather-box").empty();
-        let temp_html = `
-          <div>현재날씨</div>
+async function weather() {
+    const weatherBox = $("#weather-box")
+    weatherBox.empty();
+    let temp_html = `
+          <div class="weather-title">현재날씨</div>
           <table class="table is-narrow bm-current-table">
-            <thead>
-              <tr>
-                <th>온도</th>
-                <th>습도</th>
-                <th>풍속</th>
-                <th>날씨</th>
-                <th>아이콘</th>
-              </tr>
-            </thead>
-          </table>
+          <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th>날씨</th><th>아이콘</th></tr></thead></table>
         `;
-        $("#weather-box").append(temp_html);
+    weatherBox.append(temp_html);
+    temp_html = `
+        <div class="weather-title">4일 동안의 일일 예보</div>
+        <table class="table is-narrow bm-daily-table"><thead><tr>
+        <th>아침온도</th><th>낮온도</th><th>저녁온도</th><th>밤온도</th><th>습도</th><th>날씨</th><th>아이콘</th>
+        </tr></thead></table>
+        `;
+    await weatherBox.append(temp_html);
+    let apikey = "cfc258c75e1da2149c33daffd07a911d"
+    const url = 'http://api.openweathermap.org/data/2.5/onecall?' +
+        'lat=' + latitude.toFixed(7) +
+        '&lon=' + longitude.toFixed(7) +
+        `&appid=${apikey}&lang=kr&units=metric`;
+    const response = await fetch(url).then((res) => res.json())
+    console.log(`날씨 데이터는 ${response.statusText}`)
+    const { current, daily } = await response;
+    const { feels_like, humidity, weather, wind_speed } = await current;
+    const { description, icon } = await weather[0];
+    daily.length = 4;
+
+    temp_html = `
+        <tbody><tr>
+        <td>${Math.floor(feels_like)} ℃</td>
+        <td>${humidity} %</td>
+        <td>${wind_speed} m/s</td>
+        <td>${description}</td>
+        <td><img src="http://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
+        </tr></tbody>
+    `;
+    $(".bm-current-table").append(temp_html);
+
+    await daily.forEach((w) => {
+        const { feels_like, humidity, weather } = w;
+        const { day, night, eve, morn } = feels_like;
+        const { description, icon } = weather[0];
+
         temp_html = `
-          <div>7일 동안의 일일 예보</div>
-            <table class="table is-narrow bm-daily-table">
-              <thead>
-                <tr>
-                  <th>아침온도</th>
-                  <th>낮온도</th>
-                  <th>저녁온도</th>
-                  <th>밤온도</th>
-                  <th>습도</th>
-                  <th>풍속</th>
-                  <th>날씨</th>
-                  <th>아이콘</th>
-                </tr>
-              </thead>
-            </table>
+            <tbody><tr>
+            <td>${Math.floor(morn)} ℃</td>
+            <td>${Math.floor(day)} ℃</td>
+            <td>${Math.floor(eve)} ℃</td>
+            <td>${Math.floor(night)} ℃</td>
+            <td>${humidity} %</td>
+            <td>${description}</td>
+            <td><img src="http://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
+            </tr></tbody>
         `;
-        $("#weather-box").append(temp_html);
-        $.ajax(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apikey}&lang=kr&units=metric`
-        )
-          .done(function (response) {
-            const { current, daily } = response;
-            const { feels_like, humidity, weather, wind_speed } = current;
-            const { description, icon } = weather[0];
-
-            temp_html = `
-                <tbody>
-                    <tr>
-                        <td>${Math.floor(feels_like) + " ℃"}</td>
-                        <td>${humidity + " %"}</td>
-                        <td>${Math.floor(wind_speed) + " m/s"}</td>
-                        <td>${description}</td>
-                        <td><img src="${`http://openweathermap.org/img/w/${icon}.png`}" alt="${description}"></td>
-                    </tr>
-                </tbody>
-            `;
-            $(".bm-current-table").append(temp_html);
-
-            daily.forEach((element) => {
-              const { feels_like, humidity, weather, wind_speed } = element;
-              const { day, night, eve, morn } = feels_like;
-              const { description, icon } = weather[0];
-
-              temp_html = `
-                    <tbody>
-                        <tr>
-                        <td>${Math.floor(morn) + " ℃"}</td>
-                        <td>${Math.floor(day) + " ℃"}</td>
-                        <td>${Math.floor(eve) + " ℃"}</td>
-                        <td>${Math.floor(night) + " ℃"}</td>
-                        <td>${humidity + " %"}</td>
-                        <td>${Math.floor(wind_speed) + " m/s"}</td>
-                        <td>${description}</td>
-                        <td><img src="${`http://openweathermap.org/img/w/${icon}.png`}" alt="${description}"></td>
-                        </tr>
-                    </tbody>
-              `;
-              $(".bm-daily-table").append(temp_html);
-            });
-          })
-          .fail(function () {})
-          .always(function () {});
+        $(".bm-daily-table").append(temp_html);
+    })
 }
-
 function geoRefresh() {
     $(".column-0").empty()
     $(".column-1").empty()
@@ -130,34 +98,37 @@ function geoFindMe() {
         longitude = position.coords.longitude;
         // weather(latitude,longitude)
         getFoods(latitude, longitude)
-        .then(restaurants => {
-            let categories = []
-            restaurants.forEach((restaurant, index) => {
-                categories.push(...restaurant['categories'])
-                let i = index % 3
-                showCards(restaurant, i)
-            }) // tempHtml append 하기
-            let unique = new Set(categories)
-            categories = [...unique]
-            modal()
-            categories = categories.filter((v)=>v!=='1인분주문')
-            shuffle(categories)
-            let tempHTML = "<span>[</span>";
-            categories.forEach((word, i)=>{
-                tempHTML += `<span class="word word-${i}">${word}, </span>`;
-            })
-            tempHTML += "<span>]</span>";
+            .then(restaurants => {
+                let categories = []
+                restaurants.forEach((restaurant, index) => {
+                    categories.push(...restaurant['categories'])
+                    let i = index % 3
+                    showCards(restaurant, i)
+                }) // tempHtml append 하기
+                let unique = new Set(categories)
+                categories = [...unique]
+                modal()
+                categories = categories.filter((v) => v !== '1인분주문')
+                shuffle(categories)
+                let tempHTML = "<span>[</span>";
+                categories.forEach((word, i) => {
+                    tempHTML += `<span class="word word-${i}">${word}, </span>`;
+                })
+                tempHTML += "<span>]</span>";
                 document.querySelector(".modal-content").innerHTML = tempHTML;
-                everybodyShuffleIt(categories).then((result)=>console.log(`오늘은 ${result} 먹자!!`))
+                everybodyShuffleIt(categories).then((result) => console.log(`오늘은 ${result} 먹자!!`))
                 document.querySelector("#modal").classList.remove('is-active')
-        })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+            })  // like 여부에 따라 html 달리 할 필요가 있을까..?
     }
+
     //위치 받아내기 실패했을 때 에러 핸들링 코드
     function error(e) {
         console.error(e)
     }
 }
+
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
+
 
 function closeModal() {
     // $("#modal").removeClass("is-active")
@@ -165,16 +136,19 @@ function closeModal() {
 }
 function modal(){
 
+function modal() {
     $('body').append(`
         <div class="modal" id="modal">
         <div class="modal-background" id="modal-bg" onclick="closeModal()"></div>
         <div class="modal-content"></div>
         <button class="modal-close is-large" aria-label="close"
         onclick="closeModal()"></button></div>
+        onclick='$("#modal").hide()'></button></div>
     `)
 
     $('#modal').addClass('is-active')
 }
+
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
 const userCheck = () => {
     user = localStorage.getItem("delivery-uuid")
@@ -184,7 +158,7 @@ const userCheck = () => {
         console.log(user)
     }
     // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
-    setTimeout(()=>showBookmarks(user), 2000)
+    setTimeout(() => showBookmarks(user), 2000)
 }
 
 // 특정 식당을 즐겨찾기 하는 코드
@@ -224,7 +198,7 @@ function changeBtn(ssid){
 }
 
 // 즐겨찾기에 등록 or 해제 하는 코드의 공통 코드 추출
-function sendLike (user, headers, body) {
+function sendLike(user, headers, body) {
     const init = {method: 'POST', headers, body};
     fetch(`/api/like`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
@@ -241,7 +215,7 @@ function showBookmarks(user) {
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
             $("#bookmarks").empty();
-            res['restaurants'].forEach((r)=>bookMark(r));
+            res['restaurants'].forEach((r) => bookMark(r));
         })
         .catch((e) => console.log(e));
     $("#aside").addClass("open");
@@ -249,7 +223,7 @@ function showBookmarks(user) {
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
-    let { ssid, name, phone, time } = restaurant;
+    let {ssid, name, phone, time} = restaurant;
     let tempHtml = `
 <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}">
 <span class="mark-menu">${name}</span>
@@ -295,7 +269,7 @@ const showCards = (restaurant, i) => {
         </div>`
     let btn = ""
     // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
-    categories.forEach((tag)=>{
+    categories.forEach((tag) => {
         btn += `<button class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
     $(`.column-${i}`).append(tempHtml.replace("{__buttons__}", btn))
@@ -315,14 +289,14 @@ function search() {
             latitude = Number(result['lat']).toFixed(7)
             return getFoods(latitude, longitude)
         }).then(restaurants => {
-            $(".column-0").empty()
-            $(".column-1").empty()
-            $(".column-2").empty()
-            restaurants.forEach((restaurant, index) => {
-                let i = index % 3
-                showCards(restaurant, i)
-            }) // tempHtml append 하기
-        }).catch((e) => console.log(e));
+        $(".column-0").empty()
+        $(".column-1").empty()
+        $(".column-2").empty()
+        restaurants.forEach((restaurant, index) => {
+            let i = index % 3
+            showCards(restaurant, i)
+        }) // tempHtml append 하기
+    }).catch((e) => console.log(e));
 }
 
 // 특정 카테고리 (예: 1인분주문) 를 클릭하면 모든 식당 중 해당 해시태그를 가진 카드가 하이라이트됩니다.
@@ -338,7 +312,7 @@ function tabFocus(string) {
 }
 
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
-window.addEventListener('hashchange', async ()=> {
+window.addEventListener('hashchange', async () => {
     let hash = window.location.hash
     const response = await fetch(`/api/shop?lat=${latitude}&lng=${longitude}&order=${hash.substring(1)}`);
     let restaurants = await response.json()
@@ -351,35 +325,36 @@ window.addEventListener('hashchange', async ()=> {
     }) // tempHtml append 하기
 })
 // 비동기처리 방식 자바스크립트를 고려한 타이머 함수
-const timer = ms => new Promise(r=>setTimeout(r, ms))
+const timer = ms => new Promise(r => setTimeout(r, ms))
+
 // 리스트의 순서를 뒤섞는 함수입니다.
 function shuffle(array) {
-  for (let i=array.length-1; i>0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array
 }
 
 // 모달에 띄운 화면 속 텍스트가 번갈아가면서 빨간색으로 변하다가 멈추고 결과 출력
 async function everybodyShuffleIt(array) {
     const result = shuffle(array)[0]
-    for (let i=0;i<array.length;i++) {
+    for (let i = 0; i < array.length; i++) {
         await timer(60)
         $(`span.word.word-${i}`).addClass('is-red')
         $("span.word").not(`.word-${i}`).removeClass('is-red')
     }
-    for (let i=0;i<array.length;i++) {
+    for (let i = 0; i < array.length; i++) {
         await timer(100)
         $(`span.word.word-${i}`).addClass('is-red')
         $("span.word").not(`.word-${i}`).removeClass('is-red')
     }
-    for (let i=0;i<array.length;i++) {
+    for (let i = 0; i < array.length; i++) {
         await timer(200)
         $(`span.word.word-${i}`).addClass('is-red')
         $("span.word").not(`.word-${i}`).removeClass('is-red')
     }
-    for (let i=0;i<array.length;i++) {
+    for (let i = 0; i < array.length; i++) {
         await timer(600)
         $("span.word").not(`.word-${i}`).removeClass('is-red')
         $(`span.word.word-${i}`).addClass('is-red')
