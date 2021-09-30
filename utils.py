@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pymongo import MongoClient
 import requests
-client = MongoClient('mongodb://test:test@3.36.132.126', 27017)
+client = MongoClient('mongodb://jaryo:goojo@3.36.132.126', 27017)
 db = client.dbGoojo
 col = db.restaurant
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="it's not node.js">
+    <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="mongo db server sep.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
@@ -57,7 +57,7 @@
     </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="branch_jihye" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -160,20 +160,7 @@
       <workItem from="1632877041429" duration="2345000" />
       <workItem from="1632885518452" duration="6020000" />
       <workItem from="1632925970398" duration="11029000" />
-    </task>
-    <task id="LOCAL-00007" summary="restaurant like/dislike feat::">
-      <created>1632411461442</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1632411461442</updated>
-    </task>
-    <task id="LOCAL-00008" summary="refresh">
-      <created>1632442101086</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1632442101086</updated>
+      <workItem from="1632977756895" duration="990000" />
     </task>
     <task id="LOCAL-00009" summary="bookmark feature::">
       <created>1632448326054</created>
@@ -504,7 +491,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632976743765</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="mongo db server sep.">
+      <created>1632977351955</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1632977351955</updated>
+    </task>
+    <task id="LOCAL-00057" summary="mongo db server sep.">
+      <created>1632978095950</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1632978095950</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,13 +517,18 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
               <option name="BEK_SORT_TYPE" value="1" />
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="HEAD" />
+                        <option value="branch_dongmin" />
                       </list>
                     </value>
                   </entry>
@@ -575,7 +581,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="첫째날 PR합치기!!" />
     <MESSAGE value="첫째날 PR 합치기!!" />
     <MESSAGE value="restaurant like/dislike feat::" />
     <MESSAGE value="refresh" />
@@ -600,7 +605,8 @@
     <MESSAGE value="for HTTPS ::" />
     <MESSAGE value="for HTTPS ::" />
     <MESSAGE value="it's not node.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="it's not node.js" />
+    <MESSAGE value="mongo db server sep." />
+    <option name="LAST_COMMIT_MESSAGE" value="mongo db server sep." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1632817689367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
