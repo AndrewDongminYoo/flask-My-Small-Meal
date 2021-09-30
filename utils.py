@@ -14,7 +14,7 @@ def put_restaurant(ssid):
     """
     if list(col.find({"ssid": ssid}, {"_id": False})):
         return
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants/{ssid}'
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/'+ssid
     headers = {
         'sec-fetch-dest': 'empty',
         'sec-fetch-mode': 'cors',
@@ -48,7 +48,7 @@ def search_address(query):
     long: 찾고자 하는 지역의 y 좌표
     }
     """
-    url = f'https://dapi.kakao.com/v2/local/search/address.json?query={query}'
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?query='+query
     headers = {
         'Host': 'dapi.kakao.com',
         'Authorization': 'KakaoAK c67c5816d29490ab56c1fbf40bef220d'}
