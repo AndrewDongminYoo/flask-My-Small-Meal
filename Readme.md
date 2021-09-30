@@ -1,12 +1,8 @@
-![Image of Title](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fch6S0S%2FbtrfQFsN5JB%2FVg6p1zqyqyDmHr0FguBH60%2Fimg.jpg)
-![Image of Second](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FdULD88%2FbtrfWbS7i82%2FVHfeWBkzklXdk5Cx7rkRP1%2Fimg.png)
-![Image of third](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FCHDIR%2FbtrfRDjDD39%2FdvVLg6eWYyv9uY5uSQ7Q3k%2Fimg.png)
-![Image of third](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FqVQmB%2FbtrgcBSI87n%2FURWDUXEw8821LsHOI5dZl0%2Fimg.png)
 ![Image of third](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcdnBUu%2FbtrgiameH1D%2FlnFkSM4ogBrw2xyJtRUkTK%2Fimg.png)
 
 
 ## 🔗 라이브
-- 현재 미비 상태
+- https://itwassummer.shop/
 ## 🏠 소개
 - 1인 가구를 위한 배달 맛집을 소개하는 위치 맞춤형 페이지입니다!!
 ## ⏲️ 개발기간
