@@ -91,8 +91,8 @@ def get_restaurant():
         order = "rank"
     cat = "1인분주문"
     count = 45  # 3의 배수 권장
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category='+cat+'&items='+str(count)+'&lat='+lat+'' \
-          f'&lng='+long+'&order='+order+'&page=0'
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category='+cat+'&items='+str(count)+'&lat='+lat+\
+    "&lng=" + long + '&order=' + order + '&page=0'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
                'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
                'content-type': 'application/x-www-form-urlencoded',
