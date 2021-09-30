@@ -8,7 +8,6 @@ window.onload = function () {
     NoGeoDontWorry().then()
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
     weather().then()
-    setInterval(() => weather(), 300000)
 }
 
 async function weather() {
