@@ -159,7 +159,7 @@ const userCheck = () => {
 
 // 특정 식당을 즐겨찾기 하는 코드
 function keep(id) {
-    const {nextElementSibling, classList} = this;
+    const {nextElementSibling, classList} = event.target;
     classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
@@ -170,7 +170,7 @@ function keep(id) {
 
 // 특정 식당을 즐겨찾기 삭제하는 코드
 function remove(id) {
-    const {previousElementSibling, classList} = this;
+    const {previousElementSibling, classList} = event.target;
     classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')

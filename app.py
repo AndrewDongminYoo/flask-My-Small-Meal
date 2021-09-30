@@ -5,7 +5,7 @@ import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
 import utils  # 내부 파일 모듈화
 app = Flask(__name__)
-client = MongoClient('mongodb://jaryo:goojo@3.36.132.126:27017?authSource=admin')
+client = MongoClient('mongodb://jaryo:goojo@3.36.132.126:27017/dbGoojo?authSource=admin')
 # client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
 
