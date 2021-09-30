@@ -27,7 +27,7 @@ sleep 7
 netstat -tnlp
 
 # MongoDB set user, set conf file
-mongo admin --eval 'db.createUser({user: "test", pwd: "test", roles:["root"]});'
+mongo admin --eval 'db.createUser({user: "jaryo", pwd: "goojo", roles:["root"]});'
 sudo sh -c 'echo "security:\n  authorization: enabled" >> /etc/mongod.conf'
 sudo sed -i "s,\\(^[[:blank:]]*bindIp:\\) .*,\\1 0.0.0.0," /etc/mongod.conf
 
