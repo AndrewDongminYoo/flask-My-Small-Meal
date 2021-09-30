@@ -91,7 +91,7 @@ def get_restaurant():
         order = "rank"
     cat = "1인분주문"
     count = 45  # 3의 배수 권장
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=' + cat + '&items=' + str(count) + '&lat=' + lat\
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=' + cat + '&items=45&lat=' + lat\
           + "&lng=" + long + '&order=' + order + '&page=0'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
                'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
@@ -103,6 +103,7 @@ def get_restaurant():
                              'Chrome/93.0.4577.82 Safari/537.36',
                'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
     req = requests.get(url, headers=headers)
+    print(req.text)
     res = json.loads(req.text)
     shops = res.get('restaurants')
     restaurants = list()
@@ -132,5 +133,4 @@ def search_add():
 
 
 if __name__ == '__main__':
-    # app.run('54.180.155.37', port=80)
-    app.run('0.0.0.0', port=5000)
+    app.run('0.0.0.0')

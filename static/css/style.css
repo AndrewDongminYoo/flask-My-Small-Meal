@@ -301,3 +301,7 @@ div.tabs {
     font-size: 13px;
     padding-bottom: 10px;
 }
+
+ul#bookmarks {
+    width: 100%;
+}
