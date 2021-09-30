@@ -19,6 +19,7 @@ function geoRefresh() {
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
     const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
+    console.log(response)
     return await response.json()
 }
 
@@ -88,12 +89,17 @@ const userCheck = () => {
 }
 
 // 특정 식당을 즐겨찾기 하는 코드
-function keep(id) {
+function keep(id, min_order) {
     event.target.classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: id, action: 'like'});
-    sendLike(user, headers, body)
+
+    fetch(`/api/like`)
+        .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
+        .then((r) => {
+            showBookmarks(id, min_order);
+        })
+        .catch((e) => console.log(e));
     event.target.nextElementSibling.classList.remove('is-hidden')
 } // 특정 상점 좋아요하기
 
@@ -121,19 +127,19 @@ function sendLike (user, headers, body) {
     fetch(`/api/like`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((r) => {
-            showBookmarks(user);
+            showBookmarks(user, body);
         })
         .catch((e) => console.log(e));
 }
 
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
-function showBookmarks(user) {
+function showBookmarks(id, min_order) {
     $("h2.h2").show()
-    fetch(`/api/like?uuid=${user}`)
+    fetch(`/api/like?ssid=${id}&min_order=${min_order}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
             $("#bookmarks").empty();
-            res['restaurants'].forEach((r)=>bookMark(r));
+            res['restaurants'].forEach((r)=>bookMark(r, min_order));
         })
         .catch((e) => console.log(e));
     $("#aside").addClass("open");
@@ -194,10 +200,10 @@ function popUp(ssid) {
 }
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
-const bookMark = (restaurant) => {
+const bookMark = (restaurant, min_order) => {
     let { ssid, name, phone, time } = restaurant;
     let tempHtml = `
-                    <li class="bookmark is-hoverable panel-block" onclick="popUp('${ssid}')">
+                    <li class="bookmark is-hoverable panel-block" onclick="popUp('${ssid}','${min_order}')">
                         <span class="mark-menu">${name}</span>
                         <button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button>
                     </li>`
@@ -227,7 +233,7 @@ const showCards = (restaurant, i) => {
             <div class="tool-box">
                 <div class="book-mark">
                     <div class="store_name">${name}<br>⭐${rating}점</div>
-                    <button class="button book-button" onclick="keep('${id}')">⭐keep</button>
+                    <button class="button book-button" onclick="keep('${id}','${min_order}')">⭐keep</button>
                     <button class="button book-button is-hidden" onclick="remove('${id}')">🌟delete</button>
                 </div>
                 
