@@ -26,7 +26,7 @@ async function weather() {
         </tr></thead></table>
         `;
     await weatherBox.append(temp_html);
-    let apikey = "cfc258c75e1da2149c33daffd07a911d"
+    let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
     const url = 'http://api.openweathermap.org/data/2.5/onecall?' +
         'lat=' + latitude.toFixed(7) +
         '&lon=' + longitude.toFixed(7) +
@@ -153,7 +153,7 @@ const userCheck = () => {
 
 // 특정 식당을 즐겨찾기 하는 코드
 function keep(id) {
-    const {nextElementSibling, classList} = event.target;
+    const {nextElementSibling, classList} = this;
     classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
@@ -164,7 +164,7 @@ function keep(id) {
 
 // 특정 식당을 즐겨찾기 삭제하는 코드
 function remove(id) {
-    const {previousElementSibling, classList} = event.target;
+    const {previousElementSibling, classList} = this;
     classList.add('is-hidden')
     const headers = new Headers();
     headers.append('content-type', 'application/json')
