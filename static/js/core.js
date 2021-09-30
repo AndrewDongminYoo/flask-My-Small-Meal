@@ -128,14 +128,29 @@ function geoFindMe() {
 }
 
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
+
+
+function closeModal() {
+    // $("#modal").removeClass("is-active")
+    // $("div").remove("#modal")
+}
+function modal(){
+
+
 function modal() {
+
     $('body').append(`
         <div class="modal" id="modal">
-        <div class="modal-background" id="modal-bg" onclick='$("#modal").hide()'></div>
+        <div class="modal-background" id="modal-bg" onclick="closeModal()"></div>
         <div class="modal-content"></div>
         <button class="modal-close is-large" aria-label="close"
+
+        onclick="closeModal()"></button></div>
+
         onclick='$("#modal").hide()'></button></div>
+
     `)
+
     $('#modal').addClass('is-active')
 }
 
@@ -346,6 +361,7 @@ async function everybodyShuffleIt(array) {
             $(`button.button:contains(${result})`).removeClass('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
+            $("div").remove("#modal")
             $("#modal").hide()
             return result
         }
