@@ -256,7 +256,7 @@ div.tabs {
 }
 
 #weather-box{
-    width: 350px;
+    width: 20%;
     position: absolute;
-    top:320px;
+    top: 35%;
 }
