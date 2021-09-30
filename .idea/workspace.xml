@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="mongo db server sep.">
+    <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="주현님이 구현하신 날씨 수정 ::🌦">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/core.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,28 +160,7 @@
       <workItem from="1632877041429" duration="2345000" />
       <workItem from="1632885518452" duration="6020000" />
       <workItem from="1632925970398" duration="11029000" />
-      <workItem from="1632977756895" duration="990000" />
-    </task>
-    <task id="LOCAL-00009" summary="bookmark feature::">
-      <created>1632448326054</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1632448326054</updated>
-    </task>
-    <task id="LOCAL-00010" summary="DB data saving logic">
-      <created>1632452133346</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1632452133346</updated>
-    </task>
-    <task id="LOCAL-00011" summary="feat:: search bar activated🔥">
-      <created>1632471400528</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1632471400529</updated>
+      <workItem from="1632977756895" duration="7349000" />
     </task>
     <task id="LOCAL-00012" summary="feat:: button toggle🔥">
       <created>1632474530609</created>
@@ -505,7 +484,28 @@
       <option name="project" value="LOCAL" />
       <updated>1632978095950</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="mongo db server sep.">
+      <created>1632983484770</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1632983484770</updated>
+    </task>
+    <task id="LOCAL-00059" summary="주현님이 구현하신 날씨 수정 ::🌦">
+      <created>1632986951328</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1632986951328</updated>
+    </task>
+    <task id="LOCAL-00060" summary="주현님이 구현하신 날씨 수정 ::🌦">
+      <created>1632989913314</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1632989913314</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -581,7 +581,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="첫째날 PR 합치기!!" />
     <MESSAGE value="restaurant like/dislike feat::" />
     <MESSAGE value="refresh" />
     <MESSAGE value="bookmark feature::" />
@@ -606,10 +605,11 @@
     <MESSAGE value="for HTTPS ::" />
     <MESSAGE value="it's not node.js" />
     <MESSAGE value="mongo db server sep." />
-    <option name="LAST_COMMIT_MESSAGE" value="mongo db server sep." />
+    <MESSAGE value="주현님이 구현하신 날씨 수정 ::" />
+    <option name="LAST_COMMIT_MESSAGE" value="주현님이 구현하신 날씨 수정 ::" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1632817689367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flaskProject$Flask__myproject_py_.coverage" NAME="Flask (myproject.py) Coverage Results" MODIFIED="1632965930923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1632989240386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
