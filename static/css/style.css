@@ -297,7 +297,11 @@ div.tabs {
 }
 
 .footer-content {
-    margin: 10px 0px 10px 10px;
+    margin: 10px 0 10px 10px;
     font-size: 13px;
     padding-bottom: 10px;
+}
+
+ul#bookmarks {
+    width: 100%;
 }

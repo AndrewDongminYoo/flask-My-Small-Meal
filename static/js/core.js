@@ -5,18 +5,18 @@ let longitude = 126.1699723
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 window.onload = function () {
     geoFindMe(); // 사용자의 위치 받아내기
+    NoGeoDontWorry().then()
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
-    weather().then().catch()
-    setInterval(() => weather(), 300000)
+    weather().then()
 }
 
 async function weather() {
     const weatherBox = $("#weather-box")
     weatherBox.empty();
     let temp_html = `
-          <div class="weather-title">현재날씨</div>
-          <table class="table is-narrow bm-current-table">
-          <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th>날씨</th><th>아이콘</th></tr></thead></table>
+        <div class="weather-title">현재날씨</div>
+        <table class="table is-narrow bm-current-table">
+        <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th>날씨</th><th>아이콘</th></tr></thead></table>
         `;
     weatherBox.append(temp_html);
     temp_html = `
@@ -26,13 +26,12 @@ async function weather() {
         </tr></thead></table>
         `;
     await weatherBox.append(temp_html);
-    let apikey = "cfc258c75e1da2149c33daffd07a911d"
-    const url = 'http://api.openweathermap.org/data/2.5/onecall?' +
+    let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
+    const url = 'https://api.openweathermap.org/data/2.5/onecall?' +
         'lat=' + latitude.toFixed(7) +
         '&lon=' + longitude.toFixed(7) +
         `&appid=${apikey}&lang=kr&units=metric`;
-    const response = await fetch(url).then((res) => res.json())
-    console.log(`날씨 데이터는 ${response.statusText}`)
+    const response = await fetch(url).then((res) => res.json()).catch()
     const { current, daily } = await response;
     const { feels_like, humidity, weather, wind_speed } = await current;
     const { description, icon } = await weather[0];
@@ -78,64 +77,71 @@ function geoRefresh() {
 
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
-    const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
-    return await response.json()
+    if (!(lat && long)){
+        const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+        return await response.json()
+    } else {
+        const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
+        return await response.json()
+    }
 }
 
 // geoLocation api 이용한 현재 사용자의 위치 받아내는 코드
 function geoFindMe() {
-
     if (!navigator.geolocation) {
         console.log('Geolocation is not supported by your browser');
     } else {
-        console.log('Locating…');
         navigator.geolocation.getCurrentPosition(success, error);
-    }
-
-    //위치 받아내기 성공했을 때의 메소드
-    function success(position) {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-        // weather(latitude,longitude)
-        getFoods(latitude, longitude)
-            .then(restaurants => {
-                let categories = []
-                restaurants.forEach((restaurant, index) => {
-                    categories.push(...restaurant['categories'])
-                    let i = index % 3
-                    showCards(restaurant, i)
-                }) // tempHtml append 하기
-                let unique = new Set(categories)
-                categories = [...unique]
-                modal()
-                categories = categories.filter((v) => v !== '1인분주문')
-                shuffle(categories)
-                let tempHTML = "<span>[</span>";
-                categories.forEach((word, i) => {
-                    tempHTML += `<span class="word word-${i}">${word}, </span>`;
-                })
-                tempHTML += "<span>]</span>";
-                document.querySelector(".modal-content").innerHTML = tempHTML;
-                everybodyShuffleIt(categories).then((result) => console.log(`오늘은 ${result} 먹자!!`))
-                document.querySelector("#modal").classList.remove('is-active')
-            })  // like 여부에 따라 html 달리 할 필요가 있을까..?
-    }
-
-    //위치 받아내기 실패했을 때 에러 핸들링 코드
-    function error(e) {
-        console.error(e)
     }
 }
 
+//위치 받아내기 성공했을 때의 메소드
+function success(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    // weather(latitude,longitude)
+    getFoods(latitude, longitude)
+        .then(restaurants => {
+            let categories = []
+            restaurants.forEach((restaurant, index) => {
+                categories.push(...restaurant['categories'])
+                let i = index % 3
+                showCards(restaurant, i)
+            }) // tempHtml append 하기
+            let unique = new Set(categories)
+            categories = [...unique]
+            modal()
+            categories = categories.filter((v) => v !== '1인분주문')
+            shuffle(categories)
+            let tempHTML = "<span>[</span>";
+            categories.forEach((word, i) => {
+                tempHTML += `<span class="word word-${i}">${word}, </span>`;
+            })
+            tempHTML += "<span>]</span>";
+            document.querySelector(".modal-content").innerHTML = tempHTML;
+            everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
+            document.querySelector("#modal").classList.remove('is-active')
+        })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+}
+
+//위치 받아내기 실패했을 때 에러 핸들링 코드
+const error = (e) => console.error(e);
+
+async function NoGeoDontWorry() {
+    const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+    let restaurants = await response.json()
+    $(".column-0").empty()
+    $(".column-1").empty()
+    $(".column-2").empty()
+    restaurants.forEach((restaurant, index) => {
+        let i = index % 3
+        showCards(restaurant, i)
+    }) // tempHtml append 하기
+}
+
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
+
 function modal() {
-    $('body').append(`
-        <div class="modal" id="modal">
-        <div class="modal-background" id="modal-bg" onclick='$("#modal").hide()'></div>
-        <div class="modal-content"></div>
-        <button class="modal-close is-large" aria-label="close"
-        onclick='$("#modal").hide()'></button></div>
-    `)
     $('#modal').addClass('is-active')
 }
 
@@ -145,7 +151,6 @@ const userCheck = () => {
     if (user === null) {
         user = uuidv4()
         localStorage.setItem("delivery-uuid", user)
-        console.log(user)
     }
     // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
     setTimeout(() => showBookmarks(user), 2000)
@@ -179,6 +184,11 @@ function delMark(ssid) {
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike'});
     sendLike(user, headers, body)
+    changeBtn(ssid)
+}
+function changeBtn(ssid){
+    $(`#delete-${ssid}`).addClass("is-hidden")
+    $(`#keep-${ssid}`).removeClass("is-hidden")
 }
 
 // 즐겨찾기에 등록 or 해제 하는 코드의 공통 코드 추출
@@ -215,6 +225,20 @@ const bookMark = (restaurant) => {
     $("#bookmarks").append(tempHtml)
 }
 
+
+// URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
+window.addEventListener('hashchange', async () => {
+    let hash = window.location.hash.substring(1)
+    const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
+    let restaurants = await response.json()
+    $(".column-0").empty()
+    $(".column-1").empty()
+    $(".column-2").empty()
+    restaurants.forEach((restaurant, index) => {
+        let i = index % 3
+        showCards(restaurant, i)
+    }) // tempHtml append 하기
+})
 // 레스토랑 하나하나의 카드를 만들어내는 코드
 const showCards = (restaurant, i) => {
     let {
@@ -238,8 +262,8 @@ const showCards = (restaurant, i) => {
             <div class="tool-box">
                 <div class="book-mark">
                     <div class="store_name">${name}<br>⭐${rating}점</div>
-                    <button class="button book-button" onclick="keep('${id}')">⭐keep</button>
-                    <button class="button book-button is-hidden" onclick="remove('${id}')">🌟delete</button>
+                    <button class="button book-button" id="${`keep-${id}`}" onclick="keep('${id}')">⭐keep</button>
+                    <button class="button book-button is-hidden" id="${`delete-${id}`}" onclick="remove('${id}')">🌟delete</button>
                 </div>
                 
                 <div class="buttons are-small" id="btns${i}">{__buttons__}</div>
@@ -269,8 +293,10 @@ function search() {
     fetch(`/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((result) => {
-            longitude = Number(result['long']).toFixed(7)
-            latitude = Number(result['lat']).toFixed(7)
+            if (result['long'] && result['lat']) {
+                longitude = Number(result['long']).toFixed(7)
+                latitude = Number(result['lat']).toFixed(7)
+            }
             return getFoods(latitude, longitude)
         }).then(restaurants => {
         $(".column-0").empty()
@@ -294,20 +320,6 @@ function tabFocus(string) {
     $("li.tab").not(`.tab-${string}`).removeClass('is-active');
     $(`li.tab-${string}`).addClass('is-active');
 }
-
-// URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
-window.addEventListener('hashchange', async () => {
-    let hash = window.location.hash
-    const response = await fetch(`/api/shop?lat=${latitude}&lng=${longitude}&order=${hash.substring(1)}`);
-    let restaurants = await response.json()
-    $(".column-0").empty()
-    $(".column-1").empty()
-    $(".column-2").empty()
-    restaurants.forEach((restaurant, index) => {
-        let i = index % 3
-        showCards(restaurant, i)
-    }) // tempHtml append 하기
-})
 // 비동기처리 방식 자바스크립트를 고려한 타이머 함수
 const timer = ms => new Promise(r => setTimeout(r, ms))
 
@@ -346,7 +358,8 @@ async function everybodyShuffleIt(array) {
             $(`button.button:contains(${result})`).removeClass('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
-            $("#modal").hide()
+            $("div").remove("#modal")
+            $("#modal").remove()
             return result
         }
     }

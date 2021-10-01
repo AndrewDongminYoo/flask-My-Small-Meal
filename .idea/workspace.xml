@@ -1,80 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="주현님이 구현하신 날씨 수정 ::🌦">
       <change beforePath="$PROJECT_DIR$/.idea/flaskProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flaskProject.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+    <list default="true" id="e1ffcf1f-71fa-494f-859d-214b5c69ce8f" name="Changes" comment="Commit Commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/core.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+>>>>>>> 9cd0e9f2e50f247e960158ff24a653ff687a702a
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Flask Main" />
-        <option value="HTML File" />
-        <option value="package.json" />
-        <option value="CSS File" />
-        <option value="Python Script" />
-        <option value="JavaScript File" />
-      </list>
-    </option>
-  </component>
-  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
-    <envs>
-      <env key="FLASK_APP" value="app" />
-    </envs>
-    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
-    <option name="myEnvs">
-      <map>
-        <entry key="FLASK_APP" value="app" />
-      </map>
-    </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="branch2_jaehwan" />
-  </component>
-  <component name="Git.Rebase.Settings">
-    <option name="NEW_BASE" value="origin/main" />
-  </component>
   <component name="Git.Settings">
-    <branch-grouping />
-    <option name="PREVIOUS_COMMIT_AUTHORS">
-      <list>
-        <option value="jihye0705 &lt;jihyem75@gmail.com&gt;" />
-        <option value="woodstock1993 &lt;diqkqkqk@gmail.com&gt;" />
-      </list>
-    </option>
-    <option name="PUSH_AUTO_UPDATE" value="true" />
-    <option name="PUSH_TAGS">
-      <GitPushTagMode>
-        <option name="argument" value="--tags" />
-        <option name="title" value="All" />
-      </GitPushTagMode>
-    </option>
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
   </component>
-  <component name="GitSEFilterConfiguration">
-    <file-type-list>
-      <filtered-out-file-type name="LOCAL_BRANCH" />
-      <filtered-out-file-type name="REMOTE_BRANCH" />
-      <filtered-out-file-type name="TAG" />
-      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
-    </file-type-list>
-  </component>
-  <component name="ProjectId" id="1yWB69eKGSoVEbpb5P2CcHM958D" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -126,6 +77,9 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+=======
+  <component name="RunManager">
+>>>>>>> 9cd0e9f2e50f247e960158ff24a653ff687a702a
     <configuration name="Flask (app.py)" type="Python.FlaskServer" temporary="true" nameIsGenerated="true">
       <module name="flaskProject" />
       <option name="target" value="$PROJECT_DIR$/app.py" />
@@ -133,23 +87,8 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
-    </configuration>
-    <configuration name="flaskProject" type="Python.FlaskServer">
-      <module name="flaskProject" />
-      <option name="target" value="$PROJECT_DIR$/app.py" />
-      <option name="targetType" value="PATH" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -163,9 +102,8 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="true" />
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+<<<<<<< HEAD
     <task active="true" id="Default" summary="Default task">
       <changelist id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="" />
       <created>1632357309328</created>
@@ -304,302 +242,52 @@
       <created>1632740440543</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
+=======
+    <task id="LOCAL-00001" summary="Commit Commit">
+      <created>1633011773936</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+>>>>>>> 9cd0e9f2e50f247e960158ff24a653ff687a702a
       <option name="project" value="LOCAL" />
-      <updated>1632740440543</updated>
+      <updated>1633011773936</updated>
     </task>
-    <task id="LOCAL-00029" summary="Roulette feat in modal::🔥">
-      <created>1632812318222</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+    <task id="LOCAL-00002" summary="Commit Commit">
+      <created>1633012237231</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1632812318222</updated>
+      <updated>1633012237231</updated>
     </task>
-    <task id="LOCAL-00030" summary="for HTTPS ::🔥">
-      <created>1632885699019</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+    <task id="LOCAL-00003" summary="Commit Commit">
+      <created>1633012848505</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1632885699019</updated>
+      <updated>1633012848505</updated>
     </task>
-    <task id="LOCAL-00031" summary="for HTTPS ::🔥">
-      <created>1632925597257</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+    <task id="LOCAL-00004" summary="Commit Commit">
+      <created>1633013560805</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1632925597257</updated>
+      <updated>1633013560805</updated>
     </task>
-    <task id="LOCAL-00032" summary="for HTTPS ::🔥">
-      <created>1632932028819</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+    <task id="LOCAL-00005" summary="Commit Commit">
+      <created>1633014878086</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1632932028819</updated>
+      <updated>1633014878086</updated>
     </task>
-    <task id="LOCAL-00033" summary="for HTTPS ::🔥">
-      <created>1632932621031</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1632932621031</updated>
-    </task>
-    <task id="LOCAL-00034" summary="for HTTPS ::🔥">
-      <created>1632932976113</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1632932976113</updated>
-    </task>
-    <task id="LOCAL-00035" summary="for HTTPS ::🔥">
-      <created>1632933934329</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1632933934329</updated>
-    </task>
-    <task id="LOCAL-00036" summary="for HTTPS ::🔥">
-      <created>1632934245075</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1632934245075</updated>
-    </task>
-    <task id="LOCAL-00037" summary="for HTTPS ::🔥">
-      <created>1632935708242</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1632935708242</updated>
-    </task>
-    <task id="LOCAL-00038" summary="for HTTPS ::🔥">
-      <created>1632935989813</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1632935989813</updated>
-    </task>
-    <task id="LOCAL-00039" summary="for HTTPS ::🔥">
-      <created>1632936097726</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1632936097726</updated>
-    </task>
-    <task id="LOCAL-00040" summary="for HTTPS ::🔥">
-      <created>1632936797909</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1632936797909</updated>
-    </task>
-    <task id="LOCAL-00041" summary="for HTTPS ::🔥">
-      <created>1632936991198</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1632936991198</updated>
-    </task>
-    <task id="LOCAL-00042" summary="for HTTPS ::🔥">
-      <created>1632937761605</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1632937761605</updated>
-    </task>
-    <task id="LOCAL-00043" summary="for HTTPS ::🔥">
-      <created>1632937943980</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1632937943980</updated>
-    </task>
-    <task id="LOCAL-00044" summary="it's not node.js">
-      <created>1632966010731</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1632966010731</updated>
-    </task>
-    <task id="LOCAL-00045" summary="it's not node.js">
-      <created>1632966047096</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1632966047096</updated>
-    </task>
-    <task id="LOCAL-00046" summary="it's not node.js">
-      <created>1632966439027</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1632966439027</updated>
-    </task>
-    <task id="LOCAL-00047" summary="it's not node.js">
-      <created>1632968190947</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1632968190947</updated>
-    </task>
-    <task id="LOCAL-00048" summary="it's not node.js">
-      <created>1632969022481</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1632969022481</updated>
-    </task>
-    <task id="LOCAL-00049" summary="it's not node.js">
-      <created>1632969261791</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1632969261791</updated>
-    </task>
-    <task id="LOCAL-00050" summary="it's not node.js">
-      <created>1632969370635</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1632969370636</updated>
-    </task>
-    <task id="LOCAL-00051" summary="it's not node.js">
-      <created>1632969418897</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1632969418897</updated>
-    </task>
-    <task id="LOCAL-00052" summary="it's not node.js">
-      <created>1632969578995</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1632969578998</updated>
-    </task>
-    <task id="LOCAL-00053" summary="it's not node.js">
-      <created>1632969781575</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1632969781575</updated>
-    </task>
-    <task id="LOCAL-00054" summary="it's not node.js">
-      <created>1632971322140</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1632971322140</updated>
-    </task>
-    <task id="LOCAL-00055" summary="it's not node.js">
-      <created>1632976743764</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1632976743765</updated>
-    </task>
-    <task id="LOCAL-00056" summary="mongo db server sep.">
-      <created>1632977351955</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1632977351955</updated>
-    </task>
-    <task id="LOCAL-00057" summary="mongo db server sep.">
-      <created>1632978095950</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1632978095950</updated>
-    </task>
-    <task id="LOCAL-00058" summary="mongo db server sep.">
-      <created>1632983484770</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1632983484770</updated>
-    </task>
-    <task id="LOCAL-00059" summary="주현님이 구현하신 날씨 수정 ::🌦">
-      <created>1632986951328</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1632986951328</updated>
-    </task>
-    <task id="LOCAL-00060" summary="주현님이 구현하신 날씨 수정 ::🌦">
-      <created>1632989913314</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1632989913314</updated>
-    </task>
-    <option name="localTasksCounter" value="61" />
+    <option name="localTasksCounter" value="6" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="true" />
-                </map>
-              </option>
-              <option name="BEK_SORT_TYPE" value="1" />
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="branch_dongmin" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="date">
-                    <value>
-                      <list>
-                        <option value="1632567199683" />
-                        <option value="" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-              <option name="TEXT_FILTER_SETTINGS">
-                <TextFilterSettings>
-                  <option name="MATCH_CASE" value="true" />
-                </TextFilterSettings>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="HEAD" />
-                </option>
-              </RecentGroup>
-            </list>
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="*" />
-                </option>
-              </RecentGroup>
-            </list>
+            <State />
           </value>
         </entry>
       </map>
@@ -607,36 +295,16 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="restaurant like/dislike feat::" />
-    <MESSAGE value="refresh" />
-    <MESSAGE value="bookmark feature::" />
-    <MESSAGE value="DB data saving logic" />
-    <MESSAGE value="feat:: search bar activated" />
-    <MESSAGE value="feat:: button toggle" />
-    <MESSAGE value="feat:: categories button hover" />
-    <MESSAGE value="merge 001 " />
-    <MESSAGE value="merge 002 " />
-    <MESSAGE value="highlight buttons ✈" />
-    <MESSAGE value="order-sort feat::" />
-    <MESSAGE value="floating action button and bookmark system fix feat::" />
-    <MESSAGE value="you can remove restaurant from bookmark list + code desc.::" />
-    <MESSAGE value="get ready for AWS.::" />
-    <MESSAGE value="get ready for AWS.::" />
-    <MESSAGE value="get ready for AWS.::" />
-    <MESSAGE value="get ready for AWS.::" />
-    <MESSAGE value="Roulette feat in modal::" />
-    <MESSAGE value="Roulette feat in modal::" />
-    <MESSAGE value="룰렛 배경화면과 로고 타이틀 이미지, 이외 일부 로직 수정 ::" />
-    <MESSAGE value="for HTTPS ::" />
-    <MESSAGE value="for HTTPS ::" />
-    <MESSAGE value="it's not node.js" />
-    <MESSAGE value="mongo db server sep." />
-    <MESSAGE value="주현님이 구현하신 날씨 수정 ::" />
-    <option name="LAST_COMMIT_MESSAGE" value="주현님이 구현하신 날씨 수정 ::" />
+    <MESSAGE value="Commit Commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit Commit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flaskProject$Flask__myproject_py_.coverage" NAME="Flask (myproject.py) Coverage Results" MODIFIED="1632965930923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+<<<<<<< HEAD
     <SUITE FILE_PATH="coverage/first_project$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1633004419674" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1632989240386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+=======
+    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1633015282220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+>>>>>>> 9cd0e9f2e50f247e960158ff24a653ff687a702a
   </component>
 </project>

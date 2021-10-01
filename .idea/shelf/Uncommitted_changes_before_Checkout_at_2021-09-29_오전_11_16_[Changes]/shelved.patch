@@ -1,0 +1,84 @@
+Index: templates/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"ko\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n    <!-- 폰트어썸 아이콘 사용! -->\r\n    <script src=\"https://kit.fontawesome.com/aba5c3ead0.js\" crossorigin=\"anonymous\"></script>\r\n    <!-- 커스텀 css! -->\r\n    <link rel=\"stylesheet\" href=\"../static/css/style.css\">\r\n    <link rel=\"shortcut icon\" href=\"../static/images/favicon.png\">\r\n    <!-- 커스텀 JS! -->\r\n    <script rel=\"script\" src=\"../static/js/core.js\"></script>\r\n    <!-- UUID 라이브러리! -->\r\n    <script src=\"https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js\"></script>\r\n    <!-- 제이쿼리! -->\r\n    <script src=\"https://code.jquery.com/jquery-3.6.0.js\"\r\n            integrity=\"sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=\" crossorigin=\"anonymous\"></script>\r\n    <!--  PopperJS! -->\r\n    <script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js\"\r\n            integrity=\"sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1\"\r\n            crossorigin=\"anonymous\"></script>\r\n    <!-- Google Fonts! -->\r\n    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\r\n    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\r\n    <link href=\"https://fonts.googleapis.com/earlyaccess/hanna.css\" rel=\"stylesheet\">\r\n    <link href=\"https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap\" rel=\"stylesheet\">\r\n    <title>오롯이 식탁</title>\r\n</head>\r\n<body>\r\n<div class=\"header\">\r\n    <h1 class=\"title\"> 저 기 요 </h1>\r\n    <div class=\"field has-addons\">\r\n        <p class=\"buttons\">\r\n            <button class=\"button\">\r\n                    <span class=\"icon is-small\">\r\n                        <img alt=\"gps\" src=\"/static/images/gpsicon.png\" onclick=\"geoRefresh()\">\r\n                     </span>\r\n            </button>\r\n        </p>\r\n        <div class=\"control\">\r\n            <label for=\"geoSearch\"></label>\r\n            <input id=\"geoSearch\" class=\"input\" type=\"text\" placeholder=\"지역을 입력해주세요\">\r\n            <a class=\"button is-info\" href=\"javascript:search()\">\r\n                검색\r\n            </a>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"tabs is-centered is-boxed\">\r\n    <ul>\r\n        <li class=\"tab tab-rank is-active\">\r\n            <a href=\"#rank\" onclick=\"tabFocus('rank')\">\r\n                <span class=\"icon is-small\"><i class=\"fas fa-medal\" aria-hidden=\"true\"></i></span>\r\n                <span>랭킹 순</span>\r\n            </a>\r\n        </li>\r\n        <li class=\"tab tab-review_avg\">\r\n            <a href=\"#review_avg\" onclick=\"tabFocus('review_avg')\">\r\n                <span class=\"icon is-small\"><i class=\"fas fa-star-half-alt\" aria-hidden=\"true\"></i></span>\r\n                <span>별점 순</span>\r\n            </a>\r\n        </li>\r\n        <li class=\"tab tab-min_order_value\">\r\n            <a href=\"#min_order_value\" onclick=\"tabFocus('min_order_value')\">\r\n                <span class=\"icon is-small\"><i class=\"fas fa-money-bill-wave\" aria-hidden=\"true\"></i></span>\r\n                <span>최소 금액 순</span>\r\n            </a>\r\n        </li>\r\n        <li class=\"tab tab-distance\">\r\n            <a href=\"#distance\" onclick=\"tabFocus('distance')\">\r\n                <span class=\"icon is-small\"><i class=\"fas fa-people-arrows\" aria-hidden=\"true\"></i></span>\r\n                <span>거리 순</span>\r\n            </a>\r\n        </li>\r\n        <li class=\"tab tab-review_count\">\r\n            <a href=\"#review_count\" onclick=\"tabFocus('review_count')\">\r\n                <span class=\"icon is-small\"><i class=\"fas fa-comments-dollar\" aria-hidden=\"true\"></i></span>\r\n                <span>리뷰 많은 순</span>\r\n            </a>\r\n        </li>\r\n    </ul>\r\n</div>\r\n<div class=\"container is-max-desktop\">\r\n    <div class=\"columns is-max-desktop is-mobile\">\r\n        <div class=\"column column-0\"></div>\r\n        <div class=\"column column-1\"></div>\r\n        <div class=\"column column-2\"></div>\r\n        <div class=\"column is-one-fifth\">\r\n            <div id=\"aside\">\r\n                <h2 class=\"h2\" style=\"display:none;\">즐겨찾기 목록</h2>\r\n                <aside class=\"menu\">\r\n                    <ul class=\"menu-list\" id=\"bookmarks\">\r\n                    </ul>\r\n                </aside>\r\n            </div>\r\n            <div class=\"btn-up\">\r\n                <button onclick=\"window.scrollTo(0, 0);\" class=\"button btn-up-position\">\r\n                    <i class=\"fas fa-chevron-up\"></i>\r\n                </button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/index.html b/templates/index.html
+--- a/templates/index.html	(revision e9288cca17fb728c36083eeb7f3fae9ee456392d)
++++ b/templates/index.html	(date 1632742238652)
+@@ -29,7 +29,9 @@
+ </head>
+ <body>
+ <div class="header">
+-    <h1 class="title"> 저 기 요 </h1>
++
++    <img class="logo" src="/static/images/logo_001.png" alt="오늘 뭐먹지?">
++
+     <div class="field has-addons">
+         <p class="buttons">
+             <button class="button">
+Index: static/css/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/*Bulma CSS 약간의 수정 들어간 것*/\r\n@import \"bulma.css\";\r\n/*배달 점포 카드 애니메이션*/\r\n@import \"card.css\";\r\n/*스크롤업 버튼*/\r\n@import \"scroll_up.css\";\r\n\r\n* {\r\n    font-family: 'Hanna', sans-serif;\r\n}\r\n\r\nbody {\r\n    width: 100%;\r\n    height: 100vh;\r\n    margin: 0 auto;\r\n    grid-template-columns: repeat(16, 1fr);\r\n    grid-template-rows: repeat(8, 1fr);\r\n    box-sizing: border-box !important;\r\n}\r\n/* 여기부터 헤더 히어로 */\r\n.header {\r\n    display: flex;\r\n    flex-direction: column;\r\n    justify-content: center;\r\n    align-items: center;\r\n    font-size: 24px;\r\n    height: 250px;\r\n    background-color: #ffebcd;\r\n    background-size: cover;\r\n    background-repeat: repeat-x;\r\n    background-image: url(\"../images/lucian-alexe.jpg\");\r\n}\r\n\r\n.header > h1.title  {\r\n    font-family: 'Black Han Sans', sans-serif;\r\n    text-shadow: 4px 4px 0 saddlebrown;\r\n    font-size: 70px;\r\n    color: burlywood;\r\n    margin-bottom: 30px;\r\n}\r\n\r\n/*.name {*/\r\n/*    font-family: \"Roboto Slab\", serif;*/\r\n/*    font-weight: bold;*/\r\n/*    font-size: 50px;*/\r\n/*    padding: 20px;*/\r\n/*}*/\r\n\r\ndiv.container {\r\n    padding: 20px;\r\n    flex-grow: 1;\r\n    margin: 0 auto;\r\n    position: relative;\r\n    width: auto;\r\n    /*max-width: 1200px !important;*/\r\n}\r\n/*검색 인풋*/\r\ndiv.control {\r\n    min-width: 200px;\r\n    width: 300px;\r\n    display: inline-flex;\r\n}\r\n/*카드 컬럼 부분*/\r\n.columns.is-max-desktop.is-mobile\r\n.columns:not(.is-desktop) {\r\n    display: flex;\r\n    max-width: 1200px;\r\n    margin: auto;\r\n}\r\n/*버튼 부분*/\r\nbutton.button {\r\n    -moz-appearance: none;\r\n    -webkit-appearance: none;\r\n    align-items: center;\r\n    border: 1px solid transparent;\r\n    box-shadow: none;\r\n    display: inline-flex;\r\n    justify-content: flex-start;\r\n    line-height: 1.5;\r\n    position: relative;\r\n    vertical-align: top;\r\n}\r\n\r\ndiv.buttons {\r\n    align-items: center;\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    justify-content: center;\r\n    margin-bottom: unset;\r\n}\r\n\r\n.button.is-warning {\r\n    background-color: #ffe08a;\r\n    cursor: pointer;\r\n    justify-content: center;\r\n    text-align: center;\r\n    white-space: nowrap;\r\n    margin-right: .5rem;\r\n}\r\n\r\n.button {\r\n    margin-right: 10px;\r\n}\r\n/*버튼 끝*/\r\n/*배경 이미지 현재 미적용 중*/\r\n/*.bg-img {*/\r\n/*    width: 100vw;*/\r\n/*    height: 100vh;*/\r\n/*    overflow: hidden;*/\r\n/*}*/\r\n\r\n/*여기서부터 즐겨찾기목록 띄우는 CSS*/\r\nh2.h2 {\r\n    font-size: x-large;\r\n    font-weight: 500;\r\n}\r\n/*즐겨찾기 삭제버튼*/\r\nbutton.button.is-xs {\r\n    background-color: #00d1b2;\r\n    border-color: transparent;\r\n    color: #fff;\r\n    border-radius: 9999px;\r\n    font-size: 0.5rem;\r\n    height: 22px;\r\n}\r\n/*즐겨찾기 리스트*/\r\n.bookmark {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    margin-top: 4px;\r\n}\r\n/*즐겨찾기 리스트 텍스트*/\r\nspan.mark-menu {\r\n    width: 8rem;\r\n    overflow: hidden;\r\n    height: 1rem;\r\n    display: inline-block !important;\r\n}\r\n\r\n/*즐겨찾기 목록 부드럽게 오른쪽에서 슬라이드로 나타나는 효과 + 스크롤따라 움직임*/\r\n#aside {\r\n    font-size: 14px;\r\n    z-index: 100;\r\n    -webkit-transform: translate3d(300px, 0, 0);\r\n    -moz-transform: translate3d(300px, 0, 0);\r\n    transform: translate3d(300px, 0, 0);\r\n    -webkit-transition: all 0.2s;\r\n    -moz-transition: all 0.2s;\r\n    -ms-transition: all 0.2s;\r\n    -o-transition: all 0.2s;\r\n    transition: all 0.2s;\r\n}\r\n\r\n#aside.open {\r\n    overflow-y: auto;\r\n    -webkit-transform: translate3d(0, 0, 0);\r\n    -moz-transform: translate3d(0, 0, 0);\r\n    transform: translate3d(0, 0, 0);\r\n    -webkit-transition: all 0.2s;\r\n    -moz-transition: all 0.2s;\r\n    -ms-transition: all 0.2s;\r\n    -o-transition: all 0.2s;\r\n    transition: all 0.2s;\r\n}\r\n\r\n#aside {\r\n    padding: 10px;\r\n    background-color: #cfcfcf;\r\n    border-radius: 10px;\r\n    position: sticky;\r\n    top: 100px;\r\n    right: 300px;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/static/css/style.css b/static/css/style.css
+--- a/static/css/style.css	(revision e9288cca17fb728c36083eeb7f3fae9ee456392d)
++++ b/static/css/style.css	(date 1632742238641)
+@@ -38,7 +38,16 @@
+     color: burlywood;
+     margin-bottom: 30px;
+ }
++/* 정사각형 로고(logo_001.png) 사용시 필요한 ccs입니다 */
++.header > img.logo {
++    position: relative;
++    height: 200px;
++    left: -450px;
++    top: 30px;
++}
+ 
++
++/*}*/
+ /*.name {*/
+ /*    font-family: "Roboto Slab", serif;*/
+ /*    font-weight: bold;*/
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.8 (flaskProject)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision e9288cca17fb728c36083eeb7f3fae9ee456392d)
++++ b/.idea/misc.xml	(date 1632707515189)
+@@ -1,4 +1,4 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8 (flaskProject)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/flaskProject.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"Flask\">\r\n    <option name=\"enabled\" value=\"true\" />\r\n  </component>\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/venv\" />\r\n    </content>\r\n    <orderEntry type=\"inheritedJdk\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"@popperjs/core\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"bootstrap\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"bulma\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"font-awesome\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"jquery\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"jquery-cookie\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"popper.js\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"jquery-3.6.0\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"uuid\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"hanna\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"all\" level=\"application\" />\r\n    <orderEntry type=\"library\" name=\"aba5c3ead0\" level=\"application\" />\r\n  </component>\r\n  <component name=\"TemplatesService\">\r\n    <option name=\"TEMPLATE_CONFIGURATION\" value=\"Jinja2\" />\r\n    <option name=\"TEMPLATE_FOLDERS\">\r\n      <list>\r\n        <option value=\"$MODULE_DIR$/../flaskProject\\templates\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/flaskProject.iml b/.idea/flaskProject.iml
+--- a/.idea/flaskProject.iml	(revision e9288cca17fb728c36083eeb7f3fae9ee456392d)
++++ b/.idea/flaskProject.iml	(date 1632707515162)
+@@ -7,7 +7,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/venv" />
+     </content>
+-    <orderEntry type="inheritedJdk" />
++    <orderEntry type="jdk" jdkName="Python 3.8" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+     <orderEntry type="library" name="@popperjs/core" level="application" />
+     <orderEntry type="library" name="bootstrap" level="application" />
