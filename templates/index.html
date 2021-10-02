@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -11,7 +10,7 @@
     <!-- 폰트어썸 아이콘 사용! -->
     <script src="https://kit.fontawesome.com/aba5c3ead0.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css! -->
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/purify.css">
     <link rel="shortcut icon" href="../static/images/favicon.png">
     <!-- 커스텀 JS! -->
     <script rel="script" src="../static/js/core.js"></script>
@@ -19,11 +18,11 @@
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <!-- 제이쿼리! -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!--  PopperJS! -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
     <!-- Google Fonts! -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,122 +30,124 @@
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M12CTMX759"></script>
-    <script>window.dataLayer = window.dataLayer || [];function gtag() {dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-M12CTMX759');
+    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-M12CTMX759');
     </script>
     <!-- Global site tag (gtag.js) - Google Adsense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457293335388562"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <title>오늘 뭐 먹지?</title>
 </head>
+
 <body>
-<div class="header">
-    <h1 class="title" id="title"><span style="display: none"> 오 늘 뭐 먹 지 </span><img src="./static/images/logo_002.png"
-                                                                                    alt="title"></h1>
-    <div class="field has-addons">
-        <p class="buttons">
-            <button class="button">
+    <div class="header">
+        <h1 class="title" id="title"><span style="display: none"> 오 늘 뭐 먹 지 </span><img
+                src="../static/images/logo_002.png" alt="title"></h1>
+        <div class="field has-addons">
+            <p class="buttons">
+                <button class="button">
                     <span class="icon is-small">
                         <img alt="gps" src="/static/images/gpsicon.png" autofocus onclick="geoRefresh()">
-                     </span>
-            </button>
-        </p>
-        <div class="control">
-            <label for="geoSearch"></label>
-            <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
-            <a class="button is-warning" href="javascript:search()">
-                검색
-            </a>
-        </div>
-    </div>
-</div>
-<div class="tabs is-centered is-boxed">
-    <ul>
-        <li class="tab tab-rank is-active">
-            <a href="#rank" onclick="tabFocus('rank')">
-                <span class="icon is-small"><i class="fas fa-medal" aria-hidden="true"></i></span>
-                <span>랭킹 순</span>
-            </a>
-        </li>
-        <li class="tab tab-review_avg">
-            <a href="#review_avg" onclick="tabFocus('review_avg')">
-                <span class="icon is-small"><i class="fas fa-star-half-alt" aria-hidden="true"></i></span>
-                <span>별점 순</span>
-            </a>
-        </li>
-        <li class="tab tab-min_order_value">
-            <a href="#min_order_value" onclick="tabFocus('min_order_value')">
-                <span class="icon is-small"><i class="fas fa-money-bill-wave" aria-hidden="true"></i></span>
-                <span>최소 금액 순</span>
-            </a>
-        </li>
-        <li class="tab tab-distance">
-            <a href="#distance" onclick="tabFocus('distance')">
-                <span class="icon is-small"><i class="fas fa-people-arrows" aria-hidden="true"></i></span>
-                <span>거리 순</span>
-            </a>
-        </li>
-        <li class="tab tab-review_count">
-            <a href="#review_count" onclick="tabFocus('review_count')">
-                <span class="icon is-small"><i class="fas fa-comments-dollar" aria-hidden="true"></i></span>
-                <span>리뷰 많은 순</span>
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="container is-max-desktop">
-    <div class="columns is-max-desktop is-mobile">
-        <div class="column is-one-quarter">
-            <div id="weather-box" class="panel"></div>
-        </div>
-        <div class="column column-0"></div>
-        <div class="column column-1"></div>
-        <div class="column column-2"></div>
-        <div class="column is-one-quarter">
-            <div id="aside" class="panel is-warning">
-                <h2 class="h2 panel-heading" style="display:none;">즐겨찾기 목록</h2>
-                <aside class="menu panel-block">
-                    <ul class="menu-list" id="bookmarks">
-                    </ul>
-                </aside>
-            </div>
-            <div class="btn-up">
-                <button onclick="window.scrollTo(0, 0);" class="button btn-up-position">
-                    <i class="fas fa-chevron-up"></i>
+                    </span>
                 </button>
+            </p>
+            <div class="control">
+                <label for="geoSearch"></label>
+                <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
+                <a class="button is-warning" href="javascript:search()">
+                    검색
+                </a>
             </div>
         </div>
     </div>
-</div>
-<div id="footer">
-    <nav class="panel">
-        <p class="panel-heading">Team JARYO<span style="color: red">9</span>JO
-            <a href="https://github.com/AndrewDongminYoo/myproject.git">
-                <img class="footer-img" src="../static/images/Github_logo_PNG2.png">
-            </a>
-        </p>
-        <div class="footer-content">
-            <p class="member">
-                <a href="https://cat-minzzi.tistory.com/">유동민</a>
-                <a href="https://velog.io/@jihye">명지혜</a>
-                <a href="https://velog.io/@woodstock1993">서재환</a>
-                <a href="https://thdwngus2.tistory.com/">송주현</a></p>
-            <p>project period : 23rd Sep - 1st Oct</p>
-            <p class="footer-copyright">Copyrightⓒ 2021 JARYO9JO all rights reserved.</p>
+    <div class="tabs is-centered is-boxed">
+        <ul>
+            <li class="tab tab-rank is-active">
+                <a href="#rank" onclick="tabFocus('rank')">
+                    <span class="icon is-small"><i class="fas fa-medal" aria-hidden="true"></i></span>
+                    <span>랭킹 순</span>
+                </a>
+            </li>
+            <li class="tab tab-review_avg">
+                <a href="#review_avg" onclick="tabFocus('review_avg')">
+                    <span class="icon is-small"><i class="fas fa-star-half-alt" aria-hidden="true"></i></span>
+                    <span>별점 순</span>
+                </a>
+            </li>
+            <li class="tab tab-min_order_value">
+                <a href="#min_order_value" onclick="tabFocus('min_order_value')">
+                    <span class="icon is-small"><i class="fas fa-money-bill-wave" aria-hidden="true"></i></span>
+                    <span>최소 금액 순</span>
+                </a>
+            </li>
+            <li class="tab tab-distance">
+                <a href="#distance" onclick="tabFocus('distance')">
+                    <span class="icon is-small"><i class="fas fa-people-arrows" aria-hidden="true"></i></span>
+                    <span>거리 순</span>
+                </a>
+            </li>
+            <li class="tab tab-review_count">
+                <a href="#review_count" onclick="tabFocus('review_count')">
+                    <span class="icon is-small"><i class="fas fa-comments-dollar" aria-hidden="true"></i></span>
+                    <span>리뷰 많은 순</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container is-max-desktop">
+        <div class="columns is-max-desktop is-mobile">
+            <div class="column is-one-quarter">
+                <div id="weather-box" class="panel"></div>
+            </div>
+            <div class="column column-0"></div>
+            <div class="column column-1"></div>
+            <div class="column column-2"></div>
+            <div class="column is-one-quarter">
+                <div id="aside" class="panel is-warning">
+                    <h2 class="h2 panel-heading" style="display:none;">즐겨찾기 목록</h2>
+                    <aside class="menu panel-block">
+                        <ul class="menu-list" id="bookmarks">
+                        </ul>
+                    </aside>
+                </div>
+                <div class="btn-up">
+                    <button onclick="window.scrollTo(0, 0);" class="button btn-up-position">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                </div>
+            </div>
         </div>
+    </div>
+    <div id="footer">
+        <nav class="panel">
+            <p class="panel-heading">Team JARYO<span style="color: red">9</span>JO
+                <a href="https://github.com/AndrewDongminYoo/myproject.git">
+                    <img class="footer-img" src="../static/images/Github_logo_PNG2.png">
+                </a>
+            </p>
+            <div class="footer-content">
+                <p class="member">
+                    <a href="https://cat-minzzi.tistory.com/">유동민</a>
+                    <a href="https://velog.io/@jihye">명지혜</a>
+                    <a href="https://velog.io/@woodstock1993">서재환</a>
+                    <a href="https://thdwngus2.tistory.com/">송주현</a>
+                </p>
+                <p>project period : 23rd Sep - 1st Oct</p>
+                <p class="footer-copyright">Copyrightⓒ 2021 JARYO9JO all rights reserved.</p>
+            </div>
 
-    </nav>
-</div>
-<div>
-    <div class="modal" id="modal">
-        <div class="modal-background" id="modal-bg" onclick='$("#modal").remove()'></div>
-        <div class="modal-content"></div>
-        <button class="modal-close is-large" aria-label="close"
-                onclick='$("#modal").remove()'></button>
+        </nav>
     </div>
-    <div class="low-modal">
-        <div id="low-modal-body" style="display:none;"></div>
+    <div>
+        <div class="modal" id="modal">
+            <div class="modal-background" id="modal-bg" onclick='$("#modal").remove()'></div>
+            <div class="modal-content"></div>
+            <button class="modal-close is-large" aria-label="close" onclick='$("#modal").remove()'></button>
+        </div>
+        <div class="low-modal">
+            <div id="low-modal-body" style="display:none;"></div>
+        </div>
     </div>
-</div>
 
 </body>
+
 </html>

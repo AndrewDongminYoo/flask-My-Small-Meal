@@ -1,13 +1,10 @@
-let user = null
-let latitude = 37.5559598
-let longitude = 126.1699723
+let user = null, latitude = 37.5559598, longitude = 126.1699723;
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 window.onload = function () {
-    geoFindMe(); // 사용자의 위치 받아내기
-    userCheck(); // 사용자가 처음 접속한 사람인지 확인
-    weather().then()
-}
+    geoFindMe(), userCheck(), weather().then()
+};
+const error = () => NoGeoDontWorry();
 
 async function weather() {
     const weatherBox = $("#weather-box")
@@ -29,9 +26,9 @@ async function weather() {
         '&lon=' + longitude.toFixed(7) +
         `&appid=${apikey}&lang=kr&units=metric`;
     const response = await fetch(url).then((res) => res.json()).catch()
-    const {current, daily} = await response;
-    const {feels_like, humidity, weather, wind_speed} = await current;
-    const {description, icon} = await weather[0];
+    const { current, daily } = await response;
+    const { feels_like, humidity, weather, wind_speed } = await current;
+    const { description, icon } = await weather[0];
     daily.length = 4;
 
     $(".bm-current-table").append(`
@@ -45,9 +42,9 @@ async function weather() {
     `);
 
     await daily.forEach((w) => {
-        const {feels_like, humidity, weather} = w;
-        const {day, night, eve, morn} = feels_like;
-        const {description, icon} = weather[0];
+        const { feels_like, humidity, weather } = w;
+        const { day, night, eve, morn } = feels_like;
+        const { description, icon } = weather[0];
 
         $(".bm-daily-table").append(`
             <tbody><tr>
@@ -120,9 +117,6 @@ function success(position) {
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
 }
 
-//위치 받아내기 실패했을 때 에러 핸들링 코드
-const error = () => NoGeoDontWorry();
-
 async function NoGeoDontWorry() {
     const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
     let restaurants = await response.json()
@@ -143,21 +137,15 @@ function modal() {
 
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
 const userCheck = () => {
-    user = localStorage.getItem("delivery-uuid")
-    if (user === null) {
-        user = uuidv4()
-        localStorage.setItem("delivery-uuid", user)
-    }
-    // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
-    setTimeout(() => showBookmarks(user), 2000)
-}
+    null === (user = localStorage.getItem("delivery-uuid")) && (user = uuidv4(), localStorage.setItem("delivery-uuid", user)), setTimeout(() => showBookmarks(user), 2e3)
+};
 
 // 특정 식당을 즐겨찾기 하는 코드
 function keep(ssid, min_order) {
     changeBtn(ssid, false)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: ssid, 'min_order': min_order, action: 'like'});
+    const body = JSON.stringify({ uuid: user, ssid: ssid, 'min_order': min_order, action: 'like' });
     sendLike(user, headers, body)
 }
 
@@ -166,7 +154,7 @@ function remove(ssid) {
     changeBtn(ssid, true)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike'});
+    const body = JSON.stringify({ uuid: user, ssid: ssid, action: 'dislike' });
     sendLike(user, headers, body)
 }
 
@@ -175,7 +163,7 @@ function delMark(ssid) {
     changeBtn(ssid, true)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike'});
+    const body = JSON.stringify({ uuid: user, ssid: ssid, action: 'dislike' });
     sendLike(user, headers, body)
 }
 
@@ -191,7 +179,7 @@ function changeBtn(ssid, afterDelete) {
 
 // 즐겨찾기에 등록 or 해제 하는 코드의 공통 코드 추출
 function sendLike(user, headers, body) {
-    const init = {method: 'POST', headers, body};
+    const init = { method: 'POST', headers, body };
     fetch(`/api/like`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then(() => {
@@ -215,7 +203,7 @@ function showBookmarks(user) {
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
-    let {ssid, name, phone, time} = restaurant;
+    let { ssid, name, phone, time } = restaurant;
     let tempHtml = `
     <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${ssid}" onclick="popUp('${ssid}')">
     <span class="mark-menu">${name}</span>
@@ -230,7 +218,7 @@ function popUp(ssid) {
         type: 'GET',
         data: {},
         success: (function (restaurant) {
-            let {ssid, image, name, address, time, min_order, phone, categories} = restaurant;
+            let { ssid, image, name, address, time, min_order, phone, categories } = restaurant;
             let tempHtml = `
                 <div class="pop-up-card">
                     <button class="button close-button" onclick="$('#low-modal-body').hide();">⨉</button>
@@ -322,8 +310,8 @@ function search() {
     let query = $("#geoSearch").val()
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({query: query});
-    const init = {method: 'POST', headers, body};
+    const body = JSON.stringify({ query: query });
+    const init = { method: 'POST', headers, body };
     fetch(`/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((result) => {
@@ -333,14 +321,14 @@ function search() {
             }
             return getFoods(latitude, longitude)
         }).then(restaurants => {
-        $(".column-0").empty()
-        $(".column-1").empty()
-        $(".column-2").empty()
-        restaurants.forEach((restaurant, index) => {
-            let i = index % 3
-            showCards(restaurant, i)
-        }) // tempHtml append 하기
-    }).catch((e) => console.log(e));
+            $(".column-0").empty()
+            $(".column-1").empty()
+            $(".column-2").empty()
+            restaurants.forEach((restaurant, index) => {
+                let i = index % 3
+                showCards(restaurant, i)
+            }) // tempHtml append 하기
+        }).catch((e) => console.log(e));
 }
 
 // 특정 카테고리 (예: 1인분주문) 를 클릭하면 모든 식당 중 해당 해시태그를 가진 카드가 하이라이트됩니다.

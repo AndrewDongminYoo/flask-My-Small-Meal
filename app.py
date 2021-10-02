@@ -48,12 +48,12 @@ def like():
         else:
             good_list = user[0]['like_list']
             good_list.append(ssid)
-            db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            db.users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     else:
         if user and ssid in user[0]['like_list']:
             good_list = user[0]['like_list']
             good_list.remove(ssid)
-            db.users.update({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            db.users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify({'uuid': uuid})
 
 
