@@ -6,10 +6,11 @@ db = client.dbGoojo
 col = db.restaurant
 
 
-def put_restaurant(ssid):
+def put_restaurant(ssid, min_order):
     """
     즐겨찾기 버튼을 클릭한 점포를 데이터베이스에 저장합니다.
     :param ssid: 요기요 데이터베이스 상점 id
+    :param min_order: 최소 주문금액
     :return: None
     """
     if list(col.find({"ssid": ssid}, {"_id": False})):
@@ -33,7 +34,8 @@ def put_restaurant(ssid):
         "categories": result.get("categories"),
         "delivery": result.get("estimated_delivery_time"),
         "address": result.get("address"),
-        "image": result.get("background_url")
+        "image": result.get("background_url"),
+        "min_order": min_order
         }
     col.insert_one(doc)
 

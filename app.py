@@ -36,8 +36,9 @@ def like():
     uuid = request.json.get('uuid')
     ssid = request.json.get('ssid')
     action = request.json.get('action')
+    min_order = request.json.get('min_order')
     user = list(db.users.find({"uuid": uuid}, {"_id": False}))
-    utils.put_restaurant(ssid)
+    utils.put_restaurant(ssid, min_order)
     if action == 'like':
         if not user:
             good_list = [ssid]
@@ -90,7 +91,6 @@ def get_restaurant():
     if not order:
         order = "rank"
     cat = "1인분주문"
-    count = 45  # 3의 배수 권장
     url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=' + cat + '&items=45&lat=' + lat\
           + "&lng=" + long + '&order=' + order + '&page=0'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
