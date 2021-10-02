@@ -3165,7 +3165,7 @@ body {
     background-color: #ffebcd;
     background-size: cover;
     background-repeat: repeat-x;
-    background-image: url(../images/lucian-alexe.jpg);
+    background-image: url(../images/lucian-alexe.webp);
 }
 
 .header > h1.title {
@@ -3431,7 +3431,7 @@ div.tabs {
 }
 
 .modal-background {
-    background: rgba(10, 10, 10, 0.86) no-repeat 50% -10%/30rem url(../images/roulette.png);
+    background: rgba(10, 10, 10, 0.86) no-repeat 50% -10%/30rem url(../images/roulette.webp);
     bottom: 0;
     left: 0;
     position: absolute;
