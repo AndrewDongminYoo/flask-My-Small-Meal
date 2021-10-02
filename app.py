@@ -125,6 +125,13 @@ def get_restaurant():
     return jsonify(restaurants)
 
 
+@app.route('/api/detail', methods=["GET"])
+def show_modal():
+    ssid = request.args.get('ssid')
+    restaurant = list(db.restaurant.find({"ssid": ssid}, {"_id": False}))[0]
+    return jsonify(restaurant)
+
+
 @app.route('/api/address', methods=["POST"])
 def search_add():
     query = request.json.get('query')

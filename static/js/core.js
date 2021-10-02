@@ -1,12 +1,24 @@
-let user = null, latitude = 37.5559598, longitude = 126.1699723;
+let user = null, latitude = 37.5559598, longitude = 126.1699723, isMobile = false;
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 window.onload = function () {
-    geoFindMe(), userCheck(), weather().then()
+    geoFindMe(); userCheck(); weather().then(); device_check();
 };
 const error = () => NoGeoDontWorry();
 
+function device_check() {
+    const pc_device = "win16|win32|win64|mac|macintel";
+    const this_device = navigator.platform;
+    if (this_device) {
+        isMobile = pc_device.indexOf(navigator.platform.toLowerCase()) < 0;
+    }
+    console.log(isMobile? "It's on mobile" : "It's Computer")
+}
+
 async function weather() {
+    if (isMobile) {
+        return
+    }
     const weatherBox = $("#weather-box")
     weatherBox.empty();
     weatherBox.append(`
@@ -98,7 +110,7 @@ function success(position) {
             let categories = []
             restaurants.forEach((restaurant, index) => {
                 categories.push(...restaurant['categories'])
-                let i = index % 3
+                let i = isMobile ? index % 2 : index % 3
                 showCards(restaurant, i)
             }) // tempHtml append 하기
             let unique = new Set(categories)
@@ -190,6 +202,9 @@ function sendLike(user, headers, body) {
 
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
+    if (isMobile) {
+        return
+    }
     $("h2.h2").show()
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
@@ -218,7 +233,7 @@ function popUp(ssid) {
         type: 'GET',
         data: {},
         success: (function (restaurant) {
-            let { ssid, image, name, address, time, min_order, phone, categories } = restaurant;
+            let { image, name, address, time, min_order, phone, categories } = restaurant;
             let tempHtml = `
                 <div class="pop-up-card">
                     <button class="button close-button" onclick="$('#low-modal-body').hide();">⨉</button>
@@ -242,7 +257,6 @@ function popUp(ssid) {
                 btn += `<span>#${tag}</span>`
             })
             let lowModal = $('#low-modal-body');
-            let likeBtn = $(`#pop-${ssid}`)
             lowModal.show()
             lowModal.html(tempHtml.replace("{__buttons__}", btn))
             // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
@@ -381,7 +395,6 @@ async function everybodyShuffleIt(array) {
             $(`button.button:contains(${result})`).removeClass('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
-            $("div").remove("#modal")
             $("#modal").remove()
             return result
         }
