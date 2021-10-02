@@ -119,7 +119,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1633066799721</updated>
-      <workItem from="1633066805417" duration="5001000" />
+      <workItem from="1633066805417" duration="5928000" />
     </task>
     <task id="LOCAL-00010" summary="구글 애널리틱스 적용 ::feat">
       <created>1633085937895</created>
@@ -135,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633086014337</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="구글 애널리틱스 적용 ::feat">
+      <created>1633141041107</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1633141041107</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
