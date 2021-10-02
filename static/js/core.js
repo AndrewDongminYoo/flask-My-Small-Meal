@@ -279,7 +279,7 @@ window.addEventListener('hashchange', async () => {
 // 레스토랑 하나하나의 카드를 만들어내는 코드
 const showCards = (restaurant, i) => {
     let {
-        ssid, name, reviews,
+        id, name, reviews,
         owner, categories,
         image, address,
         rating, time, min_order
@@ -297,8 +297,8 @@ const showCards = (restaurant, i) => {
         <div class="tool-box">
             <div class="book-mark">
                 <div class="store_name">${name}<br>⭐${rating}점</div>
-                <button class="button book-button" id="keep-${ssid}" onclick="keep('${ssid}', '${min_order}')">⭐keep</button>
-                <button class="button book-button is-hidden" id="delete-${ssid}" onclick="remove('${ssid}')">🌟delete</button>
+                <button class="button book-button" id="keep-${id}" onclick="keep('${id}', '${min_order}')">⭐keep</button>
+                <button class="button book-button is-hidden" id="delete-${id}" onclick="remove('${id}')">🌟delete</button>
             </div>
             <div class="buttons are-small" id="btns${i}">{__buttons__}</div>
             <div class="card-footer">

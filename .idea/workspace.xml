@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="재환님이 구현하신 즐겨찾기 모델 수정 fix::🚡">
-      <change beforePath="$PROJECT_DIR$/.idea/flaskProject.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/flaskProject.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="dbb572ff-4afa-4354-aee2-d552c232ac6e" name="Changes" comment="재환님이 구현하신 즐겨찾기 모달 수정 fix::🚡">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/core.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +121,7 @@
       <option name="presentableId" value="Default" />
       <updated>1633066799721</updated>
       <workItem from="1633066805417" duration="5928000" />
-      <workItem from="1633177497383" duration="225000" />
+      <workItem from="1633177497383" duration="756000" />
     </task>
     <task id="LOCAL-00010" summary="구글 애널리틱스 적용 ::feat">
       <created>1633085937895</created>
@@ -154,7 +151,14 @@
       <option name="project" value="LOCAL" />
       <updated>1633174846283</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="재환님이 구현하신 즐겨찾기 모달 수정 fix::🚡">
+      <created>1633177808861</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1633177808861</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -178,10 +182,11 @@
     <MESSAGE value="날씨와 푸터 모두 구현된 배포용 웹사이트 완성" />
     <MESSAGE value="구글 애널리틱스 적용 ::feat" />
     <MESSAGE value="재환님이 구현하신 즐겨찾기 모델 수정 fix::" />
-    <option name="LAST_COMMIT_MESSAGE" value="재환님이 구현하신 즐겨찾기 모델 수정 fix::" />
+    <MESSAGE value="재환님이 구현하신 즐겨찾기 모달 수정 fix::" />
+    <option name="LAST_COMMIT_MESSAGE" value="재환님이 구현하신 즐겨찾기 모달 수정 fix::" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/flaskProject$Flask__myproject_py_.coverage" NAME="Flask (myproject.py) Coverage Results" MODIFIED="1632965930923" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1633175072495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1633177876176" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
