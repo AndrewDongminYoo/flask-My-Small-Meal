@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -94,14 +95,13 @@
 </div>
 <div class="container is-max-desktop">
     <div class="columns is-max-desktop is-mobile">
-        <div class="column is-one-fifth">
-            <div id="weather-box" class="panel">
-            </div>
+        <div class="column is-one-quarter">
+            <div id="weather-box" class="panel"></div>
         </div>
         <div class="column column-0"></div>
         <div class="column column-1"></div>
         <div class="column column-2"></div>
-        <div class="column is-one-fifth">
+        <div class="column is-one-quarter">
             <div id="aside" class="panel is-warning">
                 <h2 class="h2 panel-heading" style="display:none;">즐겨찾기 목록</h2>
                 <aside class="menu panel-block">
@@ -135,12 +135,18 @@
         </div>
 
     </nav>
+</div>
+<div>
     <div class="modal" id="modal">
         <div class="modal-background" id="modal-bg" onclick='$("#modal").remove()'></div>
         <div class="modal-content"></div>
         <button class="modal-close is-large" aria-label="close"
                 onclick='$("#modal").remove()'></button>
     </div>
+    <div class="low-modal">
+        <div id="low-modal-body" style="display:none;"></div>
+    </div>
 </div>
+
 </body>
 </html>
