@@ -115,7 +115,7 @@ function success(position) {
             }) // tempHtml append 하기
             let unique = new Set(categories)
             categories = [...unique]
-            modal()
+            isMobile || modal()
             categories = categories.filter((v) => v !== '1인분주문')
             shuffle(categories)
             let tempHTML = "<span>[</span>";
@@ -144,6 +144,7 @@ async function NoGeoDontWorry() {
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
 
 function modal() {
+    if (isMobile) return;
     $('#modal').addClass('is-active')
 }
 
@@ -228,6 +229,7 @@ const bookMark = (restaurant) => {
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(ssid) {
+    if (isMobile) return;
     $.ajax({
         url: `/api/detail?ssid=${ssid}`,
         type: 'GET',
