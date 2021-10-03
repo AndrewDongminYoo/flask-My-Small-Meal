@@ -341,7 +341,7 @@ function search() {
             $(".column-1").empty()
             $(".column-2").empty()
             restaurants.forEach((restaurant, index) => {
-                let i = index % 3
+                let i = isMoblie ? index % 2 +1 : index % 3
                 showCards(restaurant, i)
             }) // tempHtml append 하기
         }).catch((e) => console.log(e));

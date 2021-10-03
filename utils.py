@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+
 from pymongo import MongoClient
 import requests
-client = MongoClient('mongodb://jaryo:goojo@3.36.132.126:27017/dbGoojo?authSource=admin')
+client = MongoClient(os.environ.get("DB_PATH"))
 db = client.dbGoojo
 col = db.restaurant
 
