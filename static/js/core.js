@@ -7,18 +7,15 @@ window.onload = function () {
 const error = () => NoGeoDontWorry();
 
 function device_check() {
-    const pc_device = "win16|win32|win64|mac|macintel";
+    const pc = "win16|win32|win64|mac|macintel";
     const this_device = navigator.platform;
     if (this_device) {
-        isMobile = pc_device.indexOf(navigator.platform.toLowerCase()) < 0;
+        isMobile = pc.indexOf(navigator.platform.toLowerCase()) < 0;
     }
     console.log(isMobile? "It's on mobile" : "It's Computer")
 }
 
 async function weather() {
-    if (isMobile) {
-        return
-    }
     const weatherBox = $("#weather-box")
     weatherBox.empty();
     weatherBox.append(`
@@ -107,6 +104,9 @@ function success(position) {
     // weather(latitude,longitude)
     getFoods(latitude, longitude)
         .then(restaurants => {
+            $(".column-0").empty()
+            $(".column-1").empty()
+            $(".column-2").empty()
             let categories = []
             restaurants.forEach((restaurant, index) => {
                 categories.push(...restaurant['categories'])
@@ -255,9 +255,7 @@ function popUp(ssid) {
                 </div>`
             // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
             let btn = ""
-            categories.forEach((tag) => {
-                btn += `<span>#${tag}</span>`
-            })
+            categories.forEach((tag) => btn += `<span>#${tag}</span>`)
             let lowModal = $('#low-modal-body');
             lowModal.show()
             lowModal.html(tempHtml.replace("{__buttons__}", btn))
