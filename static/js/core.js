@@ -1,4 +1,7 @@
-let user = null, latitude = 37.5559598, longitude = 126.1699723, isMobile = false;
+let user = null;
+let latitude = 37.5559598;
+let longitude = 126.1699723;
+let isMobile = false;
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 window.onload = function () {
@@ -149,9 +152,15 @@ function modal() {
 }
 
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
-const userCheck = () => {
-    null === (user = localStorage.getItem("delivery-uuid")) && (user = uuidv4(), localStorage.setItem("delivery-uuid", user)), setTimeout(() => showBookmarks(user), 2e3)
-};
+function userCheck() {
+    user = localStorage.getItem("delivery-uuid")
+    if (user === null) {
+        user = uuidv4()
+        localStorage.setItem("delivery-uuid", user)
+    }
+    // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
+    setTimeout(() => showBookmarks(user), 2000)
+}
 
 // 특정 식당을 즐겨찾기 하는 코드
 function keep(ssid, min_order) {

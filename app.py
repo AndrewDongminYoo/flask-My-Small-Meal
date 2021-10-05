@@ -91,7 +91,7 @@ def get_restaurant():
     order = request.args.get('order')
     if not order:
         order = "rank"
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=45&lat={lat}&lng={long}&order={order}'
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=30&lat={lat}&lng={long}&order={order}'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
                'sec-ch-ua-platform': '"Windows"', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
