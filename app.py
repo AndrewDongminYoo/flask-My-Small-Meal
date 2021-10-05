@@ -21,7 +21,11 @@ def hello_world():  # put application's code here
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    return render_template('index.html')
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=60&lat=37&lng=127&order=rank&page=0'
+    headers = {'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
+    req = requests.get(url, headers=headers)
+    res = req.json()['restaurants']
+    return render_template('index.html', restaurant=res)
 
 
 @app.route('/api/like', methods=['POST'])
@@ -92,17 +96,9 @@ def get_restaurant():
     if not order:
         order = "rank"
     cat = "1인분주문"
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=' + cat + '&items=45&lat=' + lat\
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=' + cat + '&items=100&lat=' + lat\
           + "&lng=" + long + '&order=' + order + '&page=0'
-    headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
-               'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-               'content-type': 'application/x-www-form-urlencoded',
-               'if-none-match': '"9e9d0a63ef118f7f4720275c2db776a8;gzip"',
-               'sec-ch-ua': '"Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"',
-               'sec-ch-ua-platform': '"Windows"', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
-               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                             'Chrome/93.0.4577.82 Safari/537.36',
-               'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
+    headers = {'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
     req = requests.get(url, headers=headers)
     res = json.loads(req.text)
     shops = res.get('restaurants')
