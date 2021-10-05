@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template, Response
+from flask import Flask, request, jsonify, render_template
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
@@ -91,9 +91,7 @@ def get_restaurant():
     order = request.args.get('order')
     if not order:
         order = "rank"
-    cat = "1인분주문"
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=' + cat + '&items=45&lat=' + lat\
-          + "&lng=" + long + '&order=' + order + '&page=0'
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=45&lat={lat}&lng={long}&order={order}'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
                'sec-ch-ua-platform': '"Windows"', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
