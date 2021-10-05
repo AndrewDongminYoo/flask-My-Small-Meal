@@ -144,7 +144,7 @@ async function NoGeoDontWorry() {
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
 
 function modal() {
-    if (isMobile) return;
+    // if (isMobile) return;
     $('#modal').addClass('is-active')
 }
 
@@ -203,15 +203,12 @@ function sendLike(user, headers, body) {
 
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
-    if (isMobile) {
-        return
-    }
     $("h2.h2").show()
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
             $("#bookmarks").empty();
-            res['restaurants'].forEach((r) => bookMark(r));
+            res['restaurants'] && res['restaurants'].forEach((r) => bookMark(r)); // 북마크 배열이 '도착하면' 렌더링
         })
         .catch((e) => console.log(e));
     $("#aside").addClass("open");
@@ -229,7 +226,6 @@ const bookMark = (restaurant) => {
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(ssid) {
-    if (isMobile) return;
     $.ajax({
         url: `/api/detail?ssid=${ssid}`,
         type: 'GET',
@@ -339,7 +335,7 @@ function search() {
             $(".column-1").empty()
             $(".column-2").empty()
             restaurants.forEach((restaurant, index) => {
-                let i = isMoblie ? index % 2 +1 : index % 3
+                let i = index % 3
                 showCards(restaurant, i)
             }) // tempHtml append 하기
         }).catch((e) => console.log(e));

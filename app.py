@@ -95,10 +95,6 @@ def get_restaurant():
     url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=' + cat + '&items=45&lat=' + lat\
           + "&lng=" + long + '&order=' + order + '&page=0'
     headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
-               'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-               'content-type': 'application/x-www-form-urlencoded',
-               'if-none-match': '"9e9d0a63ef118f7f4720275c2db776a8;gzip"',
-               'sec-ch-ua': '"Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"',
                'sec-ch-ua-platform': '"Windows"', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                              'Chrome/93.0.4577.82 Safari/537.36',
