@@ -12,6 +12,7 @@
     <meta property="og:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
     <meta property="og:image" content="https://diqkqkqk.s3.ap-northeast-2.amazonaws.com/roulette.png">
     <meta property="og:url" content="https://itwassummer.shop/">
+    <meta property="og:title" content="오늘 뭐 먹지?">
     <meta property="og:site_name" content="오늘뭐먹지??">
     <!-- 트위터 -->
     <meta name="twitter:title" content="오늘뭐먹지??">
@@ -47,6 +48,9 @@
 {#    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457293335388562"#}
 {#            crossorigin="anonymous"></script>#}
     <title>오늘 뭐 먹지?</title>
+    <script>
+        console.log("{{ restaurants | safe }}")
+    </script>
 </head>
 <body>
 <div class="header">
