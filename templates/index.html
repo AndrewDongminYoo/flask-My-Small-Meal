@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="og:title" content="오늘 뭐 먹지?">
     <meta name="og:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
     <meta name="og:image" content="../static/images/logo_002.webp">
+    <meta property="og:image" content="../static/images/logo_002.webp">
+    <meta property="og:site_name" content="오늘뭐먹지??">
+    <meta name="twitter:title" content="오늘뭐먹지??">
+    <meta name="twitter:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
+    <meta name="twitter:image" content="../static/images/aleisha-kalina-unsplash.jpg">
     <!-- 폰트어썸 아이콘 사용! -->
     <script src="https://kit.fontawesome.com/aba5c3ead0.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css! -->
@@ -18,33 +22,32 @@
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <!-- 제이쿼리! -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!--  PopperJS! -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
     <!-- Google Fonts! -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M12CTMX759"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-M12CTMX759');
-    </script>
-    <!-- Global site tag (gtag.js) - Google Adsense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457293335388562"
-        crossorigin="anonymous"></script>
+{#    <!-- Global site tag (gtag.js) - Google Analytics -->#}
+{#    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M12CTMX759"></script>#}
+{#    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-M12CTMX759');#}
+{#    </script>#}
+{#    <!-- Global site tag (gtag.js) - Google Adsense -->#}
+{#    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457293335388562"#}
+{#            crossorigin="anonymous"></script>#}
     <title>오늘 뭐 먹지?</title>
 </head>
-
 <body>
-    <div class="header">
-        <h1 class="title" id="title"><span style="display: none"> 오 늘 뭐 먹 지 </span><img
-                src="../static/images/logo_002.webp" alt="title"></h1>
-        <div class="field has-addons">
-            <p class="buttons">
-                <button class="button">
+<div class="header">
+    <h1 class="title" id="title"><span style="display: none"> 오 늘 뭐 먹 지 </span><img
+            src="../static/images/logo_002.webp" alt="오 늘 뭐 먹 지"></h1>
+    <div class="field has-addons">
+        <p class="buttons">
+            <button class="button">
                     <span class="icon is-small">
                         <img alt="gps" src="/static/images/gpsicon.webp" autofocus onclick="geoRefresh()">
                     </span>
