@@ -21,19 +21,7 @@ def hello_world():  # put application's code here
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=10' \
-          '&lat=37.5946970217923&lng=127.090753136405&order=rank&page=0&search='
-    headers = {'if-none-match': '"5a16a340305abc57691b85bcc7f21d53;gzip"',
-               'referer': 'https://www.yogiyo.co.kr/mobile/',
-               'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
-               'sec-ch-ua-mobile': '?0', 'sec-ch-ua-platform': '"Windows"', 'sec-fetch-dest': 'empty',
-               'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
-               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                             'Chrome/94.0.4606.61 Safari/537.36',
-               'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
-    req = requests.get(url, headers=headers)
-    res = json.loads(req.text)['restaurants']
-    return render_template('index.html', restaurants=res)
+    return render_template('index.html')
 
 
 @app.route('/api/like', methods=['POST'])
