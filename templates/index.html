@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="og:title" content="오늘 뭐 먹지?">
-    <meta name="og:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
-    <meta name="og:image" content="../static/images/logo_002.webp">
-    <meta property="og:image" content="../static/images/logo_002.webp">
-    <meta property="og:site_name" content="오늘뭐먹지??">
-    <meta name="twitter:title" content="오늘뭐먹지??">
-    <meta name="twitter:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
-    <meta name="twitter:image" content="../static/images/aleisha-kalina-unsplash.jpg">
+    <meta property="og:title" content="오늘 뭐 먹지?">
+    <meta property="og:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1619221882220-947b3d3c8861?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80">
     <!-- 폰트어썸 아이콘 사용! -->
     <script src="https://kit.fontawesome.com/aba5c3ead0.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css! -->
@@ -40,6 +35,9 @@
 {#    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457293335388562"#}
 {#            crossorigin="anonymous"></script>#}
     <title>오늘 뭐 먹지?</title>
+    <script>
+        console.log("{{ restaurants | safe }}")
+    </script>
 </head>
 <body>
 <div class="header">
