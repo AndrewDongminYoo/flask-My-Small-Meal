@@ -6,8 +6,8 @@ import json  # json 응답 핸들링
 import utils  # 내부 파일 모듈화
 import os
 app = Flask(__name__)
-client = MongoClient(os.environ.get("DB_PATH"))
-# client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
+# client = MongoClient(os.environ.get("DB_PATH"))
+client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순

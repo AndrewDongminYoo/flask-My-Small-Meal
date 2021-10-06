@@ -3,7 +3,8 @@ import os
 
 from pymongo import MongoClient
 import requests
-client = MongoClient(os.environ.get("DB_PATH"))
+# client = MongoClient(os.environ.get("DB_PATH"))
+client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
 col = db.restaurant
 
