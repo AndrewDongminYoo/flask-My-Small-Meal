@@ -1,4 +1,7 @@
-let user = null, latitude = 37.5559598, longitude = 126.1699723, isMobile = false;
+let user = null;
+let latitude = 37.5559598;
+let longitude = 126.1699723;
+let isMobile = false;
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 // window.onload = function () {
@@ -10,18 +13,15 @@ let user = null, latitude = 37.5559598, longitude = 126.1699723, isMobile = fals
 const error = () => NoGeoDontWorry();
 
 function device_check() {
-    const pc_device = "win16|win32|win64|mac|macintel";
+    const pc = "win16|win32|win64|mac|macintel";
     const this_device = navigator.platform;
     if (this_device) {
-        isMobile = pc_device.indexOf(navigator.platform.toLowerCase()) < 0;
+        isMobile = pc.indexOf(navigator.platform.toLowerCase()) < 0;
     }
     console.log(isMobile? "It's on mobile" : "It's Computer")
 }
 
 async function weather() {
-    if (isMobile) {
-        return
-    }
     const weatherBox = $("#weather-box")
     weatherBox.empty();
     weatherBox.append(`
@@ -110,6 +110,9 @@ function success(position) {
     // weather(latitude,longitude)
     getFoods(latitude, longitude)
         .then(restaurants => {
+            $(".column-0").empty()
+            $(".column-1").empty()
+            $(".column-2").empty()
             let categories = []
             restaurants.forEach((restaurant, index) => {
                 categories.push(...restaurant['categories'])
@@ -147,14 +150,20 @@ async function NoGeoDontWorry() {
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
 
 function modal() {
-    if (isMobile) return;
+    // if (isMobile) return;
     $('#modal').addClass('is-active')
 }
 
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
-const userCheck = () => {
-    null === (user = localStorage.getItem("delivery-uuid")) && (user = uuidv4(), localStorage.setItem("delivery-uuid", user)), setTimeout(() => showBookmarks(user), 2e3)
-};
+function userCheck() {
+    user = localStorage.getItem("delivery-uuid")
+    if (user === null) {
+        user = uuidv4()
+        localStorage.setItem("delivery-uuid", user)
+    }
+    // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
+    setTimeout(() => showBookmarks(user), 2000)
+}
 
 // 특정 식당을 즐겨찾기 하는 코드
 function keep(ssid, min_order) {
@@ -206,15 +215,12 @@ function sendLike(user, headers, body) {
 
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
-    if (isMobile) {
-        return
-    }
     $("h2.h2").show()
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
             $("#bookmarks").empty();
-            res['restaurants'].forEach((r) => bookMark(r));
+            res['restaurants'] && res['restaurants'].forEach((r) => bookMark(r)); // 북마크 배열이 '도착하면' 렌더링
         })
         .catch((e) => console.log(e));
     $("#aside").addClass("open");
@@ -232,7 +238,6 @@ const bookMark = (restaurant) => {
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(ssid) {
-    if (isMobile) return;
     $.ajax({
         url: `/api/detail?ssid=${ssid}`,
         type: 'GET',
@@ -258,9 +263,7 @@ function popUp(ssid) {
                 </div>`
             // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
             let btn = ""
-            categories.forEach((tag) => {
-                btn += `<span>#${tag}</span>`
-            })
+            categories.forEach((tag) => btn += `<span>#${tag}</span>`)
             let lowModal = $('#low-modal-body');
             lowModal.show()
             lowModal.html(tempHtml.replace("{__buttons__}", btn))
@@ -344,7 +347,7 @@ function search() {
             $(".column-1").empty()
             $(".column-2").empty()
             restaurants.forEach((restaurant, index) => {
-                let i = isMoblie ? index % 2 +1 : index % 3
+                let i = index % 3
                 showCards(restaurant, i)
             }) // tempHtml append 하기
         }).catch((e) => console.log(e));
