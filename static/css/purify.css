@@ -4,8 +4,12 @@
     font-family: 'BMHANNAPro';
     src: local('../fonts/BMHANNAPro.ttf');
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Black Han Sans';
+    src: local('../fonts/BlackHanSans-Regular.ttf');
+    src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap') format('truetype');
 }
 
 .card {

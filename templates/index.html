@@ -29,17 +29,17 @@
     <!-- UUID 라이브러리! -->
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <!-- 제이쿼리! -->
-{#    <script src="https://code.jquery.com/jquery-3.6.0.js"#}
-{#            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>#}
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!--  PopperJS! -->
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"#}
-{#            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"#}
-{#            crossorigin="anonymous"></script>#}
-    <!-- Google Fonts! -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+{#    <!-- Google Fonts! -->#}
+{#    <link rel="preconnect" href="https://fonts.googleapis.com">#}
+{#    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>#}
 {#    <link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">#}
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+{#    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">#}
 {#    <!-- Global site tag (gtag.js) - Google Analytics -->#}
 {#    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M12CTMX759"></script>#}
 {#    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-M12CTMX759');#}
@@ -48,6 +48,9 @@
 {#    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457293335388562"#}
 {#            crossorigin="anonymous"></script>#}
     <title>오늘 뭐 먹지?</title>
+    <script>
+        console.log("{{ restaurants | safe }}")
+    </script>
 </head>
 <body>
 <div class="header">
@@ -150,9 +153,9 @@
     </div>
     <div>
         <div class="modal" id="modal">
-            <div class="modal-background" id="modal-bg" onclick='document.querySelector("#modal").remove()'></div>
+            <div class="modal-background" id="modal-bg" onclick='$("#modal").remove()'></div>
             <div class="modal-content"></div>
-            <button class="modal-close is-large" aria-label="close" onclick='document.querySelector("#modal").remove()'></button>
+            <button class="modal-close is-large" aria-label="close" onclick='$("#modal").remove()'></button>
         </div>
         <div class="low-modal">
             <div id="low-modal-body" style="display:none;"></div>
