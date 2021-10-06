@@ -92,8 +92,11 @@ def get_restaurant():
     if not order:
         order = "rank"
     url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=30&lat={lat}&lng={long}&order={order}'
-    headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
-               'sec-ch-ua-platform': '"Windows"', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
+    headers = {'accept': 'application/json',
+               'accept-encoding': 'gzip, deflate, br',
+               'sec-ch-ua-platform': '"Windows"',
+               'sec-fetch-mode': 'cors',
+               'sec-fetch-site': 'same-origin',
                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                              'Chrome/93.0.4577.82 Safari/537.36',
                'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}

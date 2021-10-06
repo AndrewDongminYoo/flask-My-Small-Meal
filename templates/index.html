@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="../static/css/purify.css">
     <link rel="shortcut icon" href="../static/images/favicon.webp">
     <!-- 커스텀 JS! -->
-    <script rel="script" src="../static/js/core.js"></script>
+    <script defer rel="script" src="../static/js/core.js"></script>
     <!-- UUID 라이브러리! -->
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <!-- 제이쿼리! -->
@@ -38,7 +38,7 @@
     <!-- Google Fonts! -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">
+{#    <link href="https://fonts.googleapis.com/earlyaccess/hanna.css" rel="stylesheet">#}
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 {#    <!-- Global site tag (gtag.js) - Google Analytics -->#}
 {#    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M12CTMX759"></script>#}
@@ -124,7 +124,7 @@
                     </aside>
                 </div>
                 <div class="btn-up">
-                    <button onclick="window.scrollTo(0, 0);" class="button btn-up-position">
+                    <button aria-label="scroll to top" onclick="window.scrollTo(0, 0);" class="button btn-up-position">
                         <i class="fas fa-chevron-up"></i>
                     </button>
                 </div>

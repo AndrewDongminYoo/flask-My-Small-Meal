@@ -52,7 +52,7 @@ async function weather() {
         <td>${humidity} %</td>
         <td>${wind_speed} m/s</td>
         <td>${description}</td>
-        <td><img src="http://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
+        <td><img src="https://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
         </tr></tbody>
     `);
 
@@ -68,7 +68,7 @@ async function weather() {
             <td>${eve.toFixed(1)} ℃</td>
             <td>${night.toFixed(1)} ℃</td>
             <td>${humidity} %</td>
-            <td><img src="http://openweathermap.org/img/w/${icon}.png" title="${description}" alt="${description}"></td>
+            <td><img src="https://openweathermap.org/img/w/${icon}.png" title="${description}" alt="${description}"></td>
             </tr></tbody>
         `);
     })
@@ -194,11 +194,11 @@ function delMark(ssid) {
 
 function changeBtn(ssid, afterDelete) {
     if (afterDelete) {
-        $(`#delete-${ssid}`).addClass("is-hidden")
-        $(`#keep-${ssid}`).removeClass("is-hidden")
+        $(`.delete-${ssid}`).addClass("is-hidden")
+        $(`.keep-${ssid}`).removeClass("is-hidden")
     } else {
-        $(`#keep-${ssid}`).addClass("is-hidden")
-        $(`#delete-${ssid}`).removeClass("is-hidden")
+        $(`.keep-${ssid}`).addClass("is-hidden")
+        $(`.delete-${ssid}`).removeClass("is-hidden")
     }
 }
 
@@ -307,10 +307,10 @@ const showCards = (restaurant, i) => {
         <div class="tool-box">
             <div class="book-mark">
                 <div class="store_name">${name}<br>⭐${rating}점</div>
-                <button class="button book-button" id="keep-${id}" onclick="keep('${id}', '${min_order}')">⭐keep</button>
-                <button class="button book-button is-hidden" id="delete-${id}" onclick="remove('${id}')">🌟delete</button>
+                <button class="button book-button keep-${id}" onclick="keep('${id}', '${min_order}')">⭐keep</button>
+                <button class="button book-button is-hidden delete-${id}" onclick="remove('${id}')">🌟delete</button>
             </div>
-            <div class="buttons are-small" id="btns${i}">{__buttons__}</div>
+            <div class="buttons are-small btns">{__buttons__}</div>
             <div class="card-footer">
                 <div>${address}<br>영업시간: ${time}<br>${min_order}원 이상 주문 가능</div>
                 <div class="reviews">
