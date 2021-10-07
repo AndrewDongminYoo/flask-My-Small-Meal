@@ -26,8 +26,8 @@ jobs:
           args: --acl public-read --exclude '*' --include 'index.html' --include '/static/*' --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
-          SOURCE_DIR: './'
-          DEST_DIR: 'static' 'templates'
+          SOURCE_DIR: 'templates'
+          DEST_DIR: 'static'
 
       - name: Invalidate cache CloudFront
         uses: chetan/invalidate-cloudfront-action@master
