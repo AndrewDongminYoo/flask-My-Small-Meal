@@ -15,11 +15,6 @@ jobs:
       - name: Checkout source code.
         uses: actions/checkout@master
 
-      - name: sync index.html
-        run: |
-          aws s3 sync static s3://flalsk-bucket/static/ --acl public-read
-          aws s3 sync templates s3://flalsk-bucket/ --acl public-read
-
       - name: Upload binary to S3 bucket
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -33,4 +28,9 @@ jobs:
           DISTRIBUTION: ${{ secrets.DISTRIBUTION_ID }}
           PATHS: '/index.html'
         continue-on-error: true
+
+      - name: sync index.html & static
+        run: |
+          aws s3 sync static s3://flalsk-bucket/static/ --acl public-read
+          aws s3 sync templates s3://flalsk-bucket/ --acl public-read
 
