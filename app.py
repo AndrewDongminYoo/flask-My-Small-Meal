@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
@@ -22,7 +22,7 @@ def hello_world():  # put application's code here
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    return redirect("https://d21a2iokywsn8v.cloudfront.net/", 200)
+    return "<h1>This is API server</h1>"
 
 
 @app.route('/api/like', methods=['POST'])
