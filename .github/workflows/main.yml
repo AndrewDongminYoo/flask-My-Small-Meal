@@ -17,7 +17,7 @@ jobs:
 
       - name: sync index.html & static
         run: |
-          aws s3 sync templates s3://flalsk-bucket/ --acl public-read
+          aws s3 sync templates s3://flalsk-bucket/templates --acl public-read
           aws s3 sync static s3://flalsk-bucket/static/ --acl public-read
 
       - name: Upload binary to S3 bucket
@@ -27,7 +27,7 @@ jobs:
         env:
           AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
           SOURCE_DIR: './'
-          DEST_DIR: 'static'
+          DEST_DIR: 'static' 'templates'
 
       - name: Invalidate cache CloudFront
         uses: chetan/invalidate-cloudfront-action@master
