@@ -32,5 +32,4 @@ jobs:
       - name: sync index.html & static
         run: |
           aws s3 sync static s3://flalsk-bucket/static/ --acl public-read
-          aws s3 sync templates s3://flalsk-bucket/ --acl public-read
 
