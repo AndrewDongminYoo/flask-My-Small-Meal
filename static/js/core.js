@@ -82,10 +82,10 @@ function geoRefresh() {
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
     if (!(lat && long)) {
-        const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+        const response = await fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
         return await response.json()
     } else {
-        const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
+        const response = await fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/shop?lat=${lat}&lng=${long}`);
         return await response.json()
     }
 }
@@ -130,7 +130,7 @@ function success(position) {
 }
 
 async function NoGeoDontWorry() {
-    const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+    const response = await fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
     let restaurants = await response.json()
     emptyCards()
     restaurants.forEach((restaurant, index) => {
@@ -197,7 +197,7 @@ function changeBtn(ssid, afterDelete) {
 // 즐겨찾기에 등록 or 해제 하는 코드의 공통 코드 추출
 function sendLike(user, headers, body) {
     const init = {method: 'POST', headers, body};
-    fetch(`/api/like`, init)
+    fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/like`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then(() => {
             showBookmarks(user);
@@ -208,7 +208,7 @@ function sendLike(user, headers, body) {
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
     document.querySelector("h2.h2").style.display="block"
-    fetch(`/api/like?uuid=${user}`)
+    fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
             document.getElementById("bookmarks").innerHTML="";
@@ -231,7 +231,7 @@ const bookMark = (restaurant) => {
 let lowModalBody = document.getElementById('low-modal-body');
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(ssid) {
-    fetch(`/api/detail?ssid=${ssid}`).then((restaurant) => {
+    fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/detail?ssid=${ssid}`).then((restaurant) => {
         let {image, name, address, time, min_order, phone, categories} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
@@ -262,7 +262,7 @@ function popUp(ssid) {
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
 window.addEventListener('hashchange', async () => {
     let hash = window.location.hash.substring(1)
-    const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
+    const response = await fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
     let restaurants = await response.json()
     emptyCards()
     restaurants.forEach((restaurant, index) => {
@@ -319,7 +319,7 @@ function search() {
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({ query: query });
     const init = { method: 'POST', headers, body };
-    fetch(`/api/address`, init)
+    fetch(`http://myproject-env.eba-7vmjmmzm.ap-northeast-2.elasticbeanstalk.com/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((result) => {
             if (result['long'] && result['lat']) {

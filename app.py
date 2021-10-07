@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, redirect
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
-import utils  # 내부 파일 모듈화
 import os
 app = Flask(__name__)
 client = MongoClient(os.environ.get("DB_PATH"))
 # client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
+col = db.restaurant
+users = db.users
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
@@ -21,7 +22,7 @@ def hello_world():  # put application's code here
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    return render_template('index.html')
+    return redirect("https://d21a2iokywsn8v.cloudfront.net/", 200)
 
 
 @app.route('/api/like', methods=['POST'])
@@ -38,23 +39,23 @@ def like():
     ssid = request.json.get('ssid')
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
-    utils.put_restaurant(ssid, min_order)
+    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    put_restaurant(ssid, min_order)
     if action == 'like':
         if not user:
             good_list = [ssid]
-            db.users.insert_one({"uuid": uuid, "like_list": good_list})
+            users.insert_one({"uuid": uuid, "like_list": good_list})
         elif ssid in user[0]['like_list']:
             pass
         else:
             good_list = user[0]['like_list']
             good_list.append(ssid)
-            db.users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     else:
         if user and ssid in user[0]['like_list']:
             good_list = user[0]['like_list']
             good_list.remove(ssid)
-            db.users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify({'uuid': uuid})
 
 
@@ -66,13 +67,13 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = list(db.users.find({"uuid": uuid}, {"_id": False}))
+    user = list(users.find({"uuid": uuid}, {"_id": False}))
     good_list = []
     if user:
         good_list = user[0]['like_list']
     restaurants = []
     for restaurant in good_list:
-        rest = list(db.restaurant.find({"ssid": restaurant}, {"_id": False}))
+        rest = list(col.find({"ssid": restaurant}, {"_id": False}))
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
@@ -119,21 +120,83 @@ def get_restaurant():
         rest['min_order'] = shop.get('min_order_amount')
         restaurants.append(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        # db.restaurant.insert_one(rest, {"_id": False})
+        # col.insert_one(rest, {"_id": False})
     return jsonify(restaurants)
 
 
 @app.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
-    restaurant = list(db.restaurant.find({"ssid": ssid}, {"_id": False}))[0]
+    restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
 
 
 @app.route('/api/address', methods=["POST"])
 def search_add():
     query = request.json.get('query')
-    return jsonify(utils.search_address(query))
+    return jsonify(search_address(query))
+
+
+def put_restaurant(ssid, min_order):
+    """
+    즐겨찾기 버튼을 클릭한 점포를 데이터베이스에 저장합니다.
+    :param ssid: 요기요 데이터베이스 상점 id
+    :param min_order: 최소 주문금액
+    :return: None
+    """
+    if list(col.find({"ssid": ssid}, {"_id": False})):
+        return
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/'+ssid
+    headers = {
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/93.0.4577.82 Safari/537.36',
+        'x-apikey': 'iphoneap',
+        'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
+    req = requests.post(url, headers=headers)
+    result = req.json()
+    doc = {
+        "ssid": ssid,
+        "time": result.get("open_time_description"),
+        "phone": result.get("phone"),
+        "name": result.get("name"),
+        "categories": result.get("categories"),
+        "delivery": result.get("estimated_delivery_time"),
+        "address": result.get("address"),
+        "image": result.get("background_url"),
+        "min_order": min_order
+        }
+    col.insert_one(doc)
+
+
+def search_address(query):
+    """
+    사용자가 검색 창에 직접 주소를 입력했을 때, 카카오맵 api 를 통해 주소를 위도경도로 변환합니다.\n
+    :param query: 찾고자 하는 주소
+    :return: doc(dict) {
+    address: 찾고자 하는 주소 도로명 주소,
+    lat: 찾고자 하는 지역의 x좌표,
+    long: 찾고자 하는 지역의 y 좌표
+    }
+    """
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?query='+query
+    headers = {
+        'Host': 'dapi.kakao.com',
+        'Authorization': 'KakaoAK c67c5816d29490ab56c1fbf40bef220d'}
+    req = requests.get(url, headers=headers)
+    result = req.json()
+    documents = result['documents'][0]
+    address = documents['address_name']
+    lat = documents['y']
+    lng = documents['x']
+    doc = {
+        "address": address,
+        "lat": lat,
+        "long": lng
+    }
+    return doc
 
 
 if __name__ == '__main__':
