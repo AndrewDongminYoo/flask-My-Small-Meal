@@ -26,4 +26,8 @@ jobs:
         uses: chetan/invalidate-cloudfront-action@master
         env:
           DISTRIBUTION: ${{ secrets.DISTRIBUTION_ID }}
+          PATHS: '/index.html'
         continue-on-error: true
+
+      - name: sync index.html
+        run: aws s3 sync ./templates/index.html https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/index.html
