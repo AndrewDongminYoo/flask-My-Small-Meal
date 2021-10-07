@@ -15,6 +15,11 @@ jobs:
       - name: Checkout source code.
         uses: actions/checkout@master
 
+      - name: sync index.html
+        run: |
+          aws s3 sync templates s3://flalsk-bucket/
+          aws s3 sync static s3://flalsk-bucket/static
+
       - name: Upload binary to S3 bucket
         uses: jakejarvis/s3-sync-action@master
         with:
@@ -29,7 +34,3 @@ jobs:
           PATHS: '/index.html'
         continue-on-error: true
 
-      - name: sync index.html
-        run: |
-          aws s3 sync templates s3://flalsk-bucket/
-          aws s3 sync static s3://flalsk-bucket/static
