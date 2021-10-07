@@ -1,4 +1,4 @@
-name: myproject
+name: myprojectb
 on:
   push:
     branches:
