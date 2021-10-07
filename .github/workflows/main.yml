@@ -17,8 +17,8 @@ jobs:
 
       - name: sync index.html
         run: |
-          aws s3 sync templates s3://flalsk-bucket/
-          aws s3 sync static s3://flalsk-bucket/static
+          aws s3 sync templates s3://flalsk-bucket/ --public
+          aws s3 sync static s3://flalsk-bucket/static --public
 
       - name: Upload binary to S3 bucket
         uses: jakejarvis/s3-sync-action@master

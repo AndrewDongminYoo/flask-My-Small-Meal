@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'BMHANNAPro';
+    src: url('https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BMHANNAPro.ttf') format('truetype');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Black Han Sans';
+    src: url('https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BlackHanSans-Regular.ttf') format('truetype');
+    src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap') format('truetype');
+}
+
 .card {
     background-color: #fff;
     border-radius: .25rem;
