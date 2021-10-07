@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: sync index.html & static
-        run: aws s3 sync static s3://flalsk-bucket/static/ --acl public-read
+        run: aws s3 sync ./static s3://flalsk-bucket/static/ --acl public-read
 
       - name: Checkout source code.
         uses: actions/checkout@master
