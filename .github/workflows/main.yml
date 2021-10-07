@@ -10,6 +10,8 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: 'ap-northeast-2'
+      SOURCE_DIR: './'
+      DEST_DIR: 'static'
 
     steps:
       - name: Checkout source code.
@@ -18,7 +20,7 @@ jobs:
       - name: Upload binary to S3 bucket
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --exclude '*' --include 'index.html'
+          args: --acl public-read --exclude '*' --include 'index.html' --inclue '/static/*' --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.BUCKET_NAME }}
 
@@ -26,9 +28,5 @@ jobs:
         uses: chetan/invalidate-cloudfront-action@master
         env:
           DISTRIBUTION: ${{ secrets.DISTRIBUTION_ID }}
-          PATHS: '/index.html'
+          PATHS: '/templates/index.html' '/static/*'
         continue-on-error: true
-
-      - name: sync index.html & static
-        run: aws s3 sync static s3://flalsk-bucket/static/ --acl public-read
-
