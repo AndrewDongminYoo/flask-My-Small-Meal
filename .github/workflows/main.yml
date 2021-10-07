@@ -11,8 +11,10 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: 'ap-northeast-2'
 
-
     steps:
+      - name: sync index.html & static
+        run: aws s3 sync static s3://flalsk-bucket/static/ --acl public-read
+
       - name: Checkout source code.
         uses: actions/checkout@master
 
