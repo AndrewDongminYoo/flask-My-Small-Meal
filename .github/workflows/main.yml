@@ -26,5 +26,5 @@ jobs:
         uses: chetan/invalidate-cloudfront-action@master
         env:
           DISTRIBUTION: ${{ secrets.DISTRIBUTION_ID }}
-          PATHS: '/templates/index.html'
+          PATHS: '/index.html'
         continue-on-error: true
