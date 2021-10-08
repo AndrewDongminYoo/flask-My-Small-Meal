@@ -319,7 +319,7 @@ a.box:active {
 
 .button .icon, .button .icon.is-large, .button .icon.is-medium, .button .icon.is-small {
     height: 1.5em;
-    width: 1.5em
+    width: 1.5em;
 }
 
 .button .icon:first-child:not(:last-child) {
