@@ -17,9 +17,9 @@ jobs:
 
       - name: Andrew's distribution
         run: |
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION }} --paths "/*"
           aws s3 sync templates s3://myflask-bucket/templates --acl public-read
           aws s3 sync static s3://myflask-bucket/static --acl public-read
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION }} --paths "/*"
 
       - name: Upload binary to S3 bucket
         uses: jakejarvis/s3-sync-action@master
