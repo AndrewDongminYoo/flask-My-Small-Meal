@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code.
@@ -39,6 +39,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: smallmeal
           environment_name: Smallmeal-env
+
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
           region: ap-northeast-2
           deployment_package: deploy.zip
