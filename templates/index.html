@@ -22,11 +22,11 @@
     <!-- 폰트어썸 아이콘 사용! -->
     <script src="https://kit.fontawesome.com/aba5c3ead0.js" crossorigin="anonymous"></script>
     <!-- 커스텀 css! -->
-    <link rel="stylesheet" href="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/css/purify.css">
-    <link rel="stylesheet" href="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/css/bulma.css">
-    <link rel="shortcut icon" href="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/images/favicon.webp">
+    <link rel="stylesheet" href="https://s3.amazonaws.com/smallmeal.shop/static/css/purify.css">
+    <link rel="stylesheet" href="https://s3.amazonaws.com/smallmeal.shop/static/css/bulma.css">
+    <link rel="shortcut icon" href="https://myflask-bucket.s3.ap-northeast-2.amazonaws.com/static/images/favicon.webp">
     <!-- 커스텀 JS! -->
-    <script defer rel="script" src="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/js/core.js"></script>
+    <script defer rel="script" src="https://s3.amazonaws.com/smallmeal.shop/static/js/core.js"></script>
     <!-- UUID 라이브러리! -->
     <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
     <!-- 제이쿼리! -->
@@ -59,13 +59,14 @@
         <p class="buttons">
             <button class="button">
                     <span class="icon is-small">
-                        <img alt="gps" src="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/images/gpsicon.webp" autofocus onclick="geoRefresh()">
+                        <img alt="gps" onclick="geoRefresh()" width="24" height="24"
+                             src="https://s3.amazonaws.com/smallmeal.shop/static/images/gpsicon.webp">
                     </span>
                 </button>
             </p>
             <div class="control">
                 <label for="geoSearch"></label>
-                <input id="geoSearch" class="input" type="text" placeholder="지역을 입력해주세요">
+                <input id="geoSearch" autofocus class="input" type="text" placeholder="지역을 입력해주세요">
                 <a class="button is-warning" href="javascript:search()">
                     검색
                 </a>
@@ -101,7 +102,7 @@
             <li class="tab tab-review_count">
                 <a href="/#review_count" onclick="tabFocus('review_count')">
                     <span class="icon is-small"><i class="fas fa-comments-dollar" aria-hidden="true"></i></span>
-                    <span>리뷰 많은 순</span>
+                    <span>리뷰가 많은 순서</span>
                 </a>
             </li>
         </ul>
@@ -134,7 +135,8 @@
         <nav class="panel">
             <p class="panel-heading">Team JARYO<span style="color: red">9</span>JO
                 <a href="https://github.com/AndrewDongminYoo/myproject.git">
-                    <img alt="github" class="footer-img" src="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/images/Github_logo_PNG2.webp">
+                    <img alt="github" class="footer-img" width="50"
+                         src="https://s3.amazonaws.com/smallmeal.shop/static/images/Github_logo_PNG2.webp">
                 </a>
             </p>
             <div class="footer-content">
