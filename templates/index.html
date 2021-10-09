@@ -36,25 +36,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
-    <!-- Google Fonts! -->
-    <link href="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BlackHanSans-Regular.ttf" rel="stylesheet">
-    <link href="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BMHANNAPro.ttf" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M12CTMX759"></script>
-    <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-M12CTMX759');
-    </script>
-    <!-- Global site tag (gtag.js) - Google Adsense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4457293335388562"
-            crossorigin="anonymous"></script>
     <title>오늘 뭐 먹지?</title>
-    <script>
-        console.log("{{ restaurants | safe }}")
-    </script>
 </head>
 <body>
 <div class="header">
-    <h1 class="title" id="title"><span style="display: none"> 오 늘 뭐 먹 지 </span><img
-            src="https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/images/logo_002.webp" alt="오 늘 뭐 먹 지"></h1>
+    <h1 class="title" id="title">
+        <span style="display: none"> 오 늘 뭐 먹 지 </span>
+        <img
+            src="https://s3.amazonaws.com/smallmeal.shop/static/images/logo_002.webp" alt="오 늘 뭐 먹 지">
+    </h1>
     <div class="field has-addons">
         <p class="buttons">
             <button class="button">

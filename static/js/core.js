@@ -82,7 +82,7 @@ function geoRefresh() {
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
     if (!(lat && long)) {
-        const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+        const response = await fetch(`/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
         return await response.json()
     } else {
         const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
