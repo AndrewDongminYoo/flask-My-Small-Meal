@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
 import os
-app = Flask(__name__)
+application = Flask(__name__)
 client = MongoClient(os.environ.get("DB_PATH"))
 # client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
@@ -16,17 +16,17 @@ sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"
 order = sort_list[0]
 
 
-@app.route('/')
+@application.route('/')
 def hello_world():  # put application's code here
     """
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    return "<h1>This is API server</h1>"
-    # return render_template('index.html')
+    # return "<h1>This is API server</h1>"
+    return render_template('index.html')
 
 
-@app.route('/api/like', methods=['POST'])
+@application.route('/api/like', methods=['POST'])
 def like():
     """
     메인 로직 중 하나입니다. 웬만하면 건드리지 말기..!
@@ -60,7 +60,7 @@ def like():
     return jsonify({'uuid': uuid})
 
 
-@app.route('/api/like', methods=['GET'])
+@application.route('/api/like', methods=['GET'])
 def show_bookmark():
     """
     사용자의 uuid 를 조회해 좋아요한 상품들의 리스트를 불러온다.
@@ -80,7 +80,7 @@ def show_bookmark():
     return jsonify({"restaurants": restaurants})
 
 
-@app.route('/api/shop', methods=['GET'])
+@application.route('/api/shop', methods=['GET'])
 def get_restaurant():
     """
     위치 권한 허용 시 셋팅되는 기본 메소드. 요기요 서버에 사용자의 위도와 경도를 보내 주변 배달 점포를 조회해서
@@ -125,14 +125,14 @@ def get_restaurant():
     return jsonify(restaurants)
 
 
-@app.route('/api/detail', methods=["GET"])
+@application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
     restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
 
 
-@app.route('/api/address', methods=["POST"])
+@application.route('/api/address', methods=["POST"])
 def search_add():
     query = request.json.get('query')
     return jsonify(search_address(query))
@@ -201,4 +201,4 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    app.run('0.0.0.0')
+    application.run()
