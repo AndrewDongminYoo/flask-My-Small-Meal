@@ -33,14 +33,12 @@ jobs:
           flags: 'g'
 
       - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v18
+        uses: einaregilsson/beanstalk-deploy@v14
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: smallmeal
-          environment_name: Smallmeal-env
-          existing_bucket_name: elasticbeanstalk-ap-northeast-2-061032586806
-
+          application_name: python-app-homework
+          environment_name: Pythonapphomework-env
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
           region: ap-northeast-2
           deployment_package: deploy.zip
