@@ -3,10 +3,11 @@ from flask import Flask, request, jsonify, render_template
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
-import os
+# import os
+
 application = Flask(__name__)
-client = MongoClient(os.environ.get("DB_PATH"))
-# client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
+# client = MongoClient(os.environ.get("DB_PATH"))
+client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
 col = db.restaurant
 users = db.users

@@ -6,9 +6,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        mongodb-version: [ '4.0', '4.2', '4.4' ]
 
     steps:
       - name: Checkout source code.
@@ -19,12 +16,17 @@ jobs:
         with:
           python-version: "3.8"
 
+      - name: Install MongoDB
+        run: |
+          wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | sudo apt-key add -
+          echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+          sudo apt-get update
+          sudo apt-get install -y mongodb-org
+          sudo apt-get install -y mongodb-org=3.6.14 mongodb-org-server=3.6.14 mongodb-org-shell=3.6.14 mongodb-org-mongos=3.6.14 mongodb-org-tools=3.6.14
+
       - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.6.0
-        with:
-          mongodb-version: ${{ matrix.mongodb-version }}
-          mongodb-replica-set: test-rs
-          mongodb-port: 27017
+        run: sudo systemctl start mongod
+
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
