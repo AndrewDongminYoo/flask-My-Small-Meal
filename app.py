@@ -1,16 +1,26 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify, render_template
+from urllib.parse import quote_plus
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
-# import os
+import os
+from server import script
+from os import environ
 
+os.popen('mongod')
 app = Flask(__name__)
 # client = MongoClient(os.environ.get("DB_PATH"))
-client = MongoClient('localhost', 27017)  # 배포 전에 원격 db로 교체!
+if app.env == 'development':
+    uri = "localhost"
+else:
+    os.popen(script)
+    uri = "%s//%s:%s@localhost" % (environ.get("MONGO"), environ.get("DB_ID"), environ.get("DB_PW"))
+client = MongoClient(uri, port=27017)  # 배포 전에 원격 db로 교체!
 db = client.dbGoojo
 col = db.restaurant
 users = db.users
+print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
@@ -202,4 +212,7 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    app.run()
+    if app.env == 'development':
+        app.run(debug=True)
+    else:
+        app.run()
