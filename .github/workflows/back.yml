@@ -16,9 +16,6 @@ jobs:
         with:
           python-version: "3.8"
 
-      - name: Start MongoDB
-        run: sudo systemctl start mongod
-
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
 
