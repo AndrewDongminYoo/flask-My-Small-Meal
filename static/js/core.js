@@ -259,6 +259,12 @@ function popUp(ssid) {
     })
 }
 
+function emptyCards() {
+    document.querySelector(".column-0").innerHTML = ""
+    document.querySelector(".column-1").innerHTML = ""
+    document.querySelector(".column-2").innerHTML = ""
+}
+
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
 window.addEventListener('hashchange', async () => {
     let hash = window.location.hash.substring(1)
@@ -309,12 +315,12 @@ const showCards = (restaurant, i) => {
     categories.forEach((tag) => {
         btn += `<button class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
-    $(`.column-${i}`).append(tempHtml.replace("{__buttons__}", btn))
+    document.querySelector(`.column-${i}`).innerHTML+=tempHtml.replace("{__buttons__}", btn)
 }
 
 // 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
 function search() {
-    let query = $("#geoSearch").val()
+    let query = document.querySelector("#geoSearch").value
     const headers = new Headers();
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({ query: query });
@@ -328,26 +334,24 @@ function search() {
             }
             return getFoods(latitude, longitude)
         }).then(restaurants => {
-            $(".column-0").empty()
-            $(".column-1").empty()
-            $(".column-2").empty()
-            restaurants.forEach((restaurant, index) => {
-                let i = index % 3
-                showCards(restaurant, i)
-            }) // tempHtml append 하기
-        }).catch((e) => console.log(e));
+        emptyCards()
+        restaurants.forEach((restaurant, index) => {
+            let i = index % 3
+            showCards(restaurant, i)
+        }) // tempHtml append 하기
+    }).catch((e) => console.log(e));
 }
 
 // 특정 카테고리 (예: 1인분주문) 를 클릭하면 모든 식당 중 해당 해시태그를 가진 카드가 하이라이트됩니다.
 function highlight(string) {
-    $("button.is-warning").not(`:contains(${string})`).addClass('is-outlined')
-    $(`button.button:contains(${string})`).removeClass('is-outlined')
+    document.querySelectorAll(`button.is-warning:not([value='${string}'])`).forEach(e=>e.classList.add('is-outlined'))
+    document.querySelectorAll(`button.button[value='${string}']`).forEach(e=>e.classList.remove('is-outlined'))
 }
 
 // tab 의 버튼을 클릭하면 그 버튼만 active 상태가 됩니다.
 function tabFocus(string) {
-    $("li.tab").not(`.tab-${string}`).removeClass('is-active');
-    $(`li.tab-${string}`).addClass('is-active');
+    document.querySelectorAll(`li.tab:not(.tab-${string})`).forEach(e=>e.classList.remove('is-active'));
+    document.querySelector(`li.tab-${string}`).classList.add('is-active');
 }
 
 // 비동기처리 방식 자바스크립트를 고려한 타이머 함수
@@ -367,28 +371,28 @@ async function everybodyShuffleIt(array) {
     const result = shuffle(array)[0]
     for (let i = 0; i < array.length; i++) {
         await timer(60)
-        $(`span.word.word-${i}`).addClass('is-red')
-        $("span.word").not(`.word-${i}`).removeClass('is-red')
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(100)
-        $(`span.word.word-${i}`).addClass('is-red')
-        $("span.word").not(`.word-${i}`).removeClass('is-red')
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(200)
-        $(`span.word.word-${i}`).addClass('is-red')
-        $("span.word").not(`.word-${i}`).removeClass('is-red')
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(600)
-        $("span.word").not(`.word-${i}`).removeClass('is-red')
-        $(`span.word.word-${i}`).addClass('is-red')
-        if ($(`span.word-${i}:contains('${result},')`).hasClass('is-red')) {
-            $(`button.button:contains(${result})`).removeClass('is-outlined')
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
+        if (document.querySelector(`.word-${i}`).classList.contains('is-red') && document.querySelector(`.word-${i}`)['title']===result) {
+            document.querySelector(`button.button[value='${result}']`).classList.remove('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
-            $("#modal").remove()
+            document.getElementById("modal").remove()
             return result
         }
     }
