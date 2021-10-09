@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        mongodb-version: [ '4.0', '4.2', '4.4' ]
 
     steps:
       - name: Checkout source code.
@@ -16,16 +19,12 @@ jobs:
         with:
           python-version: "3.8"
 
-      - name: Andrew's distribution
-        run: |
-          sudo apt-get install -y mongodb-org
-          sudo service mongod start
-          mongo
-          use admin
-          db.createUser({user: "${{ secrets.DB_ID }}", pwd: "${{ secrets.DB_PWD }}", roles:["root"]});
-          exit
-          sudo service mongod restart
-          export DB_PATH=${{ secrets.DB_PATH }}
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.6.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+          mongodb-replica-set: test-rs
+          mongodb-port: 27017
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
