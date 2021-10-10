@@ -43,7 +43,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: smallmeal
           environment_name: Smallmeal-env
-          existing_bucket_name: elasticbeanstalk-ap-northeast-2-061032586806
           wait_for_environment_recovery: true
 
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
