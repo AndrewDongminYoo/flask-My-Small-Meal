@@ -29,8 +29,8 @@ def hello_world():  # put application's code here
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    # return "<h1>This is API server</h1>"
-    return render_template('index.html')
+    return "<h1>This is API server</h1>"
+    # return render_template('index.html')
 
 
 @app.route('/api/like', methods=['POST'])
