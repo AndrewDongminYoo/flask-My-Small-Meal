@@ -5,9 +5,9 @@ import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
 import os
 
-app = Flask(__name__)
+application = Flask(__name__)
 # client = MongoClient(os.environ.get("DB_PATH"))
-# if app.env == 'development':
+# if application.env == 'development':
 #     os.popen('mongod')
 #     client = MongoClient("localhost", port=27017)  # 배포 전에 원격 db로 교체!
 # else:
@@ -23,7 +23,7 @@ app = Flask(__name__)
 # order = sort_list[0]
 
 
-@app.route('/')
+@application.route('/')
 def hello_world():  # put application's code here
     """
     index.html 페이지를 리턴합니다.\n
@@ -33,7 +33,7 @@ def hello_world():  # put application's code here
     # return render_template('index.html')
 
 
-# @app.route('/api/like', methods=['POST'])
+# @application.route('/api/like', methods=['POST'])
 # def like():
 #     """
 #     메인 로직 중 하나입니다. 웬만하면 건드리지 말기..!
@@ -67,7 +67,7 @@ def hello_world():  # put application's code here
 #     return jsonify({'uuid': uuid})
 #
 #
-# @app.route('/api/like', methods=['GET'])
+# @application.route('/api/like', methods=['GET'])
 # def show_bookmark():
 #     """
 #     사용자의 uuid 를 조회해 좋아요한 상품들의 리스트를 불러온다.
@@ -87,7 +87,7 @@ def hello_world():  # put application's code here
 #     return jsonify({"restaurants": restaurants})
 #
 #
-# @app.route('/api/shop', methods=['GET'])
+# @application.route('/api/shop', methods=['GET'])
 # def get_restaurant():
 #     """
 #     위치 권한 허용 시 셋팅되는 기본 메소드. 요기요 서버에 사용자의 위도와 경도를 보내 주변 배달 점포를 조회해서
@@ -132,7 +132,7 @@ def hello_world():  # put application's code here
 #     return jsonify(restaurants)
 #
 #
-# @app.route('/api/detail', methods=["GET"])
+# @application.route('/api/detail', methods=["GET"])
 # def show_modal():
 #     ssid = request.args.get('ssid')
 #     restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
@@ -208,4 +208,4 @@ def hello_world():  # put application's code here
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run()
