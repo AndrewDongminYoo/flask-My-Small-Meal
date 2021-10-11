@@ -9,7 +9,7 @@ jobs:
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'ap-northeast-1'
+      AWS_REGION: 'ap-northeast-2'
 
     steps:
       - name: Checkout source code.
@@ -44,5 +44,5 @@ jobs:
           application_name: mysmallmeal
           environment_name: Mysmallmeal-env
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
-          region: ap-northeast-1
+          region: ap-northeast-2
           deployment_package: deploy.zip
