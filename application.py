@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template, render_template_string
+from flask import Flask, request, jsonify
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
@@ -29,7 +29,7 @@ def hello_world():  # put application's code here
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    return render_template_string("<h1>This is API server</h1>")
+    return "<h1>This is API server</h1>"
     # return render_template('index.html')
 
 
@@ -139,7 +139,7 @@ def show_modal():
     return jsonify(restaurant)
 
 
-@app.route('/api/address', methods=["POST"])
+@application.route('/api/address', methods=["POST"])
 def search_add():
     query = request.json.get('query')
     return jsonify(search_address(query))
