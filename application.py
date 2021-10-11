@@ -208,7 +208,4 @@ def hello_world():  # put application's code here
 
 
 if __name__ == '__main__':
-    if app.env == 'development':
-        app.run(debug=True)
-    else:
-        app.run()
+    app.run()
