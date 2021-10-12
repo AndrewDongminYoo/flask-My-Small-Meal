@@ -6,6 +6,7 @@ import json  # json 응답 핸들링
 import os
 import copy
 
+
 application = Flask(__name__)
 client = MongoClient(os.environ.get("DB_PATH"))
 if application.env == 'development':
@@ -22,7 +23,6 @@ print(client.address)
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
 order = sort_list[0]
-
 
 @application.route('/')
 def hello_world():  # put application's code here
@@ -68,6 +68,7 @@ def like():
     return jsonify({'uuid': uuid})
 
 
+
 @application.route('/api/like', methods=['GET'])
 def show_bookmark():
     """
@@ -86,6 +87,7 @@ def show_bookmark():
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
+
 
 
 @application.route('/api/shop', methods=['GET'])
@@ -128,12 +130,14 @@ def get_restaurant():
         rest['rating'] = shop.get('review_avg')
         rest['time'] = shop.get('open_time_description')
         rest['min_order'] = shop.get('min_order_amount')
-        save_rest = copy.deepcopy(rest)
+        rest['lng'] = shop.get('lng')
+        rest['lat'] = shop.get('lat')
+        rest['phone'] = shop.get('phone')
         restaurants.append(rest)
+        save_rest = copy.deepcopy(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
         find_rest = col.find_one({'id':save_rest['id']})
-
-        if find_rest is None:
+        if not find_rest:
             # 없으면 저장
             col.insert_one(save_rest)
         else:
@@ -143,12 +147,12 @@ def get_restaurant():
 
     return jsonify(restaurants)
 
-
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
     restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
+
 
 
 @application.route('/api/address', methods=["POST"])
