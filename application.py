@@ -3,18 +3,19 @@ from flask import Flask, request, jsonify, render_template
 import requests  # 서버 요청 패키지
 from flask_cors import CORS
 from flaskext.mysql import MySQL
+import pymongo
 import json  # json 응답 핸들링
 import os
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 
-# application.config["MYSQL_DATABASE_HOST"] = 'localhost'
-application.config["MYSQL_DATABASE_HOST"] = os.environ.get("MYSQL_DB_HOST")
+application.config["MYSQL_DATABASE_HOST"] = "smallmeal-shop.cb0wnv8kcyrj.ap-northeast-2.rds.amazonaws.com"
+application.config["MYSQL_DATABASE_PASSWORD"] = "jaryogoojo"
 application.config["MYSQL_DATABASE_PORT"] = 3306
-application.config["MYSQL_DATABASE_DB"] = os.environ.get("MYSQL_DB_PATH")
-application.config["MYSQL_DATABASE_USER"] = os.environ.get("MYSQL_DB_USER")
-application.config["MYSQL_DATABASE_PASSWORD"] = os.environ.get("MYSQL_DB_PASS")
+application.config["MYSQL_DATABASE_DB"] = "ebdb"
+application.config["MYSQL_DATABASE_USER"] = "admin"
+application.config["MYSQL_CHARSET"] = 'utf-8'
 
 mysql = MySQL()
 mysql.init_app(application)
@@ -30,8 +31,8 @@ order = sort_list[0]
 
 @application.route('/')
 def hello_world():  # put application's code here
-    return "<h1>This is API server</h1>"
-    # return render_template('index.html')
+    # return "<h1>This is API server</h1>"
+    return render_template('index.html')
 
 
 @application.route('/api/like', methods=['POST'])
@@ -48,7 +49,7 @@ def like():
     ssid = request.json.get('ssid')
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    user = cursor.execute(f"""select * from users where uuid = '{uuid}';""")
+    user = cursor.execute(f"""select * from users where uuid = '{uuid}' from smallmeal;""")
     print(user)
     # user = list(users.find({"uuid": uuid}, {"_id": False}))
     put_restaurant(ssid, min_order)
@@ -138,7 +139,8 @@ def get_restaurant():
         cursor.execute(f"""insert into 
         smallmeal (id, name, reviews, owner, categories, image, logo, address, rating, "time", min_order) 
         values ({rest['id']}, {rest['name']}, {rest['reviews']}, {rest['owner']}, {rest['categories']}, {rest['image']}, 
-        {rest['logo']}, {rest['logo']}, {rest['address']}, {rest['rating']}, {rest['time']}, {rest['min_order']});""")
+        {rest['logo']}, {rest['logo']}, {rest['address']}, {rest['rating']}, {rest['time']}, {rest['min_order']}) 
+        from smallmeal;""")
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
         # col.insert_one(rest, {"_id": False})
 
@@ -148,7 +150,7 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
-    restaurant = cursor.execute(f"""select * from id = {ssid} limit 1;""")
+    restaurant = cursor.execute(f"""select * from id = {ssid} from smallmeal limit 1;""")
     # restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
 
@@ -191,9 +193,9 @@ def put_restaurant(ssid, min_order):
         "min_order": min_order
         }
     cursor.execute(f"""insert into 
-    smallmeal (id, name, categories, logo, "time", min_order)
+    restaurants (id, name, categories, logo, "time", min_order)
     values ({doc['ssid']}, {doc['time']}, {doc['phone']},{doc['name']}, {doc['categories']}, {doc['delivery']}, 
-     {doc['address']}, {doc['image']}, {doc['min_order']});""")
+     {doc['address']}, {doc['image']}, {doc['min_order']}) from smallmeal;""")
     # col.insert_one(doc)
 
 
@@ -223,6 +225,8 @@ def search_address(query):
         "long": lng
     }
     return doc
+
+
 
 
 if __name__ == '__main__':
