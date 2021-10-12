@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import requests  # 서버 요청 패키지
 from flask_cors import CORS
 from flaskext.mysql import MySQL
@@ -9,8 +9,8 @@ import os
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 
-application.config["MYSQL_DATABASE_HOST"] = "localhost"
-application.config["MYSQL_DATABASE_PASSWORD"] = "jaryogoojo"
+application.config["MYSQL_DATABASE_HOST"] = os.environ.get("MYSQL_DB_HOST")
+application.config["MYSQL_DATABASE_PASSWORD"] = os.environ.get("MYSQL_DB_PASS")
 application.config["MYSQL_DATABASE_DB"] = "ebdb"
 application.config["MYSQL_DATABASE_USER"] = "admin"
 application.config["MYSQL_DATABASE_PORT"] = 3306
