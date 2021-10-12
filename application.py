@@ -9,16 +9,15 @@ import os
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 
-mysql = MySQL()
-application.config["MYSQL_DATABASE_DB"] = os.environ["MYSQL_DB_PATH"]
-application.config["MYSQL_DATABASE_HOST"] = os.environ["MYSQL_DB_HOST"]
-application.config["MYSQL_DATABASE_USER"] = os.environ["MYSQL_DB_USER"]
+# application.config["MYSQL_DATABASE_HOST"] = 'localhost'
+application.config["MYSQL_DATABASE_HOST"] = os.environ.get("MYSQL_DB_HOST")
 application.config["MYSQL_DATABASE_PORT"] = 3306
-application.config["MYSQL_DATABASE_CHARSET"] = 'utf-8'
-application.config["MYSQL_DATABASE_PASSWORD"] = os.environ["MYSQL_DB_PASS"]
+application.config["MYSQL_DATABASE_DB"] = os.environ.get("MYSQL_DB_PATH")
+application.config["MYSQL_DATABASE_USER"] = os.environ.get("MYSQL_DB_USER")
+application.config["MYSQL_DATABASE_PASSWORD"] = os.environ.get("MYSQL_DB_PASS")
 
+mysql = MySQL()
 mysql.init_app(application)
-
 conn = mysql.connect()
 conn.autocommit(True)
 cursor = conn.cursor()
@@ -56,18 +55,20 @@ def like():
     if action == 'like':
         if not user:
             good_list = [ssid]
-            cursor.execute(f"""INSERT INTO user (uuid, like_list) VALUES ({uuid}, {good_list})""")
+            cursor.execute(f"""INSERT INTO users (uuid, like_list) VALUES ({uuid}, {good_list})""")
             # users.insert_one({"uuid": uuid, "like_list": good_list})
         elif ssid in user[0]['like_list']:
             pass
         else:
             good_list = user[0]['like_list']
             good_list.append(ssid)
+            cursor.excute(f"""update users set like_list = {good_list} where uuid = {uuid};""")
             # users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     else:
         if user and ssid in user[0]['like_list']:
             good_list = user[0]['like_list']
             good_list.remove(ssid)
+            cursor.excute(f"""update users set like_list = {good_list} where uuid = {uuid};""")
             # users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify({'uuid': uuid})
 
@@ -80,15 +81,17 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
+    user = cursor.execute(f"""select uuid from users where uuid = '{uuid}';""")
     # user = list(users.find({"uuid": uuid}, {"_id": False}))
     good_list = []
-    # if user:
-    #     good_list = user[0]['like_list']
+    if user:
+        good_list = user[0]['like_list']
     restaurants = []
-    # for restaurant in good_list:
+    for restaurant in good_list:
+        rest = cursor.excute(f"""select * from users where uuid = {uuid}""")
         # rest = list(col.find({"ssid": restaurant}, {"_id": False}))
-        # if len(rest) > 0:
-        #     restaurants.extend(rest)
+        if len(rest) > 0:
+            restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
 
 
@@ -124,7 +127,7 @@ def get_restaurant():
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
         rest['owner'] = shop.get('owner_reply_count')
-        rest['categories'] = shop.get('categories')
+        rest['categories'] = json.dumps(shop.get('categories'))
         rest['image'] = shop.get('thumbnail_url')
         rest['logo'] = shop.get('logo_url')
         rest['address'] = shop.get('address')
@@ -132,16 +135,22 @@ def get_restaurant():
         rest['time'] = shop.get('open_time_description')
         rest['min_order'] = shop.get('min_order_amount')
         restaurants.append(rest)
+        cursor.execute(f"""insert into 
+        smallmeal (id, name, reviews, owner, categories, image, logo, address, rating, "time", min_order) 
+        values ({rest['id']}, {rest['name']}, {rest['reviews']}, {rest['owner']}, {rest['categories']}, {rest['image']}, 
+        {rest['logo']}, {rest['logo']}, {rest['address']}, {rest['rating']}, {rest['time']}, {rest['min_order']});""")
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
         # col.insert_one(rest, {"_id": False})
+
     return jsonify(restaurants)
 
 
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
+    restaurant = cursor.execute(f"""select * from id = {ssid} limit 1;""")
     # restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
-    # return jsonify(restaurant)
+    return jsonify(restaurant)
 
 
 @application.route('/api/address', methods=["POST"])
@@ -181,6 +190,10 @@ def put_restaurant(ssid, min_order):
         "image": result.get("background_url"),
         "min_order": min_order
         }
+    cursor.execute(f"""insert into 
+    smallmeal (id, name, categories, logo, "time", min_order)
+    values ({doc['ssid']}, {doc['time']}, {doc['phone']},{doc['name']}, {doc['categories']}, {doc['delivery']}, 
+     {doc['address']}, {doc['image']}, {doc['min_order']});""")
     # col.insert_one(doc)
 
 
