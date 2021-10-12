@@ -9,8 +9,8 @@ import os
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 
-application.config["MYSQL_DATABASE_HOST"] = os.environ.get("MYSQL_DB_HOST")
-application.config["MYSQL_DATABASE_PASSWORD"] = os.environ.get("MYSQL_DB_PASS")
+application.config["MYSQL_DATABASE_HOST"] = "localhost"
+application.config["MYSQL_DATABASE_PASSWORD"] = "jaryogoojo"
 application.config["MYSQL_DATABASE_DB"] = "ebdb"
 application.config["MYSQL_DATABASE_USER"] = "admin"
 application.config["MYSQL_DATABASE_PORT"] = 3306
@@ -55,8 +55,8 @@ headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
 
 @application.route('/')
 def hello_world():  # put application's code here
-    # return "<h1>This is API server</h1>"
-    return render_template('index.html')
+    return "<h1>This is API server</h1>"
+    # return render_template('index.html')
 
 
 @application.route('/api/like', methods=['POST'])
