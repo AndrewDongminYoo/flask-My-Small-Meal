@@ -4,6 +4,7 @@ from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
 import os
+import copy
 
 
 application = Flask(__name__)
@@ -117,6 +118,7 @@ def get_restaurant():
     restaurants = list()
     for shop in shops:
         rest = dict()
+
         rest['id'] = shop.get('id')
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
@@ -128,13 +130,21 @@ def get_restaurant():
         rest['rating'] = shop.get('review_avg')
         rest['time'] = shop.get('open_time_description')
         rest['min_order'] = shop.get('min_order_amount')
-
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
         rest['phone'] = shop.get('phone')
         restaurants.append(rest)
+        save_rest = copy.deepcopy(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        # col.insert_one(rest, {"_id": False})
+        find_rest = col.find_one({'id':save_rest['id']})
+        if not find_rest:
+            # 없으면 저장
+            col.insert_one(save_rest)
+        else:
+            # 있으면 변경
+            save_rest['_id'] = find_rest['_id']
+            col.save(save_rest)
+
     return jsonify(restaurants)
 
 @application.route('/api/detail', methods=["GET"])
