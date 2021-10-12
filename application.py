@@ -31,26 +31,26 @@ cursor = conn.cursor()
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
 order = sort_list[0]
 headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
-   'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-   'content-type': 'application/x-www-form-urlencoded',
-   'cookie': 'optimizelyEndUserId=oeu1632363343114r0.013935140503450016; _gcl_au=1.1.1249064243.1632363346; '
-             '_fbp=fb.2.1632363345765.911445012; _gid=GA1.3.34032690.1634009558; '
-             'sessionid=58ff19d9cce8699f1e0ee1f8f791ad0b; '
-             '_gac_UA-42635603-1=1.1634009599.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
-             '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
-             '_gcl_aw=GCL.1634009602.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
-             '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
-             '_gac_UA-42635603-4=1.1634009604.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
-             '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; RestaurantListCookieTrigger=true; '
-             '_gat_UA-42635603-4=1; _gat=1; wcs_bt=s_51119d387dfa:1634049887; '
-             '_ga_6KMY7BWK8X=GS1.1.1634049860.13.1.1634049888.32; _ga=GA1.3.253641699.1632363344',
-   'referer': 'https://www.yogiyo.co.kr/mobile/',
-   'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
-   'sec-ch-ua-mobile': '?0', 'sec-ch-ua-platform': '"Windows"', 'sec-fetch-dest': 'empty',
-   'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
-   'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                 'Chrome/94.0.4606.71 Safari/537.36',
-   'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
+           'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+           'content-type': 'application/x-www-form-urlencoded',
+           'cookie': 'optimizelyEndUserId=oeu1632363343114r0.013935140503450016; _gcl_au=1.1.1249064243.1632363346; '
+                     '_fbp=fb.2.1632363345765.911445012; _gid=GA1.3.34032690.1634009558; '
+                     'sessionid=58ff19d9cce8699f1e0ee1f8f791ad0b; '
+                     '_gac_UA-42635603-1=1.1634009599.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
+                     '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
+                     '_gcl_aw=GCL.1634009602.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
+                     '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
+                     '_gac_UA-42635603-4=1.1634009604.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
+                     '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; RestaurantListCookieTrigger=true'
+                     '_gat_UA-42635603-4=1; _gat=1; wcs_bt=s_51119d387dfa:1634049887; '
+                     '_ga_6KMY7BWK8X=GS1.1.1634049860.13.1.1634049888.32; _ga=GA1.3.253641699.1632363344',
+           'referer': 'https://www.yogiyo.co.kr/mobile/',
+           'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
+           'sec-ch-ua-mobile': '?0', 'sec-ch-ua-platform': '"Windows"', 'sec-fetch-dest': 'empty',
+           'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
+           'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                         'Chrome/94.0.4606.71 Safari/537.36',
+           'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
 
 
 @application.route('/')
@@ -187,7 +187,7 @@ def put_restaurant(ssid, min_order):
     cursor.execute(f"""select * from smallmeal where ssid = '{ssid}' limit 1;""")
     if cursor.fetchone():
         return
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/'+ssid
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + ssid
     req = requests.post(url, headers=headers)
     result = req.json()
     time = result.get("open_time_description")
@@ -222,7 +222,7 @@ def search_address(query):
     long: 찾고자 하는 지역의 y 좌표
     }
     """
-    url = 'https://dapi.kakao.com/v2/local/search/address.json?query='+query
+    url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + query
     headers = {
         'Host': 'dapi.kakao.com',
         'Authorization': 'KakaoAK c67c5816d29490ab56c1fbf40bef220d'}
@@ -241,4 +241,4 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    application.run()
+    application.run(port=8000, debug=True)
