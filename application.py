@@ -1,22 +1,28 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify
-from pymongo import MongoClient  # 몽고디비
+from flask import Flask, request, jsonify, render_template
 import requests  # 서버 요청 패키지
+from flask_cors import CORS
+from flaskext.mysql import MySQL
 import json  # json 응답 핸들링
 import os
 
 application = Flask(__name__)
-client = MongoClient(os.environ.get("DB_PATH"))
-if application.env == 'development':
-    os.popen('mongod')
-    client = MongoClient("localhost", port=27017)  # 배포 전에 원격 db로 교체!
-else:
-    client = MongoClient(os.environ.get("DB_PATH"))
+cors = CORS(application, resources={r"/*": {"origins": "*"}})
 
-db = client.dbGoojo
-col = db.restaurant
-users = db.users
-print(client.address)
+mysql = MySQL()
+application.config["MYSQL_DATABASE_DB"] = os.environ["MYSQL_DB_PATH"]
+application.config["MYSQL_DATABASE_HOST"] = os.environ["MYSQL_DB_HOST"]
+application.config["MYSQL_DATABASE_USER"] = os.environ["MYSQL_DB_USER"]
+application.config["MYSQL_DATABASE_PORT"] = 3306
+application.config["MYSQL_DATABASE_CHARSET"] = 'utf-8'
+application.config["MYSQL_DATABASE_PASSWORD"] = os.environ["MYSQL_DB_PASS"]
+
+mysql.init_app(application)
+
+conn = mysql.connect()
+conn.autocommit(True)
+cursor = conn.cursor()
+
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
@@ -25,10 +31,6 @@ order = sort_list[0]
 
 @application.route('/')
 def hello_world():  # put application's code here
-    """
-    index.html 페이지를 리턴합니다.\n
-    :return: str -> template('index.html')
-    """
     return "<h1>This is API server</h1>"
     # return render_template('index.html')
 
@@ -47,23 +49,26 @@ def like():
     ssid = request.json.get('ssid')
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    user = cursor.execute(f"""select * from users where uuid = '{uuid}';""")
+    print(user)
+    # user = list(users.find({"uuid": uuid}, {"_id": False}))
     put_restaurant(ssid, min_order)
     if action == 'like':
         if not user:
             good_list = [ssid]
-            users.insert_one({"uuid": uuid, "like_list": good_list})
+            cursor.execute(f"""INSERT INTO user (uuid, like_list) VALUES ({uuid}, {good_list})""")
+            # users.insert_one({"uuid": uuid, "like_list": good_list})
         elif ssid in user[0]['like_list']:
             pass
         else:
             good_list = user[0]['like_list']
             good_list.append(ssid)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            # users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     else:
         if user and ssid in user[0]['like_list']:
             good_list = user[0]['like_list']
             good_list.remove(ssid)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            # users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify({'uuid': uuid})
 
 
@@ -75,15 +80,15 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    # user = list(users.find({"uuid": uuid}, {"_id": False}))
     good_list = []
-    if user:
-        good_list = user[0]['like_list']
+    # if user:
+    #     good_list = user[0]['like_list']
     restaurants = []
-    for restaurant in good_list:
-        rest = list(col.find({"ssid": restaurant}, {"_id": False}))
-        if len(rest) > 0:
-            restaurants.extend(rest)
+    # for restaurant in good_list:
+        # rest = list(col.find({"ssid": restaurant}, {"_id": False}))
+        # if len(rest) > 0:
+        #     restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
 
 
@@ -135,8 +140,8 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
-    restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
-    return jsonify(restaurant)
+    # restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
+    # return jsonify(restaurant)
 
 
 @application.route('/api/address', methods=["POST"])
@@ -152,8 +157,8 @@ def put_restaurant(ssid, min_order):
     :param min_order: 최소 주문금액
     :return: None
     """
-    if list(col.find({"ssid": ssid}, {"_id": False})):
-        return
+    # if list(col.find({"ssid": ssid}, {"_id": False})):
+    #     return
     url = 'https://www.yogiyo.co.kr/api/v1/restaurants/'+ssid
     headers = {
         'sec-fetch-dest': 'empty',
@@ -176,7 +181,7 @@ def put_restaurant(ssid, min_order):
         "image": result.get("background_url"),
         "min_order": min_order
         }
-    col.insert_one(doc)
+    # col.insert_one(doc)
 
 
 def search_address(query):
