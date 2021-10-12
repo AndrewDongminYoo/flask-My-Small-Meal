@@ -2,14 +2,14 @@ name: myprojectb
 on:
   push:
     branches:
-      - main
+      - release
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: 'us-east-1'
+      AWS_REGION: 'ap-northeast-2'
 
     steps:
       - name: Checkout source code.
@@ -37,14 +37,14 @@ jobs:
           flags: 'g'
 
       - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v14
+        uses: einaregilsson/beanstalk-deploy@v18
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: mySmallMeal
-          environment_name: Mysmallmeal-env
+          application_name: mealalone
+          environment_name: Mealalone-env
+          wait_for_deployment: true
           wait_for_environment_recovery: true
-
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
-          region: us-east-1
+          region: ap-northeast-2
           deployment_package: deploy.zip

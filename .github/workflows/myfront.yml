@@ -2,7 +2,7 @@ name: myprojectf
 on:
   push:
     branches:
-      - main
+      - release
 jobs:
   build:
     runs-on: ubuntu-18.04
