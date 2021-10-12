@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
 import os
+import copy
 
 application = Flask(__name__)
 client = MongoClient(os.environ.get("DB_PATH"))
@@ -29,8 +30,8 @@ def hello_world():  # put application's code here
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    return "<h1>This is API server</h1>"
-    # return render_template('index.html')
+    # return "<h1>This is API server</h1>"
+    return render_template('index.html')
 
 
 @application.route('/api/like', methods=['POST'])
@@ -115,6 +116,7 @@ def get_restaurant():
     restaurants = list()
     for shop in shops:
         rest = dict()
+
         rest['id'] = shop.get('id')
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
@@ -126,9 +128,19 @@ def get_restaurant():
         rest['rating'] = shop.get('review_avg')
         rest['time'] = shop.get('open_time_description')
         rest['min_order'] = shop.get('min_order_amount')
+        save_rest = copy.deepcopy(rest)
         restaurants.append(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        # col.insert_one(rest, {"_id": False})
+        find_rest = col.find_one({'id':save_rest['id']})
+
+        if find_rest is None:
+            # 없으면 저장
+            col.insert_one(save_rest)
+        else:
+            # 있으면 변경
+            save_rest['_id'] = find_rest['_id']
+            col.save(save_rest)
+
     return jsonify(restaurants)
 
 
