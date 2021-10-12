@@ -1,35 +1,60 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify, render_template
-from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
+from flask_cors import CORS
+from flaskext.mysql import MySQL
 import json  # json 응답 핸들링
 import os
-import copy
-
 
 application = Flask(__name__)
-client = MongoClient(os.environ.get("DB_PATH"))
-if application.env == 'development':
-    os.popen('mongod')
-    client = MongoClient("localhost", port=27017)  # 배포 전에 원격 db로 교체!
-else:
-    client = MongoClient(os.environ.get("DB_PATH"))
+cors = CORS(application, resources={r"/*": {"origins": "*"}})
 
-db = client.dbGoojo
-col = db.restaurant
-users = db.users
-print(client.address)
+application.config["MYSQL_DATABASE_HOST"] = os.environ.get("MYSQL_DB_HOST")
+application.config["MYSQL_DATABASE_PASSWORD"] = os.environ.get("MYSQL_DB_PASS")
+application.config["MYSQL_DATABASE_DB"] = "ebdb"
+application.config["MYSQL_DATABASE_USER"] = "admin"
+application.config["MYSQL_DATABASE_PORT"] = 3306
+application.config["MYSQL_CHARSET"] = 'utf-8'
+
+mysql = MySQL()
+mysql.init_app(application)
+conn = mysql.connect()
+conn.autocommit(True)
+conn.query("set character_set_connection=utf8;")
+conn.query("set character_set_server=utf8;")
+conn.query("set character_set_client=utf8;")
+conn.query("set character_set_results=utf8;")
+
+cursor = conn.cursor()
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
 order = sort_list[0]
+headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
+   'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+   'content-type': 'application/x-www-form-urlencoded',
+   'cookie': 'optimizelyEndUserId=oeu1632363343114r0.013935140503450016; _gcl_au=1.1.1249064243.1632363346; '
+             '_fbp=fb.2.1632363345765.911445012; _gid=GA1.3.34032690.1634009558; '
+             'sessionid=58ff19d9cce8699f1e0ee1f8f791ad0b; '
+             '_gac_UA-42635603-1=1.1634009599.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
+             '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
+             '_gcl_aw=GCL.1634009602.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
+             '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
+             '_gac_UA-42635603-4=1.1634009604.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
+             '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; RestaurantListCookieTrigger=true; '
+             '_gat_UA-42635603-4=1; _gat=1; wcs_bt=s_51119d387dfa:1634049887; '
+             '_ga_6KMY7BWK8X=GS1.1.1634049860.13.1.1634049888.32; _ga=GA1.3.253641699.1632363344',
+   'referer': 'https://www.yogiyo.co.kr/mobile/',
+   'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
+   'sec-ch-ua-mobile': '?0', 'sec-ch-ua-platform': '"Windows"', 'sec-fetch-dest': 'empty',
+   'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin',
+   'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                 'Chrome/94.0.4606.71 Safari/537.36',
+   'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
+
 
 @application.route('/')
 def hello_world():  # put application's code here
-    """
-    index.html 페이지를 리턴합니다.\n
-    :return: str -> template('index.html')
-    """
     # return "<h1>This is API server</h1>"
     return render_template('index.html')
 
@@ -46,27 +71,25 @@ def like():
     """
     uuid = request.json.get('uuid')
     ssid = request.json.get('ssid')
+    ssid = int(ssid)
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    cursor.execute(f"""select * from users where uuid = '{uuid}' limit 1;""")
+    user = cursor.fetchone()
     put_restaurant(ssid, min_order)
     if action == 'like':
         if not user:
             good_list = [ssid]
-            users.insert_one({"uuid": uuid, "like_list": good_list})
-        elif ssid in user[0]['like_list']:
-            pass
-        else:
-            good_list = user[0]['like_list']
+            cursor.execute(f"""INSERT INTO users (uuid, like_list) VALUES ('{uuid}', "{good_list}");""")
+        elif ssid not in user['like_list']:
+            good_list = user['like_list']
             good_list.append(ssid)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
-    else:
-        if user and ssid in user[0]['like_list']:
-            good_list = user[0]['like_list']
-            good_list.remove(ssid)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            cursor.execute(f"""update users set like_list = "{good_list}" where uuid = {uuid};""")
+    elif user and ssid in user['like_list']:
+        good_list = user['like_list']
+        good_list.remove(ssid)
+        cursor.execute(f"""update users set like_list = "{good_list}" where uuid = {uuid};""")
     return jsonify({'uuid': uuid})
-
 
 
 @application.route('/api/like', methods=['GET'])
@@ -77,17 +100,18 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    cursor.execute(f"""select * from users where uuid = '{uuid}' limit 1;""")
+    user = cursor.fetchone()
     good_list = []
     if user:
-        good_list = user[0]['like_list']
+        good_list = user['like_list']
     restaurants = []
     for restaurant in good_list:
-        rest = list(col.find({"ssid": restaurant}, {"_id": False}))
+        cursor.execute(f"""select * from smallmeal where ssid = '{restaurant}' limit 1;""")
+        rest = cursor.fetchone()
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
-
 
 
 @application.route('/api/shop', methods=['GET'])
@@ -103,22 +127,15 @@ def get_restaurant():
     order = request.args.get('order')
     if not order:
         order = "rank"
+    import requests
+
     url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=30&lat={lat}&lng={long}&order={order}'
-    headers = {'accept': 'application/json',
-               'accept-encoding': 'gzip, deflate, br',
-               'sec-ch-ua-platform': '"Windows"',
-               'sec-fetch-mode': 'cors',
-               'sec-fetch-site': 'same-origin',
-               'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                             'Chrome/93.0.4577.82 Safari/537.36',
-               'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
     req = requests.get(url, headers=headers)
     res = json.loads(req.text)
     shops = res.get('restaurants')
     restaurants = list()
     for shop in shops:
         rest = dict()
-
         rest['id'] = shop.get('id')
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
@@ -133,26 +150,25 @@ def get_restaurant():
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
         rest['phone'] = shop.get('phone')
+        print(rest)
         restaurants.append(rest)
-        save_rest = copy.deepcopy(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        find_rest = col.find_one({'id':save_rest['id']})
-        if not find_rest:
-            # 없으면 저장
-            col.insert_one(save_rest)
-        else:
-            # 있으면 변경
-            save_rest['_id'] = find_rest['_id']
-            col.save(save_rest)
-
+        cursor.execute(f"""SELECT * FROM smallmeal WHERE ssid = {rest['id']}""")
+        if not cursor.fetchone():
+            cursor.execute(f"""INSERT INTO smallmeal (ssid, name, reviews, owner, categories, image, logo, address, 
+        rating, time, min_order, latitude, longitude, phone) VALUES ({rest['id']}, '{rest['name']}', {rest['reviews']}, 
+        {rest['owner']}, "[{','.join(rest['categories'])}]", "{rest['image']}", "{rest['logo']}", 
+        '{rest['address']}', {rest['rating']}, '{rest['time']}', {rest['min_order']}, {rest['lat']}, 
+        {rest['lng']}, '{rest['phone']}')""")
     return jsonify(restaurants)
+
 
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
-    restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
+    cursor.execute(f"""select * from smallmeal where ssid = '{ssid}' limit 1;""")
+    restaurant = cursor.fetchone()
     return jsonify(restaurant)
-
 
 
 @application.route('/api/address', methods=["POST"])
@@ -168,31 +184,32 @@ def put_restaurant(ssid, min_order):
     :param min_order: 최소 주문금액
     :return: None
     """
-    if list(col.find({"ssid": ssid}, {"_id": False})):
+    cursor.execute(f"""select * from smallmeal where ssid = '{ssid}' limit 1;""")
+    if cursor.fetchone():
         return
     url = 'https://www.yogiyo.co.kr/api/v1/restaurants/'+ssid
-    headers = {
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/93.0.4577.82 Safari/537.36',
-        'x-apikey': 'iphoneap',
-        'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
     req = requests.post(url, headers=headers)
     result = req.json()
-    doc = {
-        "ssid": ssid,
-        "time": result.get("open_time_description"),
-        "phone": result.get("phone"),
-        "name": result.get("name"),
-        "categories": result.get("categories"),
-        "delivery": result.get("estimated_delivery_time"),
-        "address": result.get("address"),
-        "image": result.get("background_url"),
-        "min_order": min_order
-        }
-    col.insert_one(doc)
+    time = result.get("open_time_description")
+    phone = result.get("phone")
+    name = result.get("name")
+    categories = result.get("categories")
+    delivery = result.get("estimated_delivery_time")
+    address = result.get("address")
+    image = result.get("background_url")
+    print(result)
+    cursor.execute(f"""
+    UPDATE smallmeal 
+    SET (
+        name = IFNULL('{name}'), 
+        phone = IFNULL('{phone}'), 
+        categories = IFNULL("[{','.join(categories)}]"), 
+        image = IFNULL('{image}'), 
+        address = IFNULL('{address}'), 
+        delivery = IFNULL({delivery}), 
+        time = IFNULL('{time}'), 
+        min_order = IFNULL({min_order})
+    ) WHERE ssid = {ssid}""")
 
 
 def search_address(query):

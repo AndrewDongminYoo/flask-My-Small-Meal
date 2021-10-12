@@ -313,7 +313,7 @@ const showCards = (restaurant, i) => {
     let btn = ""
     // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
     categories.forEach((tag) => {
-        btn += `<button class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
+        btn += `<button value="${tag}" class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
     document.querySelector(`.column-${i}`).innerHTML+=tempHtml.replace("{__buttons__}", btn)
 }
