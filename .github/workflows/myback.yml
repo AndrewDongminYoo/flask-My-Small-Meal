@@ -44,7 +44,6 @@ jobs:
           application_name: smallmeal.shop
           environment_name: Smallmealshop-env
           wait_for_deployment: true
-          wait_for_environment_recovery: true
           version_label: "python-${{ steps.format-time.outputs.replaced }}"
           region: ap-northeast-2
           deployment_package: deploy.zip
