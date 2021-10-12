@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import json  # json 응답 핸들링
 import os
+
 
 application = Flask(__name__)
 client = MongoClient(os.environ.get("DB_PATH"))
@@ -22,15 +23,14 @@ print(client.address)
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
 order = sort_list[0]
 
-
 @application.route('/')
 def hello_world():  # put application's code here
     """
     index.html 페이지를 리턴합니다.\n
     :return: str -> template('index.html')
     """
-    return "<h1>This is API server</h1>"
-    # return render_template('index.html')
+    # return "<h1>This is API server</h1>"
+    return render_template('index.html')
 
 
 @application.route('/api/like', methods=['POST'])
@@ -67,6 +67,7 @@ def like():
     return jsonify({'uuid': uuid})
 
 
+
 @application.route('/api/like', methods=['GET'])
 def show_bookmark():
     """
@@ -85,6 +86,7 @@ def show_bookmark():
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
+
 
 
 @application.route('/api/shop', methods=['GET'])
@@ -126,17 +128,21 @@ def get_restaurant():
         rest['rating'] = shop.get('review_avg')
         rest['time'] = shop.get('open_time_description')
         rest['min_order'] = shop.get('min_order_amount')
+
+        rest['lng'] = shop.get('lng')
+        rest['lat'] = shop.get('lat')
+        rest['phone'] = shop.get('phone')
         restaurants.append(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
         # col.insert_one(rest, {"_id": False})
     return jsonify(restaurants)
-
 
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
     restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
+
 
 
 @application.route('/api/address', methods=["POST"])
