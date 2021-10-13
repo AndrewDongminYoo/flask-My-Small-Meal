@@ -4,6 +4,17 @@ let longitude = 126.1699723;
 let isMobile = false;
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
+headers = {
+    accept: "*/*",
+    "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
+    "sec-ch-ua": "\"Chromium\";v=\"94\", \"Google Chrome\";v=\"94\", \";Not A Brand\";v=\"99\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin"
+}
+
 window.onload = function () {
     geoFindMe();
     userCheck();
@@ -82,7 +93,7 @@ function geoRefresh() {
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
     if (!(lat && long)) {
-        const response = await fetch(`/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+        const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
         return await response.json()
     } else {
         const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
@@ -162,25 +173,21 @@ function keep(ssid, min_order) {
     changeBtn(ssid, false)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: ssid, 'min_order': min_order, action: 'like'});
+    const body = JSON.stringify({uuid: user, ssid: ssid, 'min_order': min_order, action: 'like', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // 특정 식당을 즐겨찾기 삭제하는 코드
 function remove(ssid) {
     changeBtn(ssid, true)
-    const headers = new Headers();
-    headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike'});
+    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // remove 코드의 메인 부분만을 추출한 코드 (북마크 탭에서 직접 삭제 다루기 위해 분리)
 function delMark(ssid) {
     changeBtn(ssid, true)
-    const headers = new Headers();
-    headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike'});
+    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
@@ -313,7 +320,7 @@ const showCards = (restaurant, i) => {
     let btn = ""
     // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
     categories.forEach((tag) => {
-        btn += `<button class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
+        btn += `<button value="${tag}" class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
     document.querySelector(`.column-${i}`).innerHTML+=tempHtml.replace("{__buttons__}", btn)
 }
@@ -321,9 +328,7 @@ const showCards = (restaurant, i) => {
 // 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
 function search() {
     let query = document.querySelector("#geoSearch").value
-    const headers = new Headers();
-    headers.append('content-type', 'application/json')
-    const body = JSON.stringify({ query: query });
+    const body = JSON.stringify({ query: query, mode: "cors" });
     const init = { method: 'POST', headers, body };
     fetch(`/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
