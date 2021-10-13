@@ -9,6 +9,8 @@ import os
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 
+os.environ['MYSQL_DB_HOST'] = "aa1a6e4chlg50qv.cbnmlhshatfu.us-east-1.rds.amazonaws.com"
+os.environ["MYSQL_DB_PASS"] = "jaryogoojo"
 application.config["MYSQL_DATABASE_HOST"] = os.environ.get("MYSQL_DB_HOST")
 application.config["MYSQL_DATABASE_PASSWORD"] = os.environ.get("MYSQL_DB_PASS")
 application.config["MYSQL_DATABASE_DB"] = "ebdb"
@@ -74,21 +76,33 @@ def like():
     ssid = int(ssid)
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    cursor.execute(f"""select * from users where uuid = '{uuid}' limit 1;""")
+    cursor.execute(f"""select * from users where uuid = {uuid} limit 1;""")
     user = cursor.fetchone()
+    print(user)
     put_restaurant(ssid, min_order)
     if action == 'like':
         if not user:
             good_list = [ssid]
-            cursor.execute(f"""INSERT INTO users (uuid, like_list) VALUES ('{uuid}', "{good_list}");""")
+            print(good_list)
+            cursor.execute(f"""
+            INSERT INTO users (uuid, like_list) 
+            VALUES ('{uuid}', {json.dumps(good_list)});""")
         elif ssid not in user['like_list']:
             good_list = user['like_list']
+            print(good_list)
             good_list.append(ssid)
-            cursor.execute(f"""update users set like_list = "{good_list}" where uuid = {uuid};""")
+            print(good_list)
+            cursor.execute(f"""
+            update users set like_list = {json.dumps(good_list)}
+            where uuid = {uuid};""")
     elif user and ssid in user['like_list']:
-        good_list = user['like_list']
+        good_list = user['like_list'].split(',')
+        print(good_list)
         good_list.remove(ssid)
-        cursor.execute(f"""update users set like_list = "{good_list}" where uuid = {uuid};""")
+        print(good_list)
+        cursor.execute(f"""
+        update users set like_list = {json.dumps(good_list)}
+        where uuid = {uuid};""")
     return jsonify({'uuid': uuid})
 
 
@@ -102,12 +116,13 @@ def show_bookmark():
     uuid = request.args.get('uuid')
     cursor.execute(f"""select * from users where uuid = '{uuid}' limit 1;""")
     user = cursor.fetchone()
+    print(user)
     good_list = []
     if user:
         good_list = user['like_list']
     restaurants = []
     for restaurant in good_list:
-        cursor.execute(f"""select * from smallmeal where ssid = '{restaurant}' limit 1;""")
+        cursor.execute(f"""select * from smallmeal where id = '{restaurant}' limit 1;""")
         rest = cursor.fetchone()
         if len(rest) > 0:
             restaurants.extend(rest)
@@ -153,7 +168,7 @@ def get_restaurant():
         print(rest)
         restaurants.append(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        cursor.execute(f"""SELECT * FROM smallmeal WHERE ssid = {rest['id']}""")
+        cursor.execute(f"""SELECT * FROM smallmeal WHERE ssid = {shop['id']}""")
         if not cursor.fetchone():
             cursor.execute(f"""
             INSERT INTO smallmeal (ssid, name, reviews, owner, categories, image, logo, address, 
@@ -244,4 +259,4 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    application.run(port=8000, debug=True)
+    application.run(port=8000)
