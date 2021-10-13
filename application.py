@@ -155,11 +155,14 @@ def get_restaurant():
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
         cursor.execute(f"""SELECT * FROM smallmeal WHERE ssid = {rest['id']}""")
         if not cursor.fetchone():
-            cursor.execute(f"""INSERT INTO smallmeal (ssid, name, reviews, owner, categories, image, logo, address, 
-        rating, time, min_order, latitude, longitude, phone) VALUES ({rest['id']}, '{rest['name']}', {rest['reviews']}, 
-        {rest['owner']}, "[{','.join(rest['categories'])}]", "{rest['image']}", "{rest['logo']}", 
-        '{rest['address']}', {rest['rating']}, '{rest['time']}', {rest['min_order']}, {rest['lat']}, 
-        {rest['lng']}, '{rest['phone']}')""")
+            cursor.execute(f"""
+            INSERT INTO smallmeal (ssid, name, reviews, owner, categories, image, logo, address, 
+                rating, time, min_order, latitude, longitude, phone) 
+            VALUES ({rest['id']}, '{rest['name']}', {rest['reviews']}, 
+                {rest['owner']}, "[{','.join(rest['categories'])}]", "{rest['image']}", "{rest['logo']}", 
+                '{rest['address']}', {rest['rating']}, '{rest['time']}', {rest['min_order']}, {rest['lat']}, 
+                {rest['lng']}, '{rest['phone']}')
+            """)
     return jsonify(restaurants)
 
 
