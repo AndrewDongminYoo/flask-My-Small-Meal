@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import requests  # 서버 요청 패키지
 from flask_cors import CORS
 from flaskext.mysql import MySQL
@@ -55,8 +55,8 @@ headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
 
 @application.route('/')
 def hello_world():  # put application's code here
-    return "<h1>This is API server</h1>"
-    # return render_template('index.html')
+    # return "<h1>This is API server</h1>"
+    return render_template('index.html')
 
 
 @application.route('/api/like', methods=['POST'])
@@ -223,10 +223,10 @@ def search_address(query):
     }
     """
     url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + query
-    headers = {
+    _header = {
         'Host': 'dapi.kakao.com',
         'Authorization': 'KakaoAK c67c5816d29490ab56c1fbf40bef220d'}
-    req = requests.get(url, headers=headers)
+    req = requests.get(url, headers=_header)
     result = req.json()
     documents = result['documents'][0]
     address = documents['address_name']
