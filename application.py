@@ -1,33 +1,26 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify, render_template
+from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 from flask_cors import CORS
 from flaskext.mysql import MySQL
 import json  # json 응답 핸들링
 import os
+import copy
+
 
 application = Flask(__name__)
-cors = CORS(application, resources={r"/*": {"origins": "*"}})
+client = MongoClient(os.environ.get("DB_PATH"))
+if application.env == 'development':
+    os.popen('mongod')
+    client = MongoClient("localhost", port=27017)  # 배포 전에 원격 db로 교체!
+else:
+    client = MongoClient(os.environ.get("DB_PATH"))
 
-os.environ['MYSQL_DB_HOST'] = "aa1a6e4chlg50qv.cbnmlhshatfu.us-east-1.rds.amazonaws.com"
-os.environ["MYSQL_DB_PASS"] = "jaryogoojo"
-application.config["MYSQL_DATABASE_HOST"] = os.environ.get("MYSQL_DB_HOST")
-application.config["MYSQL_DATABASE_PASSWORD"] = os.environ.get("MYSQL_DB_PASS")
-application.config["MYSQL_DATABASE_DB"] = "ebdb"
-application.config["MYSQL_DATABASE_USER"] = "admin"
-application.config["MYSQL_DATABASE_PORT"] = 3306
-application.config["MYSQL_CHARSET"] = 'utf-8'
-
-mysql = MySQL()
-mysql.init_app(application)
-conn = mysql.connect()
-conn.autocommit(True)
-conn.query("set character_set_connection=utf8;")
-conn.query("set character_set_server=utf8;")
-conn.query("set character_set_client=utf8;")
-conn.query("set character_set_results=utf8;")
-
-cursor = conn.cursor()
+db = client.dbGoojo
+col = db.restaurant
+users = db.users
+print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
 sort_list = ["rank", "review_avg", "review_count", "min_order_value", "distance"]
@@ -76,33 +69,23 @@ def like():
     ssid = int(ssid)
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    cursor.execute(f"""select * from users where uuid = {uuid} limit 1;""")
-    user = cursor.fetchone()
-    print(user)
+    user = list(users.find({"uuid": uuid}, {"_id": False}))
     put_restaurant(ssid, min_order)
     if action == 'like':
         if not user:
             good_list = [ssid]
-            print(good_list)
-            cursor.execute(f"""
-            INSERT INTO users (uuid, like_list) 
-            VALUES ('{uuid}', {json.dumps(good_list)});""")
-        elif ssid not in user['like_list']:
-            good_list = user['like_list']
-            print(good_list)
+            users.insert_one({"uuid": uuid, "like_list": good_list})
+        elif ssid in user[0]['like_list']:
+            pass
+        else:
+            good_list = user[0]['like_list']
             good_list.append(ssid)
-            print(good_list)
-            cursor.execute(f"""
-            update users set like_list = {json.dumps(good_list)}
-            where uuid = {uuid};""")
-    elif user and ssid in user['like_list']:
-        good_list = user['like_list'].split(',')
-        print(good_list)
-        good_list.remove(ssid)
-        print(good_list)
-        cursor.execute(f"""
-        update users set like_list = {json.dumps(good_list)}
-        where uuid = {uuid};""")
+            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+    else:
+        if user and ssid in user[0]['like_list']:
+            good_list = user[0]['like_list']
+            good_list.remove(ssid)
+            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify({'uuid': uuid})
 
 
@@ -114,16 +97,13 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    cursor.execute(f"""select * from users where uuid = '{uuid}' limit 1;""")
-    user = cursor.fetchone()
-    print(user)
+    user = list(users.find({"uuid": uuid}, {"_id": False}))
     good_list = []
     if user:
-        good_list = user['like_list']
+        good_list = user[0]['like_list']
     restaurants = []
     for restaurant in good_list:
-        cursor.execute(f"""select * from smallmeal where id = '{restaurant}' limit 1;""")
-        rest = cursor.fetchone()
+        rest = list(col.find({"ssid": restaurant}, {"_id": False}))
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
@@ -142,8 +122,6 @@ def get_restaurant():
     order = request.args.get('order')
     if not order:
         order = "rank"
-    import requests
-
     url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=30&lat={lat}&lng={long}&order={order}'
     req = requests.get(url, headers=headers)
     res = json.loads(req.text)
@@ -167,25 +145,24 @@ def get_restaurant():
         rest['phone'] = shop.get('phone')
         print(rest)
         restaurants.append(rest)
+        save_rest = copy.deepcopy(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        cursor.execute(f"""SELECT * FROM smallmeal WHERE ssid = {shop['id']}""")
-        if not cursor.fetchone():
-            cursor.execute(f"""
-            INSERT INTO smallmeal (ssid, name, reviews, owner, categories, image, logo, address, 
-                rating, time, min_order, latitude, longitude, phone) 
-            VALUES ({rest['id']}, '{rest['name']}', {rest['reviews']}, 
-                {rest['owner']}, "[{','.join(rest['categories'])}]", "{rest['image']}", "{rest['logo']}", 
-                '{rest['address']}', {rest['rating']}, '{rest['time']}', {rest['min_order']}, {rest['lat']}, 
-                {rest['lng']}, '{rest['phone']}')
-            """)
+        find_rest = col.find_one({'id':save_rest['id']})
+        if not find_rest:
+            # 없으면 저장
+            col.insert_one(save_rest)
+        else:
+            # 있으면 변경
+            save_rest['_id'] = find_rest['_id']
+            col.save(save_rest)
+
     return jsonify(restaurants)
 
 
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
-    cursor.execute(f"""select * from smallmeal where ssid = '{ssid}' limit 1;""")
-    restaurant = cursor.fetchone()
+    restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
 
 
@@ -202,32 +179,23 @@ def put_restaurant(ssid, min_order):
     :param min_order: 최소 주문금액
     :return: None
     """
-    cursor.execute(f"""select * from smallmeal where ssid = '{ssid}' limit 1;""")
-    if cursor.fetchone():
+    if list(col.find({"ssid": ssid}, {"_id": False})):
         return
     url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + ssid
     req = requests.post(url, headers=headers)
     result = req.json()
-    time = result.get("open_time_description")
-    phone = result.get("phone")
-    name = result.get("name")
-    categories = result.get("categories")
-    delivery = result.get("estimated_delivery_time")
-    address = result.get("address")
-    image = result.get("background_url")
-    print(result)
-    cursor.execute(f"""
-    UPDATE smallmeal 
-    SET (
-        name = IFNULL('{name}'), 
-        phone = IFNULL('{phone}'), 
-        categories = IFNULL("[{','.join(categories)}]"), 
-        image = IFNULL('{image}'), 
-        address = IFNULL('{address}'), 
-        delivery = IFNULL({delivery}), 
-        time = IFNULL('{time}'), 
-        min_order = IFNULL({min_order})
-    ) WHERE ssid = {ssid}""")
+    doc = {
+        "ssid": ssid,
+        "time": result.get("open_time_description"),
+        "phone": result.get("phone"),
+        "name": result.get("name"),
+        "categories": result.get("categories"),
+        "delivery": result.get("estimated_delivery_time"),
+        "address": result.get("address"),
+        "image": result.get("background_url"),
+        "min_order": min_order
+        }
+    col.insert_one(doc)
 
 
 def search_address(query):
