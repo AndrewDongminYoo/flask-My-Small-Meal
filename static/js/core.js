@@ -93,7 +93,7 @@ function geoRefresh() {
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
     if (!(lat && long)) {
-        const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+        const response = await fetch(`/api/shop?lat=${latitude}&lng=${longitude}`);
         return await response.json()
     } else {
         const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
@@ -126,7 +126,7 @@ function success(position) {
             }) // tempHtml append 하기
             let unique = new Set(categories)
             categories = [...unique]
-            isMobile || modal()
+            modal()
             categories = categories.filter((v) => v !== '1인분주문')
             shuffle(categories)
             let tempHTML = "<span>[</span>";
@@ -136,7 +136,6 @@ function success(position) {
             tempHTML += "<span>]</span>";
             document.querySelector(".modal-content").innerHTML = tempHTML;
             everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
-            document.querySelector("#modal").classList.remove('is-active')
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
 }
 
@@ -155,6 +154,7 @@ async function NoGeoDontWorry() {
 function modal() {
     // if (isMobile) return;
     document.getElementById("modal").classList.add("is-active")
+    document.getElementById("modal").style.display='block';
 }
 
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
@@ -173,21 +173,23 @@ function keep(ssid, min_order) {
     changeBtn(ssid, false)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid: ssid, 'min_order': min_order, action: 'like', mode: "cors"});
+    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'like', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // 특정 식당을 즐겨찾기 삭제하는 코드
-function remove(ssid) {
+function remove(ssid, min_order) {
     changeBtn(ssid, true)
-    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike', mode: "cors"});
+    const headers = new Headers();
+    headers.append('content-type', 'application/json')
+    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // remove 코드의 메인 부분만을 추출한 코드 (북마크 탭에서 직접 삭제 다루기 위해 분리)
-function delMark(ssid) {
+function delMark(ssid, min_order) {
     changeBtn(ssid, true)
-    const body = JSON.stringify({uuid: user, ssid: ssid, action: 'dislike', mode: "cors"});
+    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
@@ -227,11 +229,11 @@ function showBookmarks(user) {
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
-    let {ssid, name, phone, time} = restaurant;
+    let {ssid, name, phone, time, min_order} = restaurant;
     let tempHtml = `
-    <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${ssid}" onclick="popUp('${ssid}')">
-    <span class="mark-menu">${name}</span>
-    <button class="button is-xs is-inline-block" onclick="delMark('${ssid}')" onmouseover="">⨉</button></li>`
+        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${ssid}" onclick="popUp(${ssid})">
+        <span class="mark-menu">${name}</span>
+        <button class="button is-xs is-inline-block" onclick="delMark(${ssid}, ${min_order})" onmouseover="">⨉</button></li>`
     document.getElementById("bookmarks").innerHTML+=tempHtml;
 }
 
@@ -287,7 +289,7 @@ window.addEventListener('hashchange', async () => {
 // 레스토랑 하나하나의 카드를 만들어내는 코드
 const showCards = (restaurant, i) => {
     let {
-        id, name, reviews,
+        ssid, name, reviews,
         owner, categories,
         image, address,
         rating, time, min_order
@@ -305,8 +307,8 @@ const showCards = (restaurant, i) => {
         <div class="tool-box">
             <div class="book-mark">
                 <div class="store_name">${name}<br>⭐${rating}점</div>
-                <button class="button book-button keep-${id}" onclick="keep('${id}', '${min_order}')">⭐keep</button>
-                <button class="button book-button is-hidden delete-${id}" onclick="remove('${id}')">🌟delete</button>
+                <button class="button book-button keep-${ssid}" onclick="keep(${ssid}, ${min_order})">⭐keep</button>
+                <button class="button book-button is-hidden delete-${ssid}" onclick="remove(${ssid}, ${min_order})">🌟delete</button>
             </div>
             <div class="buttons are-small btns">{__buttons__}</div>
             <div class="card-footer">
@@ -377,22 +379,22 @@ async function everybodyShuffleIt(array) {
     for (let i = 0; i < array.length; i++) {
         await timer(60)
         document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
-        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
+        document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(100)
         document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
-        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
+        document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(200)
         document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
-        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
+        document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(600)
         document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
-        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
+        document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
         if (document.querySelector(`.word-${i}`).classList.contains('is-red') && document.querySelector(`.word-${i}`)['title']===result) {
             document.querySelector(`button.button[value='${result}']`).classList.remove('is-outlined')
             await timer(100)

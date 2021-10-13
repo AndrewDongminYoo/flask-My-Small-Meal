@@ -2,23 +2,20 @@
 from flask import Flask, request, jsonify, render_template
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
-from flask_cors import CORS
-from flaskext.mysql import MySQL
 import json  # json 응답 핸들링
 import os
 import copy
 
 
 application = Flask(__name__)
-client = MongoClient(os.environ.get("DB_PATH"))
 if application.env == 'development':
     os.popen('mongod')
-    client = MongoClient("localhost", port=27017)  # 배포 전에 원격 db로 교체!
-else:
-    client = MongoClient(os.environ.get("DB_PATH"))
+# 배포 전에 원격 db로 교체!
+client = MongoClient(os.environ.get("DB_PATH"))
 
 db = client.dbGoojo
-col = db.restaurant
+col1 = db.restaurant
+col2 = db.bookmark
 users = db.users
 print(client.address)
 
@@ -64,28 +61,28 @@ def like():
     2. 싫어요를 클릭한 경우 점포를 restaurants DB 에서 제외한다.\n
     :return: Response(json)
     """
+    print(request.json)
     uuid = request.json.get('uuid')
     ssid = request.json.get('ssid')
-    ssid = int(ssid)
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    user = users.find_one({"uuid": uuid}, {"_id": False})
+    print(user)
     put_restaurant(ssid, min_order)
     if action == 'like':
         if not user:
             good_list = [ssid]
             users.insert_one({"uuid": uuid, "like_list": good_list})
-        elif ssid in user[0]['like_list']:
+        elif ssid in user['like_list']:
             pass
         else:
-            good_list = user[0]['like_list']
+            good_list = user['like_list']
             good_list.append(ssid)
             users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
-    else:
-        if user and ssid in user[0]['like_list']:
-            good_list = user[0]['like_list']
-            good_list.remove(ssid)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+    elif user and ssid in user['like_list']:
+        good_list = user['like_list']
+        good_list.remove(ssid)
+        users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify({'uuid': uuid})
 
 
@@ -103,7 +100,7 @@ def show_bookmark():
         good_list = user[0]['like_list']
     restaurants = []
     for restaurant in good_list:
-        rest = list(col.find({"ssid": restaurant}, {"_id": False}))
+        rest = list(col2.find({"ssid": restaurant}, {"_id": False}))
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"restaurants": restaurants})
@@ -129,7 +126,7 @@ def get_restaurant():
     restaurants = list()
     for shop in shops:
         rest = dict()
-        rest['id'] = shop.get('id')
+        rest['ssid'] = shop.get('id')
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
         rest['owner'] = shop.get('owner_reply_count')
@@ -143,18 +140,17 @@ def get_restaurant():
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
         rest['phone'] = shop.get('phone')
-        print(rest)
         restaurants.append(rest)
         save_rest = copy.deepcopy(rest)
         # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        find_rest = col.find_one({'id':save_rest['id']})
+        find_rest = col1.find_one({'ssid': save_rest['ssid']})
         if not find_rest:
             # 없으면 저장
-            col.insert_one(save_rest)
+            col1.insert_one(save_rest)
         else:
             # 있으면 변경
             save_rest['_id'] = find_rest['_id']
-            col.save(save_rest)
+            col1.save(save_rest)
 
     return jsonify(restaurants)
 
@@ -162,7 +158,7 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
-    restaurant = list(col.find({"ssid": ssid}, {"_id": False}))[0]
+    restaurant = list(col2.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
 
 
@@ -179,9 +175,9 @@ def put_restaurant(ssid, min_order):
     :param min_order: 최소 주문금액
     :return: None
     """
-    if list(col.find({"ssid": ssid}, {"_id": False})):
+    if list(col2.find({"ssid": ssid}, {"_id": False})):
         return
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + ssid
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + str(ssid)
     req = requests.post(url, headers=headers)
     result = req.json()
     doc = {
@@ -195,7 +191,7 @@ def put_restaurant(ssid, min_order):
         "image": result.get("background_url"),
         "min_order": min_order
         }
-    col.insert_one(doc)
+    col2.insert_one(doc)
 
 
 def search_address(query):
