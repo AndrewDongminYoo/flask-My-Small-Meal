@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-import pprint
-
 import pymongo
 from flask import Flask, request, jsonify, render_template, json, redirect, url_for
 from flask_cors import CORS
@@ -18,7 +16,7 @@ if application.env == 'development':
     os.popen('mongod')
 # 배포 전에 원격 db로 교체!
 # client = MongoClient(os.environ.get("DB_PATH"))
-client = MongoClient("mongodb://jaryo:goojo@54.243.12.171:27017/dbGoojo?authSource=admin")
+client = MongoClient(os.environ.get("DB_PATH"))
 SECRET_KEY = os.environ.get("JWT_KEY")
 
 db = client.dbGoojo
@@ -334,4 +332,4 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    application.run()
+    application.run(port=8000)
