@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify, render_template, json
+from flask_cors import CORS
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import os
 import copy
+import os
 
 
 application = Flask(__name__)
+cors = CORS(application, resources={r"/*": {"origins": "*"}})
 if application.env == 'development':
     os.popen('mongod')
 # 배포 전에 원격 db로 교체!
