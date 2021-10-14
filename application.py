@@ -25,7 +25,6 @@ bookmarked_col = db.bookmark
 users = db.users
 members = db.members
 users.create_index([('uuid', pymongo.ASCENDING)], unique=True)
-restaurant_col.create_index([('_id', pymongo.ASCENDING)], unique=True)
 print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
