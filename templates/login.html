@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    {% block head %}
+        {{ super() }}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script>
+            function loginBtnClick() {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/login",
+                    data: {email: $('#member-email').val(), pw: $('#member-pw').val()},
+                    success: function (response) {
+                        if (response['result'] === 'success') {
+                            // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
+                            // 이 토큰을 mytoken 이라는 키 값으로 쿠키에 저장합니다.
+                            $.cookie('mytoken', response['token']);
+
+                            alert('로그인 완료!')
+                            window.location.href = '/'
+                        } else {
+                            // 로그인이 안되면 에러메시지를 띄웁니다.
+                            alert(response['msg'])
+                        }
+                    }
+                })
+            }
+        </script>
+        <title>로그인하기</title>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <div class="section has-text-centered">
+        <h1 class="title">로그인 페이지</h1>
+        <div class="container" style="width:60%">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="member-email">EMAIL</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="member-email" aria-describedby="emailHelp"
+                                   placeholder="My Email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="member-pw">PW</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="password" class="input" id="member-pw" placeholder="My Password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="button is-primary" onclick="loginBtnClick()">로그인</button>
+            <a class="button is-warning"
+               href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=http://localhost:5000/redirect&response_type=code">카카오로그인</a>
+            <a class="button is-success" href="/register">회원가입</a>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

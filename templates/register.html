@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    {% block head %}
+        {{ super() }}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <style>
+            #member-info-box {
+                display: flex;
+                position: absolute;
+                left: 1400px;
+                top: 200px;
+            }
+
+            #login-nick-wrap {
+                margin-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            #login-nick {
+                color: black;
+                margin-right: 10px;
+                font-weight: bold;
+            }
+
+            #profile-img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+            }
+        </style>
+        <script>
+            function register() {
+                const email = $('#user-email').val()
+                const pw = $('#user-pw').val()
+                const rePass = $('#user-pw-re').val()
+                const nickname = $('#user-nick').val()
+                console.log(email, pw, pwre, nickname)
+                const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+                if (email.match(regExp) === null) alert('이메일형식에 맞지 않습니다.');
+                if (pw.length <= 0) alert('비밀번호를 입력해주세요.');
+                if (pw !== rePass) alert('비밀번호가 일치하지 않습니다.');
+                if (nickname.length <= 0) alert('별명을 입력해주세요.');
+                if (!(email && pw && rePass && nickname)) alert("모든 값을 입력해주세요.");
+                $.ajax({
+                    type: "POST",
+                    url: "/api/register",
+                    data: { email, pw, nickname },
+                    success: function () {
+                        alert('회원가입이 완료되었습니다.')
+                        window.location.href = '/login'
+                    }
+                })
+            }
+        </script>
+        <title>회원가입하기</title>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    <div class="section has-text-centered">
+        <h1 class="title">회원가입 페이지</h1>
+        <div class="container" style="width:60%">
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="user-id">EMAIL</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="user-email" aria-describedby="emailHelp"
+                                   placeholder="My Email">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="user-pw">PW</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="password" class="input" id="user-pw" placeholder="My Password">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="user-pw-re">PW RECONFIRM</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="password" class="input" id="user-pw-re" placeholder="My Password Reconfirm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                    <label class="label" for="user-nick">NICKNAME</label>
+                </div>
+                <div class="field-body">
+                    <div class="field">
+                        <div class="control">
+                            <input type="text" class="input" id="user-nick" placeholder="My Nickname">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="button is-primary" href="/login">로그인</a>
+            <button class="button is-primary" onclick="register()">회원가입</button>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

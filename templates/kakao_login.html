@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>카카오 로그인하기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script>
+        window.onload = () => {
+            const url = getURLParams(location.search)
+            const {token} = url
+            $.cookie('mytoken', token);
+            {#alert('카카오로그인 완료!')#}
+            window.location.href = '/'
+        }
+        function getURLParams(url) {
+            let result = {};
+            url.replace(/[?&]([^=&#]+)=([^&#]*)/g, function (s, k, v) {
+                result[k] = decodeURIComponent(v);
+            });
+            return result;
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

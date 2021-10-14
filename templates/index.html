@@ -1,53 +1,45 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="title" content="오늘 뭐 먹지?">
-    <meta name="description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
-    <meta name="keyword" content="오늘 뭐먹지, 맛집">
-    <meta name="author" content="data-structure">
-    <! -- property -->
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
-    <meta property="og:image" content="/static/images/roulette.png">
-    <meta property="og:url" content="https://smallmeal.shop/">
-    <meta property="og:title" content="오늘 뭐 먹지?">
-    <meta property="og:site_name" content="오늘뭐먹지??">
-    <!-- 트위터 -->
-    <meta name="twitter:title" content="오늘뭐먹지??">
-    <meta name="twitter:url" content="https://smallmeal.shop/">
-    <meta name="twitter:image" content="/static/images/roulette.png">
-    <meta name="twitter:description" content="퇴근 전에 슬쩍 배달 맛집 탐방하기!! 날씨와 기분에 맞춰 꺼내먹어요">
-    <!-- 폰트어썸 아이콘 사용! -->
-    <script src="https://kit.fontawesome.com/aba5c3ead0.js" crossorigin="anonymous"></script>
-    <!-- 커스텀 css! -->
-    <link rel="stylesheet" href="/static/css/purify.css">
-    <link rel="stylesheet" href="/static/css/bulma.css">
-    <link rel="shortcut icon" href="/static/images/favicon.webp">
-    <!-- 커스텀 JS! -->
-    <script defer rel="script" src="/static/js/core.js"></script>
-    <!-- UUID 라이브러리! -->
-    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
-    <!-- 제이쿼리! -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <!--  PopperJS! -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
+    {% block head %}
+        {{ super() }}
+    <script>
+        window.onload = function () {
+            geoFindMe();
+            // userCheck();
+            weather().then();
+            memberInfoBox();
+            deviceCheck();
+            memberValidCheck();
+        };
+
+        function login() {
+            let loginBtn = $('.login-btn')
+            const text = loginBtn.text()
+            if (text === '로그인') {
+                window.location.href = '/login'
+            } else {
+                eraseCookie('mytoken')
+                loginBtn.text('로그인')
+                $('#login-nick').text('');
+                window.location.href = '/login'
+            }
+        }
+    </script>
     <title>오늘 뭐 먹지?</title>
+    {% endblock %}
 </head>
 <body>
-<div class="header">
-    <h1 class="title" id="title">
-        <span style="display: none"> 오 늘 뭐 먹 지 </span>
-        <img
-            src="/static/images/logo_002.webp" alt="오 늘 뭐 먹 지">
-    </h1>
-    <div class="field has-addons">
-        <p class="buttons">
-            <button class="button">
+{% block body %}
+    <div class="header">
+        <h1 class="title" id="title">
+            <span style="display: none"> 오 늘 뭐 먹 지 </span>
+            <img src="/static/images/logo_002.webp" alt="오 늘 뭐 먹 지">
+        </h1>
+        <div class="field has-addons">
+            <p class="buttons">
+                <button class="button">
                     <span class="icon is-small">
                         <img alt="gps" onclick="geoRefresh()" width="24" height="24"
                              src="/static/images/gpsicon.webp">
@@ -152,5 +144,6 @@
             <div id="low-modal-body" style="display:none;"></div>
         </div>
     </div>
+{% endblock %}
 </body>
 </html>
