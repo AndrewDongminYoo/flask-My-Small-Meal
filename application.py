@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, json
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
-import json  # json 응답 핸들링
 import os
 import copy
 
@@ -164,7 +163,9 @@ def show_modal():
 
 @application.route('/api/address', methods=["POST"])
 def search_add():
-    query = request.json.get('query')
+    data = request.get_data()
+    query = json.loads(data, encoding='utf-8')['query']
+    # query = request.json.get('query')
     return jsonify(search_address(query))
 
 

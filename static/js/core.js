@@ -330,8 +330,9 @@ const showCards = (restaurant, i) => {
 // 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
 function search() {
     let query = document.querySelector("#geoSearch").value
-    const body = JSON.stringify({ query: query, mode: "cors" });
-    const init = { method: 'POST', headers, body };
+    const body = JSON.stringify({ query, mode: "cors" });
+    const init = { method: 'POST', body };
+    console.log(init)
     fetch(`/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((result) => {
