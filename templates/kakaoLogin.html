@@ -12,8 +12,8 @@
 </body>
 <script>
     function getURLParams(url) {
-        var result = {};
-        url.replace(/[?&]{1}([^=&#]+)=([^&#]*)/g, function (s, k, v) {
+        let result = {};
+        url.replace(/[?&]([^=&#]+)=([^&#]*)/g, function (s, k, v) {
             result[k] = decodeURIComponent(v);
         });
         return result;

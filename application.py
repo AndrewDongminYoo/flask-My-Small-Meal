@@ -80,10 +80,9 @@ def api_login():
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     # id, 암호화된 pw을 가지고 해당 유저를 찾습니다.
-    result = db.members.find_one({'email': email, 'pw': pw_hash})
-
+    result = db.members.find_one({'email': email, 'pw': pw_hash}, {"_id": False})
     # 찾으면 JWT 토큰을 만들어 발급합니다.
-    if result is not None:
+    if result:
         nick = result['nick']
         # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
@@ -109,7 +108,6 @@ def api_register():
     nickname = request.form['nickname']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     db.members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname})
-
     return jsonify({'result': 'success'})
 
 
@@ -153,22 +151,22 @@ def kakao_callback():
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     req = requests.post(url, headers=_headers).json()
     try:
-        id = req['id']
+        pro_id = req['id']
         nickname = req['properties']['nickname']
         email = req['kakao_account']['email']
 
         # db에 저장
-        db.members.update({'providerId': id},
-                          {'email': email, 'pw': '', 'nick': nickname, 'provider': 'kakao', 'providerId': id}, True)
-    except:
-        id = req['id']
+        db.members.update({'providerId': pro_id},
+                          {'email': email, 'pw': '', 'nick': nickname, 'provider': 'kakao', 'providerId': pro_id}, True)
+    except TypeError:
+        pro_id = req['id']
         nickname = req['properties']['nickname']
         # db에 저장
-        db.members.update({'providerId': id},
-                          {'email': '', 'pw': '', 'nick': nickname, 'provider': 'kakao', 'providerId': id}, True)
+        db.members.update({'providerId': pro_id},
+                          {'email': '', 'pw': '', 'nick': nickname, 'provider': 'kakao', 'providerId': pro_id}, True)
     # jwt 토큰 발급
     payload = {
-        'id': id,
+        'id': pro_id,
         'nick': nickname,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
     }
