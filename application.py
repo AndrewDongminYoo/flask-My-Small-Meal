@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template, json, Response, redirect, url_for
+import pprint
+
+import pymongo
+from flask import Flask, request, jsonify, render_template, json, redirect, url_for
 from flask_cors import CORS
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
-import copy
 import os
 import hashlib
 import jwt
@@ -15,13 +17,17 @@ cors = CORS(application, resources={r"/*": {"origins": "*"}})
 if application.env == 'development':
     os.popen('mongod')
 # 배포 전에 원격 db로 교체!
-client = MongoClient(os.environ.get("DB_PATH"))
+# client = MongoClient(os.environ.get("DB_PATH"))
+client = MongoClient("mongodb://jaryo:goojo@54.243.12.171:27017/dbGoojo?authSource=admin")
 SECRET_KEY = os.environ.get("JWT_KEY")
 
 db = client.dbGoojo
-col1 = db.restaurant
-col2 = db.bookmark
+restaurant_col = db.restaurant
+bookmarked_col = db.bookmark
 users = db.users
+members = db.members
+users.create_index([('uuid', pymongo.ASCENDING)], unique=True)
+restaurant_col.create_index([('ssid', pymongo.ASCENDING)], unique=True)
 print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
@@ -67,7 +73,7 @@ def api_login():
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     # id, 암호화된 pw 을 가지고 해당 유저를 찾습니다.
-    result = db.members.find_one({'email': email, 'pw': pw_hash})
+    result = members.find_one({'email': email, 'pw': pw_hash})
     nick = result['nick']
     # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result is not None:
@@ -94,9 +100,9 @@ def api_register():
     pw = request.form['pw']
     nickname = request.form['nickname']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    if db.members.find_one({"email": email}):
+    if members.find_one({"email": email}):
         return 403
-    db.members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname})
+    members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname})
     return 200
 
 
@@ -111,7 +117,7 @@ def api_valid():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
-        # find_member = db.members.find_one({'email': payload['email']}, {'_id': 0})
+        # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
         return jsonify({'result': 'success', 'nickname': payload['nick'], 'payload': payload})
     except jwt.ExpiredSignatureError:
         # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
@@ -142,15 +148,15 @@ def kakao_redirect():
         nickname = req['properties']['nickname']
         email = req['kakao_account']['email']
         # db에 저장
-        db.members.update({'providerId': user_id},
-                          {"$set": {'email': email, 'pw': '', 'nick': nickname, 'provider': 'kakao'}}, True)
+        members.update({'providerId': user_id},
+                          {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao'}}, True)
     except Exception as e:
         print(e)
         user_id = req['id']
         nickname = req['properties']['nickname']
         # db에 저장
-        db.members.update({'providerId': user_id},
-                          {"$set": {'email': '', 'pw': '', 'nick': nickname, 'provider': 'kakao'}}, True)
+        members.update({'providerId': user_id},
+                          {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
     # jwt 토큰 발급
     payload = {
         'id': user_id,
@@ -211,7 +217,7 @@ def show_bookmark():
         good_list = user[0]['like_list']
     restaurants = []
     for restaurant in good_list:
-        rest = list(col2.find({"ssid": restaurant}, {"_id": False}))
+        rest = list(bookmarked_col.find({"ssid": restaurant}, {"_id": False}))
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"user": user, "restaurants": restaurants})
@@ -230,13 +236,15 @@ def get_restaurant():
     order = request.args.get('order')
     if not order:
         order = "rank"
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=30&lat={lat}&lng={long}&order={order}'
-    req = requests.get(url, headers=headers)
-    res = json.loads(req.text)
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=100&lat={lat}&lng={long}&order={order}'
+    res = requests.get(url, headers=headers).json()
     shops = res.get('restaurants')
     restaurants = list()
     for shop in shops:
         rest = dict()
+        if not int(shop["phone"]):
+            continue
+        rest['_id'] = shop.get('id')
         rest['ssid'] = shop.get('id')
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
@@ -246,30 +254,20 @@ def get_restaurant():
         rest['logo'] = shop.get('logo_url')
         rest['address'] = shop.get('address')
         rest['rating'] = shop.get('review_avg')
-        rest['time'] = shop.get('open_time_description')
+        rest['time'] = f"{shop.get('')[:5]} - {shop.get('')[:5]}"
         rest['min_order'] = shop.get('min_order_amount')
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
         rest['phone'] = shop.get('phone')
         restaurants.append(rest)
-        save_rest = copy.deepcopy(rest)
-        # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        find_rest = col1.find_one({'ssid': save_rest['ssid']})
-        if not find_rest:
-            # 없으면 저장
-            col1.insert_one(save_rest)
-        else:
-            # 있으면 변경
-            save_rest['_id'] = find_rest['_id']
-            col1.save(save_rest)
-
+    restaurant_col.insert_many(restaurants)
     return jsonify(restaurants)
 
 
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     ssid = request.args.get('ssid')
-    restaurant = list(col2.find({"ssid": ssid}, {"_id": False}))[0]
+    restaurant = list(bookmarked_col.find({"ssid": ssid}, {"_id": False}))[0]
     return jsonify(restaurant)
 
 
@@ -288,7 +286,7 @@ def put_restaurant(ssid, min_order):
     :param min_order: 최소 주문금액
     :return: None
     """
-    if list(col2.find({"ssid": ssid}, {"_id": False})):
+    if list(bookmarked_col.find({"ssid": ssid}, {"_id": False})):
         return
     url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + str(ssid)
     req = requests.post(url, headers=headers)
@@ -304,7 +302,7 @@ def put_restaurant(ssid, min_order):
         "image": result.get("background_url"),
         "min_order": min_order
     }
-    col2.insert_one(doc)
+    bookmarked_col.insert_one(doc)
 
 
 def search_address(query):
@@ -336,4 +334,4 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    application.run(port=8000)
+    application.run()
