@@ -326,14 +326,15 @@ const showCards = (restaurant, i) => {
         _id, name, reviews,
         owner, categories,
         image, address,
-        rating, time, min_order
+        rating, time,
+        min_order, phone
     } = restaurant;
     // 이미지가 없는 경우 VIEW 가 좋지 않아 리턴시킨다.
     if (!image) return;
     let tempHtml = `
     <div class="food-card card">
         <div class="image-box card-image">
-            <figure class="image" title="${time}">
+            <figure class="image" title="${phone}">
                 <img class="food-image image" src="${image}"
                      alt="${name}-food-thumbnail">
             </figure>
