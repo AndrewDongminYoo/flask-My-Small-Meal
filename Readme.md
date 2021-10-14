@@ -2,7 +2,7 @@
 
 
 ## 🔗 라이브
-- https://itwassummer.shop/
+- https://www.mysmallmeal.shop/
 ## 🏠 소개
 - 1인 가구를 위한 배달 맛집을 소개하는 위치 맞춤형 페이지입니다!!
 ## ⏲️ 개발기간
