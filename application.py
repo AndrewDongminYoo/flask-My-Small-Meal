@@ -50,8 +50,6 @@ headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
            'x-apikey': 'iphoneap', 'x-apisecret': 'fe5183cc3dea12bd0ce299cf110a75a2'}
 
 
-
-@application.route('/home')
 @application.route('/')
 def hello_world():  # put application's code here
     # return "<h1>This is API server</h1>"

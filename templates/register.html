@@ -39,7 +39,7 @@
                     alert('비밀번호를 입력해주세요.')
                     return;
                 }
-                if(pw != pwre){
+                if(pw !== pwre){
                     alert('비밀번호가 일치하지 않습니다.')
                     return;
                 }
@@ -47,8 +47,6 @@
                     alert('별명을 입력해주세요.')
                     return;
                 }
-
-
                 $.ajax({
                     type: "POST",
                     url: "/api/register",
@@ -59,7 +57,7 @@
                     },
                     success: function (response) {
                         console.log(response)
-                        if (response['result'] == 'success') {
+                        if (response['result'] === 'success') {
                             alert('회원가입이 완료되었습니다.')
 
                             window.location.href = '/login'
@@ -68,10 +66,7 @@
                         }
                     }
                 })
-
-
             }
-
         </script>
     </head>
     <body>
