@@ -253,7 +253,7 @@ def get_restaurant():
         rest['logo'] = shop.get('logo_url')
         rest['address'] = shop.get('address')
         rest['rating'] = shop.get('review_avg')
-        rest['time'] = f"{shop.get('begin')[:5]} - {shop.get('close')[:5]}"
+        rest['time'] = f"{shop.get('begin')[:5]} - {shop.get('end')[:5]}"
         rest['min_order'] = shop.get('min_order_amount')
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
