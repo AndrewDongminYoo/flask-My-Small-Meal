@@ -16,17 +16,15 @@
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
-
         <script>
 
             function kakaoLogin(){
-              window.location.href='https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=http://localhost:5000/kakaoCallback&response_type=code'
+              window.location.href='https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=/kakaoCallback&response_type=code'
             }
             function register(){
                 window.location.href="/register"
             }
-            // ['쿠키'라는 개념에 대해 알아봅시다]
+            // ['쿠키' 라는 개념에 대해 알아봅시다]
             // 로그인을 구현하면, 반드시 쿠키라는 개념을 사용합니다.
             // 페이지에 관계없이 브라우저에 임시로 저장되는 정보입니다. 키:밸류 형태(딕셔너리 형태)로 저장됩니다.
             // 쿠키가 있기 때문에, 한번 로그인하면 네이버에서 다시 로그인할 필요가 없는 것입니다.
@@ -37,9 +35,9 @@
                     url: "/api/login",
                     data: {email: $('#member-email').val(), pw: $('#member-pw').val()},
                     success: function (response) {
-                        if (response['result'] == 'success') {
+                        if (response['result'] === 'success') {
                             // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                            // 이 토큰을 mytoken이라는 키 값으로 쿠키에 저장합니다.
+                            // 이 토큰을 mytoken 이라는 키 값으로 쿠키에 저장합니다.
                             $.cookie('mytoken', response['token']);
 
                             alert('로그인 완료!')
