@@ -71,10 +71,10 @@ def api_login():
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     # id, 암호화된 pw 을 가지고 해당 유저를 찾습니다.
-    result = members.find_one({'email': email, 'pw': pw_hash})
+    result = members.find_one({'email': email, 'pw': pw_hash}, {"_id": False})
     nick = result['nick']
     # 찾으면 JWT 토큰을 만들어 발급합니다.
-    if result is not None:
+    if result:
         # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
         # 아래에선 id와 exp 를 담았습니다. 즉, JWT 토큰을 풀면 유저 ID 값을 알 수 있습니다.
@@ -98,7 +98,7 @@ def api_register():
     pw = request.form['pw']
     nickname = request.form['nickname']
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    if members.find_one({"email": email}):
+    if members.find_one({"email": email}, {"_id": False}):
         return 403
     members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname})
     return 200
@@ -210,10 +210,10 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = list(users.find({"uuid": uuid}))
+    user = users.find_one({"uuid": uuid})
     good_list = []
     if user:
-        good_list = user[0]['like_list']
+        good_list = user['like_list']
     restaurants = []
     for restaurant in good_list:
         rest = list(bookmarked_col.find({"_id": restaurant}))
@@ -265,7 +265,7 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     _id = request.args.get('_id')
-    restaurant = list(bookmarked_col.find({"_id": _id}))[0]
+    restaurant = bookmarked_col.find_one({"_id": _id})
     return jsonify(restaurant)
 
 
@@ -300,7 +300,7 @@ def put_restaurant(_id, min_order):
         "image": result.get("background_url"),
         "min_order": min_order
     }
-    bookmarked_col.insert_one(doc)
+    bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True)
 
 
 def search_address(query):
