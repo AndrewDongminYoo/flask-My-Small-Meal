@@ -132,7 +132,8 @@ def kakao_redirect():
     code = qs['code']
     client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
     # 토큰요청
-    url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri=http://localhost:5000/kakaoCallback&code={code}'
+    url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}' \
+          f'&redirect_uri=http://localhost:5000/kakaoCallback&code={code}'
     header_1st = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
     req = requests.post(url, headers=header_1st).json()
     access_token = req['access_token']
@@ -147,14 +148,14 @@ def kakao_redirect():
         email = req['kakao_account']['email']
         # db에 저장
         members.update({'providerId': user_id},
-                          {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao'}}, True)
+                       {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao'}}, True)
     except Exception as e:
         print(e)
         user_id = req['id']
         nickname = req['properties']['nickname']
         # db에 저장
         members.update({'providerId': user_id},
-                          {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
+                       {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
     # jwt 토큰 발급
     payload = {
         'id': user_id,
@@ -234,7 +235,7 @@ def get_restaurant():
     order = request.args.get('order')
     if not order:
         order = "rank"
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=100&lat={lat}&lng={long}&order={order}'
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=99&lat={lat}&lng={long}&order={order}'
     res = requests.get(url, headers=headers).json()
     shops = res.get('restaurants')
     restaurants = list()
@@ -252,7 +253,7 @@ def get_restaurant():
         rest['logo'] = shop.get('logo_url')
         rest['address'] = shop.get('address')
         rest['rating'] = shop.get('review_avg')
-        rest['time'] = f"{shop.get('')[:5]} - {shop.get('')[:5]}"
+        rest['time'] = f"{shop.get('begin')[:5]} - {shop.get('close')[:5]}"
         rest['min_order'] = shop.get('min_order_amount')
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
