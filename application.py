@@ -259,7 +259,7 @@ def get_restaurant():
         rest['lat'] = shop.get('lat')
         rest['phone'] = shop.get('phone')
         restaurants.append(rest)
-        restaurant_col.update_one(rest, upsert=True)
+        restaurant_col.update_one({"_id": shop['id']}, rest, upsert=True)
     return jsonify(restaurants)
 
 
