@@ -25,7 +25,7 @@ bookmarked_col = db.bookmark
 users = db.users
 members = db.members
 users.create_index([('uuid', pymongo.ASCENDING)], unique=True)
-restaurant_col.create_index([('ssid', pymongo.ASCENDING)], unique=True)
+restaurant_col.create_index([('_id', pymongo.ASCENDING)], unique=True)
 print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
@@ -179,25 +179,25 @@ def like():
     """
     print(request.json)
     uuid = request.json.get('uuid')
-    ssid = request.json.get('ssid')
+    _id = request.json.get('_id')
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    user = users.find_one({"uuid": uuid}, {"_id": False})
+    user = users.find_one({"uuid": uuid})
     print(user)
-    put_restaurant(ssid, min_order)
+    put_restaurant(_id, min_order)
     if action == 'like':
         if not user:
-            good_list = [ssid]
+            good_list = [_id]
             users.insert_one({"uuid": uuid, "like_list": good_list})
-        elif ssid in user['like_list']:
+        elif _id in user['like_list']:
             pass
         else:
             good_list = user['like_list']
-            good_list.append(ssid)
+            good_list.append(_id)
             users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
-    elif user and ssid in user['like_list']:
+    elif user and _id in user['like_list']:
         good_list = user['like_list']
-        good_list.remove(ssid)
+        good_list.remove(_id)
         users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify(user)
 
@@ -210,13 +210,13 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    user = list(users.find({"uuid": uuid}))
     good_list = []
     if user:
         good_list = user[0]['like_list']
     restaurants = []
     for restaurant in good_list:
-        rest = list(bookmarked_col.find({"ssid": restaurant}, {"_id": False}))
+        rest = list(bookmarked_col.find({"_id": restaurant}))
         if len(rest) > 0:
             restaurants.extend(rest)
     return jsonify({"user": user, "restaurants": restaurants})
@@ -244,7 +244,6 @@ def get_restaurant():
         if not int(shop["phone"]):
             continue
         rest['_id'] = shop.get('id')
-        rest['ssid'] = shop.get('id')
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
         rest['owner'] = shop.get('owner_reply_count')
@@ -259,14 +258,14 @@ def get_restaurant():
         rest['lat'] = shop.get('lat')
         rest['phone'] = shop.get('phone')
         restaurants.append(rest)
-        restaurant_col.update_one({"_id": shop['id']}, rest, upsert=True)
+        restaurant_col.update_one({"_id": shop['id']}, {"$set": rest}, upsert=True)
     return jsonify(restaurants)
 
 
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
-    ssid = request.args.get('ssid')
-    restaurant = list(bookmarked_col.find({"ssid": ssid}, {"_id": False}))[0]
+    _id = request.args.get('_id')
+    restaurant = list(bookmarked_col.find({"_id": _id}))[0]
     return jsonify(restaurant)
 
 
@@ -278,20 +277,20 @@ def search_add():
     return jsonify(search_address(query))
 
 
-def put_restaurant(ssid, min_order):
+def put_restaurant(_id, min_order):
     """
     즐겨찾기 버튼을 클릭한 점포를 데이터베이스에 저장합니다.
-    :param ssid: 요기요 데이터베이스 상점 id
+    :param _id: 요기요 데이터베이스 상점 id
     :param min_order: 최소 주문금액
     :return: None
     """
-    if list(bookmarked_col.find({"ssid": ssid}, {"_id": False})):
+    if list(bookmarked_col.find({"_id": _id})):
         return
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + str(ssid)
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + str(_id)
     req = requests.post(url, headers=headers)
     result = req.json()
     doc = {
-        "ssid": ssid,
+        "_id": _id,
         "time": result.get("open_time_description"),
         "phone": result.get("phone"),
         "name": result.get("name"),

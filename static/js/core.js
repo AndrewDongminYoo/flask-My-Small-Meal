@@ -202,37 +202,37 @@ function userCheck() {
 }
 
 // 특정 식당을 즐겨찾기 하는 코드
-function keep(ssid, min_order) {
-    changeBtn(ssid, false)
+function keep(_id, min_order) {
+    changeBtn(_id, false)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'like', mode: "cors"});
+    const body = JSON.stringify({uuid: user, _id, min_order, action: 'like', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // 특정 식당을 즐겨찾기 삭제하는 코드
-function remove(ssid, min_order) {
-    changeBtn(ssid, true)
+function remove(_id, min_order) {
+    changeBtn(_id, true)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'dislike', mode: "cors"});
+    const body = JSON.stringify({uuid: user, _id, min_order, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // remove 코드의 메인 부분만을 추출한 코드 (북마크 탭에서 직접 삭제 다루기 위해 분리)
-function delMark(ssid, min_order) {
-    changeBtn(ssid, true)
-    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'dislike', mode: "cors"});
+function delMark(_id, min_order) {
+    changeBtn(_id, true)
+    const body = JSON.stringify({uuid: user, _id, min_order, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
-function changeBtn(ssid, afterDelete) {
+function changeBtn(_id, afterDelete) {
     if (afterDelete) {
-        document.querySelector(`.delete-${ssid}`).classList.add("is-hidden")
-        document.querySelector(`.keep-${ssid}`).classList.remove("is-hidden")
+        document.querySelector(`.delete-${_id}`).classList.add("is-hidden")
+        document.querySelector(`.keep-${_id}`).classList.remove("is-hidden")
     } else {
-        document.querySelector(`.keep-${ssid}`).classList.add("is-hidden")
-        document.querySelector(`.delete-${ssid}`).classList.remove("is-hidden")
+        document.querySelector(`.keep-${_id}`).classList.add("is-hidden")
+        document.querySelector(`.delete-${_id}`).classList.remove("is-hidden")
     }
 }
 
@@ -262,19 +262,19 @@ function showBookmarks(user) {
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
-    let {ssid, name, phone, time, min_order} = restaurant;
+    let {_id, name, phone, time, min_order} = restaurant;
     let tempHtml = `
-        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${ssid}" onclick="popUp(${ssid})">
+        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
         <span class="mark-menu">${name}</span>
-        <button class="button is-xs is-inline-block" onclick="delMark(${ssid}, ${min_order})" onmouseover="">⨉</button></li>`
+        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
     document.getElementById("bookmarks").innerHTML += tempHtml;
 }
 
 let lowModalBody = document.getElementById('low-modal-body');
 
 // 즐겨찾기 클릭시 모달창 오픈
-function popUp(ssid) {
-    fetch(`https://mysmallmeal.shop/api/detail?ssid=${ssid}`).then((restaurant) => {
+function popUp(_id) {
+    fetch(`https://mysmallmeal.shop/api/detail?_id=${_id}`).then((restaurant) => {
         let {image, name, address, time, min_order, phone, categories} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
@@ -323,7 +323,7 @@ window.addEventListener('hashchange', async () => {
 // 레스토랑 하나하나의 카드를 만들어내는 코드
 const showCards = (restaurant, i) => {
     let {
-        ssid, name, reviews,
+        _id, name, reviews,
         owner, categories,
         image, address,
         rating, time, min_order
@@ -341,8 +341,8 @@ const showCards = (restaurant, i) => {
         <div class="tool-box">
             <div class="book-mark">
                 <div class="store_name">${name}<br>⭐${rating}점</div>
-                <button class="button book-button keep-${ssid}" onclick="keep(${ssid}, ${min_order})">⭐keep</button>
-                <button class="button book-button is-hidden delete-${ssid}" onclick="remove(${ssid}, ${min_order})">🌟delete</button>
+                <button class="button book-button keep-${_id}" onclick="keep(${_id}, ${min_order})">⭐keep</button>
+                <button class="button book-button is-hidden delete-${_id}" onclick="remove(${_id}, ${min_order})">🌟delete</button>
             </div>
             <div class="buttons are-small btns">{__buttons__}</div>
             <div class="card-footer">
