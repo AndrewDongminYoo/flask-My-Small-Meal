@@ -83,7 +83,7 @@ def like():
         good_list = user['like_list']
         good_list.remove(ssid)
         users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
-    return jsonify({'uuid': uuid})
+    return jsonify(user)
 
 
 @application.route('/api/like', methods=['GET'])
@@ -103,7 +103,7 @@ def show_bookmark():
         rest = list(col2.find({"ssid": restaurant}, {"_id": False}))
         if len(rest) > 0:
             restaurants.extend(rest)
-    return jsonify({"restaurants": restaurants})
+    return jsonify({"user": user, "restaurants": restaurants})
 
 
 @application.route('/api/shop', methods=['GET'])
