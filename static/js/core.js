@@ -44,8 +44,11 @@ function memberValidCheck(){
         success: function (response) {
             const {nickname, result} = response
             if (result === 'success') {
-                loginBtn.text('로그아웃')
-                loginNick.text(nickname+'님')
+                // loginBtn.text('로그아웃')
+                // loginNick.text(nickname+'님')
+                $(".login-btn").text('로그아웃')
+                $('#login-nick').text(nickname+'님')
+
             } else {
                 // 로그인이 안되면 에러메시지를 띄웁니다.
                 // alert(response['msg'])

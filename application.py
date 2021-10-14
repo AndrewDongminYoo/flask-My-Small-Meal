@@ -12,12 +12,15 @@ from urllib.parse import urlparse, parse_qsl
 
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
+KAKAO_REDIRECT_URI = 'https://mysmallmeal.shop:8000/kakaoCallback'
 if application.env == 'development':
     os.popen('mongod')
+    KAKAO_REDIRECT_URI='http://localhost:5000/kakaoCallback'
 # 배포 전에 원격 db로 교체!
 os.environ['JWT_KEY'] = "jaryogoojo"
 SECRET_KEY = os.environ.get("JWT_KEY")
 client = MongoClient(os.environ.get("DB_PATH"))
+
 db = client.dbGoojo
 col1 = db.restaurant
 col2 = db.bookmark
@@ -60,7 +63,7 @@ def hello_world():  # put application's code here
 
 @application.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html',env=application.env)
 
 
 @application.route('/register')
@@ -141,7 +144,7 @@ def kakao_callback():
     client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
     # 토큰요청
     url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}' \
-          f'&redirect_uri=http://localhost:5000/kakaoCallback&code={code}'
+          f'&redirect_uri={KAKAO_REDIRECT_URI}&code={code}'
     _headers = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
     req = requests.post(url, headers=_headers).json()
     access_token = req['access_token']
@@ -172,7 +175,7 @@ def kakao_callback():
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
     # kakao Login 리다이렉트
-    return redirect(url_for("kakaoLogin", token=token))
+    return redirect(url_for("kakao_login", token=token))
 
 
 @application.route('/api/like', methods=['POST'])

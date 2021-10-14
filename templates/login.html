@@ -13,44 +13,12 @@
 {#        <link rel="stylesheet" href="{{ url_for('static', filename='css/purify.css') }}">#}
 {#        <link rel="stylesheet" type="text/css" href="../static/css/bulma.css">#}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <!-- 커스텀 JS! -->
+        <script defer rel="script" src="/static/js/login.js"></script>
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-        <script>
 
-            function kakaoLogin(){
-              window.location.href='https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=/kakaoCallback&response_type=code'
-            }
-            function register(){
-                window.location.href="/register"
-            }
-            // ['쿠키' 라는 개념에 대해 알아봅시다]
-            // 로그인을 구현하면, 반드시 쿠키라는 개념을 사용합니다.
-            // 페이지에 관계없이 브라우저에 임시로 저장되는 정보입니다. 키:밸류 형태(딕셔너리 형태)로 저장됩니다.
-            // 쿠키가 있기 때문에, 한번 로그인하면 네이버에서 다시 로그인할 필요가 없는 것입니다.
-            // 브라우저를 닫으면 자동 삭제되게 하거나, 일정 시간이 지나면 삭제되게 할 수 있습니다.
-            function login() {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/login",
-                    data: {email: $('#member-email').val(), pw: $('#member-pw').val()},
-                    success: function (response) {
-                        if (response['result'] === 'success') {
-                            // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                            // 이 토큰을 mytoken 이라는 키 값으로 쿠키에 저장합니다.
-                            $.cookie('mytoken', response['token']);
-
-                            alert('로그인 완료!')
-                            window.location.href = '/'
-                        } else {
-                            // 로그인이 안되면 에러메시지를 띄웁니다.
-                            alert(response['msg'])
-                        }
-                    }
-                })
-            }
-
-        </script>
 
     </head>
     <body>
@@ -82,9 +50,9 @@
                         </div>
                     </div>
                 </div>
-                <button class="button is-primary" onclick="login()">로그인</button>
-                <button class="button is-warning" onclick="kakaoLogin()">카카오로그인</button>
-                <button class="button is-success" onclick="register()">회원가입</button>
+                <button class="button is-primary" onclick="loginApi()">로그인</button>
+                <button class="button is-warning" onclick="kakaoLoginApi('{{ env }}')">카카오로그인</button>
+                <button class="button is-success" onclick="registerPage()">회원가입</button>
             </div>
         </div>
     </body>
