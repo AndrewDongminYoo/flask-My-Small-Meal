@@ -39,6 +39,7 @@
     transition-property: transform;
 }
 
+
 .food-card:hover {
     transform: translate(0, -.5em);
 }
