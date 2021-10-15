@@ -5,7 +5,7 @@ from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import os
 import hashlib
-from jwt import encode, decode
+import jwt
 from jwt import ExpiredSignatureError, DecodeError
 import datetime
 from urllib.parse import urlparse, parse_qsl
@@ -85,7 +85,7 @@ def api_login():
             'nick': nick,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
         }
-        token = encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
+        token = jwt.api_jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
         # token 을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -115,7 +115,7 @@ def api_valid():
     try:
         # token 을 시크릿키로 디코딩합니다.
         # 보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
-        payload = decode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
+        payload = jwt.api_jwt.encode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
         # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
         # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
@@ -168,7 +168,7 @@ def kakao_redirect():
         'nick': nickname,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
     }
-    token = encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
+    token = jwt.api_jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
     # kakaoLogin 리다이렉트
     return redirect(url_for("kakao_login",
                             token=token, providerId=user_id, email=token_email, nickname=req['properties']['nickname']))
