@@ -125,6 +125,8 @@ def api_valid():
         return jsonify({'msg': '로그인 시간이 만료되었습니다.'})
     except DecodeError:
         return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
+    except Exception as e:
+        print(e)
 
 
 @application.route('/redirect')
