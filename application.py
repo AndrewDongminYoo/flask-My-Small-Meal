@@ -185,17 +185,17 @@ def like():
     if action == 'like':
         if not user:
             good_list = [_id]
-            users.insert_one({"uuid": uuid, "like_list": good_list})
+            users.insert_one({"_id": uuid, "uuid": uuid, "like_list": good_list})
         elif _id in user['like_list']:
             pass
         else:
             good_list = user['like_list']
             good_list.append(_id)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            users.update_one({"_id": uuid, "uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     elif user and _id in user['like_list']:
         good_list = user['like_list']
         good_list.remove(_id)
-        users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+        users.update_one({"_id": uuid, "uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify(user)
 
 
