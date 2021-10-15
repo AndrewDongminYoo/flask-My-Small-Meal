@@ -24,7 +24,7 @@ function memberInfoBox() {
                 <div id="login-nick"></div>
             </div>
             <button class="button is-info login-btn" onclick="login()">로그인</button>
-            <button class="button is-success register-btn" onclick="register()">회원가입</button>
+            <button class="button is-success register-btn"  href="/login">회원가입</button>
         </div>`
     $('body').append(temp_html)
 }
@@ -67,50 +67,25 @@ async function weather() {
     weatherBox.innerHTML = `
         <div class="weather-title">현재날씨</div>
         <table class="table is-narrow bm-current-table" style="margin: auto;">
-        <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th>날씨</th><th>아이콘</th></tr></thead></table>
-        `;
-    weatherBox.innerHTML += `
-        <div class="weather-title">4일 동안의 일일 예보</div>
-        <table class="table is-narrow bm-daily-table" style="margin: auto;"><thead><tr>
-        <th>아침온도</th><th>낮온도</th><th>저녁온도</th><th>밤온도</th><th>습도</th><th>아이콘</th>
-        </tr></thead></table>
+        <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th colspan="2">날씨</th></tr></thead></table>
         `;
     let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
-    const url = 'https://api.openweathermap.org/data/2.5/onecall?' +
+    const url = 'https://api.openweathermap.org/data/2.5/weather?' +
         'lat=' + latitude.toFixed(7) +
         '&lon=' + longitude.toFixed(7) +
-        `&appid=${apikey}&lang=kr&units=metric`;
+        `&appid=${apikey}&units=metric`;
     const response = await fetch(url).then((res) => res.json()).catch()
-    const {current, daily} = await response;
-    const {feels_like, humidity, weather, wind_speed} = await current;
-    const {description, icon} = await weather[0];
-    daily.length = 4;
+    const { weather, wind } = await response;
+    const { humidity, temp } = await response['main'];
+    const { description, main, icon } = await weather[0];
     document.querySelector(".bm-current-table").innerHTML += `
         <tbody><tr>
-        <td>${Math.floor(feels_like)} ℃</td>
-        <td>${humidity} %</td>
-        <td>${wind_speed} m/s</td>
-        <td>${description}</td>
+        <td>${temp}&#8451;</td>
+        <td>${humidity}&#37;</td>
+        <td>${wind.speed}&#13223;</td>
+        <td>${main}</td>
         <td><img src="https://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
-        </tr></tbody>
-    `;
-
-    await daily.forEach((w) => {
-        const {feels_like, humidity, weather} = w;
-        const {day, night, eve, morn} = feels_like;
-        const {description, icon} = weather[0];
-
-        document.querySelector(".bm-daily-table").innerHTML += `
-            <tbody><tr>
-            <td>${morn.toFixed(1)} ℃</td>
-            <td>${day.toFixed(1)} ℃</td>
-            <td>${eve.toFixed(1)} ℃</td>
-            <td>${night.toFixed(1)} ℃</td>
-            <td>${humidity} %</td>
-            <td><img src="https://openweathermap.org/img/w/${icon}.png" title="${description}" alt="${description}"></td>
-            </tr></tbody>
-        `;
-    })
+        </tr></tbody>`;
 }
 
 //
@@ -123,10 +98,10 @@ function geoRefresh() {
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
 async function getFoods(lat, long) {
     if (!(lat && long)) {
-        const response = await fetch(`https://mysmallmeal.shop/api/shop?lat=${latitude}&lng=${longitude}`);
+        const response = await fetch(`/api/shop?lat=${latitude}&lng=${longitude}`);
         return await response.json()
     } else {
-        const response = await fetch(`https://mysmallmeal.shop/api/shop?lat=${lat}&lng=${long}`);
+        const response = await fetch(`/api/shop?lat=${lat}&lng=${long}`);
         return await response.json()
     }
 }
@@ -173,7 +148,7 @@ function success(position) {
 }
 
 async function NoGeoDontWorry() {
-    const response = await fetch(`https://mysmallmeal.shop/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
+    const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
     let restaurants = await response.json()
     emptyCards()
     restaurants.forEach((restaurant, index) => {
@@ -239,7 +214,7 @@ function changeBtn(_id, afterDelete) {
 // 즐겨찾기에 등록 or 해제 하는 코드의 공통 코드 추출
 function sendLike(user, headers, body) {
     const init = {method: 'POST', headers, body};
-    fetch(`https://mysmallmeal.shop/api/like`, init)
+    fetch(`/api/like`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then(() => {
             showBookmarks(user);
@@ -250,7 +225,7 @@ function sendLike(user, headers, body) {
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
     document.querySelector("h2.h2").style.display = "block"
-    fetch(`https://mysmallmeal.shop/api/like?uuid=${user}`)
+    fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
             document.getElementById("bookmarks").innerHTML = "";
@@ -274,7 +249,7 @@ let lowModalBody = document.getElementById('low-modal-body');
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(_id) {
-    fetch(`https://mysmallmeal.shop/api/detail?_id=${_id}`).then((restaurant) => {
+    fetch(`/api/detail?_id=${_id}`).then((restaurant) => {
         let {image, name, address, time, min_order, phone, categories} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
@@ -311,7 +286,7 @@ function emptyCards() {
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
 window.addEventListener('hashchange', async () => {
     let hash = window.location.hash.substring(1)
-    const response = await fetch(`https://mysmallmeal.shop/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
+    const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
     let restaurants = await response.json()
     emptyCards()
     restaurants.forEach((restaurant, index) => {
@@ -368,7 +343,7 @@ function search() {
     const body = JSON.stringify({query, mode: "cors"});
     const init = {method: 'POST', body};
     console.log(init)
-    fetch(`https://mysmallmeal.shop/api/address`, init)
+    fetch(`/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((result) => {
             if (result['long'] && result['lat']) {
