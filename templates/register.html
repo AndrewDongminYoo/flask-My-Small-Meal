@@ -11,12 +11,12 @@
                 const pw = $('#user-pw').val()
                 const rePass = $('#user-pw-re').val()
                 const nickname = $('#user-nick').val()
-                console.log(email, pw, pwre, nickname)
+                console.log(email, pw, rePass, nickname)
                 const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
                 if (email.match(regExp) === null) alert('이메일형식에 맞지 않습니다.');
-                if (pw.length <= 0) alert('비밀번호를 입력해주세요.');
+                if (!pw.length) alert('비밀번호를 입력해주세요.');
                 if (pw !== rePass) alert('비밀번호가 일치하지 않습니다.');
-                if (nickname.length <= 0) alert('별명을 입력해주세요.');
+                if (!nickname.length) alert('별명을 입력해주세요.');
                 if (!(email && pw && rePass && nickname)) alert("모든 값을 입력해주세요.");
                 $.ajax({
                     type: "POST",
@@ -37,9 +37,9 @@
     <div class="section has-text-centered">
         <h1 class="title">회원가입 페이지</h1>
         <div class="container" style="width:60%">
-            <div class="field is-horizontal">
+            <form class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="user-id">EMAIL</label>
+                    <label class="label" for="user-email">EMAIL</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
@@ -49,8 +49,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="field is-horizontal">
+            </form>
+            <form class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" for="user-pw">PW</label>
                 </div>
@@ -61,8 +61,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="field is-horizontal">
+            </form>
+            <form class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" for="user-pw-re">PW RECONFIRM</label>
                 </div>
@@ -73,8 +73,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="field is-horizontal">
+            </form>
+            <form class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" for="user-nick">NICKNAME</label>
                 </div>
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <a class="button is-primary" href="/login">로그인</a>
             <button class="button is-primary" onclick="register()">회원가입</button>
         </div>
