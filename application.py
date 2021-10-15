@@ -6,7 +6,6 @@ import requests  # 서버 요청 패키지
 import os
 import hashlib
 import jwt
-from jwt import ExpiredSignatureError, DecodeError
 import datetime
 from urllib.parse import urlparse, parse_qsl
 
@@ -120,10 +119,10 @@ def api_valid():
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
         # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
         return jsonify({'result': 'success', 'nickname': payload['nick'], 'payload': payload})
-    except ExpiredSignatureError:
+    except jwt.exceptions.ExpiredSignatureError:
         # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
         return jsonify({'msg': '로그인 시간이 만료되었습니다.'})
-    except DecodeError:
+    except jwt.exceptions.DecodeError:
         return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
     except Exception as e:
         print(e)
