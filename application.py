@@ -1,22 +1,31 @@
 # -*- coding: utf-8 -*-
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, json, redirect, url_for
+from flask_cors import CORS
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
-import json  # json 응답 핸들링
 import os
-import copy
+import hashlib
+import jwt
+import datetime
+from urllib.parse import urlparse, parse_qsl
 
-
+KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop:8000/redirect'
 application = Flask(__name__)
+cors = CORS(application, resources={r"/*": {"origins": "*"}})
 if application.env == 'development':
     os.popen('mongod')
+    KAKAO_REDIRECT_URI = 'http://localhost:5000/redirect'
 # 배포 전에 원격 db로 교체!
-client = MongoClient(os.environ.get("DB_PATH"))
+
+client = MongoClient(os.environ.get("DB_PATH"), port=27017)
+os.environ['JWT_KEY'] = 'jaryogoojo'
+SECRET_KEY = os.environ.get("JWT_KEY")
 
 db = client.dbGoojo
-col1 = db.restaurant
-col2 = db.bookmark
+restaurant_col = db.restaurant
+bookmarked_col = db.bookmark
 users = db.users
+members = db.members
 print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
@@ -25,17 +34,6 @@ order = sort_list[0]
 headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
            'accept-language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
            'content-type': 'application/x-www-form-urlencoded',
-           'cookie': 'optimizelyEndUserId=oeu1632363343114r0.013935140503450016; _gcl_au=1.1.1249064243.1632363346; '
-                     '_fbp=fb.2.1632363345765.911445012; _gid=GA1.3.34032690.1634009558; '
-                     'sessionid=58ff19d9cce8699f1e0ee1f8f791ad0b; '
-                     '_gac_UA-42635603-1=1.1634009599.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
-                     '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
-                     '_gcl_aw=GCL.1634009602.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
-                     '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; '
-                     '_gac_UA-42635603-4=1.1634009604.Cj0KCQjwwY-LBhD6ARIsACvT72OQ1'
-                     '-n8hUYm6EMSggR6KZxN8y8JPT_uORLoCPGVSX3WblC36xAs9CYaAkQKEALw_wcB; RestaurantListCookieTrigger=true'
-                     '_gat_UA-42635603-4=1; _gat=1; wcs_bt=s_51119d387dfa:1634049887; '
-                     '_ga_6KMY7BWK8X=GS1.1.1634049860.13.1.1634049888.32; _ga=GA1.3.253641699.1632363344',
            'referer': 'https://www.yogiyo.co.kr/mobile/',
            'sec-ch-ua': '"Chromium";v="94", "Google Chrome";v="94", ";Not A Brand";v="99"',
            'sec-ch-ua-mobile': '?0', 'sec-ch-ua-platform': '"Windows"', 'sec-fetch-dest': 'empty',
@@ -51,6 +49,143 @@ def hello_world():  # put application's code here
     return render_template('index.html')
 
 
+@application.route('/login')
+def login():
+    return render_template('login.html', env=application.env)
+
+
+@application.route('/register')
+def register():
+    return render_template('register.html')
+
+
+@application.route('/kakao_login')
+def kakao_login():
+    return render_template('kakao_login.html')
+
+
+@application.route('/api/login', methods=['POST'])
+def api_login():
+    email = request.form['email']
+    pw = request.form['pw']
+    # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
+    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    # id, 암호화된 pw 을 가지고 해당 유저를 찾습니다.
+    result = members.find_one({'email': email, 'pw': pw_hash}, {"_id": False})
+    # 찾으면 JWT 토큰을 만들어 발급합니다.
+    if result:
+        # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
+        # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
+        # 아래에선 id와 exp 를 담았습니다. 즉, JWT 토큰을 풀면 유저 ID 값을 알 수 있습니다.
+        # exp 에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
+        nick = result['nick']
+        payload = {
+            'email': email,
+            'nick': nick,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
+        }
+        token = jwt.api_jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
+        # token 을 줍니다.
+        return jsonify({'result': 'success', 'token': token})
+    # 찾지 못하면
+    else:
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+
+
+@application.route('/api/register', methods=['POST'])
+def api_register():
+    email = request.form['email']
+    pw = request.form['pw']
+    nickname = request.form['nickname']
+    uuid = request.form['uuid']
+    print('api_register uuid', uuid)
+    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    find_member = members.find_one({"email": email}, {"_id": False})
+    if find_member is None:
+        members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname, 'uuid': uuid})
+        return jsonify({'result': 'success'})
+    return jsonify({'result': 'fail'})
+
+
+@application.route('/api/valid', methods=['GET'])
+def api_valid():
+    token_receive = request.cookies.get('mySmallMealToken')
+    # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
+    try:
+        # token 을 시크릿키로 디코딩합니다.
+        # 보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
+        payload = jwt.api_jwt.encode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
+        # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
+        # 여기에선 그 예로 닉네임을 보내주겠습니다.
+        # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
+        return jsonify({'result': 'success', 'nickname': payload['nick'], 'payload': payload})
+    except jwt.exceptions.ExpiredSignatureError:
+        # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
+        return jsonify({'msg': '로그인 시간이 만료되었습니다.'})
+    except jwt.exceptions.DecodeError:
+        return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
+    except Exception as e:
+        print(e)
+
+
+@application.route('/redirect')
+def kakao_redirect():
+    # code 가져 오기
+    parts = urlparse(request.full_path)
+    qs = dict(parse_qsl(parts.query))
+    code = qs['code']
+    client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
+    # 토큰요청
+    url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}' \
+          f'&redirect_uri={KAKAO_REDIRECT_URI}&code={code}'
+    header_1st = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
+    req = requests.post(url, headers=header_1st).json()
+    access_token = req['access_token']
+    # 사용자 정보
+    url = 'https://kapi.kakao.com/v2/user/me'
+    header_2nd = {'Authorization': f'Bearer {access_token}',
+                  'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+    req = requests.post(url, headers=header_2nd).json()
+    token_email = ''
+    try:
+        user_id = req['id']
+        nickname = req['properties']['nickname']
+        token_email = req['kakao_account']['email']
+        # db에 저장
+        members.update({'providerId': user_id},
+                       {"$set": {'email': token_email, 'nick': nickname, 'provider': 'kakao'}}, True)
+    except Exception as e:
+        print(e)
+        user_id = req['id']
+        nickname = req['properties']['nickname']
+        # db에 저장
+        members.update({'providerId': user_id},
+                       {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
+    # jwt 토큰 발급
+    payload = {
+        'id': user_id,
+        'nick': nickname,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
+    }
+    token = jwt.api_jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
+    # kakaoLogin 리다이렉트
+    return redirect(url_for("kakao_login",
+                            token=token, providerId=user_id, email=token_email, nickname=req['properties']['nickname']))
+
+
+@application.route('/api/kakao/uuid', methods=['POST'])
+def kakao_uuid():
+    uuid = request.form['uuid']
+    provider_id = request.form['providerId']
+    email = request.form['email']
+    nickname = request.form['nickname']
+    # print('kakao_uuid',uuid,'providerId',providerId,'email',email,'nickname',nickname)
+    # db에 저장
+    members.update({'providerId': provider_id},
+                   {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao', 'uuid': uuid}}, True)
+    return jsonify({'result': 'success'})
+
+
 @application.route('/api/like', methods=['POST'])
 def like():
     """
@@ -62,28 +197,28 @@ def like():
     :return: Response(json)
     """
     print(request.json)
-    uuid = request.json.get('uuid')
-    ssid = request.json.get('ssid')
+    uuid = request.json.get('uuid')  # uuid
+    _id = request.json.get('_id')  # ssid
     action = request.json.get('action')
     min_order = request.json.get('min_order')
-    user = users.find_one({"uuid": uuid}, {"_id": False})
+    user = users.find_one({"uuid": uuid})
     print(user)
-    put_restaurant(ssid, min_order)
+    put_restaurant(_id, min_order)
     if action == 'like':
         if not user:
-            good_list = [ssid]
-            users.insert_one({"uuid": uuid, "like_list": good_list})
-        elif ssid in user['like_list']:
+            good_list = [_id]
+            users.insert_one({"_id": uuid, "uuid": uuid, "like_list": good_list})
+        elif _id in user['like_list']:
             pass
         else:
             good_list = user['like_list']
-            good_list.append(ssid)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
-    elif user and ssid in user['like_list']:
+            good_list.append(_id)
+            users.update_one({"_id": uuid, "uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+    elif user and _id in user['like_list']:
         good_list = user['like_list']
-        good_list.remove(ssid)
-        users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
-    return jsonify({'uuid': uuid})
+        good_list.remove(_id)
+        users.update_one({"_id": uuid, "uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+    return jsonify(user)
 
 
 @application.route('/api/like', methods=['GET'])
@@ -94,16 +229,16 @@ def show_bookmark():
     :return: Response(json)
     """
     uuid = request.args.get('uuid')
-    user = list(users.find({"uuid": uuid}, {"_id": False}))
+    user = users.find_one({"uuid": uuid})
     good_list = []
     if user:
-        good_list = user[0]['like_list']
+        good_list = user['like_list']
     restaurants = []
     for restaurant in good_list:
-        rest = list(col2.find({"ssid": restaurant}, {"_id": False}))
+        rest = list(bookmarked_col.find({"_id": restaurant}))
         if len(rest) > 0:
             restaurants.extend(rest)
-    return jsonify({"restaurants": restaurants})
+    return jsonify({"user": user, "restaurants": restaurants})
 
 
 @application.route('/api/shop', methods=['GET'])
@@ -119,14 +254,15 @@ def get_restaurant():
     order = request.args.get('order')
     if not order:
         order = "rank"
-    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=30&lat={lat}&lng={long}&order={order}'
-    req = requests.get(url, headers=headers)
-    res = json.loads(req.text)
+    url = f'https://www.yogiyo.co.kr/api/v1/restaurants-geo/?category=1인분주문&items=99&lat={lat}&lng={long}&order={order}'
+    res = requests.get(url, headers=headers).json()
     shops = res.get('restaurants')
     restaurants = list()
     for shop in shops:
         rest = dict()
-        rest['ssid'] = shop.get('id')
+        if not int(shop["phone"]):
+            continue
+        rest['_id'] = shop.get('id')
         rest['name'] = shop.get('name')
         rest['reviews'] = shop.get('review_count')
         rest['owner'] = shop.get('owner_reply_count')
@@ -135,53 +271,45 @@ def get_restaurant():
         rest['logo'] = shop.get('logo_url')
         rest['address'] = shop.get('address')
         rest['rating'] = shop.get('review_avg')
-        rest['time'] = shop.get('open_time_description')
+        rest['time'] = f"{shop.get('begin')[:5]} - {shop.get('end')[:5]}"
         rest['min_order'] = shop.get('min_order_amount')
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
         rest['phone'] = shop.get('phone')
         restaurants.append(rest)
-        save_rest = copy.deepcopy(rest)
-        # DB 저장하기엔 데이터가 다소 많고, ObjectId 때문에 리턴 값을 조정해야 한다.
-        find_rest = col1.find_one({'ssid': save_rest['ssid']})
-        if not find_rest:
-            # 없으면 저장
-            col1.insert_one(save_rest)
-        else:
-            # 있으면 변경
-            save_rest['_id'] = find_rest['_id']
-            col1.save(save_rest)
-
+        restaurant_col.update_one({"_id": shop['id']}, {"$set": rest}, upsert=True)
     return jsonify(restaurants)
 
 
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
-    ssid = request.args.get('ssid')
-    restaurant = list(col2.find({"ssid": ssid}, {"_id": False}))[0]
+    _id = request.args.get('_id')
+    restaurant = bookmarked_col.find_one({"_id": _id})
     return jsonify(restaurant)
 
 
 @application.route('/api/address', methods=["POST"])
 def search_add():
-    query = request.json.get('query')
+    data = request.get_data()
+    query = json.loads(data, encoding='utf-8')['query']
+    # query = request.json.get('query')
     return jsonify(search_address(query))
 
 
-def put_restaurant(ssid, min_order):
+def put_restaurant(_id, min_order):
     """
     즐겨찾기 버튼을 클릭한 점포를 데이터베이스에 저장합니다.
-    :param ssid: 요기요 데이터베이스 상점 id
+    :param _id: 요기요 데이터베이스 상점 id
     :param min_order: 최소 주문금액
     :return: None
     """
-    if list(col2.find({"ssid": ssid}, {"_id": False})):
+    if list(bookmarked_col.find({"_id": _id})):
         return
-    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + str(ssid)
+    url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + str(_id)
     req = requests.post(url, headers=headers)
     result = req.json()
     doc = {
-        "ssid": ssid,
+        "_id": _id,
         "time": result.get("open_time_description"),
         "phone": result.get("phone"),
         "name": result.get("name"),
@@ -190,8 +318,8 @@ def put_restaurant(ssid, min_order):
         "address": result.get("address"),
         "image": result.get("background_url"),
         "min_order": min_order
-        }
-    col2.insert_one(doc)
+    }
+    bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True)
 
 
 def search_address(query):
