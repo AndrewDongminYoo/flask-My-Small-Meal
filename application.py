@@ -114,7 +114,7 @@ def api_valid():
     try:
         # token 을 시크릿키로 디코딩합니다.
         # 보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
-        payload = jwt.encode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
+        payload = jwt.decode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
         # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
         # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
@@ -124,8 +124,6 @@ def api_valid():
         return jsonify({'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
-    except Exception as e:
-        return jsonify({"error-msg": e})
 
 
 @application.route('/redirect')

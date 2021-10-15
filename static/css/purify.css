@@ -1,13 +1,15 @@
 @font-face {
-    font-family: 'BMHANNAPro';
-    src: url('https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BMHANNAPro.ttf') format('truetype');
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+    font-family: 'Black Han Sans';
+    src: local('/static/fonts/BlackHanSans-Regular.ttf');
+    src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap') format('truetype');
 }
 
 @font-face {
-    font-family: 'Black Han Sans';
-    src: url('https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BlackHanSans-Regular.ttf') format('truetype');
-    src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap') format('truetype');
+    font-family: 'SDSamliphopangche_Basic';
+    src: local("/static/fonts/SDSamliphopangcheTTFBasic.ttf");
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .card {
@@ -82,7 +84,7 @@
     justify-self: flex-start;
     margin-left: 10px;
     padding: 10px;
-    font-family: 'BMHANNAPro', sans-serif;
+    font-family: 'SDSamliphopangche_Basic', sans-serif;
 }
 
 .card-footer {
@@ -90,7 +92,7 @@
     justify-content: space-between;
     margin: 5px 10px 0 10px;
     padding: 10px;
-    font-family: 'BMHANNAPro', sans-serif;
+    font-family: 'SDSamliphopangche_Basic', sans-serif;
 }
 
 .reviews {
@@ -234,7 +236,7 @@ html {
 }
 
 * {
-    font-family: 'BMHANNAPro', sans-serif;
+    font-family: 'SDSamliphopangche_Basic', sans-serif;
 }
 
 body {

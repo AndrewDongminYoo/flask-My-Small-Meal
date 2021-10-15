@@ -405,8 +405,8 @@ async function everybodyShuffleIt(array) {
     for (let i = 0; i < array.length; i++) {
         await timer(600)
         document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e => e.classList.remove('is-red'));
-        document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
-        if (document.querySelector(`.word-${i}`).classList.contains('is-red') && document.querySelector(`.word-${i}`)['title'] === result) {
+        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
+        if (document.querySelector(`.word-${i}`)?.classList.contains('is-red') && document.querySelector(`.word-${i}`)['title'] === result) {
             document.querySelector(`button.button[value='${result}']`).classList.remove('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
