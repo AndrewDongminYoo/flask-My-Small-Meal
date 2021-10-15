@@ -17,8 +17,8 @@ if application.env == 'development':
     os.popen('mongod')
     KAKAO_REDIRECT_URI = 'http://localhost:5000/redirect'
 # 배포 전에 원격 db로 교체!
-client = MongoClient(os.environ.get("DB_PATH"))
-# client = MongoClient('localhost', 27017)
+
+client = MongoClient(os.environ.get("DB_PATH"), port=27017)
 SECRET_KEY = os.environ.get("JWT_KEY")
 
 db = client.dbGoojo
@@ -26,7 +26,6 @@ restaurant_col = db.restaurant
 bookmarked_col = db.bookmark
 users = db.users
 members = db.members
-users.create_index([('uuid', pymongo.ASCENDING)], unique=True)
 print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
@@ -114,7 +113,6 @@ def api_register():
 @application.route('/api/valid', methods=['GET'])
 def api_valid():
     token_receive = request.cookies.get('mySamllMealToken')
-    # try / catch 문?
     # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
     try:
         # token 을 시크릿키로 디코딩합니다.
@@ -200,8 +198,8 @@ def like():
     :return: Response(json)
     """
     print(request.json)
-    uuid = request.json.get('uuid')
-    _id = request.json.get('_id')
+    uuid = request.json.get('uuid')  # uuid
+    _id = request.json.get('_id')  # ssid
     action = request.json.get('action')
     min_order = request.json.get('min_order')
     user = users.find_one({"uuid": uuid})
@@ -210,17 +208,17 @@ def like():
     if action == 'like':
         if not user:
             good_list = [_id]
-            users.insert_one({"uuid": uuid, "like_list": good_list})
+            users.insert_one({"_id": uuid, "uuid": uuid, "like_list": good_list})
         elif _id in user['like_list']:
             pass
         else:
             good_list = user['like_list']
             good_list.append(_id)
-            users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+            users.update_one({"_id": uuid, "uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     elif user and _id in user['like_list']:
         good_list = user['like_list']
         good_list.remove(_id)
-        users.update_one({"uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
+        users.update_one({"_id": uuid, "uuid": uuid}, {"$set": {"like_list": good_list}}, upsert=True)
     return jsonify(user)
 
 
