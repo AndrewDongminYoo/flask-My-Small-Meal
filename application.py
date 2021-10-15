@@ -103,7 +103,7 @@ def api_register():
     return 200
 
 
-@application.route('/api/vaild', methods=['GET'])
+@application.route('/api/valid', methods=['GET'])
 def api_valid():
     token_receive = request.cookies.get('mytoken')
     # try / catch 문?
