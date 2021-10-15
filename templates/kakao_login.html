@@ -7,10 +7,22 @@
     <script>
         window.onload = () => {
             const url = getURLParams(location.search)
-            const {token} = url
-            $.cookie('small-meal-cookie', token);
+            const {token,providerId,email,nickname} = url
+            {#console.log('providerId',providerId,'email',email,'nickname',nickname)#}
+            $.cookie('mySamllMealToken', token);
             {#alert('카카오로그인 완료!')#}
-            window.location.href = '/'
+            // uuid 저장 api호출
+            const uuid = localStorage.getItem("delivery-uuid")
+            $.ajax({
+                type: "POST",
+                url: "/api/kakao/uuid",
+                data: {uuid, providerId, email, nickname},
+                success: function (response) {
+                    console.log(response)
+                    window.location.href = '/'
+                }
+            })
+
         }
         function getURLParams(url) {
             let result = {};

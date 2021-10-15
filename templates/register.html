@@ -18,13 +18,20 @@
                 if (pw !== rePass) alert('비밀번호가 일치하지 않습니다.');
                 if (!nickname.length) alert('별명을 입력해주세요.');
                 if (!(email && pw && rePass && nickname)) alert("모든 값을 입력해주세요.");
+                const uuid = localStorage.getItem("delivery-uuid")
                 $.ajax({
                     type: "POST",
                     url: "/api/register",
-                    data: { email, pw, nickname },
-                    success: function () {
-                        alert('회원가입이 완료되었습니다.')
-                        window.location.href = '/login'
+                    data: { email, pw, nickname, uuid },
+                    success: function (response) {
+                        console.log('resister',response)
+                        if (response['result'] === 'success'){
+                             alert('회원가입이 완료되었습니다.')
+                            window.location.href = '/login'
+                        }else{
+                            alert('이미존재하는 이메일입니다.')
+                        }
+
                     }
                 })
             }

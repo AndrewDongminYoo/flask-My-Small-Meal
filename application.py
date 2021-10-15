@@ -10,11 +10,14 @@ import jwt
 import datetime
 from urllib.parse import urlparse, parse_qsl
 
+KAKAO_REDIRECT_URI='https://mysmallmeal.shop:8000/redirect'
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 if application.env == 'development':
     os.popen('mongod')
+    KAKAO_REDIRECT_URI = 'http://localhost:5000/redirect'
 # 배포 전에 원격 db로 교체!
+
 client = MongoClient(os.environ.get("DB_PATH"), port=27017)
 SECRET_KEY = os.environ.get("JWT_KEY")
 
@@ -48,7 +51,7 @@ def hello_world():  # put application's code here
 
 @application.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html',env=application.env)
 
 
 @application.route('/register')
@@ -69,13 +72,14 @@ def api_login():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     # id, 암호화된 pw 을 가지고 해당 유저를 찾습니다.
     result = members.find_one({'email': email, 'pw': pw_hash}, {"_id": False})
-    nick = result['nick']
+
     # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result:
         # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
         # 아래에선 id와 exp 를 담았습니다. 즉, JWT 토큰을 풀면 유저 ID 값을 알 수 있습니다.
         # exp 에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
+        nick = result['nick']
         payload = {
             'email': email,
             'nick': nick,
@@ -94,17 +98,21 @@ def api_register():
     email = request.form['email']
     pw = request.form['pw']
     nickname = request.form['nickname']
+    uuid = request.form['uuid']
+    print('api_register uuid',uuid)
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    if members.find_one({"email": email}, {"_id": False}):
-        return 403
-    members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname})
-    return 200
+    # if members.find_one({"email": email}, {"_id": False}):
+    #     return 403
+    findMember = members.find_one({"email": email}, {"_id": False})
+    if findMember is None:
+        members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname, 'uuid':uuid})
+        return jsonify({'result': 'success'})
+    return jsonify({'result': 'fail'})
 
 
 @application.route('/api/valid', methods=['GET'])
 def api_valid():
-    token_receive = request.cookies.get('small-meal-cookie')
-    # try / catch 문?
+    token_receive = request.cookies.get('mySamllMealToken')
     # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
     try:
         # token 을 시크릿키로 디코딩합니다.
@@ -130,7 +138,7 @@ def kakao_redirect():
     client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
     # 토큰요청
     url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}' \
-          f'&redirect_uri=http://localhost:5000/kakaoCallback&code={code}'
+          f'&redirect_uri={KAKAO_REDIRECT_URI}&code={code}'
     header_1st = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
     req = requests.post(url, headers=header_1st).json()
     access_token = req['access_token']
@@ -139,10 +147,12 @@ def kakao_redirect():
     header_2nd = {'Authorization': f'Bearer {access_token}',
                   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     req = requests.post(url, headers=header_2nd).json()
+    tokenEmail=''
     try:
         user_id = req['id']
         nickname = req['properties']['nickname']
         email = req['kakao_account']['email']
+        tokenEmail=email
         # db에 저장
         members.update({'providerId': user_id},
                        {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao'}}, True)
@@ -150,6 +160,7 @@ def kakao_redirect():
         print(e)
         user_id = req['id']
         nickname = req['properties']['nickname']
+        tokenEmail=''
         # db에 저장
         members.update({'providerId': user_id},
                        {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
@@ -161,7 +172,19 @@ def kakao_redirect():
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
     # kakaoLogin 리다이렉트
-    return redirect(url_for("kakao_login", token=token))
+    return redirect(url_for("kakao_login", token=token,providerId=user_id,email=tokenEmail,nickname=req['properties']['nickname']))
+
+@application.route('/api/kakao/uuid', methods=['POST'])
+def kakao_uuid():
+    uuid = request.form['uuid']
+    providerId = request.form['providerId']
+    email = request.form['email']
+    nickname = request.form['nickname']
+    # print('kakao_uuid',uuid,'providerId',providerId,'email',email,'nickname',nickname)
+    # db에 저장
+    members.update({'providerId': providerId},
+                   {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao', 'uuid':uuid}}, True)
+    return jsonify({'result': 'success'})
 
 
 @application.route('/api/like', methods=['POST'])
