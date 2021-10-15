@@ -7,9 +7,9 @@
             const url = getURLParams(location.search)
             const {token,providerId,email,nickname} = url
             {#console.log('providerId',providerId,'email',email,'nickname',nickname)#}
-            $.cookie('mySamllMealToken', token);
+            $.cookie('mySmallMealToken', token);
             {#alert('카카오로그인 완료!')#}
-            // uuid 저장 api호출
+            // uuid 저장 api 호출
             const uuid = localStorage.getItem("delivery-uuid")
             $.ajax({
                 type: "POST",

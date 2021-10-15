@@ -109,7 +109,7 @@ def api_register():
 
 @application.route('/api/valid', methods=['GET'])
 def api_valid():
-    token_receive = request.cookies.get('mySamllMealToken')
+    token_receive = request.cookies.get('mySmallMealToken')
     # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
     try:
         # token 을 시크릿키로 디코딩합니다.
