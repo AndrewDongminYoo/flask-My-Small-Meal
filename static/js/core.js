@@ -16,6 +16,12 @@ headers = {
     "sec-fetch-site": "same-origin"
 }
 
+function geoRefresh() {
+    emptyCards(); // 카드 컬럼 비우기
+    geoFindMe(); // 사용자의 위치 다시 받아내기
+    userCheck(); // 사용자가 처음 접속한 사람인지 확인
+}
+
 function memberInfoBox() {
     let temp_html = `
         <div id="member-info-box">
@@ -24,31 +30,24 @@ function memberInfoBox() {
                 <div id="login-nick"></div>
             </div>
             <button class="button is-info login-btn" onclick="login()">로그인</button>
-            <button class="button is-success register-btn"  href="/login">회원가입</button>
+            <a class="button is-success register-btn" href="/register">회원가입</a>
         </div>`
-    $('body').append(temp_html)
+    document.querySelector("body").innerHTML += temp_html
 }
 
-function memberValidCheck() {
-    $.ajax({
-        type: "GET",
-        url: "/api/valid",
-        data: {},
-        success: function (response) {
-            const {nickname, result} = response
-            if (result === 'success') {
-                $('.login-btn').text('로그아웃')
-                $('#login-nick').text(nickname + '님')
-            } else {
-                // 로그인이 안되면 에러메시지를 띄웁니다.
-                // alert(response['msg'])
-                $('.login-btn').text('로그인')
-                alert('로그인이 필요합니다.')
-                window.location.href = '/login'
-            }
-        }
-    })
-}
+// async function memberValidCheck() {
+//     let response = await fetch("/api/valid")
+//     const {nickname, result} = response
+//     if (result === 'success') {
+//         document.querySelector(".login-btn").textContent = '로그아웃'
+//         document.querySelector("#login-nick").textContent = `${nickname}님`
+//     } else {
+//         // 로그인이 안되면 에러메시지를 띄웁니다.
+//         document.querySelector(".login-btn").textContent = '로그인'
+//         window.alert('로그인이 필요합니다.')
+//         window.location.href = '/login'
+//    }
+//}
 
 const error = () => NoGeoDontWorry();
 const eraseCookie = (name) => document.cookie = `${name}=${Date.now()};`;
@@ -82,17 +81,10 @@ async function weather() {
         <tbody><tr>
         <td>${temp}&#8451;</td>
         <td>${humidity}&#37;</td>
-        <td>${wind.speed}&#13223;</td>
+        <td>${wind.speed}m/s</td>
         <td>${main}</td>
         <td><img src="https://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
         </tr></tbody>`;
-}
-
-//
-function geoRefresh() {
-    emptyCards(); // 카드 컬럼 비우기
-    geoFindMe(); // 사용자의 위치 다시 받아내기
-    userCheck(); // 사용자가 처음 접속한 사람인지 확인
 }
 
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
@@ -132,6 +124,7 @@ function success(position) {
             }) // tempHtml append 하기
             let end = Date.now()
             console.log(`It Takes ${(end-start)/1000} seconds....`)
+            if (document.cookie['roulette']) return;
             let unique = new Set(categories)
             categories = [...unique]
             modal()
@@ -413,6 +406,7 @@ async function everybodyShuffleIt(array) {
             document.getElementById("modal").remove()
             return result
         }
+        document.cookie = "roulette=true;";
     }
 }
 

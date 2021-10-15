@@ -11,21 +11,21 @@
             weather().then();
             memberInfoBox();
             deviceCheck();
-            memberValidCheck();
+            // memberValidCheck();
         };
 
-        function login() {
-            let loginBtn = $('.login-btn')
-            const text = loginBtn.text()
-            if (text === '로그인') {
-                window.location.href = '/login'
-            } else {
-                eraseCookie('small-meal-cookie')
-                loginBtn.text('로그인')
-                $('#login-nick').text('');
-                window.location.href = '/login'
-            }
-        }
+    //    function login() {
+    //        let loginBtn = $('.login-btn')
+    //        const text = loginBtn.text()
+    //        if (text === '로그인') {
+    //            window.location.href = '/login'
+    //        } else {
+    //            eraseCookie('small-meal-cookie')
+    //            loginBtn.text('로그인')
+    //            $('#login-nick').text('');
+    //            window.location.href = '/login'
+    //        }
+    //    }
     </script>
     <title>오늘 뭐 먹지?</title>
     {% endblock %}

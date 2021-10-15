@@ -2,28 +2,23 @@
 <html lang="en">
 <head>
     <title>카카오 로그인하기</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <script>
-        window.onload = () => {
-            const url = getURLParams(location.search)
-            const {token, providerId, email, nickname} = url
-            {#console.log('providerId',providerId,'email',email,'nickname',nickname)#}
-            $.cookie('mySmallMealToken', token);
-            {#alert('카카오로그인 완료!')#}
+        window.onload = async () => {
+            const params = getURLParams(location.search)
+            const {token, providerId, email, nickname} = params
+            console.log('providerId',providerId,'email',email,'nickname',nickname)
+            document.cookie = `mySmallMealToken=${token};`;
             // uuid 저장 api 호출
             const uuid = localStorage.getItem("delivery-uuid")
-            $.ajax({
-                type: "POST",
-                url: "/api/kakao/uuid",
-                data: {uuid, providerId, email, nickname},
-                success: function (response) {
-                    console.log(response)
-                    window.location.href = '/'
-                }
-            })
+            const headers = new Headers();
+            headers.append('content-type', 'application/json')
+            const body = JSON.stringify({uuid, providerId, email, nickname})
+            const init = {method:'POST', headers, body}
+            const response = await fetch("/api/kakao/uuid", init)
+            console.log(response)
+            window.location.href = '/'
         }
+
         function getURLParams(url) {
             let result = {};
             url.replace(/[?&]{1}([^=&#]+)=([^&#]*)/g, function (s, k, v) {

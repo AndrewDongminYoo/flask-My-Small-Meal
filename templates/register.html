@@ -4,7 +4,7 @@
     {% block head %}
         {{ super() }}
         <script>
-            function register() {
+            async function register() {
                 const email = $('#user-email').val()
                 const pw = $('#user-pw').val()
                 const rePass = $('#user-pw-re').val()
@@ -17,21 +17,17 @@
                 if (!nickname.length) alert('별명을 입력해주세요.');
                 if (!(email && pw && rePass && nickname)) alert("모든 값을 입력해주세요.");
                 const uuid = localStorage.getItem("delivery-uuid")
-                $.ajax({
-                    type: "POST",
-                    url: "/api/register",
-                    data: { email, pw, nickname, uuid },
-                    success: function (response) {
-                        console.log('resister',response)
-                        if (response['result'] === 'success'){
-                             alert('회원가입이 완료되었습니다.')
-                            window.location.href = '/login'
-                        }else{
-                            alert('이미존재하는 이메일입니다.')
-                        }
-
-                    }
-                })
+                const headers = new Headers();
+                headers.append('content-type', 'application/json')
+                const body = JSON.stringify({uuid, pw, email, nickname})
+                const init = {method: 'POST', headers, body}
+                const response = await fetch("/api/register", init)
+                if (response['result'] === 'success') {
+                    alert('회원가입이 완료되었습니다.')
+                    window.location.href = '/login'
+                } else {
+                    alert('이미존재하는 이메일입니다.')
+                }
             }
         </script>
         <title>회원가입하기</title>
@@ -62,7 +58,8 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input type="password" class="input" autocomplete="new-password" id="user-pw" placeholder="My Password">
+                            <input type="password" class="input" autocomplete="new-password" id="user-pw"
+                                   placeholder="My Password">
                         </div>
                     </div>
                 </div>
@@ -74,7 +71,8 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input type="password" class="input" autocomplete="new-password" id="user-pw-re" placeholder="My Password Reconfirm">
+                            <input type="password" class="input" autocomplete="new-password" id="user-pw-re"
+                                   placeholder="My Password Reconfirm">
                         </div>
                     </div>
                 </div>
