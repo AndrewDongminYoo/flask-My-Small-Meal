@@ -24,7 +24,7 @@ function memberInfoBox() {
                 <div id="login-nick"></div>
             </div>
             <button class="button is-info login-btn" onclick="login()">로그인</button>
-            <button class="button is-success register-btn" onclick="register()">회원가입</button>
+            <button class="button is-success register-btn"  href="/login">회원가입</button>
         </div>`
     $('body').append(temp_html)
 }

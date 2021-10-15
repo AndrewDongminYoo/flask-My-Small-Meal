@@ -11,20 +11,27 @@
                 const pw = $('#user-pw').val()
                 const rePass = $('#user-pw-re').val()
                 const nickname = $('#user-nick').val()
-                console.log(email, pw, pwre, nickname)
+                {#console.log(email, pw, pwre, nickname)#}
                 const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
                 if (email.match(regExp) === null) alert('이메일형식에 맞지 않습니다.');
                 if (pw.length <= 0) alert('비밀번호를 입력해주세요.');
                 if (pw !== rePass) alert('비밀번호가 일치하지 않습니다.');
                 if (nickname.length <= 0) alert('별명을 입력해주세요.');
                 if (!(email && pw && rePass && nickname)) alert("모든 값을 입력해주세요.");
+                const uuid = localStorage.getItem("delivery-uuid")
                 $.ajax({
                     type: "POST",
                     url: "/api/register",
-                    data: { email, pw, nickname },
-                    success: function () {
-                        alert('회원가입이 완료되었습니다.')
-                        window.location.href = '/login'
+                    data: { email, pw, nickname, uuid },
+                    success: function (response) {
+                        console.log('resister',response)
+                        if (response['result'] === 'success'){
+                             alert('회원가입이 완료되었습니다.')
+                            window.location.href = '/login'
+                        }else{
+                            alert('이미존재하는 이메일입니다.')
+                        }
+
                     }
                 })
             }

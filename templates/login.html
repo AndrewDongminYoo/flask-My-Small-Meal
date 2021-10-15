@@ -15,7 +15,7 @@
                         if (response['result'] === 'success') {
                             // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
                             // 이 토큰을 mytoken 이라는 키 값으로 쿠키에 저장합니다.
-                            $.cookie('mytoken', response['token']);
+                            $.cookie('mySamllMealToken', response['token']);
 
                             alert('로그인 완료!')
                             window.location.href = '/'
@@ -31,7 +31,9 @@
     {% endblock %}
 </head>
 <body>
+<h1>{{ env }}</h1>
 {% block body %}
+
     <div class="section has-text-centered">
         <h1 class="title">로그인 페이지</h1>
         <div class="container" style="width:60%">
@@ -61,8 +63,14 @@
                 </div>
             </div>
             <button class="button is-primary" onclick="loginBtnClick()">로그인</button>
-            <a class="button is-warning"
+            {% if env == 'development' %}
+                 <a class="button is-warning"
                href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=http://localhost:5000/redirect&response_type=code">카카오로그인</a>
+            {% else %}
+                <a class="button is-warning"
+               href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=https://mysmallmeal.shop:8000/redirect&response_type=code">카카오로그인</a>
+            {% endif %}
+
             <a class="button is-success" href="/register">회원가입</a>
         </div>
     </div>
