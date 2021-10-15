@@ -19,6 +19,7 @@ if application.env == 'development':
 # 배포 전에 원격 db로 교체!
 
 client = MongoClient(os.environ.get("DB_PATH"), port=27017)
+os.environ['JWT_KEY'] = 'jaryogoojo'
 SECRET_KEY = os.environ.get("JWT_KEY")
 
 db = client.dbGoojo
@@ -148,16 +149,14 @@ def kakao_redirect():
     try:
         user_id = req['id']
         nickname = req['properties']['nickname']
-        email = req['kakao_account']['email']
-        token_email=email
+        token_email = req['kakao_account']['email']
         # db에 저장
         members.update({'providerId': user_id},
-                       {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao'}}, True)
+                       {"$set": {'email': token_email, 'nick': nickname, 'provider': 'kakao'}}, True)
     except Exception as e:
         print(e)
         user_id = req['id']
         nickname = req['properties']['nickname']
-        token_email=''
         # db에 저장
         members.update({'providerId': user_id},
                        {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
@@ -169,7 +168,7 @@ def kakao_redirect():
     }
     token = encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
     # kakaoLogin 리다이렉트
-    return redirect(url_for("kakao_login", token=token,providerId=user_id,email=token_email,nickname=req['properties']['nickname']))
+    return redirect(url_for("kakao_login", token=token, providerId=user_id, email=token_email, nickname=req['properties']['nickname']))
 
 
 @application.route('/api/kakao/uuid', methods=['POST'])

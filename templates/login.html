@@ -3,6 +3,9 @@
 <head>
     {% block head %}
         {{ super() }}
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
+                integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script>
             function loginBtnClick() {
                 $.ajax({
@@ -61,11 +64,11 @@
             </div>
             <button class="button is-primary" onclick="loginBtnClick()">로그인</button>
             {% if env == 'development' %}
-                 <a class="button is-warning"
-               href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=http://localhost:5000/redirect&response_type=code">카카오로그인</a>
+                <a class="button is-warning"
+                   href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=http://localhost:5000/redirect&response_type=code">카카오로그인</a>
             {% else %}
                 <a class="button is-warning"
-               href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=https://mysmallmeal.shop:8000/redirect&response_type=code">카카오로그인</a>
+                   href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=https://mysmallmeal.shop:8000/redirect&response_type=code">카카오로그인</a>
             {% endif %}
 
             <a class="button is-success" href="{{ url_for('register') }}">회원가입</a>
