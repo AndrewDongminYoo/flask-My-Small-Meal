@@ -125,7 +125,7 @@ def api_valid():
     except jwt.exceptions.DecodeError:
         return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
     except Exception as e:
-        print(e)
+        return jsonify({"error-msg": e})
 
 
 @application.route('/redirect')

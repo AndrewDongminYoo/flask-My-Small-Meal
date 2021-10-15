@@ -67,50 +67,25 @@ async function weather() {
     weatherBox.innerHTML = `
         <div class="weather-title">현재날씨</div>
         <table class="table is-narrow bm-current-table" style="margin: auto;">
-        <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th>날씨</th><th>아이콘</th></tr></thead></table>
-        `;
-    weatherBox.innerHTML += `
-        <div class="weather-title">4일 동안의 일일 예보</div>
-        <table class="table is-narrow bm-daily-table" style="margin: auto;"><thead><tr>
-        <th>아침온도</th><th>낮온도</th><th>저녁온도</th><th>밤온도</th><th>습도</th><th>아이콘</th>
-        </tr></thead></table>
+        <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th colspan="2">날씨</th></tr></thead></table>
         `;
     let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
-    const url = 'https://api.openweathermap.org/data/2.5/onecall?' +
+    const url = 'https://api.openweathermap.org/data/2.5/weather?' +
         'lat=' + latitude.toFixed(7) +
         '&lon=' + longitude.toFixed(7) +
-        `&appid=${apikey}&lang=kr&units=metric`;
+        `&appid=${apikey}&units=metric`;
     const response = await fetch(url).then((res) => res.json()).catch()
-    const {current, daily} = await response;
-    const {feels_like, humidity, weather, wind_speed} = await current;
-    const {description, icon} = await weather[0];
-    daily.length = 4;
+    const { weather, wind } = await response;
+    const { humidity, temp } = await response['main'];
+    const { description, main, icon } = await weather[0];
     document.querySelector(".bm-current-table").innerHTML += `
         <tbody><tr>
-        <td>${Math.floor(feels_like)} ℃</td>
-        <td>${humidity} %</td>
-        <td>${wind_speed} m/s</td>
-        <td>${description}</td>
+        <td>${temp}&#8451;</td>
+        <td>${humidity}&#37;</td>
+        <td>${wind.speed}&#13223;</td>
+        <td>${main}</td>
         <td><img src="https://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
-        </tr></tbody>
-    `;
-
-    await daily.forEach((w) => {
-        const {feels_like, humidity, weather} = w;
-        const {day, night, eve, morn} = feels_like;
-        const {description, icon} = weather[0];
-
-        document.querySelector(".bm-daily-table").innerHTML += `
-            <tbody><tr>
-            <td>${morn.toFixed(1)} ℃</td>
-            <td>${day.toFixed(1)} ℃</td>
-            <td>${eve.toFixed(1)} ℃</td>
-            <td>${night.toFixed(1)} ℃</td>
-            <td>${humidity} %</td>
-            <td><img src="https://openweathermap.org/img/w/${icon}.png" title="${description}" alt="${description}"></td>
-            </tr></tbody>
-        `;
-    })
+        </tr></tbody>`;
 }
 
 //

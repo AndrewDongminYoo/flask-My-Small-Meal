@@ -21,15 +21,15 @@
 }
 
 .food-card {
-    background-image: linear-gradient(120deg, #fdfbfb 60%, #ebedee 100%);
-    padding: 10px 0 10px;
+    background-image: linear-gradient(
+            120deg, #fdfbfb 60%, #ebedee 100%);
+    padding-bottom: 10px;
     width: 300px;
     border-radius: 10px;
-    margin: 20px auto;
+    margin: 0 auto 30px;
     transition-duration: 185ms;
     transition-timing-function: ease-in-out;
     transition-property: transform;
-    box-shadow: 0 .5em 1em -.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
 }
 
 .food-card:hover {
