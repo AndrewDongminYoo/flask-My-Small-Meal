@@ -8,7 +8,7 @@
         window.onload = () => {
             const url = getURLParams(location.search)
             const {token} = url
-            $.cookie('mytoken', token);
+            $.cookie('small-meal-cookie', token);
             {#alert('카카오로그인 완료!')#}
             window.location.href = '/'
         }

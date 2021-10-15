@@ -15,8 +15,7 @@ cors = CORS(application, resources={r"/*": {"origins": "*"}})
 if application.env == 'development':
     os.popen('mongod')
 # 배포 전에 원격 db로 교체!
-# client = MongoClient(os.environ.get("DB_PATH"))
-client = MongoClient(os.environ.get("DB_PATH"))
+client = MongoClient(os.environ.get("DB_PATH"), port=27017)
 SECRET_KEY = os.environ.get("JWT_KEY")
 
 db = client.dbGoojo
@@ -24,7 +23,6 @@ restaurant_col = db.restaurant
 bookmarked_col = db.bookmark
 users = db.users
 members = db.members
-users.create_index([('uuid', pymongo.ASCENDING)], unique=True)
 print(client.address)
 
 # sort_list = 기본 정렬(랭킹순), 별점 순, 리뷰 수, 최소 주문 금액순, 거리 순, 배달 보증 시간순
@@ -105,7 +103,7 @@ def api_register():
 
 @application.route('/api/valid', methods=['GET'])
 def api_valid():
-    token_receive = request.cookies.get('mytoken')
+    token_receive = request.cookies.get('small-meal-cookie')
     # try / catch 문?
     # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
     try:

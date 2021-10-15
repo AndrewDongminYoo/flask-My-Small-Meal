@@ -14,8 +14,8 @@
                     success: function (response) {
                         if (response['result'] === 'success') {
                             // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                            // 이 토큰을 mytoken 이라는 키 값으로 쿠키에 저장합니다.
-                            $.cookie('mytoken', response['token']);
+                            // 이 토큰을 small-meal-cookie 이라는 키 값으로 쿠키에 저장합니다.
+                            $.cookie('small-meal-cookie', response['token']);
 
                             alert('로그인 완료!')
                             window.location.href = '/'
