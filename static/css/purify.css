@@ -1,13 +1,20 @@
 @font-face {
     font-family: 'BMHANNAPro';
-    src: url('https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BMHANNAPro.ttf') format('truetype');
+    src: local('/static/fonts/BMHANNAPro.ttf');
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Black Han Sans';
-    src: url('https://flalsk-bucket.s3.ap-northeast-2.amazonaws.com/static/fonts/BlackHanSans-Regular.ttf') format('truetype');
+    src: local('/static/fonts/BlackHanSans-Regular.ttf');
     src: url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap') format('truetype');
+}
+@font-face {
+    font-family: 'SDSamliphopangche_Basic';
+    src: local("/static/fonts/SDSamliphopangcheTTFBasic.ttf");
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .card {
@@ -82,7 +89,7 @@
     justify-self: flex-start;
     margin-left: 10px;
     padding: 10px;
-    font-family: 'BMHANNAPro', sans-serif;
+    font-family: 'SDSamliphopangche_Basic', sans-serif;
 }
 
 .card-footer {
@@ -90,7 +97,7 @@
     justify-content: space-between;
     margin: 5px 10px 0 10px;
     padding: 10px;
-    font-family: 'BMHANNAPro', sans-serif;
+    font-family: 'SDSamliphopangche_Basic', sans-serif;
 }
 
 .reviews {
@@ -234,7 +241,7 @@ html {
 }
 
 * {
-    font-family: 'BMHANNAPro', sans-serif;
+    font-family: 'SDSamliphopangche_Basic', sans-serif;
 }
 
 body {
@@ -256,7 +263,7 @@ body {
     background-color: #ffebcd;
     background-size: cover;
     background-repeat: repeat-x;
-    background-image: url(../images/lucian-alexe.webp);
+    background-image: url(../images/food1.jpg);
 }
 
 .header > h1.title {
@@ -620,24 +627,27 @@ ul#bookmarks {
     width: 100%;
 }
 
-#member-info-box{
+#member-info-box {
     display: flex;
     position: absolute;
     left: 1400px;
     top: 200px;
 }
-#login-nick-wrap{
+
+#login-nick-wrap {
     margin-left: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-#login-nick{
+
+#login-nick {
     color: black;
     margin-right: 10px;
     font-weight: bold;
 }
-#profile-img{
+
+#profile-img {
     width: 50px;
     height: 50px;
     border-radius: 50%;

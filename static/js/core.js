@@ -4,6 +4,7 @@ let longitude = 126.1699723;
 let isMobile = false;
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
+
 headers = {
     accept: "*/*",
     "accept-language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
@@ -15,15 +16,42 @@ headers = {
     "sec-fetch-site": "same-origin"
 }
 
-window.onload = function () {
-    geoFindMe();
-    userCheck();
-    weather().then();
-    deviceCheck();
-    memberInfoBox();
-    memberValidCheck();
-};
+function memberInfoBox() {
+    let temp_html = `
+        <div id="member-info-box">
+            <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
+            <div id="login-nick-wrap">
+                <div id="login-nick"></div>
+            </div>
+            <button class="button is-info login-btn" onclick="login()">로그인</button>
+            <button class="button is-success register-btn" onclick="register()">회원가입</button>
+        </div>`
+    $('body').append(temp_html)
+}
+
+function memberValidCheck() {
+    $.ajax({
+        type: "GET",
+        url: "/api/valid",
+        data: {},
+        success: function (response) {
+            const {nickname, result} = response
+            if (result === 'success') {
+                $('.login-btn').text('로그아웃')
+                $('#login-nick').text(nickname + '님')
+            } else {
+                // 로그인이 안되면 에러메시지를 띄웁니다.
+                // alert(response['msg'])
+                $('.login-btn').text('로그인')
+                alert('로그인이 필요합니다.')
+                window.location.href = '/login'
+            }
+        }
+    })
+}
+
 const error = () => NoGeoDontWorry();
+const eraseCookie = (name) => document.cookie = `${name}=${Date.now()};`;
 
 function deviceCheck() {
     const pc = "win16|win32|win64|mac|macintel";
@@ -34,71 +62,14 @@ function deviceCheck() {
     console.log(isMobile ? "It's on mobile" : "It's Computer")
 }
 
-let loginBtn = $(".login-btn")
-let loginNick = $('#login-nick')
-function memberValidCheck(){
-     $.ajax({
-        type: "GET",
-        url: "/api/valid",
-        data: {},
-        success: function (response) {
-            const {nickname, result} = response
-            if (result === 'success') {
-                loginBtn.text('로그아웃')
-                loginNick.text(nickname+'님')
-            } else {
-                // 로그인이 안되면 에러메시지를 띄웁니다.
-                // alert(response['msg'])
-                loginBtn.text('로그인')
-                alert('로그인이 필요합니다.')
-                window.location.href='/login'
-            }
-        }
-    })
-}
-
-function login() {
-    const text = loginBtn.text()
-    if(text === '로그인'){
-        window.location.href='/login'
-    } else {
-        eraseCookie('mytoken')
-        loginBtn.text('로그인')
-        loginNick.text('');
-        window.location.href='/login'
-    }
-}
-
-function register() {
-    window.location.href='/register'
-}
-
-function eraseCookie(name) {
-    document.cookie = name+'=; Max-Age=-99999999;';
-}
-
-function memberInfoBox() {
-    let temp_html = `
-        <div id="member-info-box">
-            <img id="profile-img" alt="profile" src="/static/images/someone.png"/>
-            <div id="login-nick-wrap">
-                <div id="login-nick"></div>
-            </div>
-            <button class="button is-info login-btn" onclick="login()">로그인</button>
-            <button class="button is-success register-btn" onclick="register()">회원가입</button>
-        </div>
-       `
-    $('body').append(temp_html)
-}
-
 async function weather() {
     const weatherBox = document.getElementById("weather-box")
-    weatherBox.innerHTML=`
+    weatherBox.innerHTML = `
         <div class="weather-title">현재날씨</div>
         <table class="table is-narrow bm-current-table" style="margin: auto;">
         <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th>날씨</th><th>아이콘</th></tr></thead></table>
         `;
-    weatherBox.innerHTML+=`
+    weatherBox.innerHTML += `
         <div class="weather-title">4일 동안의 일일 예보</div>
         <table class="table is-narrow bm-daily-table" style="margin: auto;"><thead><tr>
         <th>아침온도</th><th>낮온도</th><th>저녁온도</th><th>밤온도</th><th>습도</th><th>아이콘</th>
@@ -114,7 +85,7 @@ async function weather() {
     const {feels_like, humidity, weather, wind_speed} = await current;
     const {description, icon} = await weather[0];
     daily.length = 4;
-    document.querySelector(".bm-current-table").innerHTML+=`
+    document.querySelector(".bm-current-table").innerHTML += `
         <tbody><tr>
         <td>${Math.floor(feels_like)} ℃</td>
         <td>${humidity} %</td>
@@ -129,7 +100,7 @@ async function weather() {
         const {day, night, eve, morn} = feels_like;
         const {description, icon} = weather[0];
 
-        document.querySelector(".bm-daily-table").innerHTML+=`
+        document.querySelector(".bm-daily-table").innerHTML += `
             <tbody><tr>
             <td>${morn.toFixed(1)} ℃</td>
             <td>${day.toFixed(1)} ℃</td>
@@ -174,6 +145,7 @@ function success(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     // weather(latitude,longitude)
+    let start = Date.now()
     getFoods(latitude, longitude)
         .then(restaurants => {
             emptyCards()
@@ -183,6 +155,8 @@ function success(position) {
                 let i = isMobile ? index % 2 : index % 3
                 showCards(restaurant, i)
             }) // tempHtml append 하기
+            let end = Date.now()
+            console.log(`It Takes ${(end-start)/1000} seconds....`)
             let unique = new Set(categories)
             categories = [...unique]
             modal()
@@ -213,7 +187,7 @@ async function NoGeoDontWorry() {
 function modal() {
     // if (isMobile) return;
     document.getElementById("modal").classList.add("is-active")
-    document.getElementById("modal").style.display='block';
+    document.getElementById("modal").style.display = 'block';
 }
 
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
@@ -228,37 +202,37 @@ function userCheck() {
 }
 
 // 특정 식당을 즐겨찾기 하는 코드
-function keep(ssid, min_order) {
-    changeBtn(ssid, false)
+function keep(_id, min_order) {
+    changeBtn(_id, false)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'like', mode: "cors"});
+    const body = JSON.stringify({uuid: user, _id, min_order, action: 'like', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // 특정 식당을 즐겨찾기 삭제하는 코드
-function remove(ssid, min_order) {
-    changeBtn(ssid, true)
+function remove(_id, min_order) {
+    changeBtn(_id, true)
     const headers = new Headers();
     headers.append('content-type', 'application/json')
-    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'dislike', mode: "cors"});
+    const body = JSON.stringify({uuid: user, _id, min_order, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
 // remove 코드의 메인 부분만을 추출한 코드 (북마크 탭에서 직접 삭제 다루기 위해 분리)
-function delMark(ssid, min_order) {
-    changeBtn(ssid, true)
-    const body = JSON.stringify({uuid: user, ssid, min_order, action: 'dislike', mode: "cors"});
+function delMark(_id, min_order) {
+    changeBtn(_id, true)
+    const body = JSON.stringify({uuid: user, _id, min_order, action: 'dislike', mode: "cors"});
     sendLike(user, headers, body)
 }
 
-function changeBtn(ssid, afterDelete) {
+function changeBtn(_id, afterDelete) {
     if (afterDelete) {
-        document.querySelector(`.delete-${ssid}`).classList.add("is-hidden")
-        document.querySelector(`.keep-${ssid}`).classList.remove("is-hidden")
+        document.querySelector(`.delete-${_id}`).classList.add("is-hidden")
+        document.querySelector(`.keep-${_id}`).classList.remove("is-hidden")
     } else {
-        document.querySelector(`.keep-${ssid}`).classList.add("is-hidden")
-        document.querySelector(`.delete-${ssid}`).classList.remove("is-hidden")
+        document.querySelector(`.keep-${_id}`).classList.add("is-hidden")
+        document.querySelector(`.delete-${_id}`).classList.remove("is-hidden")
     }
 }
 
@@ -275,11 +249,11 @@ function sendLike(user, headers, body) {
 
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
-    document.querySelector("h2.h2").style.display="block"
+    document.querySelector("h2.h2").style.display = "block"
     fetch(`https://mysmallmeal.shop/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
-            document.getElementById("bookmarks").innerHTML="";
+            document.getElementById("bookmarks").innerHTML = "";
             res['restaurants'] && res['restaurants'].forEach((r) => bookMark(r)); // 북마크 배열이 '도착하면' 렌더링
         })
         .catch((e) => console.log(e));
@@ -288,18 +262,19 @@ function showBookmarks(user) {
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
-    let {ssid, name, phone, time, min_order} = restaurant;
+    let {_id, name, phone, time, min_order} = restaurant;
     let tempHtml = `
-        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${ssid}" onclick="popUp(${ssid})">
+        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
         <span class="mark-menu">${name}</span>
-        <button class="button is-xs is-inline-block" onclick="delMark(${ssid}, ${min_order})" onmouseover="">⨉</button></li>`
-    document.getElementById("bookmarks").innerHTML+=tempHtml;
+        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
+    document.getElementById("bookmarks").innerHTML += tempHtml;
 }
 
 let lowModalBody = document.getElementById('low-modal-body');
+
 // 즐겨찾기 클릭시 모달창 오픈
-function popUp(ssid) {
-    fetch(`https://mysmallmeal.shop/api/detail?ssid=${ssid}`).then((restaurant) => {
+function popUp(_id) {
+    fetch(`https://mysmallmeal.shop/api/detail?_id=${_id}`).then((restaurant) => {
         let {image, name, address, time, min_order, phone, categories} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
@@ -320,8 +295,8 @@ function popUp(ssid) {
             </div>`
         let btn = ""
         categories.forEach((tag) => btn += `<span>#${tag}</span>`)
-        lowModalBody.style.display="block";
-        lowModalBody.innnerHTML=tempHtml.replace("{__buttons__}", btn)
+        lowModalBody.style.display = "block";
+        lowModalBody.innnerHTML = tempHtml.replace("{__buttons__}", btn)
         // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
         // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
     })
@@ -348,17 +323,18 @@ window.addEventListener('hashchange', async () => {
 // 레스토랑 하나하나의 카드를 만들어내는 코드
 const showCards = (restaurant, i) => {
     let {
-        ssid, name, reviews,
+        _id, name, reviews,
         owner, categories,
         image, address,
-        rating, time, min_order
+        rating, time,
+        min_order, phone
     } = restaurant;
     // 이미지가 없는 경우 VIEW 가 좋지 않아 리턴시킨다.
     if (!image) return;
     let tempHtml = `
     <div class="food-card card">
         <div class="image-box card-image">
-            <figure class="image" title="${time}">
+            <figure class="image" title="${phone}">
                 <img class="food-image image" src="${image}"
                      alt="${name}-food-thumbnail">
             </figure>
@@ -366,8 +342,8 @@ const showCards = (restaurant, i) => {
         <div class="tool-box">
             <div class="book-mark">
                 <div class="store_name">${name}<br>⭐${rating}점</div>
-                <button class="button book-button keep-${ssid}" onclick="keep(${ssid}, ${min_order})">⭐keep</button>
-                <button class="button book-button is-hidden delete-${ssid}" onclick="remove(${ssid}, ${min_order})">🌟delete</button>
+                <button class="button book-button keep-${_id}" onclick="keep(${_id}, ${min_order})">⭐keep</button>
+                <button class="button book-button is-hidden delete-${_id}" onclick="remove(${_id}, ${min_order})">🌟delete</button>
             </div>
             <div class="buttons are-small btns">{__buttons__}</div>
             <div class="card-footer">
@@ -383,14 +359,14 @@ const showCards = (restaurant, i) => {
     categories.forEach((tag) => {
         btn += `<button value="${tag}" class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
-    document.querySelector(`.column-${i}`).innerHTML+=tempHtml.replace("{__buttons__}", btn)
+    document.querySelector(`.column-${i}`).innerHTML += tempHtml.replace("{__buttons__}", btn)
 }
 
 // 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
 function search() {
     let query = document.querySelector("#geoSearch").value
-    const body = JSON.stringify({ query, mode: "cors" });
-    const init = { method: 'POST', body };
+    const body = JSON.stringify({query, mode: "cors"});
+    const init = {method: 'POST', body};
     console.log(init)
     fetch(`https://mysmallmeal.shop/api/address`, init)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
@@ -411,13 +387,13 @@ function search() {
 
 // 특정 카테고리 (예: 1인분주문) 를 클릭하면 모든 식당 중 해당 해시태그를 가진 카드가 하이라이트됩니다.
 function highlight(string) {
-    document.querySelectorAll(`button.is-warning:not([value='${string}'])`).forEach(e=>e.classList.add('is-outlined'))
-    document.querySelectorAll(`button.button[value='${string}']`).forEach(e=>e.classList.remove('is-outlined'))
+    document.querySelectorAll(`button.is-warning:not([value='${string}'])`).forEach(e => e.classList.add('is-outlined'))
+    document.querySelectorAll(`button.button[value='${string}']`).forEach(e => e.classList.remove('is-outlined'))
 }
 
 // tab 의 버튼을 클릭하면 그 버튼만 active 상태가 됩니다.
 function tabFocus(string) {
-    document.querySelectorAll(`li.tab:not(.tab-${string})`).forEach(e=>e.classList.remove('is-active'));
+    document.querySelectorAll(`li.tab:not(.tab-${string})`).forEach(e => e.classList.remove('is-active'));
     document.querySelector(`li.tab-${string}`).classList.add('is-active');
 }
 
@@ -438,24 +414,24 @@ async function everybodyShuffleIt(array) {
     const result = shuffle(array)[0]
     for (let i = 0; i < array.length; i++) {
         await timer(60)
-        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e => e.classList.remove('is-red'));
         document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(100)
-        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e => e.classList.remove('is-red'));
         document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(200)
-        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e => e.classList.remove('is-red'));
         document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
     }
     for (let i = 0; i < array.length; i++) {
         await timer(600)
-        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e=>e.classList.remove('is-red'));
+        document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e => e.classList.remove('is-red'));
         document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
-        if (document.querySelector(`.word-${i}`).classList.contains('is-red') && document.querySelector(`.word-${i}`)['title']===result) {
+        if (document.querySelector(`.word-${i}`).classList.contains('is-red') && document.querySelector(`.word-${i}`)['title'] === result) {
             document.querySelector(`button.button[value='${result}']`).classList.remove('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
@@ -464,4 +440,3 @@ async function everybodyShuffleIt(array) {
         }
     }
 }
-
