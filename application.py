@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-import pymongo
 from flask import Flask, request, jsonify, render_template, json, redirect, url_for
 from flask_cors import CORS
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import os
 import hashlib
-import jwt
+from jwt.api_jwt import encode, decode
+from jwt.exceptions import ExpiredSignatureError, DecodeError
 import datetime
 from urllib.parse import urlparse, parse_qsl
 
@@ -81,7 +81,7 @@ def api_login():
             'nick': nick,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
         }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+        token = encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
         # token 을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -109,15 +109,15 @@ def api_valid():
     try:
         # token 을 시크릿키로 디코딩합니다.
         # 보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        payload = decode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
         # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
         # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
         return jsonify({'result': 'success', 'nickname': payload['nick'], 'payload': payload})
-    except jwt.ExpiredSignatureError:
+    except ExpiredSignatureError:
         # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
         return jsonify({'msg': '로그인 시간이 만료되었습니다.'})
-    except jwt.exceptions.DecodeError:
+    except DecodeError:
         return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
 
 
@@ -130,7 +130,7 @@ def kakao_redirect():
     client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
     # 토큰요청
     url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}' \
-          f'&redirect_uri=http://localhost:5000/kakaoCallback&code={code}'
+          f'&redirect_uri={url_for("kakao_redirect")}&code={code}'
     header_1st = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
     req = requests.post(url, headers=header_1st).json()
     access_token = req['access_token']
@@ -159,7 +159,7 @@ def kakao_redirect():
         'nick': nickname,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
     }
-    token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+    token = encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
     # kakaoLogin 리다이렉트
     return redirect(url_for("kakao_login", token=token))
 
