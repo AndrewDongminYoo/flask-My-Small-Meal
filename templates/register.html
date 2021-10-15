@@ -5,33 +5,6 @@
         {{ super() }}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-        <style>
-            #member-info-box {
-                display: flex;
-                position: absolute;
-                left: 1400px;
-                top: 200px;
-            }
-
-            #login-nick-wrap {
-                margin-left: 10px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-            }
-
-            #login-nick {
-                color: black;
-                margin-right: 10px;
-                font-weight: bold;
-            }
-
-            #profile-img {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-            }
-        </style>
         <script>
             function register() {
                 const email = $('#user-email').val()
