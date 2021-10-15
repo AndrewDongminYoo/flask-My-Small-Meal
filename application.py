@@ -10,7 +10,7 @@ from jwt.exceptions import ExpiredSignatureError, DecodeError
 import datetime
 from urllib.parse import urlparse, parse_qsl
 
-KAKAO_REDIRECT_URI='https://mysmallmeal.shop:8000/redirect'
+KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop/redirect'
 application = Flask(__name__)
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 if application.env == 'development':
