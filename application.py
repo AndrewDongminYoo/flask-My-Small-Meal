@@ -175,8 +175,8 @@ def like():
     :return: Response(json)
     """
     print(request.json)
-    uuid = request.json.get('uuid')
-    _id = request.json.get('_id')
+    uuid = request.json.get('uuid')  # uuid
+    _id = request.json.get('_id')  # ssid
     action = request.json.get('action')
     min_order = request.json.get('min_order')
     user = users.find_one({"uuid": uuid})
