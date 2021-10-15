@@ -5,8 +5,8 @@ from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import os
 import hashlib
-from jwt.api_jwt import encode, decode
-from jwt.exceptions import ExpiredSignatureError, DecodeError
+from jwt import encode, decode
+from jwt import ExpiredSignatureError, DecodeError
 import datetime
 from urllib.parse import urlparse, parse_qsl
 
@@ -52,7 +52,7 @@ def hello_world():  # put application's code here
 
 @application.route('/login')
 def login():
-    return render_template('login.html',env=application.env)
+    return render_template('login.html', env=application.env)
 
 
 @application.route('/register')
@@ -99,11 +99,11 @@ def api_register():
     pw = request.form['pw']
     nickname = request.form['nickname']
     uuid = request.form['uuid']
-    print('api_register uuid',uuid)
+    print('api_register uuid', uuid)
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     find_member = members.find_one({"email": email}, {"_id": False})
     if find_member is None:
-        members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname, 'uuid':uuid})
+        members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname, 'uuid': uuid})
         return jsonify({'result': 'success'})
     return jsonify({'result': 'fail'})
 
@@ -147,7 +147,7 @@ def kakao_redirect():
     header_2nd = {'Authorization': f'Bearer {access_token}',
                   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     req = requests.post(url, headers=header_2nd).json()
-    token_email=''
+    token_email = ''
     try:
         user_id = req['id']
         nickname = req['properties']['nickname']
@@ -170,7 +170,8 @@ def kakao_redirect():
     }
     token = encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
     # kakaoLogin 리다이렉트
-    return redirect(url_for("kakao_login", token=token, providerId=user_id, email=token_email, nickname=req['properties']['nickname']))
+    return redirect(url_for("kakao_login",
+                            token=token, providerId=user_id, email=token_email, nickname=req['properties']['nickname']))
 
 
 @application.route('/api/kakao/uuid', methods=['POST'])
@@ -182,7 +183,7 @@ def kakao_uuid():
     # print('kakao_uuid',uuid,'providerId',providerId,'email',email,'nickname',nickname)
     # db에 저장
     members.update({'providerId': provider_id},
-                   {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao', 'uuid':uuid}}, True)
+                   {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao', 'uuid': uuid}}, True)
     return jsonify({'result': 'success'})
 
 
