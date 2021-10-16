@@ -15,8 +15,8 @@
             const body = JSON.stringify({uuid, providerId, email, nickname})
             const init = {method:'POST', headers, body}
             const response = await fetch("/api/kakao/uuid", init)
-            console.log(response)
-            window.location.href = '/'
+            console.log(response.result)
+            window.location.href = "{{ url_for('hello_world') }}"
         }
 
         function getURLParams(url) {

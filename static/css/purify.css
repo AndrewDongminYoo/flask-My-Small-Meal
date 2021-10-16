@@ -622,9 +622,6 @@ ul#bookmarks {
 
 #member-info-box {
     display: flex;
-    position: absolute;
-    left: 1400px;
-    top: 200px;
 }
 
 #login-nick-wrap {

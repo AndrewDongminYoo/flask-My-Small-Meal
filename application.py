@@ -46,15 +46,7 @@ headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
 
 @application.route('/')
 def hello_world():  # put application's code here
-    token_receive = request.cookies.get('mytoken')
-    try:
-        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
-        user_info = db.users.find_one({"username": payload["id"]})
-        return render_template('index.html', user_info=user_info)
-    except jwt.ExpiredSignatureError:
-        return redirect(url_for("login", msg="login timeout"))
-    except jwt.exceptions.DecodeError:
-        return redirect(url_for("login", msg="Cannot Login!"))
+    return render_template("index.html")
 
 
 @application.route('/login')
@@ -75,6 +67,7 @@ def kakao_login():
 
 @application.route('/api/login', methods=['POST'])
 def api_login():
+    request.form = json.loads(request.data)
     email_receive = request.form['email']
     password = request.form['pw']
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
@@ -103,6 +96,7 @@ def api_login():
 
 @application.route('/api/register', methods=['POST'])
 def api_register():
+    request.form = json.loads(request.data)
     email_receive = request.form['email']
     password = request.form['pw']
     nickname = request.form['nickname']
@@ -113,7 +107,7 @@ def api_register():
     if user_exists:
         return jsonify({'result': 'fail', 'msg': '같은 이메일의 유저가 존재합니다.'})
     find_member = members.find_one({"email": email_receive}, {"_id": False})
-    if find_member:
+    if not find_member:
         user = {
             'email': email_receive,
             'pw': hashed_pw,
@@ -122,7 +116,7 @@ def api_register():
             '_id': uuid,
         }
         members.insert_one(user)
-        return jsonify({'result': 'success', 'user': nickname})
+        return jsonify({'result': 'success', 'user': nickname, 'msg': '가입이 완료되었습니다.'})
     return jsonify({'result': 'fail', 'msg': '가입에 실패했습니다.'})
 
 
@@ -194,6 +188,7 @@ def kakao_redirect():
 
 @application.route('/api/kakao/uuid', methods=['POST'])
 def kakao_uuid():
+    request.form = json.loads(request.data)
     uuid = request.form['uuid']
     provider_id = request.form['providerId']
     email = request.form['email']

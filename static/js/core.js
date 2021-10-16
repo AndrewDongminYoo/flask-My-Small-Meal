@@ -22,19 +22,6 @@ function geoRefresh() {
     userCheck(); // 사용자가 처음 접속한 사람인지 확인
 }
 
-function memberInfoBox() {
-    let temp_html = `
-        <div id="member-info-box">
-            <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
-            <div id="login-nick-wrap">
-                <div id="login-nick"></div>
-            </div>
-            <button class="button is-info login-btn" onclick="login()">로그인</button>
-            <a class="button is-success register-btn" href="/register">회원가입</a>
-        </div>`
-    document.querySelector("body").innerHTML += temp_html
-}
-
 // async function memberValidCheck() {
 //     let response = await fetch("/api/valid")
 //     const {nickname, result} = response
@@ -50,7 +37,9 @@ function memberInfoBox() {
 //}
 
 const error = () => NoGeoDontWorry();
-const eraseCookie = (name) => document.cookie = `${name}=${Date.now()};`;
+const removeCookie = (name) => document.cookie = `${name}=; expires=Fri, 12 Aug 1994 00:00:00 GMT`;
+const CheckCookies = () => document.cookie.split("; ")
+const getOneCookie = (name) => CheckCookies().find(r=>r.startsWith(name)).split("=")[1];
 
 function deviceCheck() {
     const pc = "win16|win32|win64|mac|macintel";

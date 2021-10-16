@@ -9,7 +9,7 @@
             geoFindMe();
             userCheck();
             weather().then();
-            memberInfoBox();
+            // memberInfoBox();
             deviceCheck();
             // memberValidCheck();
         };
@@ -99,6 +99,14 @@
             <div class="column column-2"></div>
             <div class="column is-one-quarter">
                 <div id="aside" class="panel is-warning">
+                    <div id="member-info-box">
+                        <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
+                        <div id="login-nick-wrap">
+                            <div id="login-nick"></div>
+                        </div>
+                        <a class="button is-info login-btn" href="{{ url_for('login') }}">로그인</a>
+                        <a class="button is-success register-btn" href="{{ url_for('register') }}">회원가입</a>
+                    </div>
                     <h2 class="h2 panel-heading" id="bookmark-title" style="display:none;">즐겨찾기 목록</h2>
                     <aside class="menu panel-block">
                         <ul class="menu-list" id="bookmarks">

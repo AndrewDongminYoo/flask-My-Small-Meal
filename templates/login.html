@@ -4,23 +4,28 @@
     {% block head %}
         {{ super() }}
         <script>
-            async function loginBtnClick() {
+            function loginBtnClick() {
                 let email = document.getElementById("member-email").value
-                let pw = document.getElementById("member-pw").value
+                let pw = document.getElementById("member-password").value
+
                 const headers = new Headers();
                 headers.append('content-type', 'application/json')
                 const body = JSON.stringify({email, pw})
                 let init = {method: "POST", headers, body}
-                let response = await fetch("/api/login", init)
-                if (response['result'] === 'success') {
-                    // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                    // 이 토큰을 mySmallMealToken 이라는 키 값으로 쿠키에 저장합니다.
-                    document.cookie = `mySmallMealToken=${response['token']};`;
-                    window.alert('로그인 완료!')
-                    window.location.href = '/'
-                } else {  // 로그인이 안되면 에러메시지를 띄웁니다.
-                    window.alert(response['msg'])
-                }
+                fetch("/api/login", init)
+                .then((res)=> res.json())
+                .then((response)=> {
+                    if (response['token']) {
+                        // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
+                        // 이 토큰을 mySmallMealToken 이라는 키 값으로 쿠키에 저장합니다.
+                        document.cookie = `mySmallMealToken=${response['token']}`;
+                        console.log(response['result'])
+                        window.location.href = "{{ url_for('hello_world') }}"
+                    } else {  // 로그인이 안되면 에러메시지를 띄웁니다.
+                        console.log(response)
+                        window.alert(response['msg'])
+                    }
+                })
             }
         </script>
         <title>로그인하기</title>
@@ -46,12 +51,12 @@
             </form>
             <form class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="member-pw">PW</label>
+                    <label class="label" for="member-password">PW</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input type="password" class="input" id="member-pw" autocomplete="false" placeholder="My Password">
+                            <input type="password" class="input" id="member-password" autocomplete="false" placeholder="My Password">
                         </div>
                     </div>
                 </div>
