@@ -5,17 +5,8 @@
     <script>
         window.onload = async () => {
             const params = getURLParams(location.search)
-            const {token, providerId, email, nickname} = params
-            console.log('providerId',providerId,'email',email,'nickname',nickname)
+            const {token} = params
             document.cookie = `mySmallMealToken=${token};`;
-            // uuid 저장 api 호출
-            const uuid = localStorage.getItem("delivery-uuid")
-            const headers = new Headers();
-            headers.append('content-type', 'application/json')
-            const body = JSON.stringify({uuid, providerId, email, nickname})
-            const init = {method:'POST', headers, body}
-            const response = await fetch("/api/kakao/uuid", init)
-            console.log(response.result)
             window.location.href = "{{ url_for('hello_world') }}"
         }
 

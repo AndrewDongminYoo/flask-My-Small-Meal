@@ -16,7 +16,7 @@
 
                 const headers = new Headers();
                 headers.append('content-type', 'application/json')
-                const body = JSON.stringify({email, pw})
+                const body = JSON.stringify({email, pw, user})
                 let init = {method: "POST", headers, body}
                 fetch("/api/login", init)
                 .then((res)=> res.json())

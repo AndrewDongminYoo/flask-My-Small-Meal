@@ -2776,7 +2776,7 @@ a.panel-block:hover, label.panel-block:hover {
     font-size: 1rem;
     justify-content: space-between;
     overflow: hidden;
-    /*overflow-x: auto;*/
+    overflow-x: auto;
     white-space: nowrap;
 }
 
