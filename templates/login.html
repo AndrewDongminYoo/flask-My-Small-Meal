@@ -4,6 +4,12 @@
     {% block head %}
         {{ super() }}
         <script>
+        let kakao = "https://kauth.kakao.com/oauth/authorize"
+        let ID = "{{ ID }}"
+        let address = "{{ URI }}"
+        window.onload = ()=> {
+            document.getElementById("K-auth").href=`${kakao}?client_id=${ID}&redirect_uri=${address}&response_type=code`
+        }
             function loginBtnClick() {
                 let email = document.getElementById("member-email").value
                 let pw = document.getElementById("member-password").value
@@ -35,15 +41,16 @@
 {% block body %}
     <div class="section has-text-centered">
         <h1 class="title">로그인 페이지</h1>
-        <div class="container" style="width:60%">
+        <div class="container" style="width:60%;">
             <form class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" for="member-email">EMAIL</label>
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" >
                         <div class="control">
-                            <input type="text" class="input" id="member-email" autocomplete="false" aria-describedby="emailHelp"
+                            <input type="text" class="input" id="member-email" autocomplete="false"
+                                   aria-describedby="emailHelp"
                                    placeholder="My Email">
                         </div>
                     </div>
@@ -56,19 +63,15 @@
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input type="password" class="input" id="member-password" autocomplete="false" placeholder="My Password">
+                            <input type="password" class="input" id="member-password"
+                                   autocomplete="false" placeholder="My Password">
                         </div>
                     </div>
                 </div>
             </form>
             <button class="button is-primary" onclick="loginBtnClick()">로그인</button>
-            {% if env == 'development' %}
-                <a class="button is-warning"
-                   href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=http://localhost:5000/redirect&response_type=code">카카오로그인</a>
-            {% else %}
-                <a class="button is-warning"
-                   href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=https://www.mysmallmeal.shop:8000/redirect&response_type=code">카카오로그인</a>
-            {% endif %}
+            <a id="K-auth" class="button is-warning">
+                카카오로그인</a>
             <a class="button is-success" href="{{ url_for('register') }}">회원가입</a>
         </div>
     </div>

@@ -21,6 +21,7 @@ if application.env == 'development':
 client = MongoClient(os.environ.get("DB_PATH"), port=27017)
 os.environ['JWT_KEY'] = 'jaryogoojo'
 SECRET_KEY = os.environ.get("JWT_KEY")
+client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
 
 db = client.dbGoojo
 restaurant_col = db.restaurant
@@ -52,7 +53,7 @@ def hello_world():  # put application's code here
 @application.route('/login')
 def login():
     msg = request.args.get("msg")
-    return render_template('login.html', env=application.env, msg=msg)
+    return render_template('login.html', ID=client_id, URI=KAKAO_REDIRECT_URI, msg=msg)
 
 
 @application.route('/register')
@@ -144,10 +145,8 @@ def api_valid():
 @application.route('/redirect')
 def kakao_redirect():
     # code 가져 오기
-    parts = urlparse(request.full_path)
-    qs = dict(parse_qsl(parts.query))
-    code = qs['code']
-    client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
+    qs = dict(parse_qsl(request.query_string))
+    code = qs.get(b'code').decode('utf-8')
     # 토큰요청
     url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}' \
           f'&redirect_uri={KAKAO_REDIRECT_URI}&code={code}'
@@ -166,14 +165,14 @@ def kakao_redirect():
         token_email = req['kakao_account']['email']
         # db에 저장
         members.update({'providerId': user_id},
-                       {"$set": {'email': token_email, 'nick': nickname, 'provider': 'kakao'}}, True)
+                       {"$set": {'email': token_email, 'nick': nickname, 'provider': 'kakao'}}, upsert=True)
     except Exception as e:
         print(e)
         user_id = req['id']
         nickname = req['properties']['nickname']
         # db에 저장
         members.update({'providerId': user_id},
-                       {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
+                       {"$set": {'nick': nickname, 'provider': 'kakao'}}, upsert=True)
     # jwt 토큰 발급
     payload = {
         'id': user_id,

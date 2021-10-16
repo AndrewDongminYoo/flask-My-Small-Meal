@@ -58,10 +58,7 @@ async function weather() {
         <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th colspan="2">날씨</th></tr></thead></table>
         `;
     let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
-    const url = 'https://api.openweathermap.org/data/2.5/weather?' +
-        'lat=' + latitude.toFixed(7) +
-        '&lon=' + longitude.toFixed(7) +
-        `&appid=${apikey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric`;
     const response = await fetch(url).then((res) => res.json()).catch()
     const { weather, wind } = await response;
     const { humidity, temp } = await response['main'];
@@ -207,7 +204,7 @@ function sendLike(user, headers, body) {
 
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
-    document.querySelector("h2.h2").style.display = "block"
+    document.querySelector("#aside").style.display = "block"
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
@@ -388,8 +385,8 @@ async function everybodyShuffleIt(array) {
     for (let i = 0; i < array.length; i++) {
         await timer(600)
         document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e => e.classList.remove('is-red'));
-        document.querySelector(`span.word.word-${i}`).classList.add('is-red')
-        if (document.querySelector(`.word-${i}`)?.classList.contains('is-red') && document.querySelector(`.word-${i}`)['title'] === result) {
+        document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
+        if (document.querySelector(`.word-${i}`).classList.contains('is-red') && document.querySelector(`.word-${i}`)['title'] === result) {
             document.querySelector(`button.button[value='${result}']`).classList.remove('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
