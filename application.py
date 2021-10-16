@@ -9,7 +9,7 @@ import jwt
 import datetime
 from urllib.parse import urlparse, parse_qsl
 
-KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop:8000/redirect'
+KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop/redirect'
 application = Flask(__name__)
 application.config['TEMPLATES_AUTO_RELOAD'] = True
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
