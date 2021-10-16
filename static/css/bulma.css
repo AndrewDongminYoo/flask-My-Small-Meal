@@ -2683,7 +2683,7 @@ a.tag:hover {
     font-size: 1.25em;
     font-weight: 700;
     line-height: 1.25;
-    padding: .75em 1em;
+    padding: .75em .75em;
 }
 
 .panel-tabs {

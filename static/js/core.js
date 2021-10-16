@@ -40,7 +40,7 @@ function memberInfoBox() {
 //     const {nickname, result} = response
 //     if (result === 'success') {
 //         document.querySelector(".login-btn").textContent = '로그아웃'
-//         document.querySelector("#login-nick").textContent = `${nickname}님`
+//         document.querySelector("#bookmark-title").textContent = `${nickname}'s PICK!`
 //     } else {
 //         // 로그인이 안되면 에러메시지를 띄웁니다.
 //         document.querySelector(".login-btn").textContent = '로그인'

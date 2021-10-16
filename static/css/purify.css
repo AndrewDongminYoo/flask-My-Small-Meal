@@ -380,7 +380,6 @@ span.mark-menu {
     -ms-transition: all .2s;
     -o-transition: all .2s;
     transition: all .2s;
-    margin-top: 30px;
 }
 
 #aside.open {
@@ -574,17 +573,11 @@ div.tabs {
 }
 
 #weather-box {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 30px;
-    transition: all .2s;
+    height: 100px;
     border-radius: 10px;
     position: sticky;
-    top: 100px;
-    right: 300px;
     font-size: 14px;
-    z-index: 10;
-    padding: 10px;
+    padding: 5px;
 }
 
 .weather-title {
@@ -592,8 +585,12 @@ div.tabs {
     background-color: #f0f8ff;
 }
 
+table.table {
+    background-color: transparent;
+}
+
 #footer {
-    margin-left: 15px;
+    margin: 15px;
     padding: 10px;
     width: 20%;
 }

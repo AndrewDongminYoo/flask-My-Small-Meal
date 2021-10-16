@@ -46,13 +46,21 @@ headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
 
 @application.route('/')
 def hello_world():  # put application's code here
-    # return "<h1>This is API server</h1>"
-    return render_template('index.html')
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"username": payload["id"]})
+        return render_template('index.html', user_info=user_info)
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="login timeout"))
+    except jwt.exceptions.DecodeError:
+        return redirect(url_for("login", msg="Cannot Login!"))
 
 
 @application.route('/login')
 def login():
-    return render_template('login.html', env=application.env)
+    msg = request.args.get("msg")
+    return render_template('login.html', env=application.env, msg=msg)
 
 
 @application.route('/register')
@@ -67,23 +75,23 @@ def kakao_login():
 
 @application.route('/api/login', methods=['POST'])
 def api_login():
-    email = request.form['email']
-    pw = request.form['pw']
+    email_receive = request.form['email']
+    password = request.form['pw']
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
-    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
     # id, 암호화된 pw 을 가지고 해당 유저를 찾습니다.
-    result = members.find_one({'email': email, 'pw': pw_hash}, {"_id": False})
+    result = members.find_one({'email': email_receive, 'pw': hashed_pw}, {"_id": False})
     # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result:
         # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
         # 아래에선 id와 exp 를 담았습니다. 즉, JWT 토큰을 풀면 유저 ID 값을 알 수 있습니다.
         # exp 에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
-        nick = result['nick']
+        nickname_receive = result['nick']
         payload = {
-            'email': email,
-            'nick': nick,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
+            'email': email_receive,
+            'nick': nickname_receive,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60*60*24)
         }
         token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
         # token 을 줍니다.
@@ -95,36 +103,48 @@ def api_login():
 
 @application.route('/api/register', methods=['POST'])
 def api_register():
-    email = request.form['email']
-    pw = request.form['pw']
+    email_receive = request.form['email']
+    password = request.form['pw']
     nickname = request.form['nickname']
     uuid = request.form['uuid']
     print('api_register uuid', uuid)
-    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    find_member = members.find_one({"email": email}, {"_id": False})
-    if find_member is None:
-        members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname, 'uuid': uuid})
-        return jsonify({'result': 'success'})
-    return jsonify({'result': 'fail'})
+    hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    user_exists = bool(members.find_one({"email": email_receive}))
+    if user_exists:
+        return jsonify({'result': 'fail', 'msg': '같은 이메일의 유저가 존재합니다.'})
+    find_member = members.find_one({"email": email_receive}, {"_id": False})
+    if find_member:
+        user = {
+            'email': email_receive,
+            'pw': hashed_pw,
+            'nick': nickname,
+            'uuid': uuid,
+            '_id': uuid,
+        }
+        members.insert_one(user)
+        return jsonify({'result': 'success', 'user': nickname})
+    return jsonify({'result': 'fail', 'msg': '가입에 실패했습니다.'})
 
 
 @application.route('/api/valid', methods=['GET'])
 def api_valid():
+    """
+    try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
+    token 을 시크릿키로 디코딩합니다.
+    보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
+    payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
+    여기에선 그 예로 닉네임을 보내주겠습니다.
+    :return:
+    """
     token_receive = request.cookies.get('mySmallMealToken')
-    # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
     try:
-        # token 을 시크릿키로 디코딩합니다.
-        # 보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
         payload = jwt.decode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
-        # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
-        # 여기에선 그 예로 닉네임을 보내주겠습니다.
         # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
         return jsonify({'result': 'success', 'nickname': payload['nick'], 'payload': payload})
-    except jwt.exceptions.ExpiredSignatureError:
-        # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
-        return jsonify({'msg': '로그인 시간이 만료되었습니다.'})
+    except jwt.ExpiredSignatureError:
+        return redirect(url_for("login", msg="login timeout"))
     except jwt.exceptions.DecodeError:
-        return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
+        return redirect(url_for("login", msg="Cannot Login!"))
 
 
 @application.route('/redirect')
