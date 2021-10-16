@@ -155,7 +155,8 @@ async function NoGeoDontWorry() {
 function modal() {
     // if (isMobile) return;
     document.getElementById("modal").classList.add("is-active")
-    document.getElementById("modal").style.display = 'block';
+    document.getElementById("modal").style.display='grid';
+    document.getElementById("modal").style['place-items']='center';
 }
 
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
