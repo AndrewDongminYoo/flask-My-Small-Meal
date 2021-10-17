@@ -105,7 +105,7 @@ async function weather() {
         <td>${humidity}&#37;</td>
         <td>${wind.speed}m/s</td>
         <td>${main}</td>
-        <td><img src="https://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
+        <td><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></td>
         </tr></tbody>`;
 }
 
