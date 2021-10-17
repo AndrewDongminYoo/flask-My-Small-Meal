@@ -57,9 +57,10 @@ def collect_weather_data():
 def get_weather(code, size):
     with open(file="./static/data/weather.json", mode="r", encoding="utf-8", newline="") as weather1:
         weather_dict = json.load(weather1)  # 55개의 날씨가 있습니다.
-        the_weather = weather_dict.get(str(code))
-        return the_weather.get('Icons').get(size)
+        the_weather = weather_dict[str(code)]
+        return the_weather.get('Images').get(size)
 
 
 if __name__ == '__main__':
-    collect_weather_data()
+    # collect_weather_data()
+    print(get_weather(200, "full"))  # Storm!!!
