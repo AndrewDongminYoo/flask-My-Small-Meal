@@ -71,23 +71,27 @@ def api_login():
     request.form = json.loads(request.data)
     email_receive = request.form['email']
     password = request.form['pw']
+
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
     hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
     # id, 암호화된 pw 을 가지고 해당 유저를 찾습니다.
     result = members.find_one({'email': email_receive, 'pw': hashed_pw}, {"_id": False})
     # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result:
+
         # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
         # 아래에선 id와 exp 를 담았습니다. 즉, JWT 토큰을 풀면 유저 ID 값을 알 수 있습니다.
         # exp 에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
         nickname_receive = result['nick']
+
         payload = {
             'email': email_receive,
             'nick': nickname_receive,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=3)
         }
-        token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
+
+        token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256').decode('utf-8')
         # token 을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -171,11 +175,12 @@ def kakao_redirect():
     email = user_info.get('kakao_account').get('email')
     user_id = user_info.get('id')
     nickname = user_info.get('properties').get('nickname')
+    age = user_info.get('kakao_account').get('age_range')
     user = {
         'providerId': user_id,
         'nick': nickname,
         'provider': 'kakao',
-        'age': user_info.get('kakao_account').get('age_range')
+        'age': age
     }
     # db에 저장
     members.update({'email': email},
@@ -189,8 +194,29 @@ def kakao_redirect():
     token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
     # kakaoLogin 리다이렉트
     return redirect(url_for("kakao_login",
-                            token=token, providerId=user_id, email=email, nickname=nickname))
+                            token=token, providerId=user_id, email=email, nickname=nickname,age=age))
 
+
+@application.route('/api/kakao/uuid', methods=['POST'])
+def kakao_uuid():
+    uuid = request.form['uuid']
+    providerId = request.form['providerId']
+    email = request.form['email']
+    nickname = request.form['nickname']
+    age = request.form['age']
+
+    user = {
+        'providerId': providerId,
+        'nick': nickname,
+        'provider': 'kakao',
+        'age': age,
+        'uuid':uuid
+    }
+    # db에 저장
+    members.update({'email': email},
+                   {"$set": user}, upsert=True)
+
+    return jsonify({'result': 'success'})
 
 @application.route('/api/like', methods=['POST'])
 def like():

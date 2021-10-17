@@ -1,13 +1,26 @@
+{% extends "base.html" %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>카카오 로그인하기</title>
+    {% block head %}
+        {{ super() }}
     <script>
         window.onload = async () => {
             const params = getURLParams(location.search)
-            const {token} = params
+            const {token,providerId,email,nickname,age} = params
             document.cookie = `mySmallMealToken=${token};`;
-            window.location.href = "{{ url_for('hello_world') }}"
+            const uuid = localStorage.getItem("delivery-uuid")
+            $.ajax({
+                type: "POST",
+                url: "/api/kakao/uuid",
+                data: {uuid, providerId, email, nickname, age},
+                success: function (response) {
+                    console.log(response)
+                    window.location.href = "{{ url_for('hello_world') }}"
+                }
+            })
+
         }
 
         function getURLParams(url) {
@@ -18,6 +31,7 @@
             return result;
         }
     </script>
+    {% endblock %}
 </head>
 <body>
 
