@@ -7,6 +7,7 @@ import os
 import hashlib
 import jwt
 import datetime
+import weather
 from urllib.parse import urlparse, parse_qsl
 
 KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop/redirect'
@@ -298,6 +299,14 @@ def search_add():
     query = json.loads(data, encoding='utf-8')['query']
     # query = request.json.get('query')
     return jsonify(search_address(query))
+
+
+@application.route('api/weather', methods=["GET"])
+def declare_weather():
+    weather_code = request.args.get('code')
+    image_format = request.args.get('size')
+    result = weather.get_weather(code=weather_code, size=image_format)
+    return jsonify({'result': result})
 
 
 def put_restaurant(_id, min_order):

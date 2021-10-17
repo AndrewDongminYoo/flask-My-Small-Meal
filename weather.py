@@ -30,24 +30,36 @@ objWeather = {
 }
 
 
-with open(file="./static/data/weather.json", mode="r", encoding="utf-8", newline="") as weather1:
-    weather_dict = json.load(weather1)  # 55개의 날씨가 있습니다.
-    for code, data in weather_dict.items():
-        data['MaterialCommunityIcons'] = {
-            'day': objWeather[data['icon']+"d"],
-            'night': objWeather[data['icon']+"n"]
-        }
-        query = data['Description'].replace(" ", "%20") + "%20weather"
-        url = f'{UNSPLASH}?client_id={Access_Key}&query={query}&per_page={str(PAGE)}&orientation={SHAPE}'
-        req = requests.get(url)
-        try:
-            result = req.json()['results'][0]
-            data['Images'] = result['urls']
-        except TypeError:
-            print("wrong type error")
-        except KeyError:
-            print("key not exists error")
-        except json.JSONDecodeError:
-            print("Rate Limiting Error...")
-with open(file="./static/data/weather.json", mode="w", encoding="utf-8", newline="") as weather2:
-    json.dump(weather_dict, weather2, indent=4, ensure_ascii=False, allow_nan=False)
+def collect_weather_data():
+    with open(file="./static/data/weather.json", mode="r", encoding="utf-8", newline="") as weather1:
+        weather_dict = json.load(weather1)  # 55개의 날씨가 있습니다.
+        for code, data in weather_dict.items():
+            data['MaterialCommunityIcons'] = {
+                'day': objWeather[data['icon']+"d"],
+                'night': objWeather[data['icon']+"n"]
+            }
+            query = data['Description'].replace(" ", "%20") + "%20weather"
+            url = f'{UNSPLASH}?client_id={Access_Key}&query={query}&per_page={str(PAGE)}&orientation={SHAPE}'
+            req = requests.get(url)
+            try:
+                result = req.json()['results'][0]
+                data['Images'] = result['urls']
+            except TypeError:
+                print("wrong type error")
+            except KeyError:
+                print("key not exists error")
+            except json.JSONDecodeError:
+                print("Rate Limiting Error...")
+    with open(file="./static/data/weather.json", mode="w", encoding="utf-8", newline="") as weather2:
+        json.dump(weather_dict, weather2, indent=4, ensure_ascii=False, allow_nan=False)
+
+
+def get_weather(code, size):
+    with open(file="./static/data/weather.json", mode="r", encoding="utf-8", newline="") as weather1:
+        weather_dict = json.load(weather1)  # 55개의 날씨가 있습니다.
+        the_weather = weather_dict.get(str(code))
+        return the_weather.get('Icons').get(size)
+
+
+if __name__ == '__main__':
+    collect_weather_data()
