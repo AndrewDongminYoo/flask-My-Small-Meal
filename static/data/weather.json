@@ -1,0 +1,277 @@
+{
+ "200": {
+  "Main": "Thunderstorm",
+  "Description": "thunderstorm with light rain",
+  "icon": "11"
+ },
+ "201": {
+  "Main": "Thunderstorm",
+  "Description": "thunderstorm with rain",
+  "icon": "11"
+ },
+ "202": {
+  "Main": "Thunderstorm",
+  "Description": "thunderstorm with heavy rain",
+  "icon": "11"
+ },
+ "210": {
+  "Main": "Thunderstorm",
+  "Description": "light thunderstorm",
+  "icon": "11"
+ },
+ "211": {
+  "Main": "Thunderstorm",
+  "Description": "thunderstorm",
+  "icon": "11"
+ },
+ "212": {
+  "Main": "Thunderstorm",
+  "Description": "heavy thunderstorm",
+  "icon": "11"
+ },
+ "221": {
+  "Main": "Thunderstorm",
+  "Description": "ragged thunderstorm",
+  "icon": "11"
+ },
+ "230": {
+  "Main": "Thunderstorm",
+  "Description": "thunderstorm with light drizzle",
+  "icon": "11"
+ },
+ "231": {
+  "Main": "Thunderstorm",
+  "Description": "thunderstorm with drizzle",
+  "icon": "11"
+ },
+ "232": {
+  "Main": "Thunderstorm",
+  "Description": "thunderstorm with heavy drizzle",
+  "icon": "11"
+ },
+ "300": {
+  "Main": "Drizzle",
+  "Description": "light intensity drizzle",
+  "icon": "09"
+ },
+ "301": {
+  "Main": "Drizzle",
+  "Description": "drizzle",
+  "icon": "09"
+ },
+ "302": {
+  "Main": "Drizzle",
+  "Description": "heavy intensity drizzle",
+  "icon": "09"
+ },
+ "310": {
+  "Main": "Drizzle",
+  "Description": "light intensity drizzle rain",
+  "icon": "09"
+ },
+ "311": {
+  "Main": "Drizzle",
+  "Description": "drizzle rain",
+  "icon": "09"
+ },
+ "312": {
+  "Main": "Drizzle",
+  "Description": "heavy intensity drizzle rain",
+  "icon": "09"
+ },
+ "313": {
+  "Main": "Drizzle",
+  "Description": "shower rain and drizzle",
+  "icon": "09"
+ },
+ "314": {
+  "Main": "Drizzle",
+  "Description": "heavy shower rain and drizzle",
+  "icon": "09"
+ },
+ "321": {
+  "Main": "Drizzle",
+  "Description": "shower drizzle",
+  "icon": "09"
+ },
+ "500": {
+  "Main": "Rain",
+  "Description": "light rain",
+  "icon": "10"
+ },
+ "501": {
+  "Main": "Rain",
+  "Description": "moderate rain",
+  "icon": "10"
+ },
+ "502": {
+  "Main": "Rain",
+  "Description": "heavy intensity rain",
+  "icon": "10"
+ },
+ "503": {
+  "Main": "Rain",
+  "Description": "very heavy rain",
+  "icon": "10"
+ },
+ "504": {
+  "Main": "Rain",
+  "Description": "extreme rain",
+  "icon": "10"
+ },
+ "511": {
+  "Main": "Rain",
+  "Description": "freezing rain",
+  "icon": "13"
+ },
+ "520": {
+  "Main": "Rain",
+  "Description": "light intensity shower rain",
+  "icon": "09"
+ },
+ "521": {
+  "Main": "Rain",
+  "Description": "shower rain",
+  "icon": "09"
+ },
+ "522": {
+  "Main": "Rain",
+  "Description": "heavy intensity shower rain",
+  "icon": "09"
+ },
+ "531": {
+  "Main": "Rain",
+  "Description": "ragged shower rain",
+  "icon": "09"
+ },
+ "600": {
+  "Main": "Snow",
+  "Description": "light snow",
+  "icon": "13"
+ },
+ "601": {
+  "Main": "Snow",
+  "Description": "Snow",
+  "icon": "13"
+ },
+ "602": {
+  "Main": "Snow",
+  "Description": "Heavy snow",
+  "icon": "13"
+ },
+ "611": {
+  "Main": "Snow",
+  "Description": "Sleet",
+  "icon": "13"
+ },
+ "612": {
+  "Main": "Snow",
+  "Description": "Light shower sleet",
+  "icon": "13"
+ },
+ "613": {
+  "Main": "Snow",
+  "Description": "Shower sleet",
+  "icon": "13"
+ },
+ "615": {
+  "Main": "Snow",
+  "Description": "Light rain and snow",
+  "icon": "13"
+ },
+ "616": {
+  "Main": "Snow",
+  "Description": "Rain and snow",
+  "icon": "13"
+ },
+ "620": {
+  "Main": "Snow",
+  "Description": "Light shower snow",
+  "icon": "13"
+ },
+ "621": {
+  "Main": "Snow",
+  "Description": "Shower snow",
+  "icon": "13"
+ },
+ "622": {
+  "Main": "Snow",
+  "Description": "Heavy shower snow",
+  "icon": "13"
+ },
+ "701": {
+  "Main": "Mist",
+  "Description": "mist",
+  "icon": "50"
+ },
+ "711": {
+  "Main": "Smoke",
+  "Description": "Smoke",
+  "icon": "50"
+ },
+ "721": {
+  "Main": "Haze",
+  "Description": "Haze",
+  "icon": "50"
+ },
+ "731": {
+  "Main": "Dust",
+  "Description": "sand or dust whirls",
+  "icon": "50"
+ },
+ "741": {
+  "Main": "Fog",
+  "Description": "fog",
+  "icon": "50"
+ },
+ "751": {
+  "Main": "Sand",
+  "Description": "sand",
+  "icon": "50"
+ },
+ "761": {
+  "Main": "Dust",
+  "Description": "dust",
+  "icon": "50"
+ },
+ "762": {
+  "Main": "Ash",
+  "Description": "volcanic ash",
+  "icon": "50"
+ },
+ "771": {
+  "Main": "Squall",
+  "Description": "squalls",
+  "icon": "50"
+ },
+ "781": {
+  "Main": "Tornado",
+  "Description": "tornado",
+  "icon": "50"
+ },
+ "800": {
+  "Main": "Clear",
+  "Description": "clear sky",
+  "icon": "01"
+ },
+ "801": {
+  "Main": "Clouds",
+  "Description": "few clouds 11-25%",
+  "icon": "02"
+ },
+ "802": {
+  "Main": "Clouds",
+  "Description": "scattered clouds 25-50%",
+  "icon": "03"
+ },
+ "803": {
+  "Main": "Clouds",
+  "Description": "broken clouds 51-84%",
+  "icon": "04"
+ },
+ "804": {
+  "Main": "Clouds",
+  "Description": "overcast clouds 85-100%",
+  "icon": "04"
+ }
+}

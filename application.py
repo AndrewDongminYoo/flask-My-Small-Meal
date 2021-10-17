@@ -331,9 +331,9 @@ def search_address(query):
     사용자가 검색 창에 직접 주소를 입력했을 때, 카카오맵 api 를 통해 주소를 위도경도로 변환합니다.\n
     :param query: 찾고자 하는 주소
     :return: doc(dict) {
-    address: 찾고자 하는 주소 도로명 주소,
-    lat: 찾고자 하는 지역의 x좌표,
-    long: 찾고자 하는 지역의 y 좌표
+        address: 찾고자 하는 주소 도로명 주소,
+        lat: 찾고자 하는 지역의 x좌표,
+        long: 찾고자 하는 지역의 y 좌표
     }
     """
     url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + query
@@ -355,4 +355,5 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    application.run(port=8000)
+    application.debug = True
+    application.run(port=8000, debug=True)
