@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 import json
 
@@ -62,5 +63,5 @@ def get_weather(code, size):
 
 
 if __name__ == '__main__':
-    # collect_weather_data()
+    collect_weather_data()
     print(get_weather(200, "full"))  # Storm!!!
