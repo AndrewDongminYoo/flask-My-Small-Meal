@@ -3,7 +3,6 @@ let latitude = 37.5559598;
 let longitude = 126.1699723;
 let isMobile = false;
 let Screen = "Full Wide"
-let columnCount = 1
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 
@@ -35,7 +34,6 @@ function widthCheck() {
     } else {
         Screen = "Mobile width"
     }
-    console.log(Screen)
 }
 
 function deviceCheck() {
@@ -44,7 +42,7 @@ function deviceCheck() {
     if (this_device) {
         isMobile = pc.indexOf(navigator.platform.toLowerCase()) < 0;
     }
-    console.log(isMobile ? "It's on mobile" : "It's Computer")
+    // console.log(isMobile ? "It's on mobile" : "It's Computer")
 }
 
 function memberValidCheck() {
@@ -121,12 +119,12 @@ function geoFindMe() {
 function success(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    // weather(latitude,longitude)
     let start = Date.now()
     getFoods(latitude, longitude)
         .then(restaurants => {
             emptyCards()
             let categories = []
+            restaurants = Array(new Set(restaurants))
             restaurants.forEach((restaurant) => {
                 categories.push(...restaurant['categories'])
                 showCards(restaurant)
@@ -138,18 +136,16 @@ function success(position) {
             if (Screen === "Mobile width") return;
             let unique = new Set(categories)
             categories = [...unique]
-
             modal()
-
-            // categories = categories.filter((v) => v !== '1인분주문')
-            // shuffle(categories)
-            // let tempHTML = "<span>[</span>";
-            // categories.forEach((word, i) => {
-            //     tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
-            // })
-            // tempHTML += "<span>]</span>";
-            // document.querySelector(".modal-content").innerHTML = tempHTML;
-            // everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
+            categories = categories.filter((v) => v !== '1인분주문')
+            shuffle(categories)
+            let tempHTML = "<span>[</span>";
+            categories.forEach((word, i) => {
+                tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
+            })
+            tempHTML += "<span>]</span>";
+            document.querySelector(".modal-content").innerHTML = tempHTML;
+            everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
 
 }
@@ -186,7 +182,7 @@ function keep(_id, min_order) {
     const headers = new Headers();
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({uuid: user, _id, min_order, action: 'like', mode: "cors"});
-    console.log(body)
+    // console.log(body)
     sendLike(user, headers, body)
 }
 
@@ -230,7 +226,6 @@ function sendLike(user, headers, body) {
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
     if (Screen === "Mobile width") return;
-    let ex = document.querySelector("#aside");
     document.querySelector("#aside").style.display = "block"
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
@@ -248,25 +243,21 @@ function drawMap(mapContainer, lat, lng) {
             level: 3, // 지도의 확대 레벨
             mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
         };
-
     // 지도를 생성한다
     let map = new kakao.maps.Map(mapContainer, mapOption);
-
     // 지도에 마커를 생성하고 표시한다
     let markerPosition = new kakao.maps.LatLng(lat, lng);
-
     // 마커를 생성합니다
     let marker = new kakao.maps.Marker({
         position: markerPosition
     });
-
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
 }
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
-    let {_id, name, phone, time, min_order, lat, lng} = restaurant;
+    let {_id, name, phone, time, min_order} = restaurant;
     let tempHtml = `        
         <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
         <span class="mark-menu">${name}</span>
@@ -282,7 +273,7 @@ function popUp(_id) {
     fetch(`/api/detail?_id=${_id}`)
         .then((res)=>res.json())
         .then((restaurant) => {
-        console.log(restaurant)
+        // console.log(restaurant)
         let {image, name, address, time, min_order, phone, categories, lat, lng} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
@@ -308,7 +299,7 @@ function popUp(_id) {
         tempHtml = tempHtml.replace("{__buttons__}", btn)
         lowModalBody.innerHTML = tempHtml
         let mapContainer = document.getElementById('map') // 지도를 표시할 div;
-        console.log(`lat:${lat}, lng:${lng}`);
+        // console.log(`lat:${lat}, lng:${lng}`);
         drawMap(mapContainer, lat, lng);
         // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
         // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
@@ -342,7 +333,6 @@ const showCards = (restaurant) => {
         image, address,
         rating, time,
         min_order, phone,
-        lat, lng
     } = restaurant;
     // 이미지가 없는 경우 VIEW 가 좋지 않아 리턴시킨다.
     if (!image) return;

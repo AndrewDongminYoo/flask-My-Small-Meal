@@ -20,7 +20,7 @@ if application.env == 'development':
     KAKAO_REDIRECT_URI = 'http://localhost:5000/redirect'
 # 배포 전에 원격 db로 교체!
 
-client = MongoClient("mongodb://jaryo:goojo@54.243.12.171:27017/dbGoojo?authSource=admin")
+client = MongoClient(os.environ.get("DB_PATH"))
 os.environ['JWT_KEY'] = 'JARYOGOOJO'
 SECRET_KEY = os.environ.get("JWT_KEY")
 client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
