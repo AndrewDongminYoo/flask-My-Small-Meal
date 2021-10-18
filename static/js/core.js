@@ -48,6 +48,7 @@ function deviceCheck() {
 function memberValidCheck() {
     if (Screen === "Mobile width") return;
     let token = getOneCookie("mySmallMealToken")
+    if (!(token)) {window.alert('로그인이 필요합니다.'); return;}
     fetch(`/api/valid?token=${token}`)
         .then((res) => res.json())
         .then((data) => {
@@ -124,7 +125,6 @@ function success(position) {
         .then(restaurants => {
             emptyCards()
             let categories = []
-            restaurants = Array(new Set(restaurants))
             restaurants.forEach((restaurant) => {
                 categories.push(...restaurant['categories'])
                 showCards(restaurant)
