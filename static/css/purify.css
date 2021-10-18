@@ -1,4 +1,3 @@
-/* CSSTidy 1.3: Mon, 18 Oct 2021 01:08:00 -0700 */
 @font-face {
     font-family: 'Black Han Sans';
     font-style: normal;
@@ -504,6 +503,7 @@ ul#bookmarks {
     align-items: center;
     display: flex;
     justify-content: center;
+    padding: 10px 0;
 }
 
 #member-info-box, #aside, #weather-box {
@@ -520,11 +520,11 @@ ul#bookmarks {
     z-index: 10;
 }
 
-#member-info-box.open {
+#member-info-box.open, #aside.open, #weather-box.open {
     -moz-transform: translate3d(0, 0, 0);
     -webkit-transform: translate3d(0, 0, 0);
-    overflow-x: hidden;
-    padding: 10px 0;
+    overflow: hidden;
+    /*padding: 10px 0;*/
     transform: translate3d(0, 0, 0);
 }
 
@@ -563,13 +563,6 @@ ul#bookmarks {
 #column {
     display: grid;
     grid-column-gap: 30px;
-}
-
-#aside.open, #weather-box.open {
-    -moz-transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
-    overflow-x: hidden;
-    transform: translate3d(0, 0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -81,22 +81,24 @@
         <div class="columns is-max-desktop is-mobile">
             <div class="column column-0" id="column"></div>
             <div class="sub-column">
-                <div id="member-info-box" class="panel">
-                    <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
-                    <div id="login-nick-wrap">
-                        <div id="login-nick"></div>
+                <div>
+                    <div id="member-info-box" class="panel">
+                        <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
+                        <div id="login-nick-wrap">
+                            <div id="login-nick"></div>
+                        </div>
+                        <a class="button is-info login-btn" href="{{ url_for('login') }}">로그인</a>
+                        <a class="button is-success register-btn" href="{{ url_for('register') }}">회원가입</a>
                     </div>
-                    <a class="button is-info login-btn" href="{{ url_for('login') }}">로그인</a>
-                    <a class="button is-success register-btn" href="{{ url_for('register') }}">회원가입</a>
+                    <div id="aside" class="panel is-warning" style="display:none;">
+                        <h2 class="h2 panel-heading" id="bookmark-title">즐겨찾기 목록</h2>
+                        <aside class="menu panel-block">
+                            <ul class="menu-list" id="bookmarks">
+                            </ul>
+                        </aside>
+                    </div>
+                    <div id="weather-box" class="panel"></div>
                 </div>
-                <div id="aside" class="panel is-warning" style="display:none;">
-                    <h2 class="h2 panel-heading" id="bookmark-title">즐겨찾기 목록</h2>
-                    <aside class="menu panel-block">
-                        <ul class="menu-list" id="bookmarks">
-                        </ul>
-                    </aside>
-                </div>
-                <div id="weather-box" class="panel"></div>
                 <div class="btn-up">
                     <button aria-label="scroll to top" onclick="window.scrollTo(0, 0);" class="button btn-up-position">
                         <i class="fas fa-chevron-up"></i>
