@@ -3,7 +3,8 @@
     font-style: normal;
     font-weight: 400;
     src: local(''),
-    url('../fonts/black-han-sans-v8-korean-regular.woff') format('woff'), /* Modern Browsers */ url('../fonts/black-han-sans-v8-korean-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/black-han-sans-v8-korean-regular.woff') format('woff'), /* Modern Browsers */
+    url('../fonts/black-han-sans-v8-korean-regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
 @font-face {
@@ -621,4 +622,20 @@ ul#bookmarks {
     #column {
         grid-template-columns:repeat(4, 1fr);
     }
+}
+
+#column {
+    display: grid;
+    grid-column-gap: 30px;
+
+}
+
+#recommend-menu {
+    text-align: center;
+
+}
+
+#recommend-menu > .let-the-games-begin {
+    margin-bottom: 10px;
+    font-size: 20px;
 }
