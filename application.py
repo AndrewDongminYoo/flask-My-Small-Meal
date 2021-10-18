@@ -7,8 +7,6 @@ import os
 import hashlib
 import jwt
 import datetime
-import re
-
 from urllib.parse import parse_qsl
 
 KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop/redirect'
@@ -24,7 +22,6 @@ client = MongoClient(os.environ.get("DB_PATH"))
 os.environ['JWT_KEY'] = 'JARYOGOOJO'
 SECRET_KEY = os.environ.get("JWT_KEY")
 client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
-regex = re.compile(r"(^02.{0}|^01.|[0-9]{3})([0-9]+)([0-9]{4})")
 
 db = client.dbGoojo
 restaurant_col = db.restaurant
@@ -290,8 +287,7 @@ def get_restaurant():
         rest['min_order'] = shop.get('min_order_amount')
         rest['lng'] = shop.get('lng')
         rest['lat'] = shop.get('lat')
-        phone = shop.get('phone')
-        rest['phone'] = "-".join(regex.findall(phone)[0])
+        rest['phone'] = shop.get('phone')
         restaurants.append(rest)
         restaurant_col.update_one({"_id": shop['id']}, {"$set": rest}, upsert=True)
     return jsonify(restaurants)
@@ -333,12 +329,10 @@ def put_restaurant(_id, min_order):
     req = requests.post(url, headers=headers)
     result = req.json()
     print(result)
-    _phone = result.get("phone")
-    phone = "-".join(regex.findall(_phone)[0])
     doc = {
         "_id": _id,
         "time": result.get("open_time_description"),
-        "phone": phone,
+        "phone": result.get("phone"),
         "name": result.get("name"),
         "categories": result.get("categories"),
         "delivery": result.get("estimated_delivery_time"),
