@@ -189,6 +189,7 @@ function userCheck() {
         user = uuidv4()
         localStorage.setItem("delivery-uuid", user)
     }
+    console.log(`user: ${user}`);
     // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
     setTimeout(() => showBookmarks(user), 2000)
 }
@@ -242,6 +243,8 @@ function sendLike(user, headers, body) {
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
     if (Screen === "Mobile width") return;
+    let ex = document.querySelector("#aside");
+    console.log(ex);
     document.querySelector("#aside").style.display = "block"
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
