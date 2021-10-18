@@ -151,15 +151,16 @@ function success(position) {
             let unique = new Set(categories)
             categories = [...unique]
             modal()
-            categories = categories.filter((v) => v !== '1인분주문')
-            shuffle(categories)
-            let tempHTML = "<span>[</span>";
-            categories.forEach((word, i) => {
-                tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
-            })
-            tempHTML += "<span>]</span>";
-            document.querySelector(".modal-content").innerHTML = tempHTML;
-            everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
+
+            // categories = categories.filter((v) => v !== '1인분주문')
+            // shuffle(categories)
+            // let tempHTML = "<span>[</span>";
+            // categories.forEach((word, i) => {
+            //     tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
+            // })
+            // tempHTML += "<span>]</span>";
+            // document.querySelector(".modal-content").innerHTML = tempHTML;
+            // everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
 }
 
@@ -264,14 +265,17 @@ const bookMark = (restaurant) => {
 }
 
 let lowModalBody = document.getElementById('low-modal-body');
+let modalHide = () => lowModalBody.style.display='none';
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(_id) {
-    fetch(`/api/detail?_id=${_id}`).then((restaurant) => {
+    fetch(`/api/detail?_id=${_id}`)
+        .then((res)=>res.json())
+        .then((restaurant) => {
         let {image, name, address, time, min_order, phone, categories} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
-                <button class="button close-button" onclick="lowModalBody.style.display='none';">⨉</button>
+                <button class="button close-button" onclick="modalHide()">⨉</button>
                 <div class="pop-card-head">
                     <img class="pop-card-head-image" src="${image}" alt="${name}">
                 </div>
@@ -289,7 +293,8 @@ function popUp(_id) {
         let btn = ""
         categories.forEach((tag) => btn += `<span>#${tag}</span>`)
         lowModalBody.style.display = "block";
-        lowModalBody.innnerHTML = tempHtml.replace("{__buttons__}", btn)
+        tempHtml = tempHtml.replace("{__buttons__}", btn)
+        lowModalBody.innerHTML = tempHtml
         // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
         // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
     })

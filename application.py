@@ -7,6 +7,7 @@ import os
 import hashlib
 import jwt
 import datetime
+from bson.objectid import ObjectId
 # import weather
 from urllib.parse import urlparse, parse_qsl
 
@@ -265,7 +266,7 @@ def get_restaurant():
     restaurants = list()
     for shop in shops:
         rest = dict()
-        if not int(shop["phone"]):
+        if not bool(int(shop["phone"])):
             continue
         rest['_id'] = shop.get('id')
         rest['name'] = shop.get('name')
@@ -289,7 +290,9 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     _id = request.args.get('_id')
-    restaurant = bookmarked_col.find_one({"_id": _id})
+    print(_id)
+    restaurant = bookmarked_col.find_one({"_id": int(_id)})
+    print(restaurant)
     return jsonify(restaurant)
 
 
