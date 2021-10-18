@@ -120,7 +120,9 @@
     width: 32px;
 }
 
-.button.is-loading::after, .control.is-loading::after {
+.button.is-loading::after,
+.control.is-loading::after,
+.tab.is-loading::after {
     -webkit-animation: spinAround .5s infinite linear;
     animation: spinAround .5s infinite linear;
     border: 2px solid #dbdbdb;
@@ -130,7 +132,7 @@
     content: "";
     display: block;
     height: 1em;
-    position: relative;
+    position: absolute;
     width: 1em;
 }
 
@@ -2798,7 +2800,8 @@ a.panel-block:hover, label.panel-block:hover {
 }
 
 .tabs li {
-    display: block;
+    display: grid;
+    place-items: center;
 }
 
 .tabs li.is-active a {

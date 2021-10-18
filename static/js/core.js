@@ -321,8 +321,14 @@ function showSideBar() {
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
 window.addEventListener('hashchange', async () => {
     let hash = window.location.hash.substring(1)
+    // tab 의 버튼을 클릭하면 그 버튼만 active 상태가 됩니다.
+    document.querySelectorAll(`li.tab:not(.tab-${hash})`).forEach(e => e.classList.remove('is-active'));
+    document.querySelector(`li.tab-${hash}`).classList.add('is-active');
+    document.querySelector(`li.tab-${hash}`).classList.add('is-loading');
+
     const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
     let restaurants = await response.json()
+    await document.querySelector(`li.tab-${hash}`).classList.remove('is-loading');
     emptyCards()
     restaurants.forEach((restaurant) => showCards(restaurant))
 })
@@ -393,12 +399,6 @@ function search() {
 function highlight(string) {
     document.querySelectorAll(`button.is-warning:not([value='${string}'])`).forEach(e => e.classList.add('is-outlined'))
     document.querySelectorAll(`button.button[value='${string}']`).forEach(e => e.classList.remove('is-outlined'))
-}
-
-// tab 의 버튼을 클릭하면 그 버튼만 active 상태가 됩니다.
-function tabFocus(string) {
-    document.querySelectorAll(`li.tab:not(.tab-${string})`).forEach(e => e.classList.remove('is-active'));
-    document.querySelector(`li.tab-${string}`).classList.add('is-active');
 }
 
 // 비동기처리 방식 자바스크립트를 고려한 타이머 함수

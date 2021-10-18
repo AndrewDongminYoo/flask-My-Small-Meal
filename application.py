@@ -350,7 +350,8 @@ def put_restaurant(_id, min_order):
         'lat': result.get("lat"),
         'lng': result.get("lng"),
     }
-    print(bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True))
+    bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True)
+    print(bookmarked_col.inserted_id)
 
 
 def search_address(query):
