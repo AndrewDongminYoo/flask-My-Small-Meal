@@ -285,7 +285,7 @@ function popUp(_id) {
                     <div class="pop-card-store-name">"${name}"</div>
                     <div class="pop-card-hash">{__buttons__}</div>
                 </div>                
-                <div id="map" style="width:100%;height:280px;cursor: pointer;" onclick="location.href='https://map.kakao.com/link/to/${name},${lat},${lng}'"></div>                
+                <div id="map" style="width:100%;height:220px;cursor: pointer;" onclick="location.href='https://map.kakao.com/link/to/${name},${lat},${lng}'"></div>                
                 <div class="pop-card-content-2">
                     <div class="pop-card-address">${address ? address : "주소가 정확하지 않습니다."}</div>
                     <div class="pop-card-schedule">영업시간: ${time ? time : "영업시간 정보가 없습니다."}</div>
