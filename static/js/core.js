@@ -150,17 +150,19 @@ function success(position) {
             if (Screen === "Mobile width") return;
             let unique = new Set(categories)
             categories = [...unique]
-            modal();
-                categories = categories.filter((v) => v !== '1인분주문')
-                shuffle(categories)
-                let tempHTML = "<span>[</span>";
-                categories.forEach((word, i) => {
-                    tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
-                })
-                tempHTML += "<span>]</span>";
-                document.querySelector(".modal-content").innerHTML = tempHTML;
-                everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
-            })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+
+            modal()
+
+            // categories = categories.filter((v) => v !== '1인분주문')
+            // shuffle(categories)
+            // let tempHTML = "<span>[</span>";
+            // categories.forEach((word, i) => {
+            //     tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
+            // })
+            // tempHTML += "<span>]</span>";
+            // document.querySelector(".modal-content").innerHTML = tempHTML;
+            // everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
+        })  // like 여부에 따라 html 달리 할 필요가 있을까..?
 
 }
 
@@ -201,6 +203,7 @@ function keep(_id, min_order) {
     const headers = new Headers();
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({uuid: user, _id, min_order, action: 'like', mode: "cors"});
+    console.log(body)
     sendLike(user, headers, body)
 }
 
@@ -245,7 +248,6 @@ function sendLike(user, headers, body) {
 function showBookmarks(user) {
     if (Screen === "Mobile width") return;
     let ex = document.querySelector("#aside");
-    console.log(ex);
     document.querySelector("#aside").style.display = "block"
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
@@ -257,10 +259,33 @@ function showBookmarks(user) {
     document.getElementById("aside").classList.add("open");
 }
 
+// 위도와 경도를 받아서 지도에 표시해주는 함수
+function drawMap(mapContainer, lat, lng) {
+        mapOption = {
+            center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+            level: 3, // 지도의 확대 레벨
+            mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+        };
+
+    // 지도를 생성한다
+    let map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 지도에 마커를 생성하고 표시한다
+    let markerPosition = new kakao.maps.LatLng(lat, lng);
+
+    // 마커를 생성합니다
+    let marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+}
+
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
-    let {_id, name, phone, time, min_order} = restaurant;
-    let tempHtml = `
+    let {_id, name, phone, time, min_order, lat, lng} = restaurant;
+    let tempHtml = `        
         <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
         <span class="mark-menu">${name}</span>
         <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
@@ -268,33 +293,41 @@ const bookMark = (restaurant) => {
 }
 
 let lowModalBody = document.getElementById('low-modal-body');
+let modalHide = () => lowModalBody.style.display='none';
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(_id) {
-    fetch(`/api/detail?_id=${_id}`).then((restaurant) => {
-        console.log(restaurant);
-        let {image, name, address, time, min_order, phone, categories} = restaurant;
+    fetch(`/api/detail?_id=${_id}`)
+        .then((res)=>res.json())
+        .then((restaurant) => {
+        console.log(restaurant)
+        let {image, name, address, time, min_order, phone, categories, lat, lng} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
-                <button class="button close-button" onclick="lowModalBody.style.display='none';">⨉</button>
+                <button class="button close-button" onclick="modalHide()">⨉</button>
                 <div class="pop-card-head">
                     <img class="pop-card-head-image" src="${image}" alt="${name}">
-                </div>
+                </div>                
                 <div class="pop-card-content-1">
                     <div class="pop-card-store-name">"${name}"</div>
                     <div class="pop-card-hash">{__buttons__}</div>
-                </div>
+                </div>                
+                <div id="map" style="width:100%;height:280px;cursor: pointer;" onclick="location.href='https://map.kakao.com/link/to/${name},${lat},${lng}'"></div>                
                 <div class="pop-card-content-2">
                     <div class="pop-card-address">${address ? address : "주소가 정확하지 않습니다."}</div>
                     <div class="pop-card-schedule">영업시간: ${time ? time : "영업시간 정보가 없습니다."}</div>
                     <div class="pop-card-min">${min_order ? min_order : "---"} 원 이상 주문가능</div>
                     <div class="pop-card-phone-number">${phone ? phone : "전화번호가 없습니다."}</div>
-                </div>
+                </div>                
             </div>`
         let btn = ""
         categories.forEach((tag) => btn += `<span>#${tag}</span>`)
         lowModalBody.style.display = "block";
-        lowModalBody.innnerHTML = tempHtml.replace("{__buttons__}", btn)
+        tempHtml = tempHtml.replace("{__buttons__}", btn)
+        lowModalBody.innerHTML = tempHtml
+        let mapContainer = document.getElementById('map') // 지도를 표시할 div;
+        console.log(`lat:${lat}, lng:${lng}`);
+        drawMap(mapContainer, lat, lng);
         // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
         // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
     })
@@ -327,7 +360,8 @@ const showCards = (restaurant, i) => {
         owner, categories,
         image, address,
         rating, time,
-        min_order, phone
+        min_order, phone,
+        lat, lng
     } = restaurant;
     // 이미지가 없는 경우 VIEW 가 좋지 않아 리턴시킨다.
     if (!image) return;
@@ -441,4 +475,3 @@ async function everybodyShuffleIt(array) {
         document.cookie = "roulette=true;";
     }
 }
-

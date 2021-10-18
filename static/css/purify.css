@@ -422,7 +422,7 @@ span.mark-menu {
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 450px;
+    width: 475px;
     padding: 30px;
     text-align: center;
     background-color: #fff;
@@ -453,10 +453,11 @@ span.mark-menu {
 .pop-card-content-1 {
     grid-column: span 24;
     grid-row: span 6;
-    display: flex;
+    width: 100%;
+    /*display: flex;*/
     justify-content: space-evenly;
     align-items: center;
-    box-shadow: rgba(0, 0, 0, .04) 0 3px 5px;
+    padding: 10px;
     margin: 14px;
 }
 
@@ -488,6 +489,7 @@ span.mark-menu {
     align-items: center;
     font-size: 20px;
     box-shadow: rgba(0, 0, 0, .16) 0 1px 4px;
+    padding: 0.8rem;
 }
 
 .pop-card-address {

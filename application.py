@@ -7,6 +7,7 @@ import os
 import hashlib
 import jwt
 import datetime
+from bson.objectid import ObjectId
 # import weather
 from urllib.parse import urlparse, parse_qsl
 
@@ -19,7 +20,7 @@ if application.env == 'development':
     KAKAO_REDIRECT_URI = 'http://localhost:5000/redirect'
 # 배포 전에 원격 db로 교체!
 
-client = MongoClient(os.environ.get("DB_PATH"), port=27017)
+client = MongoClient("mongodb://jaryo:goojo@54.243.12.171:27017/dbGoojo?authSource=admin")
 os.environ['JWT_KEY'] = 'JARYOGOOJO'
 SECRET_KEY = os.environ.get("JWT_KEY")
 client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
@@ -265,7 +266,7 @@ def get_restaurant():
     restaurants = list()
     for shop in shops:
         rest = dict()
-        if not int(shop["phone"]):
+        if not bool(int(shop["phone"])):
             continue
         rest['_id'] = shop.get('id')
         rest['name'] = shop.get('name')
@@ -289,7 +290,7 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     _id = request.args.get('_id')
-    restaurant = bookmarked_col.find_one({"_id": _id})
+    restaurant = bookmarked_col.find_one({"_id": int(_id)})
     return jsonify(restaurant)
 
 
@@ -321,6 +322,7 @@ def put_restaurant(_id, min_order):
     url = 'https://www.yogiyo.co.kr/api/v1/restaurants/' + str(_id)
     req = requests.post(url, headers=headers)
     result = req.json()
+    print(result)
     doc = {
         "_id": _id,
         "time": result.get("open_time_description"),
@@ -330,7 +332,9 @@ def put_restaurant(_id, min_order):
         "delivery": result.get("estimated_delivery_time"),
         "address": result.get("address"),
         "image": result.get("background_url"),
-        "min_order": min_order
+        "min_order": min_order,
+        'lat': result.get("lat"),
+        'lng': result.get("lng"),
     }
     bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True)
 
