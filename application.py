@@ -174,6 +174,7 @@ def kakao_redirect():
     user_id = user_info.get('id')
     prop = user_info.get('properties')
     nickname = "Guest"
+    profile = ""
     if prop:
         nickname = prop.get('nickname')
         profile = prop.get("thumbnail_image")
@@ -181,6 +182,7 @@ def kakao_redirect():
         'providerId': user_id,
         'nick': nickname,
         'provider': 'kakao',
+        'profile': profile,
         'age': user_info.get('kakao_account').get('age_range')
     }
     # db에 저장
@@ -190,6 +192,7 @@ def kakao_redirect():
     payload = {
         'id': user_id,
         'nick': nickname,
+        'profile': profile,
         'exp': datetime.datetime.utcnow() + datetime.timedelta(days=3)
     }
     token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
