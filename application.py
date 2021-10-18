@@ -168,7 +168,12 @@ def kakao_redirect():
                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     user_info = requests.post(url, headers=info_header).json()
     print(user_info)
-    email = user_info.get('kakao_account').get('email')
+    account = user_info.get('kakao_account')
+    email = "@"
+    age = ""
+    if account:
+        email = account.get('email')
+        age = account.get('age_range')
     user_id = user_info.get('id')
     prop = user_info.get('properties')
     nickname = "Guest"
@@ -181,7 +186,7 @@ def kakao_redirect():
         'nick': nickname,
         'provider': 'kakao',
         'profile': profile,
-        'age': user_info.get('kakao_account').get('age_range')
+        'age': age
     }
     # db에 저장
     members.update({'email': email},
