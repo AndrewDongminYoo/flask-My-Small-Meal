@@ -172,7 +172,11 @@ def kakao_redirect():
     print(user_info)
     email = user_info.get('kakao_account').get('email')
     user_id = user_info.get('id')
-    nickname = user_info.get('properties').get('nickname')
+    prop = user_info.get('properties')
+    nickname = "Guest"
+    if prop:
+        nickname = prop.get('nickname')
+        profile = prop.get("thumbnail_image")
     user = {
         'providerId': user_id,
         'nick': nickname,

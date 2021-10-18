@@ -175,7 +175,11 @@ function userCheck() {
         localStorage.setItem("delivery-uuid", user)
     }
     // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
-    setTimeout(() => showBookmarks(user), 2000)
+    setTimeout(() => {
+        showBookmarks(user)
+        document.querySelector('#member-info-box').classList.add('open')
+        document.querySelector('#weather-box').classList.add('open')
+    }, 2000)
 }
 
 // 특정 식당을 즐겨찾기 하는 코드

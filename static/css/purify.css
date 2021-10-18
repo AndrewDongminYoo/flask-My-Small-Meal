@@ -363,23 +363,10 @@ button.button.is-xs {
 }
 
 span.mark-menu {
-    width: 8rem;
+    width: 13rem;
     overflow: hidden;
     height: 1rem;
     display: inline-block !important;
-}
-
-#aside {
-    font-size: 14px;
-    z-index: 10;
-    -webkit-transform: translate3d(300px, 0, 0);
-    -moz-transform: translate3d(300px, 0, 0);
-    transform: translate3d(300px, 0, 0);
-    -webkit-transition: all .2s;
-    -moz-transition: all .2s;
-    -ms-transition: all .2s;
-    -o-transition: all .2s;
-    transition: all .2s;
 }
 
 #aside.open {
@@ -387,18 +374,6 @@ span.mark-menu {
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-    -webkit-transition: all .2s;
-    -moz-transition: all .2s;
-    -ms-transition: all .2s;
-    -o-transition: all .2s;
-    transition: all .2s;
-}
-
-#aside {
-    border-radius: 10px;
-    position: sticky;
-    top: 100px;
-    right: 300px;
 }
 
 #low-modal {
@@ -580,9 +555,19 @@ div.tabs {
     padding: 5px;
 }
 
+#weather-box.open {
+    overflow-x: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+
 .weather-title {
+    font-size: x-large;
     text-align: -webkit-center;
     background-color: #f0f8ff;
+    font-family: 'SDSamliphopangche_Outline', sans-serif;
 }
 
 table.table {
@@ -623,6 +608,30 @@ ul#bookmarks {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#member-info-box,
+#aside,
+#weather-box {
+    position: sticky;
+    z-index: 10;
+    -webkit-transform: translate3d(300px, 0, 0);
+    -moz-transform: translate3d(300px, 0, 0);
+    transform: translate3d(300px, 0, 0);
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    border-radius: 10px;
+}
+
+#member-info-box.open {
+    overflow-x: hidden;
+    padding: 10px 0 10px 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 
 #login-nick-wrap {
