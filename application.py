@@ -290,9 +290,7 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     _id = request.args.get('_id')
-    print(_id)
     restaurant = bookmarked_col.find_one({"_id": int(_id)})
-    print(restaurant)
     return jsonify(restaurant)
 
 
