@@ -150,17 +150,18 @@ function success(position) {
             if (Screen === "Mobile width") return;
             let unique = new Set(categories)
             categories = [...unique]
-            modal()
-            categories = categories.filter((v) => v !== '1인분주문')
-            shuffle(categories)
-            let tempHTML = "<span>[</span>";
-            categories.forEach((word, i) => {
-                tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
-            })
-            tempHTML += "<span>]</span>";
-            document.querySelector(".modal-content").innerHTML = tempHTML;
-            everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
-        })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+            modal();
+                categories = categories.filter((v) => v !== '1인분주문')
+                shuffle(categories)
+                let tempHTML = "<span>[</span>";
+                categories.forEach((word, i) => {
+                    tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
+                })
+                tempHTML += "<span>]</span>";
+                document.querySelector(".modal-content").innerHTML = tempHTML;
+                everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
+            })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+
 }
 
 async function NoGeoDontWorry() {
@@ -271,6 +272,7 @@ let lowModalBody = document.getElementById('low-modal-body');
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(_id) {
     fetch(`/api/detail?_id=${_id}`).then((restaurant) => {
+        console.log(restaurant);
         let {image, name, address, time, min_order, phone, categories} = restaurant;
         let tempHtml = `
             <div class="pop-up-card">
