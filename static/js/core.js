@@ -28,24 +28,12 @@ function widthCheck() {
     let width = window.innerWidth
     if (width > 1600) {
         Screen = "Full Wide"
-        columnCount = 3
     } else if (width >= 1024) {
         Screen = "Wide width"
-        columnCount = 3
-        document.querySelector("div.column:first-child").remove()
-        document.querySelector("div.column:last-child").remove()
     } else if (width > 630) {
         Screen = "Medium width"
-        columnCount = 2
-        document.querySelector("div.column:first-child").remove()
-        document.querySelector("div.column:last-child").remove()
     } else {
         Screen = "Mobile width"
-        columnCount = 1
-        document.querySelector("div.column:first-child").remove()
-        document.querySelector("div.column:last-child").remove()
-        document.querySelector("div.column:last-child").remove()
-        document.querySelector("div.column:last-child").remove()
     }
     console.log(Screen)
 }
@@ -139,10 +127,9 @@ function success(position) {
         .then(restaurants => {
             emptyCards()
             let categories = []
-            restaurants.forEach((restaurant, index) => {
+            restaurants.forEach((restaurant) => {
                 categories.push(...restaurant['categories'])
-                let i = index % columnCount
-                showCards(restaurant, i)
+                showCards(restaurant)
             }) // tempHtml append 하기
             let end = Date.now()
             console.log(`It Takes ${(end - start) / 1000} seconds....`)
@@ -170,10 +157,7 @@ async function NoGeoDontWorry() {
     const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
     let restaurants = await response.json()
     emptyCards()
-    restaurants.forEach((restaurant, index) => {
-        let i = index % columnCount
-        showCards(restaurant, i)
-    }) // tempHtml append 하기
+    restaurants.forEach((restaurant) => showCards(restaurant)) // tempHtml append 하기
 }
 
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
@@ -334,11 +318,7 @@ function popUp(_id) {
 }
 
 function emptyCards() {
-    document.querySelector(".column-0").innerHTML = ""
-    if (Screen === "Mobile width") return;
-    document.querySelector(".column-1").innerHTML = ""
-    if (Screen === "Medium width") return;
-    document.querySelector(".column-2").innerHTML = ""
+    document.querySelector("#column").innerHTML = ""
 }
 
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
@@ -347,14 +327,11 @@ window.addEventListener('hashchange', async () => {
     const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
     let restaurants = await response.json()
     emptyCards()
-    restaurants.forEach((restaurant, index) => {
-        let i = index % 3
-        showCards(restaurant, i)
-    })
+    restaurants.forEach((restaurant) => showCards(restaurant))
 })
 
 // 레스토랑 하나하나의 카드를 만들어내는 코드
-const showCards = (restaurant, i) => {
+const showCards = (restaurant) => {
     let {
         _id, name, reviews,
         owner, categories,
@@ -393,7 +370,7 @@ const showCards = (restaurant, i) => {
     categories.forEach((tag) => {
         btn += `<button value="${tag}" class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
-    document.querySelector(`.column-${i.toString()}`).innerHTML += tempHtml.replace("{__buttons__}", btn)
+    document.querySelector('#column').innerHTML += tempHtml.replace("{__buttons__}", btn)
 }
 
 // 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
@@ -412,10 +389,7 @@ function search() {
             return getFoods(latitude, longitude)
         }).then(restaurants => {
         emptyCards()
-        restaurants.forEach((restaurant, index) => {
-            let i = index % 3
-            showCards(restaurant, i)
-        }) // tempHtml append 하기
+        restaurants.forEach((restaurant) => showCards(restaurant)) // tempHtml append 하기
     }).catch((e) => console.log(e));
 }
 
