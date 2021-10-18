@@ -5,7 +5,7 @@
     font-weight: 400;
     src: local(''),
     url('../fonts/black-han-sans-v8-korean-regular.woff') format('woff'), /* Modern Browsers */
-    url('../fonts/black-han-sans-v8-korean-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('../fonts/black-han-sans-v8-korean-regular.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
 @font-face {
@@ -300,7 +300,7 @@ div.control {
 
 .columns.is-max-desktop.is-mobile {
     display: flex;
-    max-width: 1200px;
+    /*max-width: 1200px;*/
     margin: auto;
     justify-content: center;
 }
@@ -622,10 +622,12 @@ ul#bookmarks {
 
 #member-info-box {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #login-nick-wrap {
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -641,4 +643,69 @@ ul#bookmarks {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+.column-0 {
+    flex: 4;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 31%);
+    grid-column-gap: 10px;
+}
+
+.sub-column {
+    display: block;
+    width: 300px;
+    padding: 30px;
+}
+
+
+@media screen and (max-width: 720px) {
+    #column {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .sub-column {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    #column {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media screen and (min-width: 925px) {
+    #column {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 1258px) {
+    #column {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 1512px) {
+    #column {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+#column {
+    display: grid;
+    grid-column-gap: 30px;
+
+}
+
+#recommend-menu {
+    text-align: center;
+
+}
+
+#recommend-menu > .let-the-games-begin {
+    margin-bottom: 10px;
+    font-size: 20px;
 }

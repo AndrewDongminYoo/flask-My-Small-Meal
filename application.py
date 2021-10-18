@@ -7,6 +7,7 @@ import os
 import hashlib
 import jwt
 import datetime
+from bson.objectid import ObjectId
 # import weather
 from urllib.parse import urlparse, parse_qsl
 
@@ -203,10 +204,11 @@ def like():
     2. 싫어요를 클릭한 경우 점포를 restaurants DB 에서 제외한다.\n
     :return: Response(json)
     """
-    uuid = request.json.get('uuid')  # uuid
-    _id = request.json.get('_id')  # ssid
-    action = request.json.get('action')
-    min_order = request.json.get('min_order')
+    request.form = json.loads(request.data)
+    uuid = request.form.get('uuid')  # uuid
+    _id = request.form.get('_id')  # ssid
+    action = request.form.get('action')
+    min_order = request.form.get('min_order')
     user = users.find_one({"uuid": uuid})
     put_restaurant(_id, min_order)
     if action == 'like':
@@ -265,7 +267,7 @@ def get_restaurant():
     restaurants = list()
     for shop in shops:
         rest = dict()
-        if not int(shop["phone"]):
+        if not bool(int(shop["phone"])):
             continue
         rest['_id'] = shop.get('id')
         rest['name'] = shop.get('name')
@@ -289,7 +291,7 @@ def get_restaurant():
 @application.route('/api/detail', methods=["GET"])
 def show_modal():
     _id = request.args.get('_id')
-    restaurant = bookmarked_col.find_one({"_id": _id})
+    restaurant = bookmarked_col.find_one({"_id": int(_id)})
     return jsonify(restaurant)
 
 

@@ -28,24 +28,12 @@ function widthCheck() {
     let width = window.innerWidth
     if (width > 1600) {
         Screen = "Full Wide"
-        columnCount = 3
     } else if (width >= 1024) {
         Screen = "Wide width"
-        columnCount = 3
-        document.querySelector("div.column:first-child").remove()
-        document.querySelector("div.column:last-child").remove()
     } else if (width > 630) {
         Screen = "Medium width"
-        columnCount = 2
-        document.querySelector("div.column:first-child").remove()
-        document.querySelector("div.column:last-child").remove()
     } else {
         Screen = "Mobile width"
-        columnCount = 1
-        document.querySelector("div.column:first-child").remove()
-        document.querySelector("div.column:last-child").remove()
-        document.querySelector("div.column:last-child").remove()
-        document.querySelector("div.column:last-child").remove()
     }
     console.log(Screen)
 }
@@ -139,10 +127,9 @@ function success(position) {
         .then(restaurants => {
             emptyCards()
             let categories = []
-            restaurants.forEach((restaurant, index) => {
+            restaurants.forEach((restaurant) => {
                 categories.push(...restaurant['categories'])
-                let i = index % columnCount
-                showCards(restaurant, i)
+                showCards(restaurant)
             }) // tempHtml append 하기
             let end = Date.now()
             console.log(`It Takes ${(end - start) / 1000} seconds....`)
@@ -151,15 +138,16 @@ function success(position) {
             let unique = new Set(categories)
             categories = [...unique]
             modal()
-            categories = categories.filter((v) => v !== '1인분주문')
-            shuffle(categories)
-            let tempHTML = "<span>[</span>";
-            categories.forEach((word, i) => {
-                tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
-            })
-            tempHTML += "<span>]</span>";
-            document.querySelector(".modal-content").innerHTML = tempHTML;
-            everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
+
+            // categories = categories.filter((v) => v !== '1인분주문')
+            // shuffle(categories)
+            // let tempHTML = "<span>[</span>";
+            // categories.forEach((word, i) => {
+            //     tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
+            // })
+            // tempHTML += "<span>]</span>";
+            // document.querySelector(".modal-content").innerHTML = tempHTML;
+            // everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
 }
 
@@ -167,10 +155,7 @@ async function NoGeoDontWorry() {
     const response = await fetch(`/api/shop?lat=${latitude.toFixed(7)}&lng=${longitude.toFixed(7)}`);
     let restaurants = await response.json()
     emptyCards()
-    restaurants.forEach((restaurant, index) => {
-        let i = index % columnCount
-        showCards(restaurant, i)
-    }) // tempHtml append 하기
+    restaurants.forEach((restaurant) => showCards(restaurant)) // tempHtml append 하기
 }
 
 // 모달 + 모달 닫기 위한 닫기 버튼과 어두운 배경 나타내기
@@ -257,21 +242,24 @@ function showBookmarks(user) {
 const bookMark = (restaurant) => {
     let {_id, name, phone, time, min_order} = restaurant;
     let tempHtml = `
-        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
-        <span class="mark-menu">${name}</span>
-        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
+        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}">
+        <span class="mark-menu" onclick="popUp(${_id})" title="상세 정보 보기">${name}</span>
+        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})">⨉</button></li>`
     document.getElementById("bookmarks").innerHTML += tempHtml;
 }
 
 let lowModalBody = document.getElementById('low-modal-body');
+let modalHide = () => lowModalBody.style.display = 'none';
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(_id) {
-    fetch(`/api/detail?_id=${_id}`).then((restaurant) => {
-        let {image, name, address, time, min_order, phone, categories} = restaurant;
-        let tempHtml = `
+    fetch(`/api/detail?_id=${_id}`)
+        .then((res) => res.json())
+        .then((restaurant) => {
+            let {image, name, address, time, min_order, phone, categories} = restaurant;
+            let tempHtml = `
             <div class="pop-up-card">
-                <button class="button close-button" onclick="lowModalBody.style.display='none';">⨉</button>
+                <button class="button close-button" onclick="modalHide()">⨉</button>
                 <div class="pop-card-head">
                     <img class="pop-card-head-image" src="${image}" alt="${name}">
                 </div>
@@ -286,21 +274,18 @@ function popUp(_id) {
                     <div class="pop-card-phone-number">${phone ? phone : "전화번호가 없습니다."}</div>
                 </div>
             </div>`
-        let btn = ""
-        categories.forEach((tag) => btn += `<span>#${tag}</span>`)
-        lowModalBody.style.display = "block";
-        lowModalBody.innnerHTML = tempHtml.replace("{__buttons__}", btn)
-        // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
-        // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
-    })
+            let btn = ""
+            categories.forEach((tag) => btn += `<span>#${tag}</span>`)
+            lowModalBody.style.display = "block";
+            tempHtml = tempHtml.replace("{__buttons__}", btn)
+            lowModalBody.innerHTML = tempHtml
+            // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
+            // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
+        })
 }
 
 function emptyCards() {
-    document.querySelector(".column-0").innerHTML = ""
-    if (Screen === "Mobile width") return;
-    document.querySelector(".column-1").innerHTML = ""
-    if (Screen === "Medium width") return;
-    document.querySelector(".column-2").innerHTML = ""
+    document.querySelector("#column").innerHTML = ""
 }
 
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
@@ -309,14 +294,11 @@ window.addEventListener('hashchange', async () => {
     const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
     let restaurants = await response.json()
     emptyCards()
-    restaurants.forEach((restaurant, index) => {
-        let i = index % 3
-        showCards(restaurant, i)
-    })
+    restaurants.forEach((restaurant) => showCards(restaurant))
 })
 
 // 레스토랑 하나하나의 카드를 만들어내는 코드
-const showCards = (restaurant, i) => {
+const showCards = (restaurant) => {
     let {
         _id, name, reviews,
         owner, categories,
@@ -354,7 +336,7 @@ const showCards = (restaurant, i) => {
     categories.forEach((tag) => {
         btn += `<button value="${tag}" class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
-    document.querySelector(`.column-${i.toString()}`).innerHTML += tempHtml.replace("{__buttons__}", btn)
+    document.querySelector('#column').innerHTML += tempHtml.replace("{__buttons__}", btn)
 }
 
 // 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
@@ -373,10 +355,7 @@ function search() {
             return getFoods(latitude, longitude)
         }).then(restaurants => {
         emptyCards()
-        restaurants.forEach((restaurant, index) => {
-            let i = index % 3
-            showCards(restaurant, i)
-        }) // tempHtml append 하기
+        restaurants.forEach((restaurant) => showCards(restaurant)) // tempHtml append 하기
     }).catch((e) => console.log(e));
 }
 
@@ -435,4 +414,36 @@ async function everybodyShuffleIt(array) {
         }
         document.cookie = "roulette=true;";
     }
+}
+
+function recommendMenu() {
+
+    let recommendButton = document.getElementById('recommend-button');
+    recommendButton.classList.add('is-loading');
+    function sleep(t) {
+        return new Promise(resolve => setTimeout(resolve, t));
+    }
+    (async function () {
+
+        await sleep(3000);
+        recommendButton.classList.add('is-hidden');
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/food-recommend',
+            data: {'lat': latitude,'lon': longitude },
+            success: function (response) {
+                const {food} = response;
+                let result = `<div>
+                                 <img id="food-img" src= "" alt="${food}" style="width: 240px;">
+                                 <h5>${food}</h5>
+                             </div>`;
+                document.getElementById('food-img').src = `../static/foodImages/${food + ".jpg"}`
+
+                $('#recommend-result').append(result);
+            }
+
+    })
+    })();
+
 }
