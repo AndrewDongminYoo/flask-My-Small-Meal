@@ -1415,10 +1415,6 @@ div.icon-text {
     background-color: #fafafa;
 }
 
-.table.is-narrow td, .table.is-narrow th {
-    padding: .25em .5em;
-}
-
 .table-container {
     -webkit-overflow-scrolling: touch;
     overflow: auto;

@@ -4,6 +4,7 @@ from flask_cors import CORS
 from pymongo import MongoClient  # 몽고디비
 import requests  # 서버 요청 패키지
 import os
+from pprint import pprint
 import hashlib
 import jwt
 import datetime
@@ -69,6 +70,7 @@ def kakao_login():
 @application.route('/api/login', methods=['POST'])
 def api_login():
     request.form = json.loads(request.data)
+    pprint(request.form)
     email_receive = request.form['email']
     password = request.form['pw']
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
@@ -77,6 +79,7 @@ def api_login():
     result = members.find_one({'email': email_receive, 'pw': hashed_pw}, {"_id": False})
     # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result:
+        pprint(result)
         # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
         # 아래에선 id와 exp 를 담았습니다. 즉, JWT 토큰을 풀면 유저 ID 값을 알 수 있습니다.
@@ -88,6 +91,7 @@ def api_login():
             'exp': datetime.datetime.utcnow() + datetime.timedelta(days=3)
         }
         token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
+        pprint(payload)
         # token 을 줍니다.
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -102,6 +106,7 @@ def api_register():
     password = request.form['pw']
     nickname = request.form['nickname']
     uuid = request.form['uuid']
+    pprint(request.form)
     print('api_register uuid', uuid)
     hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
     user_exists = bool(members.find_one({"email": email_receive}))
@@ -116,6 +121,7 @@ def api_register():
             'nick': nickname,
             'uuid': uuid,
         }
+        pprint(user)
         members.update_one({"email": email_receive}, {"$set": user}, upsert=True)
         return jsonify({'result': 'success', 'user': nickname, 'msg': '가입이 완료되었습니다.'})
     return jsonify({'result': 'fail', 'msg': '가입에 실패했습니다.'})
@@ -134,7 +140,7 @@ def api_valid():
     token_receive = request.args.get('token')
     try:
         payload = jwt.decode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
-        print(payload)
+        pprint(payload)
         # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
         return jsonify({'result': 'success', 'nickname': payload['nick']})
     except jwt.ExpiredSignatureError:
@@ -161,13 +167,13 @@ def kakao_redirect():
     }
     token_header = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
     req = requests.post(url=url, headers=token_header, data=body).json()
-
+    pprint(req)
     # 사용자 정보
     url = 'https://kapi.kakao.com/v2/user/me'
     info_header = {'Authorization': f'Bearer {req["access_token"]}',
                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     user_info = requests.post(url, headers=info_header).json()
-    print(user_info)
+    pprint(user_info)
     email = user_info.get('kakao_account').get('email')
     user_id = user_info.get('id')
     prop = user_info.get('properties')
@@ -175,15 +181,18 @@ def kakao_redirect():
     if prop:
         nickname = prop.get('nickname')
         profile = prop.get("thumbnail_image")
+        pprint(prop, profile)
     user = {
         'providerId': user_id,
         'nick': nickname,
         'provider': 'kakao',
         'age': user_info.get('kakao_account').get('age_range')
     }
+    pprint(user)
     # db에 저장
     members.update({'email': email},
                    {"$set": user}, upsert=True)
+    print(members.inserted_id)
     # jwt 토큰 발급
     payload = {
         'id': user_id,
@@ -212,6 +221,7 @@ def like():
     action = request.form.get('action')
     min_order = request.form.get('min_order')
     user = users.find_one({"uuid": uuid})
+    pprint(request.form)
     put_restaurant(_id, min_order)
     if action == 'like':
         if not user:
@@ -287,6 +297,7 @@ def get_restaurant():
         rest['phone'] = shop.get('phone')
         restaurants.append(rest)
         restaurant_col.update_one({"_id": shop['id']}, {"$set": rest}, upsert=True)
+    pprint(restaurants[0])
     return jsonify(restaurants)
 
 
@@ -339,7 +350,7 @@ def put_restaurant(_id, min_order):
         'lat': result.get("lat"),
         'lng': result.get("lng"),
     }
-    bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True)
+    print(bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True))
 
 
 def search_address(query):
@@ -358,6 +369,7 @@ def search_address(query):
         'Authorization': 'KakaoAK c67c5816d29490ab56c1fbf40bef220d'}
     req = requests.get(url, headers=_header)
     result = req.json()
+    pprint(result)
     documents = result['documents'][0]
     address = documents['address_name']
     lat = documents['y']

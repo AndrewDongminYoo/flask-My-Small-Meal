@@ -74,26 +74,28 @@ const getOneCookie = (name) => CheckCookies()?.find(r => r.startsWith(name))?.sp
 async function weather() {
     if (Screen === "Mobile width") return;
     if (Screen === "Medium width") return;
-    const weatherBox = document.getElementById("weather-box")
-    weatherBox.innerHTML = `
-        <div class="weather-title">현재날씨</div>
-        <table class="table is-narrow bm-current-table" style="margin: auto;">
-        <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th colspan="2">날씨</th></tr></thead></table>
-        `;
     let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric`;
     const response = await fetch(url).then((res) => res.json()).catch()
     const {weather, wind} = await response;
     const {humidity, temp} = await response['main'];
     const {description, main, icon} = await weather[0];
-    document.querySelector(".bm-current-table").innerHTML += `
+    const weatherBox = document.getElementById("weather-box")
+    weatherBox.innerHTML = `
+        <div class="weather-title">현재날씨</div>
+        <table class="table is-narrow bm-current-table" style="margin: auto;">
         <tbody><tr>
+        <td>온도</td>
+        <td>습도</td>
+        <td>풍속</td>
+        <td>날씨</td>
+        <td rowspan="2"><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></td>
+        </tr><tr>
         <td>${temp}&#8451;</td>
         <td>${humidity}&#37;</td>
         <td>${wind.speed}m/s</td>
         <td>${main}</td>
-        <td><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></td>
-        </tr></tbody>`;
+        </tr></tbody></table>`;
 }
 
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
