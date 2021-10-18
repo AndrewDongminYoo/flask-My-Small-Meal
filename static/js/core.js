@@ -258,9 +258,9 @@ function showBookmarks(user) {
 const bookMark = (restaurant) => {
     let {_id, name, phone, time, min_order} = restaurant;
     let tempHtml = `
-        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
-        <span class="mark-menu">${name}</span>
-        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
+        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}">
+        <span class="mark-menu" onclick="popUp(${_id})" title="상세 정보 보기">${name}</span>
+        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})">⨉</button></li>`
     document.getElementById("bookmarks").innerHTML += tempHtml;
 }
 
