@@ -1340,7 +1340,7 @@ div.icon-text {
 .table td, .table th {
     /* border: 0 solid #dbdbdb; */
     border-bottom-width: 0;
-    padding: .5em .75em;
+    padding: .5em .5em;
     vertical-align: middle;
     line-height: 10px;
 }

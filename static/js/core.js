@@ -314,6 +314,7 @@ function emptyCards() {
 
 function showSideBar() {
     document.querySelector('#member-info-box').classList.add('open')
+    document.querySelector('#recommend-menu').classList.add('open')
     document.querySelector('#weather-box').classList.add('open')
     document.querySelector("#aside").classList.add("open");
 }

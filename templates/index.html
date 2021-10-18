@@ -81,7 +81,7 @@
         <div class="columns is-max-desktop is-mobile">
             <div class="column column-0" id="column"></div>
             <div class="sub-column">
-                <div>
+                <div id="side-bar">
                     <div id="member-info-box" class="panel">
                         <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
                         <div id="login-nick-wrap">
@@ -98,12 +98,11 @@
                         </aside>
                     </div>
                     <div id="weather-box" class="panel"></div>
-                </div>
-                <div id="weather-box" class="panel"></div>
-                <div id="recommend-menu">
-                    <div class="let-the-games-begin">JARYO<span style="color: red;">9</span>JO가 추천하는 메뉴는 ?</div>
-                    <div id="recommend-result"></div>
-                    <button id="recommend-button" class="button is-rounded" onclick="recommendMenu()">시작하기</button>
+                    <div id="recommend-menu">
+                        <div class="let-the-games-begin">JARYO<span style="color: red;">9</span>JO가 추천하는 메뉴는 ?</div>
+                        <div id="recommend-result"></div>
+                        <button id="recommend-button" class="button is-rounded" onclick="recommendMenu()">시작하기</button>
+                    </div>
                 </div>
                 <div class="btn-up">
                     <button aria-label="scroll to top" onclick="window.scrollTo(0, 0);" class="button btn-up-position">

@@ -504,6 +504,12 @@ ul#bookmarks {
     width: 100%;
 }
 
+#side-bar {
+    position: sticky;
+    top: 100px;
+    right: 300px;
+}
+
 #member-info-box {
     align-items: center;
     display: flex;
@@ -511,7 +517,7 @@ ul#bookmarks {
     padding: 10px 0;
 }
 
-#member-info-box, #aside, #weather-box {
+#member-info-box, #aside, #weather-box, #recommend-menu {
     -moz-transform: translate3d(300px, 0, 0);
     -moz-transition: all .2s;
     -ms-transition: all .2s;
@@ -525,11 +531,13 @@ ul#bookmarks {
     z-index: 10;
 }
 
-#member-info-box.open, #aside.open, #weather-box.open {
+#member-info-box.open,
+#recommend-menu.open,
+#weather-box.open,
+#aside.open {
     -moz-transform: translate3d(0, 0, 0);
     -webkit-transform: translate3d(0, 0, 0);
     overflow: hidden;
-    /*padding: 10px 0;*/
     transform: translate3d(0, 0, 0);
 }
 
