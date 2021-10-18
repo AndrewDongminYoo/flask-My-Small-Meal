@@ -268,12 +268,12 @@ const bookMark = (restaurant) => {
 }
 
 let lowModalBody = document.getElementById('low-modal-body');
-let modalHide = () => lowModalBody.style.display='none';
+let modalHide = () => lowModalBody.style.display = 'none';
 
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(_id) {
     fetch(`/api/detail?_id=${_id}`)
-        .then((res)=>res.json())
+        .then((res) => res.json())
         .then((restaurant) => {
         // console.log(restaurant)
         let {image, name, address, time, min_order, phone, categories, lat, lng} = restaurant;
@@ -444,4 +444,29 @@ async function everybodyShuffleIt(array) {
         }
         document.cookie = "roulette=true;";
     }
+}
+function recommendMenu() {
+    let recommendButton = document.getElementById('recommend-button');
+    recommendButton.classList.add('is-loading');
+    const sleep = (t) =>  new Promise(resolve => setTimeout(resolve, t));
+    (async function () {
+        await sleep(3000);
+        recommendButton.classList.add('is-hidden');
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/food-recommend',
+            data: {'lat': latitude,'lon': longitude },
+            success: function (response) {
+                const {food} = response;
+                let result = `<div>
+                                 <img id="food-img" src= "" alt="${food}" style="width: 240px;">
+                                 <h5>${food}</h5>
+                             </div>`;
+                document.getElementById('food-img').src = `../static/foodImages/${food + ".jpg"}`
+
+                $('#recommend-result').append(result);
+            }
+    })
+    })();
 }
