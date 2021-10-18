@@ -1,0 +1,882 @@
+{
+    "200": {
+        "Main": "Thunderstorm",
+        "Description": "thunderstorm with light rain",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "201": {
+        "Main": "Thunderstorm",
+        "Description": "thunderstorm with rain",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1584269655525-c2ec535de1d0?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4Nw&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1584269655525-c2ec535de1d0?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4Nw&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1584269655525-c2ec535de1d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4Nw&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1584269655525-c2ec535de1d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4Nw&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1584269655525-c2ec535de1d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4Nw&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "202": {
+        "Main": "Thunderstorm",
+        "Description": "thunderstorm with heavy rain",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjg3&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "210": {
+        "Main": "Thunderstorm",
+        "Description": "light thunderstorm",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OA&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OA&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OA&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OA&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1472145246862-b24cf25c4a36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OA&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "211": {
+        "Main": "Thunderstorm",
+        "Description": "thunderstorm",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1561485132-59468cd0b553?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyODk&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1561485132-59468cd0b553?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyODk&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1561485132-59468cd0b553?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyODk&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1561485132-59468cd0b553?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyODk&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1561485132-59468cd0b553?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyODk&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "212": {
+        "Main": "Thunderstorm",
+        "Description": "heavy thunderstorm",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OQ&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OQ&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OQ&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OQ&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHRodW5kZXJzdG9ybSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI4OQ&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "221": {
+        "Main": "Thunderstorm",
+        "Description": "ragged thunderstorm",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1607243990283-4ef2df1d0dff?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjB0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTA&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1607243990283-4ef2df1d0dff?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjB0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTA&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1607243990283-4ef2df1d0dff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjB0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTA&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1607243990283-4ef2df1d0dff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjB0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTA&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1607243990283-4ef2df1d0dff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjB0aHVuZGVyc3Rvcm0lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTA&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "230": {
+        "Main": "Thunderstorm",
+        "Description": "thunderstorm with light drizzle",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkw&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkw&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkw&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkw&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwbGlnaHQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkw&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "231": {
+        "Main": "Thunderstorm",
+        "Description": "thunderstorm with drizzle",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1630163100813-91e5283271ce?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5MQ&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1630163100813-91e5283271ce?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5MQ&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1630163100813-91e5283271ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5MQ&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1630163100813-91e5283271ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5MQ&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1630163100813-91e5283271ce?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5MQ&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "232": {
+        "Main": "Thunderstorm",
+        "Description": "thunderstorm with heavy drizzle",
+        "icon": "11",
+        "MaterialCommunityIcons": {
+            "day": "weather-lightning-rainy",
+            "night": "weather-lightning-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkx&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkx&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkx&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkx&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0aHVuZGVyc3Rvcm0lMjB3aXRoJTIwaGVhdnklMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkx&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "300": {
+        "Main": "Drizzle",
+        "Description": "light intensity drizzle",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1610047500310-8865a5133723?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTI&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTI&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTI&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTI&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTI&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "301": {
+        "Main": "Drizzle",
+        "Description": "drizzle",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjky&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjky&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjky&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjky&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjky&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "302": {
+        "Main": "Drizzle",
+        "Description": "heavy intensity drizzle",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTM&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTM&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTM&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTM&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTM&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "310": {
+        "Main": "Drizzle",
+        "Description": "light intensity drizzle rain",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1610047500310-8865a5133723?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkz&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkz&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkz&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkz&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjkz&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "311": {
+        "Main": "Drizzle",
+        "Description": "drizzle rain",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NA&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NA&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NA&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NA&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkcml6emxlJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NA&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "312": {
+        "Main": "Drizzle",
+        "Description": "heavy intensity drizzle rain",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk0&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk0&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk0&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk0&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMGRyaXp6bGUlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk0&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "313": {
+        "Main": "Drizzle",
+        "Description": "shower rain and drizzle",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwYW5kJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NQ&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwYW5kJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NQ&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwYW5kJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NQ&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwYW5kJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NQ&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwYW5kJTIwZHJpenpsZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5NQ&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "314": {
+        "Main": "Drizzle",
+        "Description": "heavy shower rain and drizzle",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHNob3dlciUyMHJhaW4lMjBhbmQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk1&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHNob3dlciUyMHJhaW4lMjBhbmQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk1&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHNob3dlciUyMHJhaW4lMjBhbmQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk1&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHNob3dlciUyMHJhaW4lMjBhbmQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk1&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMHNob3dlciUyMHJhaW4lMjBhbmQlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk1&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "321": {
+        "Main": "Drizzle",
+        "Description": "shower drizzle",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk2&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk2&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk2&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk2&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjBkcml6emxlJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk2&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "500": {
+        "Main": "Rain",
+        "Description": "light rain",
+        "icon": "10",
+        "MaterialCommunityIcons": {
+            "day": "weather-rainy",
+            "night": "weather-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTY&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTY&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTY&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTY&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1475116127127-e3ce09ee84e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTY&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "501": {
+        "Main": "Rain",
+        "Description": "moderate rain",
+        "icon": "10",
+        "MaterialCommunityIcons": {
+            "day": "weather-rainy",
+            "night": "weather-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtb2RlcmF0ZSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtb2RlcmF0ZSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtb2RlcmF0ZSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtb2RlcmF0ZSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtb2RlcmF0ZSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "502": {
+        "Main": "Rain",
+        "Description": "heavy intensity rain",
+        "icon": "10",
+        "MaterialCommunityIcons": {
+            "day": "weather-rainy",
+            "night": "weather-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTc&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "503": {
+        "Main": "Rain",
+        "Description": "very heavy rain",
+        "icon": "10",
+        "MaterialCommunityIcons": {
+            "day": "weather-rainy",
+            "night": "weather-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1609846705099-5cd491c6f4c8?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2ZXJ5JTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk4&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1609846705099-5cd491c6f4c8?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2ZXJ5JTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk4&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1609846705099-5cd491c6f4c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2ZXJ5JTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk4&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1609846705099-5cd491c6f4c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2ZXJ5JTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk4&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1609846705099-5cd491c6f4c8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2ZXJ5JTIwaGVhdnklMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMjk4&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "504": {
+        "Main": "Rain",
+        "Description": "extreme rain",
+        "icon": "10",
+        "MaterialCommunityIcons": {
+            "day": "weather-rainy",
+            "night": "weather-rainy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1529801231037-d67f3dce5d89?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxleHRyZW1lJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5OA&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1529801231037-d67f3dce5d89?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxleHRyZW1lJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5OA&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1529801231037-d67f3dce5d89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxleHRyZW1lJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5OA&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1529801231037-d67f3dce5d89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxleHRyZW1lJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5OA&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1529801231037-d67f3dce5d89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxleHRyZW1lJTIwcmFpbiUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDI5OA&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "511": {
+        "Main": "Rain",
+        "Description": "freezing rain",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmcmVlemluZyUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmcmVlemluZyUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmcmVlemluZyUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmcmVlemluZyUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmcmVlemluZyUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "520": {
+        "Main": "Rain",
+        "Description": "light intensity shower rain",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1610047500310-8865a5133723?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1610047500310-8865a5133723?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAyOTk&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "521": {
+        "Main": "Rain",
+        "Description": "shower rain",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1485797460056-2310c82d1213?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAw&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1485797460056-2310c82d1213?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAw&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1485797460056-2310c82d1213?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAw&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1485797460056-2310c82d1213?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAw&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1485797460056-2310c82d1213?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAw&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "522": {
+        "Main": "Rain",
+        "Description": "heavy intensity shower rain",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDA&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDA&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDA&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDA&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxoZWF2eSUyMGludGVuc2l0eSUyMHNob3dlciUyMHJhaW4lMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDA&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "531": {
+        "Main": "Rain",
+        "Description": "ragged shower rain",
+        "icon": "09",
+        "MaterialCommunityIcons": {
+            "day": "weather-pouring",
+            "night": "weather-pouring"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjBzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAx&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjBzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAx&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjBzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAx&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjBzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAx&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxyYWdnZWQlMjBzaG93ZXIlMjByYWluJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAx&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "600": {
+        "Main": "Snow",
+        "Description": "light snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1561479731-662ffdb1c640?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDE&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1561479731-662ffdb1c640?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDE&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1561479731-662ffdb1c640?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDE&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1561479731-662ffdb1c640?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDE&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1561479731-662ffdb1c640?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxsaWdodCUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDE&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "601": {
+        "Main": "Snow",
+        "Description": "Snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1617657325434-605291e6a3f9?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAy&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1617657325434-605291e6a3f9?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAy&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1617657325434-605291e6a3f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAy&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1617657325434-605291e6a3f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAy&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1617657325434-605291e6a3f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAy&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "602": {
+        "Main": "Snow",
+        "Description": "Heavy snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1561378485-4f3023c4968c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDI&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1561378485-4f3023c4968c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDI&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1561378485-4f3023c4968c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDI&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1561378485-4f3023c4968c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDI&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1561378485-4f3023c4968c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDI&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "611": {
+        "Main": "Snow",
+        "Description": "Sleet",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1518187472096-33cb498ca6a7?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwMw&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1518187472096-33cb498ca6a7?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwMw&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1518187472096-33cb498ca6a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwMw&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1518187472096-33cb498ca6a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwMw&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1518187472096-33cb498ca6a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwMw&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "612": {
+        "Main": "Snow",
+        "Description": "Light shower sleet",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1613531784761-a1240fca16ac?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNsZWV0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAz&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1613531784761-a1240fca16ac?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNsZWV0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAz&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1613531784761-a1240fca16ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNsZWV0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAz&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1613531784761-a1240fca16ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNsZWV0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAz&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1613531784761-a1240fca16ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNsZWV0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzAz&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "613": {
+        "Main": "Snow",
+        "Description": "Shower sleet",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNA&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNA&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNA&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNA&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbGVldCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNA&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "615": {
+        "Main": "Snow",
+        "Description": "Light rain and snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1603974608997-fa48c70ba712?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHJhaW4lMjBhbmQlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA0&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1603974608997-fa48c70ba712?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHJhaW4lMjBhbmQlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA0&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1603974608997-fa48c70ba712?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHJhaW4lMjBhbmQlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA0&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1603974608997-fa48c70ba712?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHJhaW4lMjBhbmQlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA0&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1603974608997-fa48c70ba712?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHJhaW4lMjBhbmQlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA0&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "616": {
+        "Main": "Snow",
+        "Description": "Rain and snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1561990975-380e6ab97f62?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxSYWluJTIwYW5kJTIwc25vdyUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNQ&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1561990975-380e6ab97f62?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxSYWluJTIwYW5kJTIwc25vdyUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNQ&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1561990975-380e6ab97f62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxSYWluJTIwYW5kJTIwc25vdyUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNQ&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1561990975-380e6ab97f62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxSYWluJTIwYW5kJTIwc25vdyUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNQ&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1561990975-380e6ab97f62?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxSYWluJTIwYW5kJTIwc25vdyUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNQ&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "620": {
+        "Main": "Snow",
+        "Description": "Light shower snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1613522645145-aa83afabf111?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDU&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1613522645145-aa83afabf111?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDU&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1613522645145-aa83afabf111?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDU&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1613522645145-aa83afabf111?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDU&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1613522645145-aa83afabf111?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxMaWdodCUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDU&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "621": {
+        "Main": "Snow",
+        "Description": "Shower snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA2&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA2&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA2&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA2&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1614484691169-508c35ea6809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTaG93ZXIlMjBzbm93JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA2&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "622": {
+        "Main": "Snow",
+        "Description": "Heavy shower snow",
+        "icon": "13",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-snowy",
+            "night": "weather-snowy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDY&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDY&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDY&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDY&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1613553648206-5173b0d1c788?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIZWF2eSUyMHNob3dlciUyMHNub3clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDY&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "701": {
+        "Main": "Mist",
+        "Description": "mist",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtaXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA3&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtaXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA3&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtaXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA3&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtaXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA3&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxtaXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA3&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "711": {
+        "Main": "Smoke",
+        "Description": "Smoke",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1483221186507-3cfe60ffb2ad?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbW9rZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNw&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1483221186507-3cfe60ffb2ad?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbW9rZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNw&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1483221186507-3cfe60ffb2ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbW9rZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNw&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1483221186507-3cfe60ffb2ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbW9rZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNw&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1483221186507-3cfe60ffb2ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxTbW9rZSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMwNw&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "721": {
+        "Main": "Haze",
+        "Description": "Haze",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1458022479614-14737487b68c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIYXplJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1458022479614-14737487b68c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIYXplJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1458022479614-14737487b68c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIYXplJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1458022479614-14737487b68c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIYXplJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1458022479614-14737487b68c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxIYXplJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "731": {
+        "Main": "Dust",
+        "Description": "sand or dust whirls",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwb3IlMjBkdXN0JTIwd2hpcmxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwb3IlMjBkdXN0JTIwd2hpcmxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwb3IlMjBkdXN0JTIwd2hpcmxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwb3IlMjBkdXN0JTIwd2hpcmxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581002386342-65ca4cf53a5c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwb3IlMjBkdXN0JTIwd2hpcmxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA4&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "741": {
+        "Main": "Fog",
+        "Description": "fog",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1633885277799-77ba018f8f1f?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmb2clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDk&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1633885277799-77ba018f8f1f?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmb2clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDk&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1633885277799-77ba018f8f1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmb2clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDk&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1633885277799-77ba018f8f1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmb2clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDk&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1633885277799-77ba018f8f1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmb2clMjB3ZWF0aGVyfGVufDB8MHx8fDE2MzQ0OTAzMDk&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "751": {
+        "Main": "Sand",
+        "Description": "sand",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1576668778848-93c8b6436c5d?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1576668778848-93c8b6436c5d?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1576668778848-93c8b6436c5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1576668778848-93c8b6436c5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1576668778848-93c8b6436c5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzYW5kJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "761": {
+        "Main": "Dust",
+        "Description": "dust",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1482005253821-5d6a2c685879?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkdXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1482005253821-5d6a2c685879?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkdXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1482005253821-5d6a2c685879?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkdXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1482005253821-5d6a2c685879?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkdXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1482005253821-5d6a2c685879?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxkdXN0JTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzA5&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "762": {
+        "Main": "Ash",
+        "Description": "volcanic ash",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1475776408506-9a5371e7a068?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2b2xjYW5pYyUyMGFzaCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMxMA&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1475776408506-9a5371e7a068?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2b2xjYW5pYyUyMGFzaCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMxMA&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1475776408506-9a5371e7a068?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2b2xjYW5pYyUyMGFzaCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMxMA&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1475776408506-9a5371e7a068?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2b2xjYW5pYyUyMGFzaCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMxMA&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1475776408506-9a5371e7a068?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx2b2xjYW5pYyUyMGFzaCUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDQ5MDMxMA&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "771": {
+        "Main": "Squall",
+        "Description": "squalls",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1446751326867-4d0fd17def86?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzcXVhbGxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEw&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1446751326867-4d0fd17def86?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzcXVhbGxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEw&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1446751326867-4d0fd17def86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzcXVhbGxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEw&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1446751326867-4d0fd17def86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzcXVhbGxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEw&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1446751326867-4d0fd17def86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzcXVhbGxzJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEw&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "781": {
+        "Main": "Tornado",
+        "Description": "tornado",
+        "icon": "50",
+        "MaterialCommunityIcons": {
+            "day": "weather-hazy",
+            "night": "weather-fog"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1581059729226-c493d3086748?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0b3JuYWRvJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEx&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1581059729226-c493d3086748?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0b3JuYWRvJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEx&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1581059729226-c493d3086748?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0b3JuYWRvJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEx&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1581059729226-c493d3086748?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0b3JuYWRvJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEx&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1581059729226-c493d3086748?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHx0b3JuYWRvJTIwd2VhdGhlcnxlbnwwfDB8fHwxNjM0NDkwMzEx&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "800": {
+        "Main": "Clear",
+        "Description": "clear sky",
+        "icon": "01",
+        "MaterialCommunityIcons": {
+            "day": "weather-sunny",
+            "night": "weather-night"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1419833173245-f59e1b93f9ee?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxjbGVhciUyMHNreSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1419833173245-f59e1b93f9ee?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxjbGVhciUyMHNreSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1419833173245-f59e1b93f9ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxjbGVhciUyMHNreSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1419833173245-f59e1b93f9ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxjbGVhciUyMHNreSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1419833173245-f59e1b93f9ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxjbGVhciUyMHNreSUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "801": {
+        "Main": "Clouds",
+        "Description": "few clouds 11-25%",
+        "icon": "02",
+        "MaterialCommunityIcons": {
+            "day": "weather-partly-cloudy",
+            "night": "weather-night-partly-cloudy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1597699400434-7321e63b6da6?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmZXclMjUyMGNsb3VkcyUyNTIwMTEtMjUlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1597699400434-7321e63b6da6?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmZXclMjUyMGNsb3VkcyUyNTIwMTEtMjUlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1597699400434-7321e63b6da6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmZXclMjUyMGNsb3VkcyUyNTIwMTEtMjUlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1597699400434-7321e63b6da6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmZXclMjUyMGNsb3VkcyUyNTIwMTEtMjUlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1597699400434-7321e63b6da6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxmZXclMjUyMGNsb3VkcyUyNTIwMTEtMjUlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3NQ&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "802": {
+        "Main": "Clouds",
+        "Description": "scattered clouds 25-50%",
+        "icon": "03",
+        "MaterialCommunityIcons": {
+            "day": "weather-cloudy",
+            "night": "weather-cloudy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1599073499036-dc27fc297dc9?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzY2F0dGVyZWQlMjUyMGNsb3VkcyUyNTIwMjUtNTAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1599073499036-dc27fc297dc9?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzY2F0dGVyZWQlMjUyMGNsb3VkcyUyNTIwMjUtNTAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1599073499036-dc27fc297dc9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzY2F0dGVyZWQlMjUyMGNsb3VkcyUyNTIwMjUtNTAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1599073499036-dc27fc297dc9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzY2F0dGVyZWQlMjUyMGNsb3VkcyUyNTIwMjUtNTAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1599073499036-dc27fc297dc9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxzY2F0dGVyZWQlMjUyMGNsb3VkcyUyNTIwMjUtNTAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "803": {
+        "Main": "Clouds",
+        "Description": "broken clouds 51-84%",
+        "icon": "04",
+        "MaterialCommunityIcons": {
+            "day": "weather-cloudy",
+            "night": "weather-cloudy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1565647381517-c54364e9b0d9?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxicm9rZW4lMjUyMGNsb3VkcyUyNTIwNTEtODQlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1565647381517-c54364e9b0d9?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxicm9rZW4lMjUyMGNsb3VkcyUyNTIwNTEtODQlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1565647381517-c54364e9b0d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxicm9rZW4lMjUyMGNsb3VkcyUyNTIwNTEtODQlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1565647381517-c54364e9b0d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxicm9rZW4lMjUyMGNsb3VkcyUyNTIwNTEtODQlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1565647381517-c54364e9b0d9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxicm9rZW4lMjUyMGNsb3VkcyUyNTIwNTEtODQlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Ng&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    },
+    "804": {
+        "Main": "Clouds",
+        "Description": "overcast clouds 85-100%",
+        "icon": "04",
+        "MaterialCommunityIcons": {
+            "day": "weather-cloudy",
+            "night": "weather-cloudy"
+        },
+        "Images": {
+            "raw": "https://images.unsplash.com/photo-1595049822012-0a2fd6707ae0?ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxvdmVyY2FzdCUyNTIwY2xvdWRzJTI1MjA4NS0xMDAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Nw&ixlib=rb-1.2.1",
+            "full": "https://images.unsplash.com/photo-1595049822012-0a2fd6707ae0?crop=entropy&cs=srgb&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxvdmVyY2FzdCUyNTIwY2xvdWRzJTI1MjA4NS0xMDAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Nw&ixlib=rb-1.2.1&q=85",
+            "regular": "https://images.unsplash.com/photo-1595049822012-0a2fd6707ae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxvdmVyY2FzdCUyNTIwY2xvdWRzJTI1MjA4NS0xMDAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Nw&ixlib=rb-1.2.1&q=80&w=1080",
+            "small": "https://images.unsplash.com/photo-1595049822012-0a2fd6707ae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxvdmVyY2FzdCUyNTIwY2xvdWRzJTI1MjA4NS0xMDAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Nw&ixlib=rb-1.2.1&q=80&w=400",
+            "thumb": "https://images.unsplash.com/photo-1595049822012-0a2fd6707ae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjgyMzB8MHwxfHNlYXJjaHwxfHxvdmVyY2FzdCUyNTIwY2xvdWRzJTI1MjA4NS0xMDAlMjUlMjUyMHdlYXRoZXJ8ZW58MHwwfHx8MTYzNDUxNjA3Nw&ixlib=rb-1.2.1&q=80&w=200"
+        }
+    }
+}

@@ -3,7 +3,7 @@ let latitude = 37.5559598;
 let longitude = 126.1699723;
 let isMobile = false;
 let Screen = "Full Wide"
-let columnCount = 3
+let columnCount = 1
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 
@@ -105,7 +105,7 @@ async function weather() {
         <td>${humidity}&#37;</td>
         <td>${wind.speed}m/s</td>
         <td>${main}</td>
-        <td><img src="https://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
+        <td><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></td>
         </tr></tbody>`;
 }
 

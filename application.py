@@ -7,6 +7,7 @@ import os
 import hashlib
 import jwt
 import datetime
+# import weather
 from urllib.parse import urlparse, parse_qsl
 
 KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop/redirect'
@@ -298,6 +299,14 @@ def search_add():
     query = json.loads(data, encoding='utf-8')['query']
     # query = request.json.get('query')
     return jsonify(search_address(query))
+#
+#
+# @application.route('api/weather', methods=["GET"])
+# def declare_weather():
+#     weather_code = request.args.get('code')
+#     image_format = request.args.get('size')
+#     # result = weather.get_weather(code=weather_code, size=image_format)
+#     return jsonify({'result': result})
 
 
 def put_restaurant(_id, min_order):
@@ -331,9 +340,9 @@ def search_address(query):
     사용자가 검색 창에 직접 주소를 입력했을 때, 카카오맵 api 를 통해 주소를 위도경도로 변환합니다.\n
     :param query: 찾고자 하는 주소
     :return: doc(dict) {
-    address: 찾고자 하는 주소 도로명 주소,
-    lat: 찾고자 하는 지역의 x좌표,
-    long: 찾고자 하는 지역의 y 좌표
+        address: 찾고자 하는 주소 도로명 주소,
+        lat: 찾고자 하는 지역의 x좌표,
+        long: 찾고자 하는 지역의 y 좌표
     }
     """
     url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + query
@@ -355,4 +364,5 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    application.run(port=8000)
+    application.debug = True
+    application.run(port=8000, debug=True)
