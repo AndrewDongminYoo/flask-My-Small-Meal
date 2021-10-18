@@ -567,6 +567,7 @@ ul#bookmarks {
 #column {
     display: grid;
     grid-column-gap: 30px;
+    flex: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

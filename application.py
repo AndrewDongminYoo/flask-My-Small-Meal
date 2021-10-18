@@ -192,7 +192,6 @@ def kakao_redirect():
     # db에 저장
     members.update({'email': email},
                    {"$set": user}, upsert=True)
-    print(members.inserted_id)
     # jwt 토큰 발급
     payload = {
         'id': user_id,
@@ -351,7 +350,6 @@ def put_restaurant(_id, min_order):
         'lng': result.get("lng"),
     }
     bookmarked_col.update_one({"_id": _id}, {"$set": doc}, upsert=True)
-    print(bookmarked_col.inserted_id)
 
 
 def search_address(query):
