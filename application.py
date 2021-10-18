@@ -7,6 +7,7 @@ import os
 import hashlib
 import jwt
 import datetime
+import random
 from bson.objectid import ObjectId
 # import weather
 from urllib.parse import urlparse, parse_qsl
@@ -66,6 +67,59 @@ def register():
 @application.route('/kakao_login')
 def kakao_login():
     return render_template('kakao_login.html')
+
+@application.route('/api/food-recommend')
+def api_food_recommend():  # put application's code here
+    # 날씨 불러오기
+    # 비옴
+    # Thunderstorm 뇌우
+    # Drizzle 이슬비
+    # Rain 비
+    # Squall 돌풍
+    # Tornado 폭풍
+
+    # 눈옴
+    # Snow 눈
+
+    # 맑음
+    # Clear 맑은
+
+    # 흐림
+    # Clouds 흐림
+    # Mist 안개
+    # Smoke 연기
+    # Haze 안개
+    # Dust 먼지
+    # Fog 안개
+    # Sand 모래
+    # Ash 먼지
+
+    url = 'https://api.openweathermap.org/data/2.5/weather?lat=37.5559598&lon=126.1699723&appid=fa5d5576f3d1c8248d37938b4a3b216b&units=metric'
+    req = requests.get(url).json()
+    weather = req['weather'][0]['main']
+
+    clear_arr = ['냉면','비빔밥','스테이크','떡볶이','순대','튀김','만두','회','카레','족발','보쌈']
+    snow_arr = ['삼겹살','파스타','피자','설렁탕','순대국','삼계탕','해물탕']
+    rain_arr = ['전','삼계탕','짜장면','짬뽕','탕수육','마라탕','곱창','감자탕','치킨']
+    cloud_arr = ['떡','빵','아이스크림','햄버거','샌드위치','죽','커피']
+    select_arr = ['치킨']
+    if weather == "Clear":
+        # print('맑음')
+        select_arr = clear_arr;
+    elif weather == "Snow":
+        # print('눈')
+        select_arr = snow_arr;
+    elif weather == "Thunderstorm" or weather == "Drizzle" or weather == "Rain" or weather == "Squall" or weather == "Tornado":
+        # print('비')
+        select_arr = rain_arr
+    else:
+        # print('흐림')
+        select_arr = cloud_arr
+
+    random.shuffle(select_arr)
+    select_food = select_arr[0]
+
+    return jsonify({'food':select_food})
 
 
 @application.route('/api/login', methods=['POST'])
