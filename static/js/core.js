@@ -2,6 +2,8 @@ let user = null;
 let latitude = 37.5559598;
 let longitude = 126.1699723;
 let isMobile = false;
+let Screen = "Full Wide"
+let columnCount = 1
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 
@@ -16,42 +18,37 @@ headers = {
     "sec-fetch-site": "same-origin"
 }
 
-function memberInfoBox() {
-    let temp_html = `
-        <div id="member-info-box">
-            <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
-            <div id="login-nick-wrap">
-                <div id="login-nick"></div>
-            </div>
-            <button class="button is-info login-btn" onclick="login()">로그인</button>
-            <button class="button is-success register-btn"  href="/login">회원가입</button>
-        </div>`
-    $('body').append(temp_html)
+function geoRefresh() {
+    emptyCards(); // 카드 컬럼 비우기
+    geoFindMe(); // 사용자의 위치 다시 받아내기
+    userCheck(); // 사용자가 처음 접속한 사람인지 확인
 }
 
-function memberValidCheck() {
-    $.ajax({
-        type: "GET",
-        url: "/api/valid",
-        data: {},
-        success: function (response) {
-            const {nickname, result} = response
-            if (result === 'success') {
-                $('.login-btn').text('로그아웃')
-                $('#login-nick').text(nickname + '님')
-            } else {
-                // 로그인이 안되면 에러메시지를 띄웁니다.
-                // alert(response['msg'])
-                $('.login-btn').text('로그인')
-                alert('로그인이 필요합니다.')
-                window.location.href = '/login'
-            }
-        }
-    })
+function widthCheck() {
+    let width = window.innerWidth
+    if (width > 1600) {
+        Screen = "Full Wide"
+        columnCount = 3
+    } else if (width >= 1024) {
+        Screen = "Wide width"
+        columnCount = 3
+        document.querySelector("div.column:first-child").remove()
+        document.querySelector("div.column:last-child").remove()
+    } else if (width > 630) {
+        Screen = "Medium width"
+        columnCount = 2
+        document.querySelector("div.column:first-child").remove()
+        document.querySelector("div.column:last-child").remove()
+    } else {
+        Screen = "Mobile width"
+        columnCount = 1
+        document.querySelector("div.column:first-child").remove()
+        document.querySelector("div.column:last-child").remove()
+        document.querySelector("div.column:last-child").remove()
+        document.querySelector("div.column:last-child").remove()
+    }
+    console.log(Screen)
 }
-
-const error = () => NoGeoDontWorry();
-const eraseCookie = (name) => document.cookie = `${name}=${Date.now()};`;
 
 function deviceCheck() {
     const pc = "win16|win32|win64|mac|macintel";
@@ -62,7 +59,34 @@ function deviceCheck() {
     console.log(isMobile ? "It's on mobile" : "It's Computer")
 }
 
+function memberValidCheck() {
+    if (Screen === "Mobile width") return;
+    let token = getOneCookie("mySmallMealToken")
+    fetch(`/api/valid?token=${token}`)
+        .then((res) => res.json())
+        .then((data) => {
+            const {nickname, result} = data
+            if (result === 'success') {
+                document.querySelector(".login-btn").textContent = '로그아웃'
+                document.querySelector("#bookmark-title").textContent = `${nickname}'s PICK!`
+            } else {
+                // 로그인이 안되면 에러메시지를 띄웁니다.
+                document.querySelector(".login-btn").textContent = '로그인'
+                window.alert('로그인이 필요합니다.')
+                window.location.href = '/login'
+                removeCookie("mySmallMealToken")
+            }
+        })
+}
+
+const error = () => NoGeoDontWorry();
+const removeCookie = (name) => document.cookie = `${name}=; expires=Fri, 12 Aug 1994 00:00:00 GMT`;
+const CheckCookies = () => document.cookie.split("; ")
+const getOneCookie = (name) => CheckCookies()?.find(r => r.startsWith(name))?.split("=")[1];
+
 async function weather() {
+    if (Screen === "Mobile width") return;
+    if (Screen === "Medium width") return;
     const weatherBox = document.getElementById("weather-box")
     weatherBox.innerHTML = `
         <div class="weather-title">현재날씨</div>
@@ -70,29 +94,19 @@ async function weather() {
         <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th colspan="2">날씨</th></tr></thead></table>
         `;
     let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
-    const url = 'https://api.openweathermap.org/data/2.5/weather?' +
-        'lat=' + latitude.toFixed(7) +
-        '&lon=' + longitude.toFixed(7) +
-        `&appid=${apikey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric`;
     const response = await fetch(url).then((res) => res.json()).catch()
-    const { weather, wind } = await response;
-    const { humidity, temp } = await response['main'];
-    const { description, main, icon } = await weather[0];
+    const {weather, wind} = await response;
+    const {humidity, temp} = await response['main'];
+    const {description, main, icon} = await weather[0];
     document.querySelector(".bm-current-table").innerHTML += `
         <tbody><tr>
         <td>${temp}&#8451;</td>
         <td>${humidity}&#37;</td>
-        <td>${wind.speed}&#13223;</td>
+        <td>${wind.speed}m/s</td>
         <td>${main}</td>
-        <td><img src="https://openweathermap.org/img/w/${icon}.png" alt="${description}"></td>
+        <td><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></td>
         </tr></tbody>`;
-}
-
-//
-function geoRefresh() {
-    emptyCards(); // 카드 컬럼 비우기
-    geoFindMe(); // 사용자의 위치 다시 받아내기
-    userCheck(); // 사용자가 처음 접속한 사람인지 확인
 }
 
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
@@ -127,11 +141,13 @@ function success(position) {
             let categories = []
             restaurants.forEach((restaurant, index) => {
                 categories.push(...restaurant['categories'])
-                let i = isMobile ? index % 2 : index % 3
+                let i = index % columnCount
                 showCards(restaurant, i)
             }) // tempHtml append 하기
             let end = Date.now()
-            console.log(`It Takes ${(end-start)/1000} seconds....`)
+            console.log(`It Takes ${(end - start) / 1000} seconds....`)
+            if (getOneCookie('roulette')) return;
+            if (Screen === "Mobile width") return;
             let unique = new Set(categories)
             categories = [...unique]
             modal()
@@ -152,7 +168,7 @@ async function NoGeoDontWorry() {
     let restaurants = await response.json()
     emptyCards()
     restaurants.forEach((restaurant, index) => {
-        let i = index % 3
+        let i = index % columnCount
         showCards(restaurant, i)
     }) // tempHtml append 하기
 }
@@ -162,7 +178,8 @@ async function NoGeoDontWorry() {
 function modal() {
     // if (isMobile) return;
     document.getElementById("modal").classList.add("is-active")
-    document.getElementById("modal").style.display = 'block';
+    document.getElementById("modal").style.display = 'grid';
+    document.getElementById("modal").style['place-items'] = 'center';
 }
 
 // 로컬 스토리지에 사용자의 uuid 가 있는지 확인하고 없으면 새로 발급한다.
@@ -224,7 +241,8 @@ function sendLike(user, headers, body) {
 
 // 즐겨찾기 목록을 불러오는 코드 ("즐겨찾기목록")이라는 헤더도 이 때 보여줌.
 function showBookmarks(user) {
-    document.querySelector("h2.h2").style.display = "block"
+    if (Screen === "Mobile width") return;
+    document.querySelector("#aside").style.display = "block"
     fetch(`/api/like?uuid=${user}`)
         .then((r) => r.headers.get('content-type').includes('json') ? r.json() : r.text())
         .then((res) => {
@@ -279,7 +297,9 @@ function popUp(_id) {
 
 function emptyCards() {
     document.querySelector(".column-0").innerHTML = ""
+    if (Screen === "Mobile width") return;
     document.querySelector(".column-1").innerHTML = ""
+    if (Screen === "Medium width") return;
     document.querySelector(".column-2").innerHTML = ""
 }
 
@@ -334,7 +354,7 @@ const showCards = (restaurant, i) => {
     categories.forEach((tag) => {
         btn += `<button value="${tag}" class="button is-rounded is-warning is-outlined" onclick="highlight('${tag}')">#${tag}</button>`
     })
-    document.querySelector(`.column-${i}`).innerHTML += tempHtml.replace("{__buttons__}", btn)
+    document.querySelector(`.column-${i.toString()}`).innerHTML += tempHtml.replace("{__buttons__}", btn)
 }
 
 // 직접적으로 주소를 입력해서 배달 음식점을 찾고자 할 때 쓰입니다.
@@ -406,12 +426,13 @@ async function everybodyShuffleIt(array) {
         await timer(600)
         document.querySelectorAll(`span.word:not(.word-${i})`).forEach(e => e.classList.remove('is-red'));
         document.querySelector(`span.word.word-${i}`)?.classList.add('is-red')
-        if (document.querySelector(`.word-${i}`).classList.contains('is-red') && document.querySelector(`.word-${i}`)['title'] === result) {
+        if (document.querySelector(`.word-${i}`)?.classList.contains('is-red') && document.querySelector(`.word-${i}`)['title'] === result) {
             document.querySelector(`button.button[value='${result}']`).classList.remove('is-outlined')
             await timer(100)
             alert(`오오~~ 오늘은 ${result} 먹으면 되겠다!!!!`)
             document.getElementById("modal").remove()
             return result
         }
+        document.cookie = "roulette=true;";
     }
 }

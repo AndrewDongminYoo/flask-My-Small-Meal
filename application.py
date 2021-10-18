@@ -7,10 +7,12 @@ import os
 import hashlib
 import jwt
 import datetime
+# import weather
 from urllib.parse import urlparse, parse_qsl
 
-KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop:8000/redirect'
+KAKAO_REDIRECT_URI = 'https://www.mysmallmeal.shop/redirect'
 application = Flask(__name__)
+application.config['TEMPLATES_AUTO_RELOAD'] = True
 cors = CORS(application, resources={r"/*": {"origins": "*"}})
 if application.env == 'development':
     os.popen('mongod')
@@ -18,8 +20,9 @@ if application.env == 'development':
 # 배포 전에 원격 db로 교체!
 
 client = MongoClient(os.environ.get("DB_PATH"), port=27017)
-os.environ['JWT_KEY'] = 'jaryogoojo'
+os.environ['JWT_KEY'] = 'JARYOGOOJO'
 SECRET_KEY = os.environ.get("JWT_KEY")
+client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
 
 db = client.dbGoojo
 restaurant_col = db.restaurant
@@ -45,13 +48,13 @@ headers = {'accept': 'application/json', 'accept-encoding': 'gzip, deflate, br',
 
 @application.route('/')
 def hello_world():  # put application's code here
-    # return "<h1>This is API server</h1>"
-    return render_template('index.html')
+    return render_template("index.html")
 
 
 @application.route('/login')
 def login():
-    return render_template('login.html', env=application.env)
+    msg = request.args.get("msg")
+    return render_template('login.html', ID=client_id, URI=KAKAO_REDIRECT_URI, msg=msg)
 
 
 @application.route('/register')
@@ -66,23 +69,24 @@ def kakao_login():
 
 @application.route('/api/login', methods=['POST'])
 def api_login():
-    email = request.form['email']
-    pw = request.form['pw']
+    request.form = json.loads(request.data)
+    email_receive = request.form['email']
+    password = request.form['pw']
     # 회원가입 때와 같은 방법으로 pw를 암호화합니다.
-    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
     # id, 암호화된 pw 을 가지고 해당 유저를 찾습니다.
-    result = members.find_one({'email': email, 'pw': pw_hash}, {"_id": False})
+    result = members.find_one({'email': email_receive, 'pw': hashed_pw}, {"_id": False})
     # 찾으면 JWT 토큰을 만들어 발급합니다.
     if result:
         # JWT 토큰에는, payload 와 시크릿키가 필요합니다.
         # 시크릿키가 있어야 토큰을 디코딩(=풀기) 해서 payload 값을 볼 수 있습니다.
         # 아래에선 id와 exp 를 담았습니다. 즉, JWT 토큰을 풀면 유저 ID 값을 알 수 있습니다.
         # exp 에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
-        nick = result['nick']
+        nickname_receive = result['nick']
         payload = {
-            'email': email,
-            'nick': nick,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
+            'email': email_receive,
+            'nick': nickname_receive,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=3)
         }
         token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
         # token 을 줍니다.
@@ -94,96 +98,99 @@ def api_login():
 
 @application.route('/api/register', methods=['POST'])
 def api_register():
-    email = request.form['email']
-    pw = request.form['pw']
+    request.form = json.loads(request.data)
+    email_receive = request.form['email']
+    password = request.form['pw']
     nickname = request.form['nickname']
     uuid = request.form['uuid']
     print('api_register uuid', uuid)
-    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
-    find_member = members.find_one({"email": email}, {"_id": False})
-    if find_member is None:
-        members.insert_one({'email': email, 'pw': pw_hash, 'nick': nickname, 'uuid': uuid})
-        return jsonify({'result': 'success'})
-    return jsonify({'result': 'fail'})
+    hashed_pw = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    user_exists = bool(members.find_one({"email": email_receive}))
+    if user_exists:
+        return jsonify({'result': 'fail', 'msg': '같은 이메일의 유저가 존재합니다.'})
+    find_member = members.find_one({"email": email_receive}, {"_id": False})
+    if not find_member:
+        user = {
+            'provider': 'mysmallmeal',
+            'email': email_receive,
+            'pw': hashed_pw,
+            'nick': nickname,
+            'uuid': uuid,
+        }
+        members.update_one({"email": email_receive}, {"$set": user}, upsert=True)
+        return jsonify({'result': 'success', 'user': nickname, 'msg': '가입이 완료되었습니다.'})
+    return jsonify({'result': 'fail', 'msg': '가입에 실패했습니다.'})
 
 
 @application.route('/api/valid', methods=['GET'])
 def api_valid():
-    token_receive = request.cookies.get('mySmallMealToken')
-    # try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
+    """
+    try 아래를 실행했다가, 에러가 있으면 except 구분으로 가란 얘기입니다.
+    token 을 시크릿키로 디코딩합니다.
+    보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
+    payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
+    여기에선 그 예로 닉네임을 보내주겠습니다.
+    :return:
+    """
+    token_receive = request.args.get('token')
     try:
-        # token 을 시크릿키로 디코딩합니다.
-        # 보실 수 있도록 payload 를 print 해두었습니다. 우리가 로그인 시 넣은 그 payload 와 같은 것이 나옵니다.
-        payload = jwt.encode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
-        # payload 안에 id가 들어있습니다. 이 id로 유저정보를 찾습니다.
-        # 여기에선 그 예로 닉네임을 보내주겠습니다.
+        payload = jwt.decode(token_receive, key=SECRET_KEY, algorithms=['HS256'])
+        print(payload)
         # find_member = members.find_one({'email': payload['email']}, {'_id': 0})
-        return jsonify({'result': 'success', 'nickname': payload['nick'], 'payload': payload})
-    except jwt.exceptions.ExpiredSignatureError:
-        # 위를 실행했는데 만료시간이 지났으면 에러가 납니다.
-        return jsonify({'msg': '로그인 시간이 만료되었습니다.'})
+        return jsonify({'result': 'success', 'nickname': payload['nick']})
+    except jwt.ExpiredSignatureError:
+        print("ExpiredSignatureError:: 로그인 시간이 만료되었습니다!")
+        return redirect(url_for("login", msg="login timeout"))
     except jwt.exceptions.DecodeError:
-        return jsonify({'msg': '로그인 정보가 존재하지 않습니다.'})
-    except Exception as e:
-        return jsonify({"error-msg": e})
+        print("DecodeError:: 로그인 정보가 없습니다!")
+        return redirect(url_for("login", msg="Cannot Login!"))
 
 
 @application.route('/redirect')
 def kakao_redirect():
     # code 가져 오기
-    parts = urlparse(request.full_path)
-    qs = dict(parse_qsl(parts.query))
-    code = qs['code']
-    client_id = 'b702be3ada9cbd8f018e7545d0eb4a8d'
+    qs = dict(parse_qsl(request.query_string))
+    code = qs.get(b'code').decode('utf-8')
+
     # 토큰요청
-    url = f'https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}' \
-          f'&redirect_uri={KAKAO_REDIRECT_URI}&code={code}'
-    header_1st = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
-    req = requests.post(url, headers=header_1st).json()
-    access_token = req['access_token']
+    url = 'https://kauth.kakao.com/oauth/token'
+    body = {
+        "grant_type": "authorization_code",
+        "client_id": client_id,
+        "redirect_uri": KAKAO_REDIRECT_URI,
+        "code": code
+    }
+    token_header = {'Content-Type': 'application/x-www-form-urlencoded;charset=urf-8'}
+    req = requests.post(url=url, headers=token_header, data=body).json()
+
     # 사용자 정보
     url = 'https://kapi.kakao.com/v2/user/me'
-    header_2nd = {'Authorization': f'Bearer {access_token}',
-                  'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
-    req = requests.post(url, headers=header_2nd).json()
-    token_email = ''
-    try:
-        user_id = req['id']
-        nickname = req['properties']['nickname']
-        token_email = req['kakao_account']['email']
-        # db에 저장
-        members.update({'providerId': user_id},
-                       {"$set": {'email': token_email, 'nick': nickname, 'provider': 'kakao'}}, True)
-    except Exception as e:
-        print(e)
-        user_id = req['id']
-        nickname = req['properties']['nickname']
-        # db에 저장
-        members.update({'providerId': user_id},
-                       {"$set": {'nick': nickname, 'provider': 'kakao'}}, True)
+    info_header = {'Authorization': f'Bearer {req["access_token"]}',
+                   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+    user_info = requests.post(url, headers=info_header).json()
+    print(user_info)
+    email = user_info.get('kakao_account').get('email')
+    user_id = user_info.get('id')
+    nickname = user_info.get('properties').get('nickname')
+    user = {
+        'providerId': user_id,
+        'nick': nickname,
+        'provider': 'kakao',
+        'age': user_info.get('kakao_account').get('age_range')
+    }
+    # db에 저장
+    members.update({'email': email},
+                   {"$set": user}, upsert=True)
     # jwt 토큰 발급
     payload = {
         'id': user_id,
         'nick': nickname,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=60)
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=3)
     }
     token = jwt.encode(payload=payload, key=SECRET_KEY, algorithm='HS256')
     # kakaoLogin 리다이렉트
     return redirect(url_for("kakao_login",
-                            token=token, providerId=user_id, email=token_email, nickname=req['properties']['nickname']))
-
-
-@application.route('/api/kakao/uuid', methods=['POST'])
-def kakao_uuid():
-    uuid = request.form['uuid']
-    provider_id = request.form['providerId']
-    email = request.form['email']
-    nickname = request.form['nickname']
-    # print('kakao_uuid',uuid,'providerId',providerId,'email',email,'nickname',nickname)
-    # db에 저장
-    members.update({'providerId': provider_id},
-                   {"$set": {'email': email, 'nick': nickname, 'provider': 'kakao', 'uuid': uuid}}, True)
-    return jsonify({'result': 'success'})
+                            token=token, providerId=user_id, email=email, nickname=nickname))
 
 
 @application.route('/api/like', methods=['POST'])
@@ -196,13 +203,11 @@ def like():
     2. 싫어요를 클릭한 경우 점포를 restaurants DB 에서 제외한다.\n
     :return: Response(json)
     """
-    print(request.json)
     uuid = request.json.get('uuid')  # uuid
     _id = request.json.get('_id')  # ssid
     action = request.json.get('action')
     min_order = request.json.get('min_order')
     user = users.find_one({"uuid": uuid})
-    print(user)
     put_restaurant(_id, min_order)
     if action == 'like':
         if not user:
@@ -294,6 +299,14 @@ def search_add():
     query = json.loads(data, encoding='utf-8')['query']
     # query = request.json.get('query')
     return jsonify(search_address(query))
+#
+#
+# @application.route('api/weather', methods=["GET"])
+# def declare_weather():
+#     weather_code = request.args.get('code')
+#     image_format = request.args.get('size')
+#     # result = weather.get_weather(code=weather_code, size=image_format)
+#     return jsonify({'result': result})
 
 
 def put_restaurant(_id, min_order):
@@ -327,9 +340,9 @@ def search_address(query):
     사용자가 검색 창에 직접 주소를 입력했을 때, 카카오맵 api 를 통해 주소를 위도경도로 변환합니다.\n
     :param query: 찾고자 하는 주소
     :return: doc(dict) {
-    address: 찾고자 하는 주소 도로명 주소,
-    lat: 찾고자 하는 지역의 x좌표,
-    long: 찾고자 하는 지역의 y 좌표
+        address: 찾고자 하는 주소 도로명 주소,
+        lat: 찾고자 하는 지역의 x좌표,
+        long: 찾고자 하는 지역의 y 좌표
     }
     """
     url = 'https://dapi.kakao.com/v2/local/search/address.json?query=' + query
@@ -351,4 +364,5 @@ def search_address(query):
 
 
 if __name__ == '__main__':
-    application.run(port=8000)
+    application.debug = True
+    application.run(port=8000, debug=True)

@@ -3,26 +3,33 @@
 <head>
     {% block head %}
         {{ super() }}
-        <script src="https://code.jquery.com/jquery-3.6.0.js"
-                integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
         <script>
+        let kakao = "https://kauth.kakao.com/oauth/authorize"
+        let ID = "{{ ID }}"
+        let address = "{{ URI }}"
+        window.onload = ()=> {
+            document.getElementById("K-auth").href=`${kakao}?client_id=${ID}&redirect_uri=${address}&response_type=code`
+        }
             function loginBtnClick() {
-                $.ajax({
-                    type: "POST",
-                    url: "/api/login",
-                    data: {email: $('#member-email').val(), pw: $('#member-pw').val()},
-                    success: function (response) {
-                        if (response['result'] === 'success') {
-                            // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
-                            // 이 토큰을 mySmallMealToken 이라는 키 값으로 쿠키에 저장합니다.
-                            $.cookie('mySmallMealToken', response['token']);
-                            alert('로그인 완료!')
-                            window.location.href = '/'
-                        } else {
-                            // 로그인이 안되면 에러메시지를 띄웁니다.
-                            alert(response['msg'])
-                        }
+                let email = document.getElementById("member-email").value
+                let pw = document.getElementById("member-password").value
+
+                const headers = new Headers();
+                headers.append('content-type', 'application/json')
+                const body = JSON.stringify({email, pw, user})
+                let init = {method: "POST", headers, body}
+                fetch("/api/login", init)
+                .then((res)=> res.json())
+                .then((response)=> {
+                    if (response['token']) {
+                        // 로그인이 정상적으로 되면, 토큰을 받아옵니다.
+                        // 이 토큰을 mySmallMealToken 이라는 키 값으로 쿠키에 저장합니다.
+                        document.cookie = `mySmallMealToken=${response['token']}`;
+                        console.log(response['result'])
+                        window.location.href = "{{ url_for('hello_world') }}"
+                    } else {  // 로그인이 안되면 에러메시지를 띄웁니다.
+                        console.log(response)
+                        window.alert(response['msg'])
                     }
                 })
             }
@@ -31,46 +38,40 @@
     {% endblock %}
 </head>
 <body>
-<h1>{{ env }}</h1>
 {% block body %}
-
     <div class="section has-text-centered">
         <h1 class="title">로그인 페이지</h1>
-        <div class="container" style="width:60%">
-            <div class="field is-horizontal">
+        <div class="container" style="width:60%;">
+            <form class="field is-horizontal">
                 <div class="field-label is-normal">
                     <label class="label" for="member-email">EMAIL</label>
                 </div>
                 <div class="field-body">
-                    <div class="field">
+                    <div class="field" >
                         <div class="control">
-                            <input type="text" class="input" id="member-email" aria-describedby="emailHelp"
+                            <input type="text" class="input" id="member-email" autocomplete="false"
+                                   aria-describedby="emailHelp"
                                    placeholder="My Email">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="field is-horizontal">
+            </form>
+            <form class="field is-horizontal">
                 <div class="field-label is-normal">
-                    <label class="label" for="member-pw">PW</label>
+                    <label class="label" for="member-password">PW</label>
                 </div>
                 <div class="field-body">
                     <div class="field">
                         <div class="control">
-                            <input type="password" class="input" id="member-pw" placeholder="My Password">
+                            <input type="password" class="input" id="member-password"
+                                   autocomplete="false" placeholder="My Password">
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <button class="button is-primary" onclick="loginBtnClick()">로그인</button>
-            {% if env == 'development' %}
-                <a class="button is-warning"
-                   href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=http://localhost:5000/redirect&response_type=code">카카오로그인</a>
-            {% else %}
-                <a class="button is-warning"
-                   href="https://kauth.kakao.com/oauth/authorize?client_id=b702be3ada9cbd8f018e7545d0eb4a8d&redirect_uri=https://www.mysmallmeal.shop:8000/redirect&response_type=code">카카오로그인</a>
-            {% endif %}
-
+            <a id="K-auth" class="button is-warning">
+                카카오로그인</a>
             <a class="button is-success" href="{{ url_for('register') }}">회원가입</a>
         </div>
     </div>
