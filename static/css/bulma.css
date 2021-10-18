@@ -1336,11 +1336,14 @@ div.icon-text {
 }
 
 .table td, .table th {
-    border: 0 solid #dbdbdb;
-    border-bottom-width: 1px;
+    /* border: 0 solid #dbdbdb; */
+    border-bottom-width: 0;
     padding: .5em .75em;
-    vertical-align: top;
+    vertical-align: middle;
+    line-height: 10px;
 }
+
+
 
 .table td.is-black, .table th.is-black {
     background-color: #0a0a0a;
@@ -2584,7 +2587,7 @@ a.tag:hover {
 }
 
 .panel {
-    border-radius: 6px;
+    width: 270px;
     box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
     font-size: 1rem;
 }

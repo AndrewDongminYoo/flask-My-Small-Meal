@@ -133,6 +133,7 @@ function success(position) {
             }) // tempHtml append 하기
             let end = Date.now()
             console.log(`It Takes ${(end - start) / 1000} seconds....`)
+            showSideBar()
             if (getOneCookie('roulette')) return;
             if (Screen === "Mobile width") return;
             let unique = new Set(categories)
@@ -176,9 +177,7 @@ function userCheck() {
         user = uuidv4()
         localStorage.setItem("delivery-uuid", user)
     }
-    console.log(`user: ${user}`);
-    // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
-    setTimeout(() => showBookmarks(user), 2000)
+    showBookmarks(user)
 }
 
 // 특정 식당을 즐겨찾기 하는 코드
@@ -240,7 +239,6 @@ function showBookmarks(user) {
             res['restaurants'] && res['restaurants'].forEach((r) => bookMark(r)); // 북마크 배열이 '도착하면' 렌더링
         })
         .catch((e) => console.log(e));
-    document.getElementById("aside").classList.add("open");
 }
 
 // 위도와 경도를 받아서 지도에 표시해주는 함수
@@ -319,6 +317,12 @@ function popUp(_id) {
 
 function emptyCards() {
     document.querySelector("#column").innerHTML = ""
+}
+
+function showSideBar() {
+    document.querySelector('#member-info-box').classList.add('open')
+    document.querySelector('#weather-box').classList.add('open')
+    document.querySelector("#aside").classList.add("open");
 }
 
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
