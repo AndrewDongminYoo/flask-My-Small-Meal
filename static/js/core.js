@@ -3,7 +3,6 @@ let latitude = 37.5559598;
 let longitude = 126.1699723;
 let isMobile = false;
 let Screen = "Full Wide"
-let columnCount = 1
 // 유저의 값을 글로벌하게 사용하기 위해 초기화한다.
 // 위도와 경도를 서울역을 기준으로 초기화한다. (사용자 접속 시 사용자의 위치로 이동)
 
@@ -35,7 +34,6 @@ function widthCheck() {
     } else {
         Screen = "Mobile width"
     }
-    console.log(Screen)
 }
 
 function deviceCheck() {
@@ -44,12 +42,13 @@ function deviceCheck() {
     if (this_device) {
         isMobile = pc.indexOf(navigator.platform.toLowerCase()) < 0;
     }
-    console.log(isMobile ? "It's on mobile" : "It's Computer")
+    // console.log(isMobile ? "It's on mobile" : "It's Computer")
 }
 
 function memberValidCheck() {
     if (Screen === "Mobile width") return;
     let token = getOneCookie("mySmallMealToken")
+    if (!(token)) {window.alert('로그인이 필요합니다.'); return;}
     fetch(`/api/valid?token=${token}`)
         .then((res) => res.json())
         .then((data) => {
@@ -75,26 +74,28 @@ const getOneCookie = (name) => CheckCookies()?.find(r => r.startsWith(name))?.sp
 async function weather() {
     if (Screen === "Mobile width") return;
     if (Screen === "Medium width") return;
-    const weatherBox = document.getElementById("weather-box")
-    weatherBox.innerHTML = `
-        <div class="weather-title">현재날씨</div>
-        <table class="table is-narrow bm-current-table" style="margin: auto;">
-        <thead><tr><th>온도</th><th>습도</th><th>풍속</th><th colspan="2">날씨</th></tr></thead></table>
-        `;
     let apikey = "fa5d5576f3d1c8248d37938b4a3b216b"
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric`;
     const response = await fetch(url).then((res) => res.json()).catch()
     const {weather, wind} = await response;
     const {humidity, temp} = await response['main'];
     const {description, main, icon} = await weather[0];
-    document.querySelector(".bm-current-table").innerHTML += `
+    const weatherBox = document.getElementById("weather-box")
+    weatherBox.innerHTML = `
+        <div class="weather-title">현재날씨</div>
+        <table class="table is-narrow bm-current-table" style="margin: auto;">
         <tbody><tr>
+        <td>온도</td>
+        <td>습도</td>
+        <td>풍속</td>
+        <td>날씨</td>
+        <td rowspan="2"><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></td>
+        </tr><tr>
         <td>${temp}&#8451;</td>
         <td>${humidity}&#37;</td>
         <td>${wind.speed}m/s</td>
         <td>${main}</td>
-        <td><img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}"></td>
-        </tr></tbody>`;
+        </tr></tbody></table>`;
 }
 
 // 위도 경도에 따라 주변 맛집을 받아오는 내부 api 송출
@@ -121,7 +122,6 @@ function geoFindMe() {
 function success(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
-    // weather(latitude,longitude)
     let start = Date.now()
     getFoods(latitude, longitude)
         .then(restaurants => {
@@ -133,22 +133,23 @@ function success(position) {
             }) // tempHtml append 하기
             let end = Date.now()
             console.log(`It Takes ${(end - start) / 1000} seconds....`)
+            showSideBar()
             if (getOneCookie('roulette')) return;
             if (Screen === "Mobile width") return;
             let unique = new Set(categories)
             categories = [...unique]
             modal()
-
-            // categories = categories.filter((v) => v !== '1인분주문')
-            // shuffle(categories)
-            // let tempHTML = "<span>[</span>";
-            // categories.forEach((word, i) => {
-            //     tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
-            // })
-            // tempHTML += "<span>]</span>";
-            // document.querySelector(".modal-content").innerHTML = tempHTML;
-            // everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
+            categories = categories.filter((v) => v !== '1인분주문')
+            shuffle(categories)
+            let tempHTML = "<span>[</span>";
+            categories.forEach((word, i) => {
+                tempHTML += `<span title="${word}" class="word word-${i}">${word}, </span>`;
+            })
+            tempHTML += "<span>]</span>";
+            document.querySelector(".modal-content").innerHTML = tempHTML;
+            everybodyShuffleIt(categories).then((result) => result && console.log(`오늘은 ${result} 먹자!!`))
         })  // like 여부에 따라 html 달리 할 필요가 있을까..?
+
 }
 
 async function NoGeoDontWorry() {
@@ -174,8 +175,7 @@ function userCheck() {
         user = uuidv4()
         localStorage.setItem("delivery-uuid", user)
     }
-    // 받은 사용자의 uuid 를 조회해 2초 후에 화면에 즐겨찾기 리스트를 띄운다.
-    setTimeout(() => showBookmarks(user), 2000)
+    showBookmarks(user)
 }
 
 // 특정 식당을 즐겨찾기 하는 코드
@@ -184,6 +184,7 @@ function keep(_id, min_order) {
     const headers = new Headers();
     headers.append('content-type', 'application/json')
     const body = JSON.stringify({uuid: user, _id, min_order, action: 'like', mode: "cors"});
+    // console.log(body)
     sendLike(user, headers, body)
 }
 
@@ -235,16 +236,34 @@ function showBookmarks(user) {
             res['restaurants'] && res['restaurants'].forEach((r) => bookMark(r)); // 북마크 배열이 '도착하면' 렌더링
         })
         .catch((e) => console.log(e));
-    document.getElementById("aside").classList.add("open");
+}
+
+// 위도와 경도를 받아서 지도에 표시해주는 함수
+function drawMap(mapContainer, lat, lng) {
+        mapOption = {
+            center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+            level: 3, // 지도의 확대 레벨
+            mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+        };
+    // 지도를 생성한다
+    let map = new kakao.maps.Map(mapContainer, mapOption);
+    // 지도에 마커를 생성하고 표시한다
+    let markerPosition = new kakao.maps.LatLng(lat, lng);
+    // 마커를 생성합니다
+    let marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
 }
 
 // 즐겨찾기 목록에 북마크 내용들을 담아 넣는 코드
 const bookMark = (restaurant) => {
     let {_id, name, phone, time, min_order} = restaurant;
-    let tempHtml = `
-        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}">
-        <span class="mark-menu" onclick="popUp(${_id})" title="상세 정보 보기">${name}</span>
-        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})">⨉</button></li>`
+    let tempHtml = `        
+        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
+        <span class="mark-menu">${name}</span>
+        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
     document.getElementById("bookmarks").innerHTML += tempHtml;
 }
 
@@ -256,43 +275,60 @@ function popUp(_id) {
     fetch(`/api/detail?_id=${_id}`)
         .then((res) => res.json())
         .then((restaurant) => {
-            let {image, name, address, time, min_order, phone, categories} = restaurant;
-            let tempHtml = `
+        // console.log(restaurant)
+        let {image, name, address, time, min_order, phone, categories, lat, lng} = restaurant;
+        let tempHtml = `
             <div class="pop-up-card">
                 <button class="button close-button" onclick="modalHide()">⨉</button>
                 <div class="pop-card-head">
                     <img class="pop-card-head-image" src="${image}" alt="${name}">
-                </div>
+                </div>                
                 <div class="pop-card-content-1">
                     <div class="pop-card-store-name">"${name}"</div>
                     <div class="pop-card-hash">{__buttons__}</div>
-                </div>
+                </div>                
+                <div id="map" style="width:100%;height:220px;cursor: pointer;" onclick="location.href='https://map.kakao.com/link/to/${name},${lat},${lng}'"></div>                
                 <div class="pop-card-content-2">
                     <div class="pop-card-address">${address ? address : "주소가 정확하지 않습니다."}</div>
                     <div class="pop-card-schedule">영업시간: ${time ? time : "영업시간 정보가 없습니다."}</div>
                     <div class="pop-card-min">${min_order ? min_order : "---"} 원 이상 주문가능</div>
                     <div class="pop-card-phone-number">${phone ? phone : "전화번호가 없습니다."}</div>
-                </div>
+                </div>                
             </div>`
-            let btn = ""
-            categories.forEach((tag) => btn += `<span>#${tag}</span>`)
-            lowModalBody.style.display = "block";
-            tempHtml = tempHtml.replace("{__buttons__}", btn)
-            lowModalBody.innerHTML = tempHtml
-            // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
-            // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
-        })
+        let btn = ""
+        categories.forEach((tag) => btn += `<span>#${tag}</span>`)
+        lowModalBody.style.display = "block";
+        tempHtml = tempHtml.replace("{__buttons__}", btn)
+        lowModalBody.innerHTML = tempHtml
+        let mapContainer = document.getElementById('map') // 지도를 표시할 div;
+        // console.log(`lat:${lat}, lng:${lng}`);
+        drawMap(mapContainer, lat, lng);
+        // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
+        // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
+    })
 }
 
 function emptyCards() {
     document.querySelector("#column").innerHTML = ""
 }
 
+function showSideBar() {
+    document.querySelector('#member-info-box').classList.add('open')
+    document.querySelector('#weather-box').classList.add('open')
+    document.querySelector("#aside").classList.add("open");
+}
+
 // URl 끝의 # 값이 변하면 그에 맞게 새롭게 리스트를 받아옵니다 (sort 바꿔줌)
 window.addEventListener('hashchange', async () => {
     let hash = window.location.hash.substring(1)
+    // tab 의 버튼을 클릭하면 그 버튼만 active 상태가 됩니다.
+    document.querySelectorAll(`li.tab:not(.tab-${hash})`).forEach(e => e.classList.remove('is-active'));
+    document.querySelector(`li.tab-${hash}`).classList.add('is-active');
+    document.querySelector(`li.tab-${hash}`).classList.add('is-loading');
+
     const response = await fetch(`/api/shop?order=${hash}&lat=${latitude}&lng=${longitude}`);
     let restaurants = await response.json()
+    await document.querySelector(`li.tab-${hash}`).classList.remove('is-loading');
     emptyCards()
     restaurants.forEach((restaurant) => showCards(restaurant))
 })
@@ -304,7 +340,7 @@ const showCards = (restaurant) => {
         owner, categories,
         image, address,
         rating, time,
-        min_order, phone
+        min_order, phone,
     } = restaurant;
     // 이미지가 없는 경우 VIEW 가 좋지 않아 리턴시킨다.
     if (!image) return;
@@ -365,12 +401,6 @@ function highlight(string) {
     document.querySelectorAll(`button.button[value='${string}']`).forEach(e => e.classList.remove('is-outlined'))
 }
 
-// tab 의 버튼을 클릭하면 그 버튼만 active 상태가 됩니다.
-function tabFocus(string) {
-    document.querySelectorAll(`li.tab:not(.tab-${string})`).forEach(e => e.classList.remove('is-active'));
-    document.querySelector(`li.tab-${string}`).classList.add('is-active');
-}
-
 // 비동기처리 방식 자바스크립트를 고려한 타이머 함수
 const timer = ms => new Promise(r => setTimeout(r, ms))
 
@@ -415,16 +445,11 @@ async function everybodyShuffleIt(array) {
         document.cookie = "roulette=true;";
     }
 }
-
 function recommendMenu() {
-
     let recommendButton = document.getElementById('recommend-button');
     recommendButton.classList.add('is-loading');
-    function sleep(t) {
-        return new Promise(resolve => setTimeout(resolve, t));
-    }
+    const sleep = (t) =>  new Promise(resolve => setTimeout(resolve, t));
     (async function () {
-
         await sleep(3000);
         recommendButton.classList.add('is-hidden');
 
@@ -442,8 +467,6 @@ function recommendMenu() {
 
                 $('#recommend-result').append(result);
             }
-
     })
     })();
-
 }

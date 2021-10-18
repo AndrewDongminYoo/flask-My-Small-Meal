@@ -120,7 +120,9 @@
     width: 32px;
 }
 
-.button.is-loading::after, .control.is-loading::after {
+.button.is-loading::after,
+.control.is-loading::after,
+.tab.is-loading::after {
     -webkit-animation: spinAround .5s infinite linear;
     animation: spinAround .5s infinite linear;
     border: 2px solid #dbdbdb;
@@ -130,7 +132,7 @@
     content: "";
     display: block;
     height: 1em;
-    position: relative;
+    position: absolute;
     width: 1em;
 }
 
@@ -198,7 +200,7 @@ html {
     -webkit-font-smoothing: antialiased;
     min-width: 300px;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
@@ -1336,11 +1338,14 @@ div.icon-text {
 }
 
 .table td, .table th {
-    border: 0 solid #dbdbdb;
-    border-bottom-width: 1px;
+    /* border: 0 solid #dbdbdb; */
+    border-bottom-width: 0;
     padding: .5em .75em;
-    vertical-align: top;
+    vertical-align: middle;
+    line-height: 10px;
 }
+
+
 
 .table td.is-black, .table th.is-black {
     background-color: #0a0a0a;
@@ -1410,10 +1415,6 @@ div.icon-text {
 
 .table.is-hoverable tbody tr:not(.is-selected):hover {
     background-color: #fafafa;
-}
-
-.table.is-narrow td, .table.is-narrow th {
-    padding: .25em .5em;
 }
 
 .table-container {
@@ -2584,7 +2585,7 @@ a.tag:hover {
 }
 
 .panel {
-    border-radius: 6px;
+    width: 270px;
     box-shadow: 0 .5em 1em -.125em rgba(10, 10, 10, .1), 0 0 0 1px rgba(10, 10, 10, .02);
     font-size: 1rem;
 }
@@ -2799,7 +2800,8 @@ a.panel-block:hover, label.panel-block:hover {
 }
 
 .tabs li {
-    display: block;
+    display: grid;
+    place-items: center;
 }
 
 .tabs li.is-active a {

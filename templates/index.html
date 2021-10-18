@@ -37,7 +37,7 @@
             <div class="control">
                 <label for="geoSearch"></label>
                 <input id="geoSearch" autofocus class="input" type="text" placeholder="지역을 입력해주세요">
-                <button class="button is-warning" onclick="search()">
+                <button class="button searchBtn" onclick="search()">
                     검색
                 </button>
             </div>
@@ -46,33 +46,33 @@
     <div class="tabs is-centered is-boxed">
         <ul>
             <li class="tab tab-rank is-active">
-                <a href="#rank" onclick="tabFocus('rank')">
+                <a href="#rank">
                     <span class="icon is-small"><i class="fas fa-medal" aria-hidden="true"></i></span>
                     <span>랭킹 순</span>
                 </a>
             </li>
             <li class="tab tab-review_avg">
-                <a href="/#review_avg" onclick="tabFocus('review_avg')">
+                <a href="/#review_avg">
                     <span class="icon is-small"><i class="fas fa-star-half-alt" aria-hidden="true"></i></span>
                     <span>별점 순</span>
                 </a>
             </li>
             <li class="tab tab-min_order_value">
-                <a href="/#min_order_value" onclick="tabFocus('min_order_value')">
+                <a href="/#min_order_value">
                     <span class="icon is-small"><i class="fas fa-money-bill-wave" aria-hidden="true"></i></span>
                     <span>최소 금액 순</span>
                 </a>
             </li>
             <li class="tab tab-distance">
-                <a href="/#distance" onclick="tabFocus('distance')">
+                <a href="/#distance">
                     <span class="icon is-small"><i class="fas fa-people-arrows" aria-hidden="true"></i></span>
                     <span>거리 순</span>
                 </a>
             </li>
             <li class="tab tab-review_count">
-                <a href="/#review_count" onclick="tabFocus('review_count')">
+                <a href="/#review_count">
                     <span class="icon is-small"><i class="fas fa-comments-dollar" aria-hidden="true"></i></span>
-                    <span>리뷰가 많은 순서</span>
+                    <span>리뷰가 많은 순</span>
                 </a>
             </li>
         </ul>
@@ -81,20 +81,23 @@
         <div class="columns is-max-desktop is-mobile">
             <div class="column column-0" id="column"></div>
             <div class="sub-column">
-                <div id="member-info-box" class="panel">
-                    <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
-                    <div id="login-nick-wrap">
-                        <div id="login-nick"></div>
+                <div>
+                    <div id="member-info-box" class="panel">
+                        <img alt="default-profile" id="profile-img" src="/static/images/someone.png"/>
+                        <div id="login-nick-wrap">
+                            <div id="login-nick"></div>
+                        </div>
+                        <a class="button is-info login-btn" href="{{ url_for('login') }}">로그인</a>
+                        <a class="button is-success register-btn" href="{{ url_for('register') }}">회원가입</a>
                     </div>
-                    <a class="button is-info login-btn" href="{{ url_for('login') }}">로그인</a>
-                    <a class="button is-success register-btn" href="{{ url_for('register') }}">회원가입</a>
-                </div>
-                <div id="aside" class="panel is-warning" style="display:none;">
-                    <h2 class="h2 panel-heading" id="bookmark-title">즐겨찾기 목록</h2>
-                    <aside class="menu panel-block">
-                        <ul class="menu-list" id="bookmarks">
-                        </ul>
-                    </aside>
+                    <div id="aside" class="panel is-warning" style="display:none;">
+                        <h2 class="h2 panel-heading" id="bookmark-title">즐겨찾기 목록</h2>
+                        <aside class="menu panel-block">
+                            <ul class="menu-list" id="bookmarks">
+                            </ul>
+                        </aside>
+                    </div>
+                    <div id="weather-box" class="panel"></div>
                 </div>
                 <div id="weather-box" class="panel"></div>
                 <div id="recommend-menu">
