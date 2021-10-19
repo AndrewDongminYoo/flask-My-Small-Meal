@@ -48,7 +48,10 @@ function deviceCheck() {
 function memberValidCheck() {
     if (Screen === "Mobile width") return;
     let token = getOneCookie("mySmallMealToken")
-    if (!(token)) {window.alert('로그인이 필요합니다.'); return;}
+    if (!(token)) {
+        window.alert('로그인이 필요합니다.');
+        return;
+    }
     fetch(`/api/valid?token=${token}`)
         .then((res) => res.json())
         .then((data) => {
@@ -240,11 +243,11 @@ function showBookmarks(user) {
 
 // 위도와 경도를 받아서 지도에 표시해주는 함수
 function drawMap(mapContainer, lat, lng) {
-        mapOption = {
-            center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-            mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
-        };
+    mapOption = {
+        center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+        level: 3, // 지도의 확대 레벨
+        mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+    };
     // 지도를 생성한다
     let map = new kakao.maps.Map(mapContainer, mapOption);
     // 지도에 마커를 생성하고 표시한다
@@ -261,7 +264,7 @@ function drawMap(mapContainer, lat, lng) {
 const bookMark = (restaurant) => {
     let {_id, name, phone, time, min_order} = restaurant;
     let tempHtml = `        
-        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phone} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
+        <li class="bookmark is-hoverable panel-block" title="전화번호: ${phoneNumber(phone)} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
         <span class="mark-menu">${name}</span>
         <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
     document.getElementById("bookmarks").innerHTML += tempHtml;
@@ -270,14 +273,39 @@ const bookMark = (restaurant) => {
 let lowModalBody = document.getElementById('low-modal-body');
 let modalHide = () => lowModalBody.style.display = 'none';
 
+// 전화번호 하이픈 넣어주는 코드
+function phoneNumber(value) {
+    if (!value) return "";
+    value = value.replace(/[^0-9]/g, "");
+    let result = [];
+    let restNumber;
+    if (value.startsWith("02")) {
+        result.push(value.substr(0, 2));
+        restNumber = value.substring(2);
+    } else if (value.startsWith("1")) {
+        restNumber = value;
+    } else {
+        result.push(value.substr(0, 3));
+        restNumber = value.substring(3);
+    }
+    if (restNumber.length === 7) {
+        result.push(restNumber.substring(0, 3));
+        result.push(restNumber.substring(3));
+    } else {
+        result.push(restNumber.substring(0, 4));
+        result.push(restNumber.substring(4));
+    }
+    return result.filter((val) => val).join("-");
+}
+
 // 즐겨찾기 클릭시 모달창 오픈
 function popUp(_id) {
     fetch(`/api/detail?_id=${_id}`)
         .then((res) => res.json())
         .then((restaurant) => {
-        // console.log(restaurant)
-        let {image, name, address, time, min_order, phone, categories, lat, lng} = restaurant;
-        let tempHtml = `
+            // console.log(restaurant)
+            let {image, name, address, time, min_order, phone, categories, lat, lng} = restaurant;
+            let tempHtml = `
             <div class="pop-up-card">
                 <button class="button close-button" onclick="modalHide()">⨉</button>
                 <div class="pop-card-head">
@@ -292,20 +320,20 @@ function popUp(_id) {
                     <div class="pop-card-address">${address ? address : "주소가 정확하지 않습니다."}</div>
                     <div class="pop-card-schedule">영업시간: ${time ? time : "영업시간 정보가 없습니다."}</div>
                     <div class="pop-card-min">${min_order ? min_order : "---"} 원 이상 주문가능</div>
-                    <div class="pop-card-phone-number">${phone ? phone : "전화번호가 없습니다."}</div>
+                    <div class="pop-card-phone-number">${phone ? phoneNumber(phone) : "전화번호가 없습니다."}</div>
                 </div>                
             </div>`
-        let btn = ""
-        categories.forEach((tag) => btn += `<span>#${tag}</span>`)
-        lowModalBody.style.display = "block";
-        tempHtml = tempHtml.replace("{__buttons__}", btn)
-        lowModalBody.innerHTML = tempHtml
-        let mapContainer = document.getElementById('map') // 지도를 표시할 div;
-        // console.log(`lat:${lat}, lng:${lng}`);
-        drawMap(mapContainer, lat, lng);
-        // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
-        // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
-    })
+            let btn = ""
+            categories.forEach((tag) => btn += `<span>#${tag}</span>`)
+            lowModalBody.style.display = "block";
+            tempHtml = tempHtml.replace("{__buttons__}", btn)
+            lowModalBody.innerHTML = tempHtml
+            let mapContainer = document.getElementById('map') // 지도를 표시할 div;
+            // console.log(`lat:${lat}, lng:${lng}`);
+            drawMap(mapContainer, lat, lng);
+            // 각 카드의 카테고리 해시태그를 replace 하는 가상 template 코드
+            // 특정 즐겨찾기 메뉴 클릭시 팝업창이 띄어짐과 동시에 해당 즐겨찾기 메뉴가 흰색으로 바뀐다.
+        })
 }
 
 function emptyCards() {
@@ -348,7 +376,7 @@ const showCards = (restaurant) => {
     let tempHtml = `
     <div class="food-card card">
         <div class="image-box card-image">
-            <figure class="image" title="${phone}">
+            <figure class="image" title="${phoneNumber(phone)}">
                 <img class="food-image image" src="${image}"
                      alt="${name}-food-thumbnail">
             </figure>
@@ -446,10 +474,11 @@ async function everybodyShuffleIt(array) {
         document.cookie = "roulette=true;";
     }
 }
+
 function recommendMenu() {
     let recommendButton = document.getElementById('recommend-button');
     recommendButton.classList.add('is-loading');
-    const sleep = (t) =>  new Promise(resolve => setTimeout(resolve, t));
+    const sleep = (t) => new Promise(resolve => setTimeout(resolve, t));
     (async function () {
         await sleep(3000);
         recommendButton.classList.add('is-hidden');
@@ -457,7 +486,7 @@ function recommendMenu() {
         $.ajax({
             type: 'GET',
             url: '/api/food-recommend',
-            data: {'lat': latitude,'lon': longitude },
+            data: {'lat': latitude, 'lon': longitude},
             success: function (response) {
                 const {food} = response;
                 let result = `<div>
@@ -468,6 +497,6 @@ function recommendMenu() {
 
                 $('#recommend-result').append(result);
             }
-    })
+        })
     })();
 }
