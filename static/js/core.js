@@ -266,12 +266,13 @@ const bookMark = (restaurant) => {
     let tempHtml = `        
         <li class="bookmark is-hoverable panel-block" title="전화번호: ${phoneNumber(phone)} / 영업시간: ${time}" id="pop-${_id}" onclick="popUp(${_id})">
         <span class="mark-menu">${name}</span>
-        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${min_order})" onmouseover="">⨉</button></li>`
+        <button class="button is-xs is-inline-block" onclick="delMark(${_id}, ${comma(min_order)})" onmouseover="">⨉</button></li>`
     document.getElementById("bookmarks").innerHTML += tempHtml;
 }
 
 let lowModalBody = document.getElementById('low-modal-body');
 let modalHide = () => lowModalBody.style.display = 'none';
+let comma = (value) => value.toLocaleString()
 
 // 전화번호 하이픈 넣어주는 코드
 function phoneNumber(value) {
@@ -319,7 +320,7 @@ function popUp(_id) {
                 <div class="pop-card-content-2">
                     <div class="pop-card-address">${address ? address : "주소가 정확하지 않습니다."}</div>
                     <div class="pop-card-schedule">영업시간: ${time ? time : "영업시간 정보가 없습니다."}</div>
-                    <div class="pop-card-min">${min_order ? min_order : "---"} 원 이상 주문가능</div>
+                    <div class="pop-card-min">${min_order ? comma(min_order) : "---"} 원 이상 주문가능</div>
                     <div class="pop-card-phone-number">${phone ? phoneNumber(phone) : "전화번호가 없습니다."}</div>
                 </div>                
             </div>`
@@ -384,14 +385,14 @@ const showCards = (restaurant) => {
         <div class="tool-box">
             <div class="book-mark">
                 <div class="store_name">${name}<br>⭐${rating}점</div>
-                <button class="button book-button keep-${_id}" onclick="keep(${_id}, ${min_order})">⭐keep</button>
+                <button class="button book-button keep-${_id}" onclick="keep(${_id}, ${comma(min_order)})">⭐keep</button>
                 <button class="button book-button is-hidden delete-${_id}" onclick="remove(${_id}, ${min_order})">🌟delete</button>
             </div>
             <div class="buttons are-small btns">{__buttons__}</div>
             <div class="card-footer">
-                <div>${address}<br>영업시간: ${time}<br>${min_order}원 이상 주문 가능</div>
+                <div>${address}<br>영업시간: ${time}<br>${comma(min_order)}원 이상 주문 가능</div>
                 <div class="reviews">
-                    <div class="reviews-count">주문자리뷰 ${reviews}<br>사장님댓글 ${owner}</div>
+                    <div class="reviews-count">주문자리뷰 ${comma(reviews)}<br>사장님댓글 ${comma(owner)}</div>
                 </div>
             </div>
         </div>

@@ -130,6 +130,9 @@ body {
     flex-direction: column;
     margin-right: 3px;
     padding-left: 6px;
+    width: 75px;
+    min-width: 75px;
+    text-align: center;
 }
 
 .reviews-count {
@@ -339,12 +342,10 @@ span.mark-menu {
 .pop-card-content-1 {
     align-items: center;
     box-shadow: rgba(0, 0, 0, .04) 0 3px 5px;
-/*     display: flex; */
     grid-column: span 24;
     grid-row: span 6;
     width: 100%;
     justify-content: space-evenly;
-    align-items: center;
     padding: 10px;
     margin: 14px;
 }
