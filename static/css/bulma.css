@@ -125,7 +125,7 @@
 .tab.is-loading::after {
     -webkit-animation: spinAround .5s infinite linear;
     animation: spinAround .5s infinite linear;
-    border: 2px solid #dbdbdb;
+    border: 4px solid #DBDBD7;
     border-radius: 9999px;
     border-right-color: transparent;
     border-top-color: transparent;
