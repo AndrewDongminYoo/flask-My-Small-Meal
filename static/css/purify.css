@@ -412,8 +412,7 @@ div.tabs {
 }
 
 .modal-content {
-    background-image: linear-gradient(120deg, #fdfbfb0, #ebedee 100%);
-    border: 4px solid #d3d3d3;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);    border: 4px solid #d3d3d3;
     font-size: xxx-large;
     height: 300px;
     overflow: auto;
