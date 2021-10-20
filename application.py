@@ -173,22 +173,23 @@ def kakao_redirect():
     info_header = {'Authorization': f'Bearer {req["access_token"]}',
                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
     user_info = requests.post(url, headers=info_header).json()
-    pprint(user_info)
-    email = user_info.get('kakao_account').get('email')
+    print(user_info)
+    kakao_account = user_info.get('kakao_account')
+    email = kakao_account.get('email')
     user_id = user_info.get('id')
     prop = user_info.get('properties')
     nickname = "Guest"
     if prop:
         nickname = prop.get('nickname')
         profile = prop.get("thumbnail_image")
-        pprint(prop, profile)
+        print(nickname, profile)
     user = {
         'providerId': user_id,
         'nick': nickname,
         'provider': 'kakao',
-        'age': user_info.get('kakao_account').get('age_range')
+        'age': kakao_account.get('age_range')
     }
-    pprint(user)
+    print(user)
     # db에 저장
     members.update({'email': email},
                    {"$set": user}, upsert=True)
