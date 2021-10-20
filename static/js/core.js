@@ -57,20 +57,32 @@ function memberValidCheck() {
         .then((data) => {
             const {nickname, result} = data
             if (result === 'success') {
-                document.querySelector(".login-btn").textContent = '로그아웃'
+                document.querySelector(".login-btn").style.display='none';
+                document.querySelector(".logout-btn").style.display='inline-flex';
                 document.querySelector("#bookmark-title").textContent = `${nickname}'s PICK!`
             } else {
                 // 로그인이 안되면 에러메시지를 띄웁니다.
-                document.querySelector(".login-btn").textContent = '로그인'
-                window.alert('로그인이 필요합니다.')
-                window.location.href = '/login'
+                document.querySelector(".logout-btn").style.display='none';
+                document.querySelector(".login-btn").style.display='inline-flex';
                 removeCookie("mySmallMealToken")
+                window.alert('로그인이 필요합니다.')
+                window.location.href = '/'
             }
         })
 }
 
+function logoutBtnClick() {
+    document.querySelector(".logout-btn").style.display = 'none';
+    document.querySelector(".login-btn").style.display = 'inline-flex';
+    removeCookie("mySmallMealToken")
+    window.alert('로그아웃 되었습니다.')
+    window.location.href = '/login'
+}
+
 const error = () => NoGeoDontWorry();
-const removeCookie = (name) => document.cookie = `${name}=; expires=Fri, 12 Aug 1994 00:00:00 GMT`;
+const removeCookie = (name) => {
+    document.cookie = `${name}=; max-age=0;`
+}
 const CheckCookies = () => document.cookie.split("; ")
 const getOneCookie = (name) => CheckCookies()?.find(r => r.startsWith(name))?.split("=")[1];
 
