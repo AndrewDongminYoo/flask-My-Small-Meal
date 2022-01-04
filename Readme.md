@@ -1,17 +1,17 @@
 ![Image of third](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcdnBUu%2FbtrgiameH1D%2FlnFkSM4ogBrw2xyJtRUkTK%2Fimg.png)
 
-
 ## 🔗 라이브
 - https://www.mysmallmeal.shop/
 ## 🏠 소개
 - 1인 가구를 위한 배달 맛집을 소개하는 위치 맞춤형 페이지입니다!!
 ## ⏲️ 개발기간
 - 2021-09-23 ~ 2021-10-01
+### 개발 계기
+- 스파르타코딩클럽 부트캠프를 통해 만난 팀원들과의 첫 학습 목적 프로젝트.
+- 웹에서 얻을 수 있는 배달 식당에 대한 정보가 모바일에 비해 상당 부분 부족하다고 생각.
+- 사용자 경험을 우선으로 하여 개발. 배달 플랫폼 "요기요"의 API 허락 하에 사용함.
 ## 🧙 맴버구성
-- 유동민
-- 명지혜
-- 송주현
-- 서재환
+- 유동민, 명지혜, 송주현, 서재환
 ## 📌 기술 선택 이유
 - flask: 사용방법이 매우 간단합니다.
 - uuid: 로그인 기능 없이 사용자를 구별하기 위해 사용합니다.
